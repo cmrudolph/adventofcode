@@ -12,7 +12,6 @@ Regex regexUnpackContents = new("(\\d+) (.*) bag");
 
 Dictionary<string, BagEntry[]> adjLists = new();
 
-
 foreach (string line in lines)
 {
     Match m1 = regexNonLeaf.Match(line);
@@ -34,52 +33,34 @@ foreach (string line in lines)
     }
 }
 
-int paths = 0;
-foreach (string start in adjLists.Keys.Where(k => k != "shiny gold"))
-{
-    bool found = FindShinyGold(adjLists, start);
-    paths += found ? 1 : 0;
-}
+int paths = adjLists.Keys.Where(k => k != "shiny gold").Count(k => FindShinyGold(adjLists, k));
 Console.WriteLine(paths);
 
-int countInside = 0;
-foreach (BagEntry bagEntry in adjLists["shiny gold"])
-{
-    countInside += CountInside(adjLists, bagEntry);
-}
+int countInside = adjLists["shiny gold"].Sum(bagEntry => CountInside(adjLists, bagEntry));
 Console.WriteLine(countInside);
 
 static bool FindShinyGold(Dictionary<string, BagEntry[]> adjLists, string root)
 {
-    bool found = false;
-    if (!adjLists.ContainsKey(root) || !adjLists[root].Any())
-    {
-        return false;
-    }
     if (root == "shiny gold")
     {
         return true;
     }
-    foreach (BagEntry next in adjLists[root])
+    if (!adjLists.ContainsKey(root))
     {
-        found |= FindShinyGold(adjLists, next.Color);
+        return false;
     }
-    return found;
+
+    return adjLists[root].Any(bagEntry => FindShinyGold(adjLists, bagEntry.Color));
 }
 
 static int CountInside(Dictionary<string, BagEntry[]> adjLists, BagEntry root)
 {
-    if (!adjLists.ContainsKey(root.Color) || !adjLists[root.Color].Any())
+    if (!adjLists.ContainsKey(root.Color))
     {
         return root.Quantity;
     }
 
-    int countInsideEach = 0;
-    foreach (BagEntry next in adjLists[root.Color])
-    {
-        countInsideEach += CountInside(adjLists, next);
-    }
-
+    int countInsideEach = adjLists[root.Color].Sum(bagEntry => CountInside(adjLists, bagEntry));
     return root.Quantity + (root.Quantity * countInsideEach);
 }
 
