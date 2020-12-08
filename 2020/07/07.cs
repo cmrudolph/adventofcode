@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 var lines = File.ReadAllLines("07.txt");
+Dictionary<string, BagEntry[]> adjLists = new();
 
 Regex regexNonLeaf = new("(.*) bags contain (.*)\\.");
 Regex regexLeaf = new("(.*) bags contain no other bags.");
 Regex regexUnpackContents = new("(\\d+) (.*) bag");
-
-Dictionary<string, BagEntry[]> adjLists = new();
 
 foreach (string line in lines)
 {
@@ -19,7 +18,7 @@ foreach (string line in lines)
 
     if (m2.Success)
     {
-        string source = m1.Groups[1].Value.Replace(" ", "");
+        string source = m1.Groups[1].Value;
         adjLists[source] = new BagEntry[0];
     }
     else if (m1.Success)
