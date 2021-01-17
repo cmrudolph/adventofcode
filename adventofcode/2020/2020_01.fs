@@ -13,12 +13,30 @@ let calculate n input =
     |> List.head
     |> (fun (_, product) -> int64 product)
 
+let solve2 lst =
+    [for x in lst do
+     for y in lst do
+     if (x + y = 2020) then
+        yield x * y]
+
+let solve3 lst =
+    [for x in lst do
+     for y in lst do
+     for z in lst do
+     if (x + y + z = 2020) then
+        yield x * y * z]
+
 let solve lines =
     let parsedLines = (lines
     |> Seq.map System.Int32.Parse
     |> Seq.toList)
 
-    let ans1 = calculate 2 parsedLines
-    let ans2 = calculate 3 parsedLines
+    // Generalized solution, but not very efficient
+    //let ans1 = calculate 2 parsedLines
+    //let ans2 = calculate 3 parsedLines
+
+    // Very specific iterative solution that runs a lot faster
+    let ans1 = solve2 parsedLines |> List.head |> int64
+    let ans2 = solve3 parsedLines |> List.head |> int64
 
     (ans1, ans2)
