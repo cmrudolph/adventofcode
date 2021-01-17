@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="2015\2015_01.fs" />
+    <Compile Include="2015\2015_02.fs" />
     <Compile Include="2020\2020_01.fs" />
     <Compile Include="2020\2020_02.fs" />
     <Compile Include="2020\2020_03.fs" />
@@ -13,7 +15,5 @@
     <Compile Include="2020\2020_05.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-
-  <ItemGroup />
 
 </Project>
