@@ -23,3 +23,7 @@ module ``2020`` =
     [<Fact>]
     let ``05`` () =
         solveAndValidate "2020" "05" (933L, 711L) AOC2020_05.solve
+
+    [<Fact>]
+    let ``06`` () =
+        solveAndValidate "2020" "06" (6335L, 3392L) AOC2020_06.solve
