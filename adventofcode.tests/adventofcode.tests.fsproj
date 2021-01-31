@@ -10,6 +10,10 @@
   <ItemGroup>
     <Compile Include="Utils.fs" />
     <Compile Include="Tests-2015.fs" />
+    <Compile Include="Tests-2016.fs" />
+    <Compile Include="Tests-2017.fs" />
+    <Compile Include="Tests-2018.fs" />
+    <Compile Include="Tests-2019.fs" />
     <Compile Include="Tests-2020.fs" />
   </ItemGroup>
 
