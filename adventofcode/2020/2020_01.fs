@@ -1,42 +1,28 @@
 module AOC2020_01
 
-let rec comb n lst =
-    match n, lst with
-    | 0, _ -> [[]]
-    | _, [] -> []
-    | k, (x::xs) -> List.map ((@) [x]) (comb (k-1) xs) @ comb k xs
+let pairs vals =
+    vals |> Seq.collect (fun i -> Seq.map (fun j -> [i; j]) vals)
 
-let calculate n input =
-    comb n input
-    |> List.map (fun lst -> (List.reduce (+) lst), (List.reduce (*) lst))
-    |> List.filter (fun (sum, _) -> sum = 2020)
-    |> List.head
-    |> (fun (_, product) -> int64 product)
+let triples vals =
+    vals |> pairs |> Seq.collect (fun pair -> Seq.map (fun k -> pair @ [k]) vals)
 
-let solve2 lst =
-    [for x in lst do
-     for y in lst do
-     if (x + y = 2020) then
-        yield x * y]
+let getSumAndProduct vals =
+    vals |> Seq.sum, (1, vals) ||> Seq.fold (*)
 
-let solve3 lst =
-    [for x in lst do
-     for y in lst do
-     for z in lst do
-     if (x + y + z = 2020) then
-        yield x * y * z]
+let findAnswer generator sumPredicate inputValues =
+    inputValues
+    |> generator
+    |> Seq.map getSumAndProduct
+    |> Seq.find (fun (sum, _) -> sumPredicate sum)
+    |> (fun (_, product) -> product)
+    |> int64
 
 let solve lines =
     let parsedLines = (lines
     |> Seq.map System.Int32.Parse
     |> Seq.toList)
 
-    // Generalized solution, but not very efficient
-    //let ans1 = calculate 2 parsedLines
-    //let ans2 = calculate 3 parsedLines
-
-    // Very specific iterative solution that runs a lot faster
-    let ans1 = solve2 parsedLines |> List.head |> int64
-    let ans2 = solve3 parsedLines |> List.head |> int64
+    let ans1 = parsedLines |> findAnswer pairs ((=) 2020)
+    let ans2 = parsedLines |> findAnswer triples ((=) 2020)
 
     (ans1, ans2)
