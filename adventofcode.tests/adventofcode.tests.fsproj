@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -9,12 +9,19 @@
 
   <ItemGroup>
     <Compile Include="Utils.fs" />
-    <Compile Include="Tests-2015.fs" />
-    <Compile Include="Tests-2016.fs" />
-    <Compile Include="Tests-2017.fs" />
-    <Compile Include="Tests-2018.fs" />
-    <Compile Include="Tests-2019.fs" />
-    <Compile Include="Tests-2020.fs" />
+    <Compile Include="2015\2015_01.fs" />
+    <Compile Include="2015\2015_02.fs" />
+    <Compile Include="2015\2015_03.fs" />
+    <Compile Include="2015\2015_04.fs" />
+    <Compile Include="2020\2020_01.fs" />
+    <Compile Include="2020\2020_02.fs" />
+    <Compile Include="2020\2020_03.fs" />
+    <Compile Include="2020\2020_04.fs" />
+    <Compile Include="2020\2020_05.fs" />
+    <Compile Include="2020\2020_06.fs" />
+    <Compile Include="2020\2020_07.fs" />
+    <Compile Include="2020\2020_08.fs" />
+    <Compile Include="2020\2020_09.fs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,10 +35,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\adventofcode\adventofcode.fsproj" />
   </ItemGroup>
 
 </Project>

@@ -2,10 +2,9 @@
 
 open Xunit
 
-let readInput year problem =
-    System.IO.File.ReadAllLines($"../../../../input/{year}/{problem}.txt")
+let readInput year problem suffix =
+    System.IO.File.ReadAllLines($"../../../../input/{year}/{problem}-{suffix}.txt")
 
-let solveAndValidate year problem (expected : (int64 * int64)) solver =
-    let lines = readInput year problem
+let solveAndValidate (expected : (int64 * int64)) solver lines =
     let result = solver lines
     Assert.Equal(expected, result);

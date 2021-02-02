@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "adventofcode", "adventofcode\adventofcode.fsproj", "{7DDAB314-F546-4500-88EB-84E289C65B7B}"
-EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "adventofcode.tests", "adventofcode.tests\adventofcode.tests.fsproj", "{F9882924-D51F-477E-BC6E-3369DF77B3F7}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "adventofcode.tests", "adventofcode.tests\adventofcode.tests.fsproj", "{F9882924-D51F-477E-BC6E-3369DF77B3F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7DDAB314-F546-4500-88EB-84E289C65B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7DDAB314-F546-4500-88EB-84E289C65B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7DDAB314-F546-4500-88EB-84E289C65B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7DDAB314-F546-4500-88EB-84E289C65B7B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F9882924-D51F-477E-BC6E-3369DF77B3F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F9882924-D51F-477E-BC6E-3369DF77B3F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9882924-D51F-477E-BC6E-3369DF77B3F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
