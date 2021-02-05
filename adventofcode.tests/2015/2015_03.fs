@@ -1,6 +1,6 @@
-namespace ``2015``
+namespace Year2015
 
-module ``Day 03`` =
+module Day03 =
     open Utils
     open Xunit
     
@@ -46,9 +46,9 @@ module ``Day 03`` =
         (ans1, ans2)
 
     [<Fact>]
-    let ``2015-03 Sample`` () =
+    let Sample () =
         readInput "2015" "03" "sample" |> solveAndValidate (4L, 3L) solve
 
     [<Fact>]
-    let ``2015-03 Actual`` () =
+    let Actual () =
         readInput "2015" "03" "actual" |> solveAndValidate (2572L, 2631L) solve

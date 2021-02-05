@@ -1,6 +1,6 @@
-namespace ``2020``
+namespace Year2020
 
-module ``Day 04`` =
+module Day04 =
     open System.Text.RegularExpressions
     open Utils
     open Xunit
@@ -72,9 +72,9 @@ module ``Day 04`` =
         (ans1, ans2)
 
     [<Fact>]
-    let ``2020-04 Sample`` () =
+    let Sample () =
         readInput "2020" "04" "sample" |> solveAndValidate (2L, 2L) solve
 
     [<Fact>]
-    let ``2020-04 Actual`` () =
+    let Actual () =
         readInput "2020" "04" "actual" |> solveAndValidate (226L, 160L) solve

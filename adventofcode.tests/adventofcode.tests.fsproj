@@ -1,41 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-
-    <IsPackable>false</IsPackable>
-    <GenerateProgramFile>false</GenerateProgramFile>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="Utils.fs" />
-    <Compile Include="2015\2015_01.fs" />
-    <Compile Include="2015\2015_02.fs" />
-    <Compile Include="2015\2015_03.fs" />
-    <Compile Include="2015\2015_04.fs" />
-    <Compile Include="2020\2020_01.fs" />
-    <Compile Include="2020\2020_02.fs" />
-    <Compile Include="2020\2020_03.fs" />
-    <Compile Include="2020\2020_04.fs" />
-    <Compile Include="2020\2020_05.fs" />
-    <Compile Include="2020\2020_06.fs" />
-    <Compile Include="2020\2020_07.fs" />
-    <Compile Include="2020\2020_08.fs" />
-    <Compile Include="2020\2020_09.fs" />
-    <Compile Include="2020\2020_10.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="1.3.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
 </Project>
