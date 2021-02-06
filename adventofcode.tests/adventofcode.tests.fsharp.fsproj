@@ -24,6 +24,7 @@
     <Compile Include="2020\2020_09.fs" />
     <Compile Include="2020\2020_10.fs" />
     <Compile Include="2020\2020_11.fs" />
+    <Compile Include="2020\2020_17.fs" />
   </ItemGroup>
 
   <ItemGroup>
