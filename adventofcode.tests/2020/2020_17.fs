@@ -3,10 +3,6 @@
 module Day17 =
     open Utils
     open Xunit
-    open System.Collections.Generic
-
-    type Neighbors3 = Dictionary<(int*int*int), seq<int*int*int>>
-    type Neighbors4 = Dictionary<(int*int*int*int), seq<int*int*int*int>>
 
     [<Literal>]
     let InactiveChar = '.'
@@ -14,112 +10,69 @@ module Day17 =
     [<Literal>]
     let ActiveChar = '#'
     
-    let copyGrid3 grid =
-        let s = Array3D.length1 grid
-        Array3D.init s s s (fun a b c -> grid.[a, b, c])
+    let getNeighbors3 pos adjustments =
+        let a, b, c = pos
+        adjustments |> List.map (fun (i, j, k) -> (a + i, b + j, c + k))
 
-    let copyGrid4 grid =
-        let s = Array4D.length1 grid
-        Array4D.init s s s s (fun a b c d -> grid.[a, b, c, d])
+    let getNeighbors4 pos adjustments =
+        let a, b, c, d = pos
+        adjustments |> List.map (fun (i, j, k, m) -> (a + i, b + j, c + k, d + m))
 
-    let isActiveChar3 grid a b c =
-        let size = Array3D.length1 grid
-        let outOfRange = a < 0 || b < 0 || c < 0 || a = size || b = size || c = size
-        if outOfRange then false
-        else grid.[a, b, c] = ActiveChar
+    let getNewState3 pos adjustments activeSet =
+        let getCharValue pos activeSet =
+            let active = activeSet |> Set.contains pos
+            match active with
+            | true -> 1
+            | false -> 0
 
-    let isActiveChar4 grid a b c d =
-        let size = Array4D.length1 grid
-        let outOfRange = a < 0 || b < 0 || c < 0 || d < 0 || a = size || b = size || c = size || d = size
-        if outOfRange then false
-        else grid.[a, b, c, d] = ActiveChar
+        let neighbors = adjustments |> getNeighbors3 pos
+        let currActive = activeSet |> Set.contains pos
+        let neighborSum = neighbors |> Seq.sumBy (fun n -> getCharValue n activeSet)
 
-    let countActiveNeighbors3 (grid : char[,,]) (neighbors : Neighbors3) a b c =
-        let myNeighbors = neighbors.[(a, b, c)]
+        match currActive, neighborSum with
+        | true, 2 | true, 3 | false, 3 -> Some pos
+        | _ -> None
 
-        (myNeighbors
-        |> Seq.filter (fun (i, j, k) -> isActiveChar3 grid i j k)
-        |> Seq.length)
+    let getNewState4 pos adjustments activeSet =
+        let getCharValue pos activeSet =
+            let active = activeSet |> Set.contains pos
+            match active with
+            | true -> 1
+            | false -> 0
 
-    let countActiveNeighbors4 (grid : char[,,,]) (neighbors : Neighbors4) a b c d =
-        let myNeighbors = neighbors.[(a, b, c, d)]
+        let neighbors = adjustments |> getNeighbors4 pos
+        let currActive = activeSet |> Set.contains pos
+        let neighborSum = neighbors |> Seq.sumBy (fun n -> getCharValue n activeSet)
 
-        (myNeighbors
-        |> Seq.filter (fun (i, j, k, m) -> isActiveChar4 grid i j k m)
-        |> Seq.length)
+        match currActive, neighborSum with
+        | true, 2 | true, 3 | false, 3 -> Some pos
+        | _ -> None
 
-    let countActive3 (grid : char[,,]) =
-        Seq.cast<char> grid |> Seq.filter (fun c -> c = ActiveChar) |> Seq.length
+    let getSearchTargets3 adjustments activeSet =
+        activeSet
+        |> Set.toSeq
+        |> Seq.collect (fun pos -> [pos] @ (getNeighbors3 pos adjustments))
+        |> Set.ofSeq
 
-    let countActive4 (grid : char[,,,]) =
-        Seq.cast<char> grid |> Seq.filter (fun c -> c = ActiveChar) |> Seq.length
+    let getSearchTargets4 adjustments activeSet =
+        activeSet
+        |> Set.toSeq
+        |> Seq.collect (fun pos -> [pos] @ (getNeighbors4 pos adjustments))
+        |> Set.ofSeq
 
-    let cycleGrid3 grid neighbors =
-        let size = Array3D.length1 grid
-        let transformed = grid |> copyGrid3
+    let cycleActiveSet3 targets adjustments activeSet =
+        targets
+        |> Set.toSeq
+        |> Seq.map (fun pos -> getNewState3 pos adjustments activeSet)
+        |> Seq.choose id
+        |> Set.ofSeq
 
-        for a in [0..size - 1] do
-            for b in [0..size - 1] do
-                for c in [0..size - 1] do
-                    let curr = grid.[a, b, c]
-                    let count = countActiveNeighbors3 grid neighbors a b c
-                    let newChar =
-                        match curr, count with
-                        | (ActiveChar, 2) | (ActiveChar, 3) -> ActiveChar
-                        | (InactiveChar, 3) -> ActiveChar
-                        | _ -> InactiveChar
-                    Array3D.set transformed a b c newChar
-        transformed
-
-    let cycleGrid4 grid neighbors =
-        let size = Array4D.length1 grid
-        let transformed = grid |> copyGrid4
-
-        for a in [0..size - 1] do
-            for b in [0..size - 1] do
-                for c in [0..size - 1] do
-                    for d in [0..size - 1] do
-                        let curr = grid.[a, b, c, d]
-                        let count = countActiveNeighbors4 grid neighbors a b c d
-                        let newChar =
-                            match curr, count with
-                            | (ActiveChar, 2) | (ActiveChar, 3) -> ActiveChar
-                            | (InactiveChar, 3) -> ActiveChar
-                            | _ -> InactiveChar
-                        Array4D.set transformed a b c d newChar
-        transformed
-                    
-    let makeGrid3 (lines : string[]) =
-        let padding = 14
-        let origSize = Array.length lines
-        let gridSize = origSize + padding
-        let grid = Array3D.create gridSize gridSize gridSize '.'
-        let startIdx = padding / 2
-        let endIdx = startIdx + origSize - 1 
-        let fixedIdx = endIdx / 2
-
-        for a in [startIdx..endIdx] do
-            for b in [startIdx..endIdx] do
-                let lineIdx1 = a - startIdx
-                let lineIdx2 = b - startIdx
-                Array3D.set grid a b fixedIdx (lines.[lineIdx1].[lineIdx2])   
-        grid
-
-    let makeGrid4 (lines : string[]) =
-           let padding = 20
-           let origSize = Array.length lines
-           let gridSize = origSize + padding
-           let grid = Array4D.create gridSize gridSize gridSize gridSize '.'
-           let startIdx = padding / 2
-           let endIdx = startIdx + origSize - 1 
-           let fixedIdx = endIdx / 2
-
-           for a in [startIdx..endIdx] do
-               for b in [startIdx..endIdx] do
-                   let lineIdx1 = a - startIdx
-                   let lineIdx2 = b - startIdx
-                   Array4D.set grid a b fixedIdx fixedIdx (lines.[lineIdx1].[lineIdx2])   
-           grid
+    let cycleActiveSet4 targets adjustments activeSet =
+        targets
+        |> Set.toSeq
+        |> Seq.map (fun pos -> getNewState4 pos adjustments activeSet)
+        |> Seq.choose id
+        |> Set.ofSeq
 
     let solve (lines : string[]) =
         let adjustments3 =
@@ -130,16 +83,6 @@ module Day17 =
                         temp <- List.append [(i, j, k)] temp
             temp |> List.filter (fun (i, j, k) -> (i, j, k) <> (0, 0, 0))
 
-        let calcNeighbors3 size adjustments =
-            let neighbors = new Neighbors3()
-            for a in [0..size - 1] do
-                for b in [0..size - 1] do
-                    for c in [0..size - 1] do
-                        let key = (a, b, c)
-                        let n = adjustments |> Seq.map (fun (i, j, k) -> (a + i, b + j, c + k))
-                        neighbors.Add(key, n)
-            neighbors
-
         let adjustments4 =
             let mutable temp = []
             for i in [-1..1] do
@@ -149,31 +92,37 @@ module Day17 =
                             temp <- List.append [(i, j, k, m)] temp
             temp |> List.filter (fun (i, j, k, m) -> (i, j, k, m) <> (0, 0, 0, 0))
 
-        let calcNeighbors4 size adjustments =
-            let neighbors = new Neighbors4()
-            for a in [0..size - 1] do
-                for b in [0..size - 1] do
-                    for c in [0..size - 1] do
-                        for d in [0..size - 1] do
-                            let key = (a, b, c, d)
-                            let n = adjustments |> Seq.map (fun (i, j, k, m) -> (a + i, b + j, c + k, d + m))
-                            neighbors.Add(key, n)
-            neighbors
+        let makeActiveSet3 (lines : string[]) =
+            let origSize = Array.length lines
+            let endIdx = origSize - 1 
 
-        let grid3 = makeGrid3 lines
-        let size3 = Array3D.length1 grid3
-        let neighbors3 = calcNeighbors3 size3 adjustments3
-        let ans1 = ((grid3, [1..6]) ||> List.fold (fun acc _ -> cycleGrid3 acc neighbors3)
-        |> countActive3
-        |> int64)
+            [0..endIdx]
+            |> List.collect (fun i -> [0..endIdx] |> List.map (fun j -> (i, j)))
+            |> List.map (fun (i, j) -> if lines.[i].[j] = ActiveChar then Some (i, j, 0) else None)
+            |> List.choose id
+            |> Set.ofList
 
-        // TODO: Optimize. Kind of slow
-        let grid4 = makeGrid4 lines
-        let size4 = Array4D.length1 grid4
-        let neighbors4 = calcNeighbors4 size4 adjustments4
-        let ans2 = ((grid4, [1..6]) ||> List.fold (fun acc _ -> cycleGrid4 acc neighbors4)
-        |> countActive4
-        |> int64)
+        let makeActiveSet4 (lines : string[]) =
+            let origSize = Array.length lines
+            let endIdx = origSize - 1 
+
+            [0..endIdx]
+            |> List.collect (fun i -> [0..endIdx] |> List.map (fun j -> (i, j)))
+            |> List.map (fun (i, j) -> if lines.[i].[j] = ActiveChar then Some (i, j, 0, 0) else None)
+            |> List.choose id
+            |> Set.ofList
+
+        let mutable activeSet3 = makeActiveSet3 lines
+        for _ in [1..6] do
+            let targets3 = activeSet3 |> getSearchTargets3 adjustments3
+            activeSet3 <- cycleActiveSet3 targets3 adjustments3 activeSet3
+        let ans1 = activeSet3 |> Set.count |> int64
+
+        let mutable activeSet4 = makeActiveSet4 lines
+        for _ in [1..6] do
+            let targets4 = activeSet4 |> getSearchTargets4 adjustments4
+            activeSet4 <- cycleActiveSet4 targets4 adjustments4 activeSet4
+        let ans2 = activeSet4 |> Set.count |> int64
 
         (ans1, ans2)
 
