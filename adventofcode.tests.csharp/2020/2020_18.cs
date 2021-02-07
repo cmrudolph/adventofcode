@@ -7,110 +7,116 @@ namespace Year2020
 {
     public static class AOC2020_18
     {
-        private static List<string> Tokenize(string str)
+        private const string Plus = "+";
+        private const string Times = "*";
+        private const string LParen = "(";
+        private const string RParen = ")";
+
+        private static Queue<Token> Tokenize(string str)
         {
-            return str
+            return new Queue<Token>(str
                 .Replace(" ", "")
-                .Replace("+", " + ")
-                .Replace("*", " * ")
-                .Replace("(", " ( ")
-                .Replace(")", " ) ")
+                .Replace(Plus, " " + Plus + " ")
+                .Replace(Times, " " + Times + " ")
+                .Replace(LParen, " " + LParen + " ")
+                .Replace(RParen, " " + RParen + " ")
                 .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                .ToList();
+                .Select(str => new Token(str)));
         }
 
-        private static bool IsNumeric(string str)
+        public static Queue<Token> InfixToPostfix(Queue<Token> infix, Func<Token, Token, bool> isHigherPrecedence)
         {
-            return long.TryParse(str, out _);
-        }
+            Queue<Token> postfix = new();
+            Stack<Token> stack = new();
 
-        private static bool IsOperator(string str)
-        {
-            return str == "+" || str == "*";
-        }
-
-        public static long SolveCase(string line, Func<string, string, bool> isHigherPrecedence)
-        {
-            Queue<string> queue = new();
-            Stack<string> stack = new();
-
-            List<string> tokens = Tokenize(line);
-            while (tokens.Any())
+            while (infix.Any())
             {
-                string token = tokens[0];
-                tokens.RemoveAt(0);
-                if (IsNumeric(token))
+                Token currToken = infix.Dequeue();
+                if (currToken.IsNumber)
                 {
-                    queue.Enqueue(token);
+                    postfix.Enqueue(currToken);
                 }
-                else if (IsOperator(token))
+                else if (currToken.IsOperator)
                 {
-                    while (stack.Any() && IsOperator(stack.Peek()) && isHigherPrecedence(token, stack.Peek()))
+                    while (stack.Any() && stack.Peek().IsOperator && isHigherPrecedence(currToken, stack.Peek()))
                     {
-                        string popped = stack.Pop();
-                        queue.Enqueue(popped);
+                        Token popped = stack.Pop();
+                        postfix.Enqueue(popped);
                     }
 
-                    stack.Push(token);
+                    stack.Push(currToken);
                 }
-                else if (token == "(")
+                else if (currToken.IsLeftParen)
                 {
-                    stack.Push(token);
+                    stack.Push(currToken);
                 }
-                else if (token == ")")
+                else if (currToken.IsRightParen)
                 {
-                    while (stack.Peek() != "(")
+                    while (!stack.Peek().IsLeftParen)
                     {
-                        string popped = stack.Pop();
-                        queue.Enqueue(popped);
+                        Token popped = stack.Pop();
+                        postfix.Enqueue(popped);
                     }
                     stack.Pop();
                 }
             }
             while (stack.Any())
             {
-                string popped = stack.Pop();
-                queue.Enqueue(popped);
+                Token popped = stack.Pop();
+                postfix.Enqueue(popped);
             }
 
-            while (queue.Any())
+            return postfix;
+        }
+
+        public static long SolvePostfix (Queue<Token> postfix)
+        {
+            Stack<Token> stack = new();
+
+            while (postfix.Any())
             {
-                string dequed = queue.Dequeue();
-                if (IsNumeric(dequed))
+                Token currToken = postfix.Dequeue();
+                if (currToken.IsNumber)
                 {
-                    stack.Push(dequed);
+                    stack.Push(currToken);
                 }
-                if (IsOperator(dequed))
+                if (currToken.IsOperator)
                 {
-                    long val2 = long.Parse(stack.Pop());
-                    long val1 = long.Parse(stack.Pop());
+                    long val2 = long.Parse(stack.Pop().Value);
+                    long val1 = long.Parse(stack.Pop().Value);
 
-                    if (dequed == "+")
+                    if (currToken.Value == Plus)
                     {
-                        stack.Push((val1 + val2).ToString());
+                        stack.Push(new Token((val1 + val2).ToString()));
                     }
-                    else if (dequed == "*")
+                    else if (currToken.Value == Times)
                     {
-                        stack.Push((val1 * val2).ToString());
+                        stack.Push(new Token((val1 * val2).ToString()));
                     }
                 }
             }
 
-            long ans = long.Parse(stack.Pop());
-            if (stack.Any())
-            {
-                throw new InvalidOperationException("Stack still has data");
-            }
+            return long.Parse(stack.Pop().Value);
+        }
+
+        public static long SolveCase(string line, Func<Token, Token, bool> isHigherPrecedence)
+        {
+            Queue<Token> infix = Tokenize(line);
+            Queue<Token> postfix = InfixToPostfix(infix, isHigherPrecedence);
+            long ans = SolvePostfix(postfix);
+
             return ans;
         }
 
-        private static bool IsHigherPrecedence2(string newToken, string stackToken)
+        private static bool IsHigherPrecedence1(Token newToken, Token stackToken) => true;
+
+        private static bool IsHigherPrecedence2(Token newToken, Token stackToken)
         {
-            if (stackToken == "+")
+            if (stackToken.Value == Plus)
             {
                 return true;
             }
-            if (stackToken == "*" && newToken == "*")
+            if (stackToken.Value == Times && newToken.Value == Times)
             {
                 return true;
             }
@@ -120,10 +126,28 @@ namespace Year2020
 
         public static Tuple<long, long> Solve(string[] lines)
         {
-            long ans1 = lines.Aggregate(0L, (acc, line) => acc + SolveCase(line, (newToken, stackToken) => true));
+            long ans1 = lines.Aggregate(0L, (acc, line) => acc + SolveCase(line, IsHigherPrecedence1));
             long ans2 = lines.Aggregate(0L, (acc, line) => acc + SolveCase(line, IsHigherPrecedence2));
 
             return Tuple.Create(ans1, ans2);
+        }
+
+        public class Token
+        {
+            public Token(string value)
+            {
+                Value = value;
+            }
+
+            public string Value { get; }
+
+            public bool IsNumber => long.TryParse(Value, out _);
+
+            public bool IsOperator => Value == Plus || Value == Times;
+
+            public bool IsLeftParen => Value == LParen;
+
+            public bool IsRightParen => Value == RParen;
         }
     }
 
