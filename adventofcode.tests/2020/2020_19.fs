@@ -9,7 +9,7 @@ module Day19 =
     type RuleDef =
         Literal of char
         | Single of int list
-        | Piped of (int list * int list)
+        | Piped of int list list
 
     type Rule = { Id: int; Def: RuleDef }
 
@@ -28,7 +28,7 @@ module Day19 =
         else
             None
 
-    let parseList line =
+    let parseList1 line =
         let regex = new Regex("^(\d+): (\d+[^|]*)$")
         let regexMatch = regex.Match(line)
         if regexMatch.Success then
@@ -38,18 +38,42 @@ module Day19 =
         else
             None
 
-    let parsePiped line =
-        let regex = new Regex("^(\d+): (\d.*)\|( \d.*)$")
+    let parseList2 line =
+        let regex = new Regex("^(\d+): (\d+[^|]*)$")
         let regexMatch = regex.Match(line)
         if regexMatch.Success then
             let id = regexMatch.Groups.[1].Value |> int
-            let values1 = regexMatch.Groups.[2].Value |> intStringToInts
-            let values2 = regexMatch.Groups.[3].Value |> intStringToInts
-            Some { Id = id; Def = RuleDef.Piped (values1, values2) }
+
+            match id with
+            | 8 -> Some { Id = id; Def = RuleDef.Piped [
+                [42];
+                [42;42];
+                [42;42;42];
+                [42;42;42;42];
+                [42;42;42;42;42]] }
+            | 11 -> Some { Id = id; Def = RuleDef.Piped [
+                [42;31];
+                [42;42;31;31];
+                [42;42;42;31;31;31];
+                [42;42;42;42;31;31;31;31]] }
+            | _ ->
+                let values = regexMatch.Groups.[2].Value |> intStringToInts
+                Some { Id = id; Def = RuleDef.Single values }
         else
             None
 
-    let parse line =
+    let parsePiped line =
+        let regex = new Regex("^(\d+): (\d.*\|.*)$")
+        let regexMatch = regex.Match(line)
+        if regexMatch.Success then
+            let id = regexMatch.Groups.[1].Value |> int
+            let values = regexMatch.Groups.[2].Value
+            let groups = values.Split('|') |> Array.toList |> List.map intStringToInts
+            Some { Id = id; Def = RuleDef.Piped groups }
+        else
+            None
+
+    let parse parseList line =
         [parseLiteral; parseList; parsePiped]
         |> List.map (fun f -> f line)
         |> List.choose id
@@ -60,36 +84,41 @@ module Day19 =
         match rule with
         | Literal ch -> ch |> string
         | Single lst -> "(" + String.Join("", lst |> List.map (fun x -> buildRegex ruleMap x)) + ")"
-        | Piped (lst1, lst2) ->
-            let segment1 = String.Join("", lst1 |> List.map (fun x -> buildRegex ruleMap x))
-            let segment2 = String.Join("", lst2 |> List.map (fun x -> buildRegex ruleMap x))
-            "((" + segment1 + ")|(" + segment2 + "))"
+        | Piped lsts ->
+            let segments = lsts |> List.map (fun lst -> "(" + String.Join("", lst |> List.map (fun x -> buildRegex ruleMap x)) + ")")
+            let joined = String.Join("|", segments)
+            "(" + joined + ")"
 
-    let checkRegex regex input =
-           let r = new Regex(regex)
-           if r.IsMatch(input) then 1 else 0
+    let checkRegex (regex : Regex) input =
+           if regex.IsMatch(input) then 1 else 0
 
-    let solve (lines : string[]) =
-        let ruleMap = (lines
+    let buildRuleMap parse lines =
+        lines
         |> Array.takeWhile (fun line -> line <> "")
         |> Array.map parse
         |> Array.map (fun rule -> (rule.Id, rule.Def))
-        |> Map.ofArray)
+        |> Map.ofArray
+
+    let solve (lines : string[]) =
+        let ruleMap1 = lines |> buildRuleMap (parse parseList1)
+        let ruleMap2 = lines |> buildRuleMap (parse parseList2)
 
         let inputs = (lines
         |> Array.skipWhile (fun line -> line <> "")
         |> Array.skip 1)
 
-        let regex = "^" + (buildRegex ruleMap 0) + "$"
+        let regex1 = new Regex("^" + (buildRegex ruleMap1 0) + "$", RegexOptions.Compiled)
+        let regex2 = new Regex("^" + (buildRegex ruleMap2 0) + "$", RegexOptions.Compiled)
 
-        let ans1 = inputs |> Array.sumBy (checkRegex regex) |> int64
+        let ans1 = inputs |> Array.sumBy (checkRegex regex1) |> int64
+        let ans2 = inputs |> Array.sumBy (checkRegex regex2) |> int64
 
-        (ans1, 0L)
+        (ans1, ans2)
 
     [<Fact>]
     let Sample () =
-        readInput "2020" "19" "sample" |> solveAndValidate (2L, -1L) solve
+        readInput "2020" "19" "sample" |> solveAndValidate (2L, 2L) solve
 
     [<Fact>]
     let Actual () =
-        readInput "2020" "19" "actual" |> solveAndValidate (147L, 888L) solve
+        readInput "2020" "19" "actual" |> solveAndValidate (147L, 263L) solve
