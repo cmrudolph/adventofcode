@@ -37,14 +37,14 @@ module Day22 =
         else false
 
     let transformForWinner gameState winner =
-           let decks = gameState.Decks
-           let d1 = decks.Deck1
-           let d2 = decks.Deck2
-           let newPrevious = gameState.Previous |> Set.add decks
+        let decks = gameState.Decks
+        let d1 = decks.Deck1
+        let d2 = decks.Deck2
+        let newPrevious = gameState.Previous |> Set.add decks
 
-           // Rearrange the decks appropriately based on which player won the round. The round cards are appended
-           // to the winner's deck with the winner's card coming first
-           if winner = 1 then { Decks = { Deck1 = d1.[1..] @ [d1.[0]; d2.[0]]; Deck2 = d2.[1..] }; Previous = newPrevious }
+        // Rearrange the decks appropriately based on which player won the round. The round cards are appended
+        // to the winner's deck with the winner's card coming first
+        if winner = 1 then { Decks = { Deck1 = d1.[1..] @ [d1.[0]; d2.[0]]; Deck2 = d2.[1..] }; Previous = newPrevious }
            else { Decks = { Deck1 = d1.[1..]; Deck2 = d2.[1..] @ [d2.[0]; d1.[0]] }; Previous = newPrevious }
 
     let transformDeckForSubGame deck =
