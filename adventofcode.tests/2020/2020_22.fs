@@ -5,13 +5,11 @@ module Day22 =
     open Utils
     open Xunit
 
-    type Unfinished = { Deck1: int list; Deck2: int list }
-    type Finished = { Deck: int list }
-    type Game = 
-        Unfinished of Unfinished
-        | Finished of Finished
+    type Deck = int list
+    type Decks = { Deck1: Deck; Deck2: Deck }
+    type GameState = { Decks: Decks; Previous: Set<Decks> }
 
-    let parse_initial (lines : string[]) =
+    let parseInitial (lines : string[]) =
         let decks = (String.Join("|", lines).Split([|"||"|], StringSplitOptions.None)
         |> Array.map (fun (x : string) -> x.Split('|'))
         |> Array.map (fun x -> x.[1..]))
@@ -19,49 +17,120 @@ module Day22 =
         let deck1 = decks.[0] |> Array.map int |> List.ofArray
         let deck2 = decks.[1] |> Array.map int |> List.ofArray
 
-        Game.Unfinished { Deck1 = deck1; Deck2 = deck2 }
+        { Decks = { Deck1 = deck1; Deck2 = deck2 }; Previous = Set.empty }
 
-    let play_round game =
-        match game with
-        | Finished _ -> game
-        | Unfinished u ->
-            if u.Deck1.[0] > u.Deck2.[0] then
-                match u.Deck2 with
-                | [] -> Game.Finished { Deck = u.Deck1 }
-                | [_] -> Game.Finished { Deck = u.Deck1.[1..] @ [u.Deck1.[0]; u.Deck2.[0]] }
-                | _ :: xs -> Game.Unfinished { Deck1 = u.Deck1.[1..] @ [u.Deck1.[0]; u.Deck2.[0]]; Deck2 = xs}
-            else
-                match u.Deck1 with
-                | [] -> Game.Finished { Deck = u.Deck2 }
-                | [_] -> Game.Finished { Deck = u.Deck2.[1..] @ [u.Deck2.[0]; u.Deck1.[0]] }
-                | _ :: xs -> Game.Unfinished { Deck1 = xs; Deck2 = u.Deck2.[1..] @ [u.Deck2.[0]; u.Deck1.[0]] }
+    let isInstantWin gameState =
+        // Have we seen this game arrangement before?
+        gameState.Previous
+        |> Set.contains gameState.Decks
 
-    let rec play_until_done game =
-        match game with
-        | Finished _ -> game
-        | Unfinished _ -> play_until_done (play_round game)
+    let findWinnerForNormalRound gameState =
+        let decks = gameState.Decks;
 
-    let calc_value game =
-        match game with
-        | Finished f ->
-            f.Deck
-            |> List.rev
-            |> List.mapi (fun i el -> (i + 1) * el)
-            |> List.sum
-            |> int64
-        | Unfinished _ -> -1L
+        // Normal round is just a comparison of the top cards
+        if decks.Deck1.[0] > decks.Deck2.[0] then 1 else 2
+
+    let isGameOver gameState winner =
+        // If the last round's winner is going to take the last card from the other deck, it is over
+        if winner = 1 && gameState.Decks.Deck2.Length = 1 then true
+        elif winner = 2 && gameState.Decks.Deck1.Length = 1 then true
+        else false
+
+    let transformForWinner gameState winner =
+           let decks = gameState.Decks;
+           let d1 = decks.Deck1;
+           let d2 = decks.Deck2
+           let newPrevious = gameState.Previous |> Set.add decks
+
+           // Rearrange the decks appropriately based on which player won the round. The round cards are appended
+           // to the winner's deck with the winner's card coming first
+           if winner = 1 then { Decks = { Deck1 = d1.[1..] @ [d1.[0]; d2.[0]]; Deck2 = d2.[1..] }; Previous = newPrevious }
+           else { Decks = { Deck1 = d1.[1..]; Deck2 = d2.[1..] @ [d2.[0]; d1.[0]] }; Previous = newPrevious }
+
+    let transformDeckForSubGame deck =
+        match deck with
+        | [] -> None
+        | [_] -> None
+        | x :: xs ->
+            // Use first card to determine A, then take the next A cards to form a new deck
+            if x <= (List.length xs) then Some (xs |> List.take x)
+            else None
+
+    let transformForSubGame gameState =
+        let new1 = transformDeckForSubGame gameState.Decks.Deck1
+        let new2 = transformDeckForSubGame gameState.Decks.Deck2
+        let newDecks = (new1, new2)
+        
+        // Make the new decks and create a brand new game state. None of the previously seen configurations
+        // need to carry over. A sub game is a brand new thing
+        match newDecks with
+        | (Some d1, Some d2) -> { Decks = { Deck1 = d1; Deck2 = d2 }; Previous = Set.empty }
+        | _ -> failwith "Cannot play subgame with these inputs"
+
+    let shouldPlaySubGame gameState =
+        let new1 = transformDeckForSubGame gameState.Decks.Deck1
+        let new2 = transformDeckForSubGame gameState.Decks.Deck2
+        let newDecks = (new1, new2)
+
+        // Only play a sub game if both decks meet the criteria for it
+        match newDecks with
+        | (Some _, Some _) -> true
+        | _ -> false
+
+    let rec playGame shouldPlaySub gameState =
+        let mutable isDone = false
+        let mutable localState = gameState
+        let mutable winner = 1
+
+        while not isDone do
+            winner <-
+                if isInstantWin localState then
+                    // Player 1 always instant wins the game in this situation
+                    isDone <- true
+                    1
+                elif shouldPlaySub localState then
+                    let subState = transformForSubGame localState
+                    let win, _ = playGame shouldPlaySub subState
+                    isDone <- isGameOver localState win
+                    win
+                else
+                    let win = findWinnerForNormalRound localState
+                    isDone <- isGameOver localState win
+                    win
+
+            localState <- transformForWinner localState winner
+
+        (winner, localState)
+
+    let calcValue deck =
+        deck
+        |> List.rev
+        |> List.mapi (fun i el -> (i + 1) * el)
+        |> List.sum
+        |> int64
+
+    let playAndCalculate play gameState =
+        let win, state = play gameState
+        let deck =
+            match win with
+            | 1 -> state.Decks.Deck1
+            | 2 -> state.Decks.Deck2
+            | _ -> failwith $"Bad winner value {win}"
+        calcValue deck
 
     let solve (lines : string[]) =
-        let initial_game = parse_initial lines
-        let done_game = play_until_done initial_game
-        let ans1 = calc_value done_game
+        let play1 = playGame (fun _ -> false)
+        let play2 = playGame shouldPlaySubGame
 
-        (ans1, 0L)
+        let ans1 = parseInitial lines |> playAndCalculate play1
+        let ans2 = parseInitial lines |> playAndCalculate play2
+
+        (ans1, ans2)
 
     [<Fact>]
     let Sample () =
-        readInput "2020" "22" "sample" |> solveAndValidate (306L, -1L) solve
+        readInput "2020" "22" "sample" |> solveAndValidate (306L, 291L) solve
 
     [<Fact>]
     let Actual () =
-        readInput "2020" "22" "actual" |> solveAndValidate (34664L, -1L) solve
+        readInput "2020" "22" "actual" |> solveAndValidate (34664L, 32018L) solve
