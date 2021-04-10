@@ -1,7 +1,7 @@
 namespace Year2020
 
 module Day06 =
-    open System;
+    open System
     open Utils
     open Xunit
 

@@ -2,7 +2,7 @@ namespace Year2020
 
 module Day07 =
     open System
-    open System.Text.RegularExpressions;
+    open System.Text.RegularExpressions
     open Utils
     open Xunit
     

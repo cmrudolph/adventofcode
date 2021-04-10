@@ -26,8 +26,8 @@ module Day11 =
         Array.concat (seq { [|topBottom|]; paddedLines; [|topBottom|] }) |> array2D
 
     let move pos direction =
-        let row, col = pos;
-        let rowDiff, colDiff = direction;
+        let row, col = pos
+        let rowDiff, colDiff = direction
         row + rowDiff, col + colDiff
 
     let shouldStop curr stopChars =
@@ -74,7 +74,7 @@ module Day11 =
         let rows = Array2D.length1 grid
         let c = Array2D.length2 grid
 
-        let coords = [1..(rows - 2)] |> List.collect (fun r -> [1..(c - 2)] |> List.map (fun col -> (r, col)));
+        let coords = [1..(rows - 2)] |> List.collect (fun r -> [1..(c - 2)] |> List.map (fun col -> (r, col)))
         let writable = Array2D.copy grid
 
         coords |> List.iter (fun (r, c) -> Array2D.set writable r c (identifyNewValue grid (r, c) stopChars threshold))

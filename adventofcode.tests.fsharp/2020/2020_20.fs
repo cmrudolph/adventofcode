@@ -13,7 +13,7 @@ module Day20 =
     let makeTile (cleanLine : string) =
         let splits = cleanLine.Split('@')
 
-        let regex = Regex("Tile (.*):");
+        let regex = Regex("Tile (.*):")
         let number = regex.Match(splits.[0]).Groups.[1].Value |> int
 
         let startRow = 1

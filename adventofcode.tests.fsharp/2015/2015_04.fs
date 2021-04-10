@@ -1,7 +1,7 @@
 namespace Year2015
 
 module Day04 =
-    open System;
+    open System
     open Utils
     open Xunit
 

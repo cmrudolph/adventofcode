@@ -7,8 +7,6 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "adventofcode.tests.fsharp",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adventofcode.tests.csharp", "adventofcode.tests.csharp\adventofcode.tests.csharp.csproj", "{F4EF7A51-9882-4B25-89A2-C4A9ABBB7DDC}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "adventofcode.console.fsharp", "adventofcode.console.fsharp\adventofcode.console.fsharp.fsproj", "{7B5AD6D2-45EC-43AF-B03F-CB7F1883F7A4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{F4EF7A51-9882-4B25-89A2-C4A9ABBB7DDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4EF7A51-9882-4B25-89A2-C4A9ABBB7DDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4EF7A51-9882-4B25-89A2-C4A9ABBB7DDC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B5AD6D2-45EC-43AF-B03F-CB7F1883F7A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B5AD6D2-45EC-43AF-B03F-CB7F1883F7A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B5AD6D2-45EC-43AF-B03F-CB7F1883F7A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B5AD6D2-45EC-43AF-B03F-CB7F1883F7A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

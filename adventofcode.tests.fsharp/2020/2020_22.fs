@@ -25,7 +25,7 @@ module Day22 =
         |> Set.contains gameState.Decks
 
     let findWinnerForNormalRound gameState =
-        let decks = gameState.Decks;
+        let decks = gameState.Decks
 
         // Normal round is just a comparison of the top cards
         if decks.Deck1.[0] > decks.Deck2.[0] then 1 else 2
@@ -37,8 +37,8 @@ module Day22 =
         else false
 
     let transformForWinner gameState winner =
-           let decks = gameState.Decks;
-           let d1 = decks.Deck1;
+           let decks = gameState.Decks
+           let d1 = decks.Deck1
            let d2 = decks.Deck2
            let newPrevious = gameState.Previous |> Set.add decks
 
@@ -49,12 +49,11 @@ module Day22 =
 
     let transformDeckForSubGame deck =
         match deck with
-        | [] -> None
-        | [_] -> None
         | x :: xs ->
             // Use first card to determine A, then take the next A cards to form a new deck
             if x <= (List.length xs) then Some (xs |> List.take x)
             else None
+        | _ -> None
 
     let transformForSubGame gameState =
         let new1 = transformDeckForSubGame gameState.Decks.Deck1
