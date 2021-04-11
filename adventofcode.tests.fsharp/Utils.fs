@@ -8,3 +8,7 @@ let readInput year problem suffix =
 let solveAndValidate (expected : (int64 * int64)) solver lines =
     let result = solver lines
     Assert.Equal(expected, result)
+
+let solveAndValidateStr (expected : (string * string)) solver lines =
+    let result = solver lines
+    Assert.Equal(expected, result)
