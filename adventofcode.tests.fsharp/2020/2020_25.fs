@@ -30,8 +30,8 @@ module Day25 =
 
     [<Fact>]
     let Sample () =
-        readInput "2020" "25" "sample" |> solveAndValidate (14897079L, 888L) solve
+        readInput "2020" "25" "sample" |> solveAndValidate (14897079L, 0L) solve
 
     [<Fact>]
     let Actual () =
-        readInput "2020" "25" "actual" |> solveAndValidate (9177528L, 888L) solve
+        readInput "2020" "25" "actual" |> solveAndValidate (9177528L, 0L) solve
