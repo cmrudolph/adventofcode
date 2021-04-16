@@ -4,7 +4,11 @@ module Day11 =
     open Utils
     open Xunit
 
-    type Counts = { Edge: int; Floor: int; Empty: int; Occupied: int }
+    type Counts =
+        { Edge: int;
+          Floor: int;
+          Empty: int;
+          Occupied: int }
 
     [<Literal>]
     let EdgeChar = '-'
@@ -58,7 +62,7 @@ module Day11 =
             (0, -1); (0, 1);
             (1, -1); (1, 0); (1, 1)]
 
-        let acc = {Edge = 0; Floor = 0; Empty = 0; Occupied = 0 }
+        let acc = { Edge = 0; Floor = 0; Empty = 0; Occupied = 0 }
         (acc, neighbors) ||> List.fold (checkNeighbor grid stopChars pos)
 
     let identifyNewValue grid pos stopChars threshold =
@@ -93,7 +97,7 @@ module Day11 =
 
     let solve (lines : string[]) =
         let grid = lines |> createGrid
-        
+
         let allChars = Set.ofList [EdgeChar; FloorChar; EmptyChar; OccupiedChar]
         let ans1 = grid |> findFinalOccupiedCount allChars 4
 

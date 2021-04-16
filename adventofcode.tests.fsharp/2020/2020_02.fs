@@ -14,6 +14,7 @@ module Day02 =
     let makeRec inputLine =
         let pattern = Regex("(.*)-(.*) (.): (.*)")
         let m = pattern.Match(inputLine)
+
         { Val1 = System.Int32.Parse(m.Groups.[1].Value)
           Val2 = System.Int32.Parse(m.Groups.[2].Value)
           Target = System.Char.Parse(m.Groups.[3].Value)
@@ -23,7 +24,7 @@ module Day02 =
         Seq.toList r.Password
         |> Seq.filter ((=) r.Target)
         |> Seq.length
-        |> (fun o -> if o <= r.Val2 && o >= r.Val1 then true else false)
+        |> (fun o -> o <= r.Val2 && o >= r.Val1)
 
     let validFun2 r =
         let chars = Seq.toList r.Password
@@ -36,10 +37,10 @@ module Day02 =
         |> int64
 
     let solve lines =
-        let recs = Seq.map makeRec lines
-        let ans1 = calculate validFun1 recs
-        let ans2 = calculate validFun2 recs 
-       
+        let recs = lines |> Seq.map makeRec
+        let ans1 = recs |> calculate validFun1
+        let ans2 = recs |> calculate validFun2
+
         (ans1, ans2)
 
     [<Fact>]

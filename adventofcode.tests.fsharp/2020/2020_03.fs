@@ -19,9 +19,10 @@ module Day03 =
         |> List.reduce (*)
 
     let solve lines =
-        let parsedLines = (lines
-        |> Seq.map Seq.toList
-        |> Seq.toList)
+        let parsedLines =
+            lines
+            |> Seq.map Seq.toList
+            |> Seq.toList
 
         let ans1 = calculate parsedLines [(3,1)]
         let ans2 = calculate parsedLines [(1,1);(3,1);(5,1);(7,1);(1,2)]

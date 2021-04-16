@@ -15,10 +15,11 @@ module Day10 =
         counts |> updateAt idx increment
 
     let parseAndAugment (lines : string[]) =
-        let nums = (lines
-        |> List.ofArray
-        |> List.map System.Int64.Parse
-        |> List.sort)
+        let nums =
+            lines
+            |> List.ofArray
+            |> List.map System.Int64.Parse
+            |> List.sort
 
         // Implicit elements - always start with 0 and end with (max + 3)
         [0L] @ nums @ [(List.last nums) + 3L]

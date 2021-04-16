@@ -11,7 +11,9 @@ module Day19 =
         | Single of int list
         | Piped of int list list
 
-    type Rule = { Id: int; Def: RuleDef }
+    type Rule =
+        { Id: int;
+          Def: RuleDef }
 
     let intStringToInts (str : string) =
         str.Trim().Split(' ')
@@ -103,9 +105,10 @@ module Day19 =
         let ruleMap1 = lines |> buildRuleMap (parse parseList1)
         let ruleMap2 = lines |> buildRuleMap (parse parseList2)
 
-        let inputs = (lines
-        |> Array.skipWhile (fun line -> line <> "")
-        |> Array.skip 1)
+        let inputs =
+            lines
+            |> Array.skipWhile (fun line -> line <> "")
+            |> Array.skip 1
 
         let regex1 = new Regex("^" + (buildRegex ruleMap1 0) + "$", RegexOptions.Compiled)
         let regex2 = new Regex("^" + (buildRegex ruleMap2 0) + "$", RegexOptions.Compiled)

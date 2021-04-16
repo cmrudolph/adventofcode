@@ -5,9 +5,21 @@ module Day20 =
     open Xunit
     open System.Text.RegularExpressions
 
-    type Side = { Value: string; IsEdge: bool }
-    type Tile = { Number: int; Contents: char [,]; Top: Side; Right: Side; Bottom: Side; Left: Side }
-    type TrackedChar = { Id: int; CharValue: char }
+    type Side =
+        { Value: string;
+          IsEdge: bool }
+
+    type Tile =
+        { Number: int;
+          Contents: char [,];
+          Top: Side;
+          Right: Side;
+          Bottom: Side;
+          Left: Side }
+
+    type TrackedChar =
+        { Id: int;
+          CharValue: char }
 
     let getSides (contents : char[,]) =
         let len = Array2D.length1 contents
@@ -86,9 +98,7 @@ module Day20 =
         [t1; t2; t3; t4; t5; t6; t7; t8]
 
     let getAllPossibleSides tile =
-        getAllTilePermutations tile
-        |> List.map (fun t -> [t.Top; t.Right; t.Bottom; t.Left])
-        |> List.concat
+        (List.collect (fun t -> [t.Top; t.Right; t.Bottom; t.Left]) (getAllTilePermutations tile))
         |> Set.ofList
 
     let edgeifySide side allSidesOtherTiles =
@@ -124,9 +134,7 @@ module Day20 =
         | false -> 0
 
     let countEdges sides =
-        sides
-        |> List.map countEdge
-        |> List.sum
+        List.sumBy countEdge sides
 
     let getEdges tile =
         [tile.Top; tile.Right; tile.Bottom; tile.Left]
@@ -141,23 +149,17 @@ module Day20 =
         |> List.head
 
     let findWithLeft targetLeft tilesToSearch =
-        tilesToSearch
-        |> List.map getAllTilePermutations
-        |> List.concat
+        (List.collect getAllTilePermutations tilesToSearch)
         |> List.filter (fun tile -> tile.Left.Value = targetLeft)
         |> List.head
 
     let findWithTopAndLeft targetTop targetLeft tilesToSearch =
-        tilesToSearch
-        |> List.map getAllTilePermutations
-        |> List.concat
+        (List.collect getAllTilePermutations tilesToSearch)
         |> List.filter (fun tile -> tile.Top.Value = targetTop && tile.Left.Value = targetLeft)
         |> List.head
 
     let findWithTop targetTop tilesToSearch =
-        tilesToSearch
-        |> List.map getAllTilePermutations
-        |> List.concat
+        (List.collect getAllTilePermutations tilesToSearch)
         |> List.filter (fun tile -> tile.Top.Value = targetTop)
         |> List.head
 
@@ -256,7 +258,7 @@ module Day20 =
                 else allMonsterIds <- allMonsterIds
 
         allMonsterIds
-    
+
     let countHashes arr =
         arr
         |> Seq.cast<TrackedChar>

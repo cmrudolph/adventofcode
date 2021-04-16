@@ -51,9 +51,7 @@ module Day04 =
         if valid then 1 else 0
 
     let countValidPairs validatorFunc (passportLine : string) =
-        passportLine.Split(' ')
-        |> Array.map (fun pair -> validatorFunc pair)
-        |> Array.sum
+        Array.sumBy (validatorFunc) (passportLine.Split(' '))
 
     let calculate pairEvalFunc passportLines =
         passportLines

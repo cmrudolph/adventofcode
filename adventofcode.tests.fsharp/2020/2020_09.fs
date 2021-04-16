@@ -39,7 +39,7 @@ module Day09 =
 
     let solve2 target nums =
         let startIdx, size = nums |> sumRange 0 2 target
-    
+
         let slice = Array.sub nums startIdx size
         let min = slice |> Array.min
         let max = slice |> Array.max

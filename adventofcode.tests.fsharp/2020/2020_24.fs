@@ -85,7 +85,7 @@ module Day24 =
         let blacks =
             lines
             |> Array.map (calculateFinalPosition (0, 0))
-            |> Array.groupBy (fun x -> x)
+            |> Array.groupBy id
             |> Array.filter (fun (_, grp) -> (Array.length grp) % 2 = 1)
             |> Array.map (fun (key, _) -> key)
             |> Set.ofArray

@@ -5,12 +5,14 @@ module Day07 =
     open System.Text.RegularExpressions
     open Utils
     open Xunit
-    
+
     let regexNonLeaf = new Regex("(.*) bags contain (.*)\\.")
     let regexLeaf = new Regex("(.*) bags contain no other bags.")
     let regexUnpackContents = new Regex("(\\d+) (.*) bag")
 
-    type Bag = { Color: string; Quantity: int }
+    type Bag =
+        { Color: string;
+          Quantity: int }
 
     let parseBagStatement (str : string) =
         let splits = str.Split([|' '|], StringSplitOptions.RemoveEmptyEntries)
@@ -45,15 +47,17 @@ module Day07 =
 
     let solve (lines : string[]) =
         let map = buildMap lines
-    
-        let ans1 = (Map.remove "shiny gold" map
-        |> Map.filter (fun key _ -> find map key "shiny gold")
-        |> Map.count
-        |> int64)
 
-        let ans2 = (map.["shiny gold"]
-        |> Array.sumBy (fun bag -> countInside map bag)
-        |> int64)
+        let ans1 =
+            Map.remove "shiny gold" map
+            |> Map.filter (fun key _ -> find map key "shiny gold")
+            |> Map.count
+            |> int64
+
+        let ans2 =
+            map.["shiny gold"]
+            |> Array.sumBy (fun bag -> countInside map bag)
+            |> int64
 
         (ans1, ans2)
 

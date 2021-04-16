@@ -9,7 +9,7 @@ module Day17 =
 
     [<Literal>]
     let ActiveChar = '#'
-    
+
     let getNeighbors pos adjustments =
         let a, b, c, d = pos
         adjustments |> List.map (fun (i, j, k, m) -> (a + i, b + j, c + k, d + m))
@@ -62,7 +62,7 @@ module Day17 =
 
         let makeActiveSet (lines : string[]) =
             let origSize = Array.length lines
-            let endIdx = origSize - 1 
+            let endIdx = origSize - 1
 
             [0..endIdx]
             |> List.collect (fun i -> [0..endIdx] |> List.map (fun j -> (i, j)))

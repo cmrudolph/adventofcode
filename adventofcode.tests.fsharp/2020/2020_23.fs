@@ -6,7 +6,12 @@ module Day23 =
     open Utils
     open Xunit
 
-    type MoveInfo = { OldCurr: int; NewCurr: int; DestStart: int; DestEnd: int; Slice: int list; }
+    type MoveInfo =
+        { OldCurr: int;
+          NewCurr: int;
+          DestStart: int;
+          DestEnd: int;
+          Slice: int list; }
 
     let parseInput (input : string[]) =
         // Split to chars, then convert chars to integers
@@ -39,7 +44,7 @@ module Day23 =
             dict.Add(i, i+1)
 
         dict.Add(max, values.[0])
-        
+
         dict
 
     let getMoveInfo (dict : Dictionary<int, int>) curr max =
@@ -68,7 +73,7 @@ module Day23 =
         let d = constructDict1 input
         let mutable curr = input.[0]
 
-        for i in 1..100 do
+        for _ in 1..100 do
             let moveInfo = getMoveInfo d curr 9
             applyMoveInfo d moveInfo
             curr <- moveInfo.NewCurr

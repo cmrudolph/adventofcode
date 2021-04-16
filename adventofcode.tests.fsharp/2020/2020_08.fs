@@ -6,22 +6,25 @@ module Day08 =
 
     type InstructionType = Jmp | Acc | Nop
 
-    type Instruction = { InstType: InstructionType; Amount : int; Visited : bool }
+    type Instruction =
+        { InstType: InstructionType;
+          Amount : int;
+          Visited : bool }
 
     type Completion = Success | Failure | Incomplete
 
     let parseLine (line : string) =
         let splits = line.Split(' ')
-    
+
         let instType =
             match splits.[0] with
             | "nop" -> Some InstructionType.Nop
             | "acc" -> Some InstructionType.Acc
             | "jmp" -> Some InstructionType.Jmp
             | _ -> None
-    
+
         let amount = splits.[1] |> int32
-    
+
         match instType with
         | Some x -> Some { InstType = x; Amount = amount; Visited = false }
         | None -> None
@@ -78,7 +81,7 @@ module Day08 =
             | InstructionType.Jmp ->
                 let newIdx = idx + instruction.Amount
                 processInstruction newInstructions completion (newIdx) acc
-            | InstructionType.Nop -> 
+            | InstructionType.Nop ->
                 let newIdx = idx + 1
                 processInstruction newInstructions completion (newIdx) acc
 

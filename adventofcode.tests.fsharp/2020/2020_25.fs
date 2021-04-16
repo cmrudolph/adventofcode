@@ -18,7 +18,7 @@ module Day25 =
         loopSize
 
     let getEncryptionKey loopSize subject =
-        [1L..loopSize] |> List.fold (fun acc i -> transform acc subject) 1L
+        (1L, [1L..loopSize]) ||> List.fold (fun acc i -> transform acc subject)
 
     let solve (lines : string[]) =
         let publicKeys = Array.map int64 lines

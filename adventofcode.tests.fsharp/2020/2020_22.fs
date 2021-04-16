@@ -6,8 +6,14 @@ module Day22 =
     open Xunit
 
     type Deck = int list
-    type Decks = { Deck1: Deck; Deck2: Deck }
-    type GameState = { Decks: Decks; Previous: Set<Decks> }
+
+    type Decks =
+        { Deck1: Deck;
+          Deck2: Deck }
+
+    type GameState =
+        { Decks: Decks;
+          Previous: Set<Decks> }
 
     let parseInitial (lines : string[]) =
         let decks = (String.Join("|", lines).Split([|"||"|], StringSplitOptions.None)
@@ -59,7 +65,7 @@ module Day22 =
         let new1 = transformDeckForSubGame gameState.Decks.Deck1
         let new2 = transformDeckForSubGame gameState.Decks.Deck2
         let newDecks = (new1, new2)
-        
+
         // Make the new decks and create a brand new game state. None of the previously seen configurations
         // need to carry over. A sub game is a brand new thing
         match newDecks with
