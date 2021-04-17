@@ -3,7 +3,7 @@ namespace Year2015
 module Day03 =
     open Utils
     open Xunit
-    
+
     let move (x,y) ch =
         match ch with
         | '^' -> (x, y-1)

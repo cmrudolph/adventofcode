@@ -23,8 +23,7 @@ module Day02 =
     let calculate allDimensions valueFunc =
         allDimensions
         |> Seq.map valueFunc
-        |> Seq.map int64
-        |> Seq.sum
+        |> Seq.sumBy int64
 
     let solve (lines : string[]) =
         let allDimensions = Seq.map dimensions lines

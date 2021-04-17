@@ -23,7 +23,7 @@ module Day01 =
                 (count + 1) |> int64
             else
                 basementPos newPos (count + 1) xs
-            
+
     let solve (lines : string[]) =
         let chars = lines.[0] |> Seq.toList
         let ans1 = floor chars
