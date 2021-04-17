@@ -74,7 +74,7 @@ namespace Year2020
 
                     if (match)
                     {
-                        matrix.Set(ingredient, allergen);                        
+                        matrix.Set(ingredient, allergen);
                     }
                     else
                     {
