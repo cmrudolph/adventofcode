@@ -8,57 +8,60 @@ module Day07 =
     open Xunit
     open System.Text.RegularExpressions
 
-    type StringOrInt =
-        | Str of string
-        | Int of int
+    type Wire = string
+    type Value = int
+
+    type WireOrValue =
+        | Wire of Wire
+        | Value of Value
 
     type Action =
-        | Assign of StringOrInt
-        | BitwiseAnd of (StringOrInt * StringOrInt)
-        | BitwiseOr of (StringOrInt * StringOrInt)
-        | LeftShift of (string * int)
-        | RightShift of (string * int)
-        | Negate of string
+        | Assign of WireOrValue
+        | BitwiseAnd of (WireOrValue * WireOrValue)
+        | BitwiseOr of (WireOrValue * WireOrValue)
+        | LeftShift of (Wire * Value)
+        | RightShift of (Wire * Value)
+        | Negate of Wire
 
     type Instruction =
         { Target: string;
           Action: Action }
 
-    let strVal (idx : int) (regexMatch : Match) =
+    let getWire (idx : int) (regexMatch : Match) =
         regexMatch.Groups.[idx].Value
 
-    let intVal (idx : int) (regexMatch : Match) =
-        let s = strVal idx regexMatch
+    let getValue (idx : int) (regexMatch : Match) =
+        let s = getWire idx regexMatch
         int s
 
-    let matchVal (idx : int) (regexMatch : Match) =
+    let getEither (idx : int) (regexMatch : Match) =
         let str = regexMatch.Groups.[idx].Value
         let success, parsed = Int32.TryParse(str)
-        if success then Int parsed else Str str
+        if success then Value parsed else Wire str
 
     let parseAnd line =
         let m = Regex("(.+) AND (.+) -> (.+)").Match(line)
-        if m.Success then Some { Target = strVal 3 m; Action = BitwiseAnd (matchVal 1 m, matchVal 2 m) } else None
+        if m.Success then Some { Target = getWire 3 m; Action = BitwiseAnd (getEither 1 m, getEither 2 m) } else None
 
     let parseOr line =
         let m = Regex("(.+) OR (.+) -> (.+)").Match(line)
-        if m.Success then Some { Target = strVal 3 m; Action = BitwiseOr (matchVal 1 m, matchVal 2 m) } else None
+        if m.Success then Some { Target = getWire 3 m; Action = BitwiseOr (getEither 1 m, getEither 2 m) } else None
 
     let parseLeftShift line =
         let m = Regex("(.+) LSHIFT (\d+) -> (.+)").Match(line)
-        if m.Success then Some { Target = strVal 3 m; Action = LeftShift (strVal 1 m, intVal 2 m) } else None
+        if m.Success then Some { Target = getWire 3 m; Action = LeftShift (getWire 1 m, getValue 2 m) } else None
 
     let parseRightShift line =
         let m = Regex("(.+) RSHIFT (\d+) -> (.+)").Match(line)
-        if m.Success then Some { Target = strVal 3 m; Action = RightShift (strVal 1 m, intVal 2 m) } else None
+        if m.Success then Some { Target = getWire 3 m; Action = RightShift (getWire 1 m, getValue 2 m) } else None
 
     let parseNot line =
         let m = Regex("NOT (.+) -> (.+)").Match(line)
-        if m.Success then Some { Target = strVal 2 m; Action = Negate (strVal 1 m) } else None
+        if m.Success then Some { Target = getWire 2 m; Action = Negate (getWire 1 m) } else None
 
     let parseAssign line =
         let m = Regex("(.+) -> (.+)").Match(line)
-        if m.Success then Some { Target = strVal 2 m; Action = Assign (matchVal 1 m) } else None
+        if m.Success then Some { Target = getWire 2 m; Action = Assign (getEither 1 m) } else None
 
     let parse line =
         [parseAnd; parseOr; parseLeftShift; parseRightShift; parseNot; parseAssign]
@@ -72,41 +75,41 @@ module Day07 =
         |> Array.map (fun x -> (x.Target, x))
         |> Map.ofArray
 
-    let rec calc (cache : Dictionary<string, int>) (inst : Map<string, Instruction>) target =
-        let curr = inst.[target]
+    let rec calc (cache : Dictionary<string, int>) (inst : Map<string, Instruction>) targetWire =
+        let curr = inst.[targetWire]
         let recurse = calc cache inst
 
-        let (isCached, cacheVal) = cache.TryGetValue(target)
+        let (isCached, cachedValue) = cache.TryGetValue(targetWire)
         match isCached with
-        | true -> cacheVal
+        | true -> cachedValue
         | false ->
-            let result =
+            let wireValue =
                 match curr.Action with
-                | Assign x ->
-                    match x with
-                    | Str s -> (recurse s)
-                    | Int i -> i
-                | BitwiseAnd (x, y) ->
-                    let left, right =
-                        match (x, y) with
-                        | Str s1, Str s2 -> (recurse s1), (recurse s2)
-                        | Str s1, Int i2 -> (recurse s1), i2
-                        | Int i1, Str s2 -> i1, (recurse s2)
-                        | Int i1, Int i2 -> i1, i2
-                    left &&& right
-                | BitwiseOr (x, y) ->
-                    let left, right =
-                        match (x, y) with
-                        | Str s1, Str s2 -> (recurse s1), (recurse s2)
-                        | Str s1, Int i2 -> (recurse s1), i2
-                        | Int i1, Str s2 -> i1, (recurse s2)
-                        | Int i1, Int i2 -> i1, i2
-                    left ||| right
-                | LeftShift (x, amt) -> (recurse x) <<< amt
-                | RightShift (x, amt) -> (recurse x) >>> amt
-                | Negate x -> 65535 - (recurse x)
-            cache.Add(target, result)
-            result
+                | Assign wOrV ->
+                    match wOrV with
+                    | Wire w -> (recurse w)
+                    | Value v -> v
+                | BitwiseAnd (left, right) ->
+                    let l, r =
+                        match (left, right) with
+                        | Wire w1, Wire w2 -> (recurse w1), (recurse w2)
+                        | Wire w1, Value v2 -> (recurse w1), v2
+                        | Value v1, Wire w2 -> v1, (recurse w2)
+                        | Value v1, Value v2 -> v1, v2
+                    l &&& r
+                | BitwiseOr (left, right) ->
+                    let l, r =
+                        match (left, right) with
+                        | Wire w1, Wire w2 -> (recurse w1), (recurse w2)
+                        | Wire w1, Value v2 -> (recurse w1), v2
+                        | Value v1, Wire w2 -> v1, (recurse w2)
+                        | Value v1, Value v2 -> v1, v2
+                    l ||| r
+                | LeftShift (w, v) -> (recurse w) <<< v
+                | RightShift (w, v) -> (recurse w) >>> v
+                | Negate w -> 65535 - (recurse w)
+            cache.Add(targetWire, wireValue)
+            wireValue
 
     let solve (lines : string[]) =
         let cache1 = Dictionary<string, int>()
@@ -115,7 +118,7 @@ module Day07 =
         let ans1 = int64 a1
 
         let cache2 = Dictionary<string, int>()
-        let inst2 = Map.change "b" (fun _ -> Some { Target = "b"; Action = Assign (Int a1) }) inst1
+        let inst2 = Map.change "b" (fun _ -> Some { Target = "b"; Action = Assign (Value a1) }) inst1
         let a2 = calc cache2 inst2 "a"
         let ans2 = int64 a2
 
