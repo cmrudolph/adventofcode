@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="2015\2015_01.fs" />
+    <Compile Include="2015\2015_02.fs" />
+    <Compile Include="2015\2015_03.fs" />
+    <Compile Include="2015\2015_04.fs" />
+    <Compile Include="2015\2015_05.fs" />
+    <Compile Include="2015\2015_06.fs" />
+    <Compile Include="2015\2015_07.fs" />
+    <Compile Include="2015\2015_08.fs" />
+    <Compile Include="2020\2020_01.fs" />
+    <Compile Include="2020\2020_02.fs" />
+    <Compile Include="2020\2020_03.fs" />
+    <Compile Include="2020\2020_04.fs" />
+    <Compile Include="2020\2020_05.fs" />
+    <Compile Include="2020\2020_06.fs" />
+    <Compile Include="2020\2020_07.fs" />
+    <Compile Include="2020\2020_08.fs" />
+    <Compile Include="2020\2020_09.fs" />
+    <Compile Include="2020\2020_10.fs" />
+    <Compile Include="2020\2020_11.fs" />
+    <Compile Include="2020\2020_12.fs" />
+    <Compile Include="2020\2020_13.fs" />
+    <Compile Include="2020\2020_15.fs" />
+    <Compile Include="2020\2020_17.fs" />
+    <Compile Include="2020\2020_19.fs" />
+    <Compile Include="2020\2020_20.fs" />
+    <Compile Include="2020\2020_22.fs" />
+    <Compile Include="2020\2020_23.fs" />
+    <Compile Include="2020\2020_24.fs" />
+    <Compile Include="2020\2020_25.fs" />
+  </ItemGroup>
+
+</Project>
