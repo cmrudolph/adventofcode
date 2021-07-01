@@ -122,14 +122,14 @@ namespace AOC.Tests
         [Fact, Trait("Speed", "Fast")]
         public void Day09_Sample()
         {
-            var answer = Tuple.Create(605L, -1L);
+            var answer = Tuple.Create(605L, 982L);
             Utils.SolveAndValidate(answer, AOC2015_09.Solve, ReadSample("09"));
         }
 
         [Fact, Trait("Speed", "Fast")]
         public void Day09_Actual()
         {
-            var answer = Tuple.Create(-1L, -1L);
+            var answer = Tuple.Create(117L, 909L);
             Utils.SolveAndValidate(answer, AOC2015_09.Solve, ReadActual("09"));
         }
 
