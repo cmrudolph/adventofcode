@@ -80,13 +80,20 @@ namespace AOC.CSharp
             }
         }
 
-        public static Tuple<long, long> Solve(string[] lines)
+        public static long Solve1(string[] lines)
         {
             Data d = Data.Parse(lines);
-            long ans1 = FindByDistance(d, Enumerable.Min);
-            long ans2 = FindByDistance(d, Enumerable.Max);
+            long ans = FindByDistance(d, Enumerable.Min);
 
-            return Tuple.Create(ans1, ans2);
+            return ans;
+        }
+
+        public static long Solve2(string[] lines)
+        {
+            Data d = Data.Parse(lines);
+            long ans = FindByDistance(d, Enumerable.Max);
+
+            return ans;
         }
 
         private static long FindByDistance(Data d, Func<IEnumerable<long>, long> chooser)

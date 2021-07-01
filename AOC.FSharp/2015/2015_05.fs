@@ -33,7 +33,8 @@ module AOC2015_05 =
     let solver filter lines =
         lines |> Array.filter filter |> Array.length |> int64
 
-    let solve (lines : string[]) =
-        let ans1 = lines |> solver isNice1
-        let ans2 = lines |> solver isNice2
-        (ans1, ans2)
+    let solve1 (lines : string[]) =
+        lines |> solver isNice1
+
+    let solve2 (lines : string[]) =
+        lines |> solver isNice2

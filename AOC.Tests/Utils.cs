@@ -21,6 +21,15 @@ namespace AOC.Tests
         }
 
         public static void SolveAndValidate(
+            long expected,
+            Func<string[], long> solver,
+            string[] lines)
+        {
+            var result = solver(lines);
+            Assert.Equal(expected, result);
+        }
+
+        public static void SolveAndValidate(
             Tuple<long, string> expected,
             Func<string[], Tuple<long, string>> solver,
             string[] lines)

@@ -37,21 +37,18 @@ module AOC2015_08 =
         | [] -> state
         | _ -> processState newStateGetter newState
 
-    let solve (lines : string[]) =
-        let ans1 =
-            lines
-            |> Array.map (fun line -> { InputCount = 2; Calculated = 0; Chars = (toCleanCharList line) })
-            |> Array.map (processState getNewState1)
-            |> Array.map (fun state -> state.InputCount - state.Calculated)
-            |> Array.sum
-            |> int64
+    let solve1 (lines : string[]) =
+        lines
+        |> Array.map (fun line -> { InputCount = 2; Calculated = 0; Chars = (toCleanCharList line) })
+        |> Array.map (processState getNewState1)
+        |> Array.map (fun state -> state.InputCount - state.Calculated)
+        |> Array.sum
+        |> int64
 
-        let ans2 =
-            lines
-            |> Array.map (fun line -> { InputCount = 2; Calculated = 6; Chars = (toCleanCharList line) })
-            |> Array.map (processState getNewState2)
-            |> Array.map (fun state -> state.Calculated - state.InputCount)
-            |> Array.sum
-            |> int64
-
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+        lines
+        |> Array.map (fun line -> { InputCount = 2; Calculated = 6; Chars = (toCleanCharList line) })
+        |> Array.map (processState getNewState2)
+        |> Array.map (fun state -> state.Calculated - state.InputCount)
+        |> Array.sum
+        |> int64

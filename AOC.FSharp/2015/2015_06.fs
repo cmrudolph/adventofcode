@@ -48,10 +48,10 @@ module AOC2015_06 =
 
         sumOn grid
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let apply1 = applyInstruction turnOn1 turnOff1 toggle1
-        let apply2 = applyInstruction turnOn2 turnOff2 toggle2
+        lines |> solveCase apply1
 
-        let ans1 = lines |> solveCase apply1
-        let ans2 = lines |> solveCase apply2
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+        let apply2 = applyInstruction turnOn2 turnOff2 toggle2
+        lines |> solveCase apply2

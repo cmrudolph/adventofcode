@@ -105,18 +105,23 @@ module AOC2015_07 =
             cache.Add(targetWire, wireValue)
             wireValue
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
+        let a = Wire "a"
+
+        let cache1 = Dictionary<Wire, int>()
+        let inst1 = lines |> parseAll
+        let a1 = calc cache1 inst1 a
+        int64 a1
+
+    let solve2 (lines : string[]) =
         let a = Wire "a"
         let b = Wire "b"
 
         let cache1 = Dictionary<Wire, int>()
         let inst1 = lines |> parseAll
         let a1 = calc cache1 inst1 a
-        let ans1 = int64 a1
 
         let cache2 = Dictionary<Wire, int>()
         let inst2 = Map.change b (fun _ -> Some { Target = b; Action = Assign (V a1) }) inst1
         let a2 = calc cache2 inst2 a
-        let ans2 = int64 a2
-
-        (ans1, ans2)
+        int64 a2

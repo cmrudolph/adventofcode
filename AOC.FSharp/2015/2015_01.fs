@@ -21,9 +21,10 @@ module AOC2015_01 =
             else
                 basementPos newPos (count + 1) xs
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let chars = lines.[0] |> Seq.toList
-        let ans1 = floor chars
-        let ans2 = basementPos 0 0 chars
+        floor chars
 
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+        let chars = lines.[0] |> Seq.toList
+        basementPos 0 0 chars

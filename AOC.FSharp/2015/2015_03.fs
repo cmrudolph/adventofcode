@@ -34,10 +34,8 @@ module AOC2015_03 =
 
         Seq.append visited1 visited2 |> distinctLength
 
-    let solve (lines : string[]) =
-        let chars = lines.[0] |> Seq.toList
+    let solve1 (lines : string[]) =
+        lines.[0] |> Seq.toList |> calculate1
 
-        let ans1 = chars |> calculate1
-        let ans2 = chars |> calculate2
-
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+        lines.[0] |> Seq.toList |> calculate2

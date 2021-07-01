@@ -22,9 +22,10 @@ module AOC2015_02 =
         |> Seq.map valueFunc
         |> Seq.sumBy int64
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let allDimensions = Seq.map dimensions lines
-        let ans1 = calculate allDimensions paper
-        let ans2 = calculate allDimensions ribbon
+        calculate allDimensions paper
 
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+        let allDimensions = Seq.map dimensions lines
+        calculate allDimensions ribbon
