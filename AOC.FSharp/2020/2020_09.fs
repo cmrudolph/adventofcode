@@ -23,7 +23,7 @@ module AOC2020_09 =
         | sum when sum > target -> sumRange (startIdx + 1) 2 target nums
         | _ -> failwith "match failure"
 
-    let solve1 window nums =
+    let solve1Impl window nums =
         let windows = nums |> Array.windowed window
         let sets = windows |> Array.map getPossibleSums
 
@@ -34,7 +34,7 @@ module AOC2020_09 =
         |> Array.head
         |> int64
 
-    let solve2 target nums =
+    let solve2Impl target nums =
         let startIdx, size = nums |> sumRange 0 2 target
 
         let slice = Array.sub nums startIdx size
@@ -43,10 +43,13 @@ module AOC2020_09 =
 
         min + max |> int64
 
-    let solve window (lines : string[]) =
+    let solve1 window (lines : string[]) =
         let nums = lines |> Seq.map System.Int64.Parse|> Array.ofSeq
 
-        let ans1 = nums |> solve1 window
-        let ans2 = nums |> solve2 ans1
+        nums |> solve1Impl window
 
-        (ans1, ans2)
+    let solve2 window (lines : string[]) =
+        let nums = lines |> Seq.map System.Int64.Parse|> Array.ofSeq
+
+        let ans1 = nums |> solve1Impl window
+        nums |> solve2Impl ans1

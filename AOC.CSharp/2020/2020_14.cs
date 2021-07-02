@@ -7,7 +7,7 @@ namespace AOC.CSharp
 {
     public static class AOC2020_14
     {
-        static long Solve1(string[] lines)
+        public static long Solve1(string[] lines)
         {
             static long ApplyMask(string mask, long x)
             {
@@ -46,7 +46,7 @@ namespace AOC.CSharp
             return memory.Values.Sum(v => v);
         }
 
-        static long Solve2(string[] lines)
+        public static long Solve2(string[] lines)
         {
             static string ApplyMask(string mask, string address)
             {
@@ -132,14 +132,6 @@ namespace AOC.CSharp
 
                 return new Instruction(address, value);
             }
-        }
-
-        public static Tuple<long, long> Solve(string[] lines)
-        {
-            long ans1 = Solve1(lines);
-            long ans2 = Solve2(lines);
-
-            return Tuple.Create(ans1, ans2);
         }
 
         public record Instruction(long Address, long Value);

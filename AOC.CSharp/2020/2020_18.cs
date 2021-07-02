@@ -123,12 +123,14 @@ namespace AOC.CSharp
             return false;
         }
 
-        public static Tuple<long, long> Solve(string[] lines)
+        public static long Solve1(string[] lines)
         {
-            long ans1 = lines.Aggregate(0L, (acc, line) => acc + SolveCase(line, IsHigherPrecedence1));
-            long ans2 = lines.Aggregate(0L, (acc, line) => acc + SolveCase(line, IsHigherPrecedence2));
+            return lines.Aggregate(0L, (acc, line) => acc + SolveCase(line, IsHigherPrecedence1));
+        }
 
-            return Tuple.Create(ans1, ans2);
+        public static long Solve2(string[] lines)
+        {
+            return lines.Aggregate(0L, (acc, line) => acc + SolveCase(line, IsHigherPrecedence2));
         }
 
         public class Token

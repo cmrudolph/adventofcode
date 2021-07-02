@@ -11,7 +11,7 @@ module AOC2020_13 =
         |> Array.filter (fun (_, id) -> id <> "x")
         |> Array.map (fun (offset, id) -> { Offset = int64 offset; Id = int64 id })
 
-    let solve1 timestamp busInfos =
+    let solve1Impl timestamp busInfos =
         let mutable minWait = System.Int64.MaxValue
         let mutable minId = System.Int64.MaxValue
 
@@ -25,7 +25,7 @@ module AOC2020_13 =
 
         minId * minWait
 
-    let solve2 busInfos =
+    let solve2Impl busInfos =
         let len = Array.length busInfos
         let mutable timestamp = 1L
 
@@ -47,11 +47,13 @@ module AOC2020_13 =
                     timestamp <- timestamp + incAmt
         timestamp
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let timestamp = lines.[0] |> int64
         let busInfos = lines.[1] |> parseBusInfos
 
-        let ans1 = solve1 timestamp busInfos
-        let ans2 = solve2 busInfos
+        solve1Impl timestamp busInfos
 
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+        let busInfos = lines.[1] |> parseBusInfos
+
+        solve2Impl busInfos

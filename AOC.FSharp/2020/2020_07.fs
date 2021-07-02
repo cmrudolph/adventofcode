@@ -43,18 +43,17 @@ module AOC2020_07 =
             let countInsideEach = map.[root.Color] |> Seq.sumBy (fun bag -> countInside map bag)
             root.Quantity + (root.Quantity * countInsideEach)
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let map = buildMap lines
 
-        let ans1 =
-            Map.remove "shiny gold" map
-            |> Map.filter (fun key _ -> find map key "shiny gold")
-            |> Map.count
-            |> int64
+        Map.remove "shiny gold" map
+        |> Map.filter (fun key _ -> find map key "shiny gold")
+        |> Map.count
+        |> int64
 
-        let ans2 =
-            map.["shiny gold"]
-            |> Array.sumBy (fun bag -> countInside map bag)
-            |> int64
+    let solve2 (lines : string[]) =
+        let map = buildMap lines
 
-        (ans1, ans2)
+        map.["shiny gold"]
+        |> Array.sumBy (fun bag -> countInside map bag)
+        |> int64

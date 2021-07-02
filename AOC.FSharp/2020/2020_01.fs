@@ -23,13 +23,18 @@ module AOC2020_01 =
         |> (fun (_, product) -> product)
         |> int64
 
-    let solve lines =
+    let solve1 lines =
         let parsedLines =
             lines
             |> Seq.map System.Int32.Parse
             |> Seq.toList
 
-        let ans1 = parsedLines |> findAnswer pairs ((=) 2020)
-        let ans2 = parsedLines |> findAnswer triples ((=) 2020)
+        parsedLines |> findAnswer pairs ((=) 2020)
 
-        (ans1, ans2)
+    let solve2 lines =
+        let parsedLines =
+            lines
+            |> Seq.map System.Int32.Parse
+            |> Seq.toList
+
+        parsedLines |> findAnswer triples ((=) 2020)

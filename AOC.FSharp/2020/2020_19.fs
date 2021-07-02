@@ -99,9 +99,8 @@ module AOC2020_19 =
         |> Array.map (fun rule -> (rule.Id, rule.Def))
         |> Map.ofArray
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let ruleMap1 = lines |> buildRuleMap (parse parseList1)
-        let ruleMap2 = lines |> buildRuleMap (parse parseList2)
 
         let inputs =
             lines
@@ -109,17 +108,17 @@ module AOC2020_19 =
             |> Array.skip 1
 
         let regex1 = new Regex("^" + (buildRegex ruleMap1 0) + "$", RegexOptions.Compiled)
+
+        inputs |> Array.sumBy (checkRegex regex1) |> int64
+
+    let solve2 (lines : string[]) =
+        let ruleMap2 = lines |> buildRuleMap (parse parseList2)
+
+        let inputs =
+            lines
+            |> Array.skipWhile (fun line -> line <> "")
+            |> Array.skip 1
+
         let regex2 = new Regex("^" + (buildRegex ruleMap2 0) + "$", RegexOptions.Compiled)
 
-        let ans1 = inputs |> Array.sumBy (checkRegex regex1) |> int64
-        let ans2 = inputs |> Array.sumBy (checkRegex regex2) |> int64
-
-        (ans1, ans2)
-
-    //[<Fact>]
-    //let Sample () =
-    //    readInput "2020" "19" "sample" |> solveAndValidate () solve
-
-    //[<Fact>]
-    //let Actual () =
-    //    readInput "2020" "19" "actual" |> solveAndValidate () solve
+        inputs |> Array.sumBy (checkRegex regex2) |> int64

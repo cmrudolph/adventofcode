@@ -11,37 +11,13 @@ namespace AOC.Tests
             return File.ReadAllLines($"../../../../input/{year}/{problem}-{suffix}.txt");
         }
 
-        public static void SolveAndValidate(
-            Tuple<long, long> expected,
-            Func<string[], Tuple<long, long>> solver,
-            string[] lines)
+        public static void Test(long expected, Func<string[], long> solver, string[] lines)
         {
             var result = solver(lines);
             Assert.Equal(expected, result);
         }
 
-        public static void SolveAndValidate(
-            long expected,
-            Func<string[], long> solver,
-            string[] lines)
-        {
-            var result = solver(lines);
-            Assert.Equal(expected, result);
-        }
-
-        public static void SolveAndValidate(
-            Tuple<long, string> expected,
-            Func<string[], Tuple<long, string>> solver,
-            string[] lines)
-        {
-            var result = solver(lines);
-            Assert.Equal(expected, result);
-        }
-
-        public static void SolveAndValidate(
-            Tuple<string, long> expected,
-            Func<string[], Tuple<string, long>> solver,
-            string[] lines)
+        public static void Test(string expected, Func<string[], string> solver, string[] lines)
         {
             var result = solver(lines);
             Assert.Equal(expected, result);

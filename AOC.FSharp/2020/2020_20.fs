@@ -281,7 +281,7 @@ module AOC2020_20 =
         let hashCount = countHashes arr
         (hashCount - seaMonsterHashCount) |> int64
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let singleLine = System.String.Join("\r\n", lines)
         let cleanLines = singleLine.Replace("\r\n\r\n", "|").Replace("\r\n", "@").Split('|')
         let tiles = cleanLines |> Array.map parseTile |> List.ofArray
@@ -291,14 +291,17 @@ module AOC2020_20 =
             edgeified
             |> List.filter isCorner
 
-        let ans1 =
-            corners
-            |> List.map (fun tile -> tile.Number)
-            |> List.map int64
-            |> List.reduce (*)
+        corners
+        |> List.map (fun tile -> tile.Number)
+        |> List.map int64
+        |> List.reduce (*)
+
+    let solve2 (lines : string[]) =
+        let singleLine = System.String.Join("\r\n", lines)
+        let cleanLines = singleLine.Replace("\r\n\r\n", "|").Replace("\r\n", "@").Split('|')
+        let tiles = cleanLines |> Array.map parseTile |> List.ofArray
+        let edgeified = edgeifyTiles tiles
 
         let ordered = stitchItTogether edgeified
         let combined = buildCombinedImage ordered
-        let ans2 = countRough combined
-
-        (ans1, ans2)
+        countRough combined

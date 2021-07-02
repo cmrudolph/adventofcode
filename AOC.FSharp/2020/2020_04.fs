@@ -58,11 +58,14 @@ module AOC2020_04 =
         |> Array.length
         |> int64
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let singleLine = System.String.Join("\r\n", lines)
         let cleanLines = singleLine.Replace("\r\n\r\n", "|").Replace("\r\n", " ").Split('|')
 
-        let ans1 = calculate phase1Func cleanLines
-        let ans2 = calculate phase2Func cleanLines
+        calculate phase1Func cleanLines
 
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+        let singleLine = System.String.Join("\r\n", lines)
+        let cleanLines = singleLine.Replace("\r\n\r\n", "|").Replace("\r\n", " ").Split('|')
+
+        calculate phase2Func cleanLines

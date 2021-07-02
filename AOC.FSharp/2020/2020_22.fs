@@ -121,11 +121,10 @@ module AOC2020_22 =
             | _ -> failwith $"Bad winner value {win}"
         calcValue deck
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let play1 = playGame (fun _ -> false)
-        let play2 = playGame shouldPlaySubGame
+        parseInitial lines |> playAndCalculate play1
 
-        let ans1 = parseInitial lines |> playAndCalculate play1
-        let ans2 = parseInitial lines |> playAndCalculate play2
-
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+         let play2 = playGame shouldPlaySubGame
+         parseInitial lines |> playAndCalculate play2

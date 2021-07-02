@@ -67,7 +67,7 @@ module AOC2020_23 =
         dict.[moveInfo.DestStart] <- moveInfo.Slice.[0]
         dict.[moveInfo.Slice.[2]] <- moveInfo.DestEnd
 
-    let solve1 (input: int list) =
+    let solve1Impl (input: int list) =
         let d = constructDict1 input
         let mutable curr = input.[0]
 
@@ -85,7 +85,7 @@ module AOC2020_23 =
         let asStrings = result |> Seq.map (sprintf "%i")
         String.Join("", asStrings)
 
-    let solve2 (input : int list) =
+    let solve2Impl (input : int list) =
         let d = constructDict2 1000000 input
         let mutable curr = input.[0]
 
@@ -98,10 +98,10 @@ module AOC2020_23 =
         let cup2 = d.[cup1]
         (int64 cup1) * (int64 cup2)
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let input = parseInput lines
+        input |> solve1Impl
 
-        let ans1 = input |> solve1
-        let ans2 = input |> solve2
-
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+        let input = parseInput lines
+        input |> solve2Impl

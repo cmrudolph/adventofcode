@@ -34,10 +34,10 @@ module AOC2020_15 =
 
         curr |> int64
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let starting = lines.[0].Split(',') |> Array.map int
+        starting |> solveCase 2020
 
-        let ans1 = starting |> solveCase 2020
-        let ans2 = starting |> solveCase 30000000
-
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+        let starting = lines.[0].Split(',') |> Array.map int
+        starting |> solveCase 30000000

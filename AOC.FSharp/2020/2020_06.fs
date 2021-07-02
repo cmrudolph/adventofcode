@@ -31,9 +31,10 @@ module AOC2020_06 =
         |> Seq.sumBy commonChars
         |> int64
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let delimited = parse lines
+        calculate1 delimited
 
-        let ans1 = calculate1 delimited
-        let ans2 = calculate2 delimited
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+        let delimited = parse lines
+        calculate2 delimited

@@ -92,13 +92,14 @@ module AOC2020_11 =
         if transformed = grid then countOccupied grid
         else findFinalOccupiedCount stopChars threshold transformed
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let grid = lines |> createGrid
 
         let allChars = Set.ofList [EdgeChar; FloorChar; EmptyChar; OccupiedChar]
-        let ans1 = grid |> findFinalOccupiedCount allChars 4
+        grid |> findFinalOccupiedCount allChars 4
+
+    let solve2 (lines : string[]) =
+        let grid = lines |> createGrid
 
         let seatChars = Set.ofList [EdgeChar; EmptyChar; OccupiedChar]
-        let ans2 = grid |> findFinalOccupiedCount seatChars 5
-
-        (ans1, ans2)
+        grid |> findFinalOccupiedCount seatChars 5

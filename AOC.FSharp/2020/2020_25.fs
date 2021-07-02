@@ -17,10 +17,8 @@ module AOC2020_25 =
     let getEncryptionKey loopSize subject =
         (1L, [1L..loopSize]) ||> List.fold (fun acc i -> transform acc subject)
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let publicKeys = Array.map int64 lines
 
         let loopSize = getLoopSize publicKeys.[0] 7L
-        let ans1 = getEncryptionKey loopSize publicKeys.[1]
-
-        (ans1, 0L)
+        getEncryptionKey loopSize publicKeys.[1]

@@ -7,7 +7,7 @@ namespace AOC.CSharp
 {
     public static class AOC2020_16
     {
-        public static Tuple<long, long> Solve(string[] lines)
+        private static long Solve(string[] lines, bool part1Only)
         {
             static bool IsValidForOne(int value, RuleDefinition rule)
             {
@@ -66,7 +66,10 @@ namespace AOC.CSharp
                 line++;
             }
 
-            long ans1 = invalidValues.Sum();
+            if (part1Only)
+            {
+                return invalidValues.Sum();
+            }
 
             int cols = tickets[0].Length;
             List<ColumnValueSet> colValSets = new();
@@ -103,9 +106,17 @@ namespace AOC.CSharp
                 product *= yours[i];
             }
 
-            long ans2 = product;
+            return product;
+        }
 
-            return Tuple.Create(ans1, ans2);
+        public static long Solve1(string[] lines)
+        {
+            return Solve(lines, true);
+        }
+
+        public static long Solve2(string[] lines)
+        {
+            return Solve(lines, false);
         }
 
         record RuleDefinition(string Name, int Min1, int Max1, int Min2, int Max2)

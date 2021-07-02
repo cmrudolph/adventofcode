@@ -82,15 +82,16 @@ module AOC2020_08 =
                 let newIdx = idx + 1
                 processInstruction newInstructions completion (newIdx) acc
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let instructions = lines |> parseLines
 
-        let ans1 = processInstruction instructions completion1 0 0 |> (fun x -> defaultArg x -1) |> int64
+        processInstruction instructions completion1 0 0 |> (fun x -> defaultArg x -1) |> int64
 
-        let ans2 = ([0..(Map.count instructions) - 1]
+    let solve2 (lines : string[]) =
+        let instructions = lines |> parseLines
+
+        ([0..(Map.count instructions) - 1]
         |> List.map (fun i -> Map.change i swapInst instructions)
         |> List.map (fun changed -> processInstruction changed completion2 0 0 |> (fun x -> defaultArg x -1) |> int64)
         |> List.filter (fun x -> x > 0L)
         |> List.head)
-
-        (ans1, ans2)

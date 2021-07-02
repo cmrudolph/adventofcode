@@ -34,9 +34,10 @@ module AOC2020_02 =
         |> Seq.length
         |> int64
 
-    let solve lines =
+    let solve1 lines =
         let recs = lines |> Seq.map makeRec
-        let ans1 = recs |> calculate validFun1
-        let ans2 = recs |> calculate validFun2
+        recs |> calculate validFun1
 
-        (ans1, ans2)
+    let solve2 lines =
+        let recs = lines |> Seq.map makeRec
+        recs |> calculate validFun2

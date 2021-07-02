@@ -32,22 +32,22 @@ module AOC2020_10 =
         |> List.sumBy (numPathsFrom pathMap)
         |> int64
 
-    let solve1 nums =
+    let solve1Impl nums =
         let pairs = nums |> List.pairwise
         let counts = ([0L; 0L; 0L], pairs) ||> List.fold diffAndCount
         counts.[0] * counts.[2] |> int64
 
-    let solve2 nums =
+    let solve2Impl nums =
         let numsDescending = nums |> List.sortDescending
         let pathMap = Map.empty |> Map.add numsDescending.[0] 1L
         let tail = numsDescending |> List.tail
         let finalPaths = (pathMap, tail) ||> List.fold (fun acc x -> acc |> Map.add x (numPathsTo acc x))
         finalPaths |> Map.find 0L |> int64
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let nums = lines |> parseAndAugment
+        nums |> solve1Impl
 
-        let ans1 = nums |> solve1
-        let ans2 = nums |> solve2
-
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+        let nums = lines |> parseAndAugment
+        nums |> solve2Impl

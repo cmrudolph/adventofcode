@@ -28,7 +28,16 @@ module AOC2020_05 =
 
         (row * 8) + seat |> int64
 
-    let solve lines =
+    let solve1 lines =
+        let seatIds =
+            lines
+            |> Seq.map calcSeatId
+            |> Seq.sort
+
+        let max = seatIds |> Seq.last
+        max;
+
+    let solve2 lines =
         let seatIds =
             lines
             |> Seq.map calcSeatId
@@ -37,5 +46,4 @@ module AOC2020_05 =
         let min = seatIds |> Seq.head
         let max = seatIds |> Seq.last
         let openSeat = (set([min..max]) - set(seatIds)) |> Seq.head
-
-        (max, openSeat)
+        openSeat

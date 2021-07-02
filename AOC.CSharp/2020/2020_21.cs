@@ -6,7 +6,7 @@ namespace AOC.CSharp
 {
     public static class AOC2020_21
     {
-        public static Tuple<long, string> Solve(string[] rawLines)
+        public static Tuple<long, string> Solve(string[] rawLines, bool part1Only)
         {
             long ans1 = 0;
 
@@ -58,6 +58,11 @@ namespace AOC.CSharp
                 }
             }
 
+            if (part1Only)
+            {
+                return Tuple.Create<long, string>(ans1, null);
+            }
+
             // Build part 2 matrix with only the valid ingredients
             ResolutionMatrix matrix = new(ingredients.ToArray(), allergens.ToArray());
 
@@ -85,8 +90,17 @@ namespace AOC.CSharp
             matrix.Resolve();
 
             string ans2 = string.Join(",", matrix.GetFinalPairs().OrderBy(p => p.Item2).Select(p => p.Item1));
+            return Tuple.Create<long, string>(0L, ans2);
+        }
 
-            return Tuple.Create(ans1, ans2);
+        public static long Solve1(string[] lines)
+        {
+            return Solve(lines, true).Item1;
+        }
+
+        public static string Solve2(string[] lines)
+        {
+            return Solve(lines, false).Item2;
         }
 
         private class ResolutionMatrix

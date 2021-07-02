@@ -60,7 +60,7 @@ module AOC2020_12 =
     let parse (lines : string[]) =
         lines |> Array.map (fun line -> { Direction = line.[0]; Amount = line.[1..] |> int })
 
-    let solve1 instructions =
+    let solve1Impl instructions =
         let mutable pos = [|0; 0; 0; 0|]
         let mutable dirs = [|0; 1; 0; 0|]
 
@@ -75,7 +75,7 @@ module AOC2020_12 =
 
         pos |> calcDistance |> int64
 
-    let solve2 instructions =
+    let solve2Impl instructions =
         let mutable pos = [|0; 0; 0; 0|]
         let mutable wp = [|1; 10; 0; 0|]
 
@@ -90,10 +90,10 @@ module AOC2020_12 =
 
         pos |> calcDistance |> int64
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let instructions = parse lines
+        instructions |> solve1Impl
 
-        let ans1 = instructions |> solve1
-        let ans2 = instructions |> solve2
-
-        (ans1, ans2)
+    let solve2 (lines : string[]) =
+         let instructions = parse lines
+         instructions |> solve2Impl

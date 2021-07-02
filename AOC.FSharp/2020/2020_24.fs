@@ -79,7 +79,7 @@ module AOC2020_24 =
         let unfilteredBlacks = Set.union blacks toFlipBlack
         Set.difference unfilteredBlacks toFlipWhite
 
-    let solve (lines : string[]) =
+    let solve1 (lines : string[]) =
         let blacks =
             lines
             |> Array.map (calculateFinalPosition (0, 0))
@@ -88,15 +88,20 @@ module AOC2020_24 =
             |> Array.map (fun (key, _) -> key)
             |> Set.ofArray
 
-        let ans1 =
-            blacks
-            |> Set.count
-            |> int64
+        blacks
+        |> Set.count
+        |> int64
 
-        let ans2 =
-            [1..100]
-            |> List.fold (fun acc _ -> doDayFlip acc) blacks
-            |> Set.count
-            |> int64
+    let solve2 (lines : string[]) =
+        let blacks =
+            lines
+            |> Array.map (calculateFinalPosition (0, 0))
+            |> Array.groupBy id
+            |> Array.filter (fun (_, grp) -> (Array.length grp) % 2 = 1)
+            |> Array.map (fun (key, _) -> key)
+            |> Set.ofArray
 
-        (ans1, ans2)
+        [1..100]
+        |> List.fold (fun acc _ -> doDayFlip acc) blacks
+        |> Set.count
+        |> int64
