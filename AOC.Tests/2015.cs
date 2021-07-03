@@ -132,6 +132,18 @@ namespace AOC.Tests
         [Fact, Trait("Speed", "Fast")]
         public void Day11_2_Actual() => Utils.Test("hxcaabcc", AOC2015_11.Solve2, ReadActual("11"));
 
+        [Fact, Trait("Speed", "Fast")]
+        public void Day12_1_Sample() => Utils.Test(18L, AOC2015_12.Solve1, ReadSample("12"));
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day12_1_Actual() => Utils.Test(156366L, AOC2015_12.Solve1, ReadActual("12"));
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day12_2_Sample() => Utils.Test(8L, AOC2015_12.Solve2, ReadSample("12"));
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day12_2_Actual() => Utils.Test(96852L, AOC2015_12.Solve2, ReadActual("12"));
+
         private static string[] ReadSample(string day)
         {
             return Utils.ReadInput("2015", day, "sample");
