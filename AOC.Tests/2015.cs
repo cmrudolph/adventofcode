@@ -222,6 +222,12 @@ namespace AOC.Tests
         [Fact, Trait("Speed", "Fast")]
         public void Day19_2_Actual() => Utils.Test(212L, AOC2015_19.Solve2, ReadActual("19"));
 
+        [Fact, Trait("Speed", "Slow")]
+        public void Day20_1_Actual() => Utils.Test(776160L, AOC2015_20.Solve1, ReadActual("20"));
+
+        [Fact, Trait("Speed", "Slow")]
+        public void Day20_2_Actual() => Utils.Test(786240L, AOC2015_20.Solve2, ReadActual("20"));
+
         private static string[] ReadSample(string day)
         {
             return Utils.ReadInput("2015", day, "sample");
