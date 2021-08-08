@@ -243,17 +243,29 @@ namespace AOC.Tests
         [Fact, Trait("Speed", "Fast")]
         public void Day22_2_Actual() => Utils.Test(1289L, lines => AOC2015_22.Solve2(lines, 50, 500), ReadActual("22"));
 
-        [Fact, Trait("Speed", "New")]
+        [Fact, Trait("Speed", "Fast")]
         public void Day23_1_Sample() => Utils.Test(2L, AOC2015_23.solve1, ReadSample("23"));
 
-        [Fact, Trait("Speed", "New")]
+        [Fact, Trait("Speed", "Fast")]
         public void Day23_1_Actual() => Utils.Test(255L, AOC2015_23.solve1, ReadActual("23"));
 
-        [Fact, Trait("Speed", "New")]
+        [Fact, Trait("Speed", "Fast")]
         public void Day23_2_Sample() => Utils.Test(2L, AOC2015_23.solve2, ReadSample("23"));
 
-        [Fact, Trait("Speed", "New")]
+        [Fact, Trait("Speed", "Fast")]
         public void Day23_2_Actual() => Utils.Test(334L, AOC2015_23.solve2, ReadActual("23"));
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day24_1_Sample() => Utils.Test(99L, AOC2015_24.Solve1, ReadSample("24"));
+
+        [Fact, Trait("Speed", "VerySlow")]
+        public void Day24_1_Actual() => Utils.Test(10723906903L, AOC2015_24.Solve1, ReadActual("24"));
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day24_2_Sample() => Utils.Test(44L, AOC2015_24.Solve2, ReadSample("24"));
+
+        [Fact, Trait("Speed", "VerySlow")]
+        public void Day24_2_Actual() => Utils.Test(74850409L, AOC2015_24.Solve2, ReadActual("24"));
 
         private static string[] ReadSample(string day)
         {
