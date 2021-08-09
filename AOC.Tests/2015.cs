@@ -169,7 +169,7 @@ namespace AOC.Tests
         public void Day14_2_Actual() => Utils.Test(1059L, lines => AOC2015_14.solve2(lines, 2503), ReadActual("14"));
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day15_1_Sample() => Utils.Test(62842210L, AOC2015_15.Solve1, ReadSample("15"));
+        public void Day15_1_Sample() => Utils.Test(62842880L, AOC2015_15.Solve1, ReadSample("15"));
 
         [Fact, Trait("Speed", "Fast")]
         public void Day15_1_Actual() => Utils.Test(222870L, AOC2015_15.Solve1, ReadActual("15"));
