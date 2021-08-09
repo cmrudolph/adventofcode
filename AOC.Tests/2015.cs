@@ -267,6 +267,9 @@ namespace AOC.Tests
         [Fact, Trait("Speed", "VerySlow")]
         public void Day24_2_Actual() => Utils.Test(74850409L, AOC2015_24.Solve2, ReadActual("24"));
 
+        [Fact, Trait("Speed", "VerySlow")]
+        public void Day25_1_Actual() => Utils.Test(8997277L, AOC2015_25.Solve1, ReadActual("25"));
+
         private static string[] ReadSample(string day)
         {
             return Utils.ReadInput("2015", day, "sample");
