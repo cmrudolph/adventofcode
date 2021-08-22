@@ -1,18 +1,12 @@
 namespace AOC.FSharp
 
 module AOC2020_09 =
-    let getPossibleSums (nums : int64 array) =
-        let sumIfDifferentValue x y =
-            if x <> y then Some (x + y)
-            else None
+    let getPossibleSums (nums: int64 array) =
+        let sumIfDifferentValue x y = if x <> y then Some(x + y) else None
 
-        let sumWithAllOtherValues x =
-            nums |> Seq.map (sumIfDifferentValue x)
+        let sumWithAllOtherValues x = nums |> Seq.map (sumIfDifferentValue x)
 
-        nums
-        |> Seq.collect sumWithAllOtherValues
-        |> Seq.choose id
-        |> Set.ofSeq
+        nums |> Seq.collect sumWithAllOtherValues |> Seq.choose id |> Set.ofSeq
 
     let rec sumRange startIdx size target nums =
         let sum = Array.sub nums startIdx size |> Array.sum
@@ -29,7 +23,9 @@ module AOC2020_09 =
 
         nums
         |> Array.skip window
-        |> Array.mapi (fun i value -> if Set.contains value sets.[i] then None else Some value)
+        |> Array.mapi
+            (fun i value ->
+                if Set.contains value sets.[i] then None else Some value)
         |> Array.choose id
         |> Array.head
         |> int64
@@ -43,13 +39,13 @@ module AOC2020_09 =
 
         min + max |> int64
 
-    let solve1 window (lines : string[]) =
-        let nums = lines |> Seq.map System.Int64.Parse|> Array.ofSeq
+    let solve1 window (lines: string []) =
+        let nums = lines |> Seq.map System.Int64.Parse |> Array.ofSeq
 
         nums |> solve1Impl window
 
-    let solve2 window (lines : string[]) =
-        let nums = lines |> Seq.map System.Int64.Parse|> Array.ofSeq
+    let solve2 window (lines: string []) =
+        let nums = lines |> Seq.map System.Int64.Parse |> Array.ofSeq
 
         let ans1 = nums |> solve1Impl window
         nums |> solve2Impl ans1

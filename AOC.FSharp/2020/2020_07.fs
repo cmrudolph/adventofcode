@@ -8,13 +8,11 @@ module AOC2020_07 =
     let regexLeaf = new Regex("(.*) bags contain no other bags.")
     let regexUnpackContents = new Regex("(\\d+) (.*) bag")
 
-    type Bag =
-        { Color: string;
-          Quantity: int }
+    type Bag = { Color: string; Quantity: int }
 
-    let parseBagStatement (str : string) =
-        let splits = str.Split([|' '|], StringSplitOptions.RemoveEmptyEntries)
-        let number = int(splits.[0])
+    let parseBagStatement (str: string) =
+        let splits = str.Split([| ' ' |], StringSplitOptions.RemoveEmptyEntries)
+        let number = int (splits.[0])
         let color = splits.[1] + " " + splits.[2]
         { Color = color; Quantity = number }
 
@@ -22,14 +20,13 @@ module AOC2020_07 =
         let match1 = regexNonLeaf.Match(line)
         let match2 = regexLeaf.Match(line)
 
-        if match2.Success
-        then (match2.Groups.[1].Value, Array.zeroCreate 0)
-        else (match1.Groups.[1].Value, match1.Groups.[2].Value.Split(',') |> Array.map parseBagStatement)
+        if match2.Success then
+            (match2.Groups.[1].Value, Array.zeroCreate 0)
+        else
+            (match1.Groups.[1].Value,
+             match1.Groups.[2].Value.Split(',') |> Array.map parseBagStatement)
 
-    let buildMap (lines : string[]) =
-        lines
-        |> Array.map parseLine
-        |> Map
+    let buildMap (lines: string []) = lines |> Array.map parseLine |> Map
 
     let rec find map root target =
         if root = target then true
@@ -40,10 +37,12 @@ module AOC2020_07 =
         match Map.containsKey root.Color map with
         | false -> root.Quantity
         | true ->
-            let countInsideEach = map.[root.Color] |> Seq.sumBy (fun bag -> countInside map bag)
+            let countInsideEach =
+                map.[root.Color] |> Seq.sumBy (fun bag -> countInside map bag)
+
             root.Quantity + (root.Quantity * countInsideEach)
 
-    let solve1 (lines : string[]) =
+    let solve1 (lines: string []) =
         let map = buildMap lines
 
         Map.remove "shiny gold" map
@@ -51,7 +50,7 @@ module AOC2020_07 =
         |> Map.count
         |> int64
 
-    let solve2 (lines : string[]) =
+    let solve2 (lines: string []) =
         let map = buildMap lines
 
         map.["shiny gold"]

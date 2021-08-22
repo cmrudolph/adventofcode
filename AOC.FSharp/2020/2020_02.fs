@@ -3,11 +3,7 @@ namespace AOC.FSharp
 module AOC2020_02 =
     open System.Text.RegularExpressions
 
-    type Input =
-        { Val1: int
-          Val2: int
-          Target: char
-          Password: string }
+    type Input = { Val1: int; Val2: int; Target: char; Password: string }
 
     let makeRec inputLine =
         let pattern = Regex("(.*)-(.*) (.): (.*)")
@@ -29,10 +25,7 @@ module AOC2020_02 =
         ((chars.[r.Val1 - 1] = r.Target) <> (chars.[r.Val2 - 1] = r.Target))
 
     let calculate validFun recs =
-        recs
-        |> Seq.filter validFun
-        |> Seq.length
-        |> int64
+        recs |> Seq.filter validFun |> Seq.length |> int64
 
     let solve1 lines =
         let recs = lines |> Seq.map makeRec

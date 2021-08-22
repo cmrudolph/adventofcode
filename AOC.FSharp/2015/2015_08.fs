@@ -1,18 +1,17 @@
 ﻿namespace AOC.FSharp
 
 module AOC2015_08 =
-    type State =
-         { InputCount: int;
-           Calculated: int;
-           Chars: char list; }
+    type State = { InputCount: int; Calculated: int; Chars: char list }
 
-    let toCleanCharList (line : string) =
+    let toCleanCharList (line: string) =
         let chars = line |> List.ofSeq
         let len = chars.Length
-        chars.[1..len-2]
+        chars.[1..len - 2]
 
     let updateState state inputAdd calcAdd newChars =
-        { InputCount = state.InputCount + inputAdd; Calculated = state.Calculated + calcAdd; Chars = newChars }
+        { InputCount = state.InputCount + inputAdd
+          Calculated = state.Calculated + calcAdd
+          Chars = newChars }
 
     let getNewState1 state =
         match state.Chars with
@@ -37,17 +36,25 @@ module AOC2015_08 =
         | [] -> state
         | _ -> processState newStateGetter newState
 
-    let solve1 (lines : string[]) =
+    let solve1 (lines: string []) =
         lines
-        |> Array.map (fun line -> { InputCount = 2; Calculated = 0; Chars = (toCleanCharList line) })
+        |> Array.map
+            (fun line ->
+                { InputCount = 2
+                  Calculated = 0
+                  Chars = (toCleanCharList line) })
         |> Array.map (processState getNewState1)
         |> Array.map (fun state -> state.InputCount - state.Calculated)
         |> Array.sum
         |> int64
 
-    let solve2 (lines : string[]) =
+    let solve2 (lines: string []) =
         lines
-        |> Array.map (fun line -> { InputCount = 2; Calculated = 6; Chars = (toCleanCharList line) })
+        |> Array.map
+            (fun line ->
+                { InputCount = 2
+                  Calculated = 6
+                  Chars = (toCleanCharList line) })
         |> Array.map (processState getNewState2)
         |> Array.map (fun state -> state.Calculated - state.InputCount)
         |> Array.sum

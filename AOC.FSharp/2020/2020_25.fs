@@ -1,8 +1,7 @@
 ﻿namespace AOC.FSharp
 
 module AOC2020_25 =
-    let transform value subject =
-        (value * subject) % 20201227L
+    let transform value subject = (value * subject) % 20201227L
 
     let getLoopSize target subject =
         let mutable value = 1L
@@ -15,9 +14,10 @@ module AOC2020_25 =
         loopSize
 
     let getEncryptionKey loopSize subject =
-        (1L, [1L..loopSize]) ||> List.fold (fun acc i -> transform acc subject)
+        (1L, [ 1L .. loopSize ])
+        ||> List.fold (fun acc i -> transform acc subject)
 
-    let solve1 (lines : string[]) =
+    let solve1 (lines: string []) =
         let publicKeys = Array.map int64 lines
 
         let loopSize = getLoopSize publicKeys.[0] 7L

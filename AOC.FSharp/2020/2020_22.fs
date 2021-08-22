@@ -5,18 +5,17 @@ module AOC2020_22 =
 
     type Deck = int list
 
-    type Decks =
-        { Deck1: Deck;
-          Deck2: Deck }
+    type Decks = { Deck1: Deck; Deck2: Deck }
 
-    type GameState =
-        { Decks: Decks;
-          Previous: Set<Decks> }
+    type GameState = { Decks: Decks; Previous: Set<Decks> }
 
-    let parseInitial (lines : string[]) =
-        let decks = (String.Join("|", lines).Split([|"||"|], StringSplitOptions.None)
-        |> Array.map (fun (x : string) -> x.Split('|'))
-        |> Array.map (fun x -> x.[1..]))
+    let parseInitial (lines: string []) =
+        let decks =
+            (String
+                .Join("|", lines)
+                 .Split([| "||" |], StringSplitOptions.None)
+             |> Array.map (fun (x: string) -> x.Split('|'))
+             |> Array.map (fun x -> x.[1..]))
 
         let deck1 = decks.[0] |> Array.map int |> List.ofArray
         let deck2 = decks.[1] |> Array.map int |> List.ofArray
@@ -25,8 +24,7 @@ module AOC2020_22 =
 
     let isInstantWin gameState =
         // Have we seen this game arrangement before?
-        gameState.Previous
-        |> Set.contains gameState.Decks
+        gameState.Previous |> Set.contains gameState.Decks
 
     let findWinnerForNormalRound gameState =
         let decks = gameState.Decks
@@ -48,15 +46,20 @@ module AOC2020_22 =
 
         // Rearrange the decks appropriately based on which player won the round. The round cards are appended
         // to the winner's deck with the winner's card coming first
-        if winner = 1 then { Decks = { Deck1 = d1.[1..] @ [d1.[0]; d2.[0]]; Deck2 = d2.[1..] }; Previous = newPrevious }
-           else { Decks = { Deck1 = d1.[1..]; Deck2 = d2.[1..] @ [d2.[0]; d1.[0]] }; Previous = newPrevious }
+        if winner = 1 then
+            { Decks =
+                  { Deck1 = d1.[1..] @ [ d1.[0]; d2.[0] ]; Deck2 = d2.[1..] }
+              Previous = newPrevious }
+        else
+            { Decks =
+                  { Deck1 = d1.[1..]; Deck2 = d2.[1..] @ [ d2.[0]; d1.[0] ] }
+              Previous = newPrevious }
 
     let transformDeckForSubGame deck =
         match deck with
         | x :: xs ->
             // Use first card to determine A, then take the next A cards to form a new deck
-            if x <= (List.length xs) then Some (xs |> List.take x)
-            else None
+            if x <= (List.length xs) then Some(xs |> List.take x) else None
         | _ -> None
 
     let transformForSubGame gameState =
@@ -67,7 +70,8 @@ module AOC2020_22 =
         // Make the new decks and create a brand new game state. None of the previously seen configurations
         // need to carry over. A sub game is a brand new thing
         match newDecks with
-        | (Some d1, Some d2) -> { Decks = { Deck1 = d1; Deck2 = d2 }; Previous = Set.empty }
+        | (Some d1, Some d2) ->
+            { Decks = { Deck1 = d1; Deck2 = d2 }; Previous = Set.empty }
         | _ -> failwith "Cannot play subgame with these inputs"
 
     let shouldPlaySubGame gameState =
@@ -114,17 +118,19 @@ module AOC2020_22 =
 
     let playAndCalculate play gameState =
         let win, state = play gameState
+
         let deck =
             match win with
             | 1 -> state.Decks.Deck1
             | 2 -> state.Decks.Deck2
             | _ -> failwith $"Bad winner value {win}"
+
         calcValue deck
 
-    let solve1 (lines : string[]) =
+    let solve1 (lines: string []) =
         let play1 = playGame (fun _ -> false)
         parseInitial lines |> playAndCalculate play1
 
-    let solve2 (lines : string[]) =
-         let play2 = playGame shouldPlaySubGame
-         parseInitial lines |> playAndCalculate play2
+    let solve2 (lines: string []) =
+        let play2 = playGame shouldPlaySubGame
+        parseInitial lines |> playAndCalculate play2

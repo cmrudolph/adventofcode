@@ -1,11 +1,7 @@
 namespace AOC.FSharp
 
 module AOC2020_11 =
-    type Counts =
-        { Edge: int;
-          Floor: int;
-          Empty: int;
-          Occupied: int }
+    type Counts = { Edge: int; Floor: int; Empty: int; Occupied: int }
 
     [<Literal>]
     let EdgeChar = '-'
@@ -19,27 +15,35 @@ module AOC2020_11 =
     [<Literal>]
     let OccupiedChar = '#'
 
-    let createGrid (lines : string[]) =
+    let createGrid (lines: string []) =
         let edgeStr = string EdgeChar
         let width = String.length lines.[0]
         let topBottom = String.init (width + 2) (fun _ -> edgeStr)
         let paddedLines = Array.map (fun line -> edgeStr + line + edgeStr) lines
-        Array.concat (seq { [|topBottom|]; paddedLines; [|topBottom|] }) |> array2D
+
+        Array.concat (
+            seq {
+                [| topBottom |]
+                paddedLines
+                [| topBottom |]
+            }
+        )
+        |> array2D
 
     let move pos direction =
         let row, col = pos
         let rowDiff, colDiff = direction
         row + rowDiff, col + colDiff
 
-    let shouldStop curr stopChars =
-        stopChars |> Set.contains curr
+    let shouldStop curr stopChars = stopChars |> Set.contains curr
 
-    let checkNeighbor (grid : char[,]) stopChars pos acc direction =
+    let checkNeighbor (grid: char [,]) stopChars pos acc direction =
         // A non-idiomatic pragmatic concession. Mutable state is kept local, so it's not too terrible
         let mutable currPos = move pos direction
         let mutable currRow, currCol = currPos
         let mutable currChar = grid.[currRow, currCol]
         let mutable stop = stopChars |> shouldStop currChar
+
         while not stop do
             currPos <- move currPos direction
             let r, c = currPos
@@ -54,10 +58,15 @@ module AOC2020_11 =
         | _ -> acc
 
     let checkNeighbors grid pos stopChars =
-        let neighbors = [
-            (-1, -1); (-1, 0); (-1, 1);
-            (0, -1); (0, 1);
-            (1, -1); (1, 0); (1, 1)]
+        let neighbors =
+            [ (-1, -1)
+              (-1, 0)
+              (-1, 1)
+              (0, -1)
+              (0, 1)
+              (1, -1)
+              (1, 0)
+              (1, 1) ]
 
         let acc = { Edge = 0; Floor = 0; Empty = 0; Occupied = 0 }
         (acc, neighbors) ||> List.fold (checkNeighbor grid stopChars pos)
@@ -75,10 +84,22 @@ module AOC2020_11 =
         let rows = Array2D.length1 grid
         let c = Array2D.length2 grid
 
-        let coords = [1..(rows - 2)] |> List.collect (fun r -> [1..(c - 2)] |> List.map (fun col -> (r, col)))
+        let coords =
+            [ 1 .. (rows - 2) ]
+            |> List.collect
+                (fun r -> [ 1 .. (c - 2) ] |> List.map (fun col -> (r, col)))
+
         let writable = Array2D.copy grid
 
-        coords |> List.iter (fun (r, c) -> Array2D.set writable r c (identifyNewValue grid (r, c) stopChars threshold))
+        coords
+        |> List.iter
+            (fun (r, c) ->
+                Array2D.set
+                    writable
+                    r
+                    c
+                    (identifyNewValue grid (r, c) stopChars threshold))
+
         writable
 
     let countOccupied grid =
@@ -89,17 +110,22 @@ module AOC2020_11 =
 
     let rec findFinalOccupiedCount stopChars threshold grid =
         let transformed = grid |> transformGrid stopChars threshold
-        if transformed = grid then countOccupied grid
-        else findFinalOccupiedCount stopChars threshold transformed
 
-    let solve1 (lines : string[]) =
+        if transformed = grid then
+            countOccupied grid
+        else
+            findFinalOccupiedCount stopChars threshold transformed
+
+    let solve1 (lines: string []) =
         let grid = lines |> createGrid
 
-        let allChars = Set.ofList [EdgeChar; FloorChar; EmptyChar; OccupiedChar]
+        let allChars =
+            Set.ofList [ EdgeChar; FloorChar; EmptyChar; OccupiedChar ]
+
         grid |> findFinalOccupiedCount allChars 4
 
-    let solve2 (lines : string[]) =
+    let solve2 (lines: string []) =
         let grid = lines |> createGrid
 
-        let seatChars = Set.ofList [EdgeChar; EmptyChar; OccupiedChar]
+        let seatChars = Set.ofList [ EdgeChar; EmptyChar; OccupiedChar ]
         grid |> findFinalOccupiedCount seatChars 5

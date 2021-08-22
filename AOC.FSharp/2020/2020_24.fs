@@ -3,15 +3,11 @@
 module AOC2020_24 =
     open System
 
-    let parseInput (lines : string[]) =
-        String.Join("", lines)
+    let parseInput (lines: string []) = String.Join("", lines)
 
     let rec calculateFinalPosition pos remaining =
-        let (|Prefix|_|) (p:string) (s:string) =
-            if s.StartsWith(p) then
-                Some(s.Substring(p.Length))
-            else
-                None
+        let (|Prefix|_|) (p: string) (s: string) =
+            if s.StartsWith(p) then Some(s.Substring(p.Length)) else None
 
         match remaining with
         | "" -> pos
@@ -34,34 +30,38 @@ module AOC2020_24 =
     let getNeighbors pos =
         // Get the positions of the neighboring tiles on all six sides
         let x, y = pos
-        Set.ofList [(x-1, y-2); (x+1, y-2); (x-1, y+2); (x+1, y+2); (x-2, y); (x+2, y)]
+
+        Set.ofList [ (x - 1, y - 2)
+                     (x + 1, y - 2)
+                     (x - 1, y + 2)
+                     (x + 1, y + 2)
+                     (x - 2, y)
+                     (x + 2, y) ]
 
     let findWhiteNeighbors blacks =
         // Given black tiles, find all directly connected tiles that are currently white
-        let allNeighbors =
-            blacks
-            |> Set.map getNeighbors
-            |> Set.unionMany
+        let allNeighbors = blacks |> Set.map getNeighbors |> Set.unionMany
 
         Set.difference allNeighbors blacks
 
     let findToFlip filterPrediicate blacks tiles =
         // Find all neighbors of the specified set of tiles to consider flipping
         let neighbors =
-            tiles
-            |> List.ofSeq
-            |> List.map (fun x -> (x, getNeighbors x))
+            tiles |> List.ofSeq |> List.map (fun x -> (x, getNeighbors x))
 
         // For each searched tile, determine how many black neighbors there are
         let blackNeighborCounts =
             neighbors
-            |> List.map (fun (pos, neighbors) -> (pos, Set.count (Set.intersect neighbors blacks)))
+            |> List.map
+                (fun (pos, neighbors) ->
+                    (pos, Set.count (Set.intersect neighbors blacks)))
 
         // Reduce the initial set of tiles to only those that satisfy the filter criteria
         blackNeighborCounts
-            |> List.filter (fun (_, blackNeighborCount) -> filterPrediicate blackNeighborCount)
-            |> List.map (fun (pos, _) -> pos)
-            |> Set.ofList
+        |> List.filter
+            (fun (_, blackNeighborCount) -> filterPrediicate blackNeighborCount)
+        |> List.map (fun (pos, _) -> pos)
+        |> Set.ofList
 
     let findToFlipBlack blacks whites =
         // Given white tiles, return all the tiles that should be flipped to black (2 neighboring black tiles)
@@ -69,7 +69,10 @@ module AOC2020_24 =
 
     let findToFlipWhite blacks =
         // Given black tiles, return all the tiles that should be flipped to white (zero or >2 neighboring black tiles)
-        findToFlip (fun blackCount -> blackCount = 0 || blackCount > 2) blacks blacks
+        findToFlip
+            (fun blackCount -> blackCount = 0 || blackCount > 2)
+            blacks
+            blacks
 
     let doDayFlip blacks =
         // Perform the daily tile flipping routine
@@ -79,7 +82,7 @@ module AOC2020_24 =
         let unfilteredBlacks = Set.union blacks toFlipBlack
         Set.difference unfilteredBlacks toFlipWhite
 
-    let solve1 (lines : string[]) =
+    let solve1 (lines: string []) =
         let blacks =
             lines
             |> Array.map (calculateFinalPosition (0, 0))
@@ -88,11 +91,9 @@ module AOC2020_24 =
             |> Array.map (fun (key, _) -> key)
             |> Set.ofArray
 
-        blacks
-        |> Set.count
-        |> int64
+        blacks |> Set.count |> int64
 
-    let solve2 (lines : string[]) =
+    let solve2 (lines: string []) =
         let blacks =
             lines
             |> Array.map (calculateFinalPosition (0, 0))
@@ -101,7 +102,7 @@ module AOC2020_24 =
             |> Array.map (fun (key, _) -> key)
             |> Set.ofArray
 
-        [1..100]
+        [ 1 .. 100 ]
         |> List.fold (fun acc _ -> doDayFlip acc) blacks
         |> Set.count
         |> int64
