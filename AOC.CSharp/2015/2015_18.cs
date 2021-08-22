@@ -42,7 +42,7 @@ namespace AOC.CSharp
 
         private static char[,] Parse(string[] lines, bool stuck)
         {
-            char[,] chars = new char[lines.Length + 2,lines.Length + 2];
+            char[,] chars = new char[lines.Length + 2, lines.Length + 2];
 
             for (int i = 0; i <= lines.Length + 1; i++)
             {
@@ -54,7 +54,7 @@ namespace AOC.CSharp
 
             for (int i = 1; i <= lines.Length; i++)
             {
-                char[] lineChars = lines[i-1].ToCharArray();
+                char[] lineChars = lines[i - 1].ToCharArray();
                 for (int j = 1; j <= lineChars.Length; j++)
                 {
                     if (stuck)
@@ -151,6 +151,7 @@ namespace AOC.CSharp
                 {
                     Console.Write(chars[i, j]);
                 }
+
                 Console.WriteLine();
             }
         }

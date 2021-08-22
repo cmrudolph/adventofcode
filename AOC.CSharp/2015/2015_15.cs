@@ -7,7 +7,8 @@ namespace AOC.CSharp
 {
     public static class AOC2015_15
     {
-        private static readonly Regex Regex = new(@"capacity (.+), durability (.+), flavor (.+), texture (.+), calories (.+)");
+        private static readonly Regex Regex =
+            new(@"capacity (.+), durability (.+), flavor (.+), texture (.+), calories (.+)");
 
         public static long Solve1(string[] lines)
         {
@@ -41,7 +42,10 @@ namespace AOC.CSharp
                 });
         }
 
-        private static long FindMax(IEnumerable<Ingredient> ingredients, int teaspoons, Func<long, bool> caloriePredicate)
+        private static long FindMax(
+            IEnumerable<Ingredient> ingredients,
+            int teaspoons,
+            Func<long, bool> caloriePredicate)
         {
             State state = new(ingredients, teaspoons);
             Recurse(state, caloriePredicate);
@@ -53,7 +57,9 @@ namespace AOC.CSharp
         {
             int idx = state.Ingredients.Length - state.DepthRemaining;
             state.DepthRemaining--;
-            for (int i = state.TeaspoonsRemaining; (state.DepthRemaining > 0 && i >= 0) || i == state.TeaspoonsRemaining; i--)
+            for (int i = state.TeaspoonsRemaining;
+                (state.DepthRemaining > 0 && i >= 0) || i == state.TeaspoonsRemaining;
+                i--)
             {
                 state.Distribution[idx] = i;
                 state.TeaspoonsRemaining -= i;
@@ -74,6 +80,7 @@ namespace AOC.CSharp
                 state.TeaspoonsRemaining += i;
                 state.Distribution[idx] = 0;
             }
+
             state.DepthRemaining++;
         }
 
@@ -91,6 +98,7 @@ namespace AOC.CSharp
                 {
                     weightTotals[j] += (numIng * ing.Weights[j]);
                 }
+
                 calories += (numIng * ing.Weights[4]);
             }
 

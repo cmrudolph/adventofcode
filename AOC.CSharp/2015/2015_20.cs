@@ -17,8 +17,7 @@ namespace AOC.CSharp
                 i++;
                 var factors = GetFactors(i);
                 presents = factors.Select(f => f * 10).Sum();
-            }
-            while (presents < input);
+            } while (presents < input);
 
             return i;
         }
@@ -48,15 +47,14 @@ namespace AOC.CSharp
                         presents += (f * 11);
                     }
                 }
-            }
-            while (presents < input);
+            } while (presents < input);
 
             return i;
         }
 
         private static List<int> GetFactors(int x)
         {
-            int sqrt = (int)Math.Ceiling(Math.Sqrt(x));
+            int sqrt = (int) Math.Ceiling(Math.Sqrt(x));
 
             HashSet<int> factors = new();
             for (int i = 1; i <= sqrt; i++)
@@ -67,6 +65,7 @@ namespace AOC.CSharp
                     factors.Add(x / i);
                 }
             }
+
             factors.Add(x);
 
             return factors.ToList();

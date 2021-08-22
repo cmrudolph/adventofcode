@@ -7,7 +7,8 @@ namespace AOC.CSharp
 {
     public static class AOC2015_13
     {
-        private static readonly Regex regex = new(@"(\w+) would (\w+) (\d+) happiness units by sitting next to (\w+)\.");
+        private static readonly Regex
+            regex = new(@"(\w+) would (\w+) (\d+) happiness units by sitting next to (\w+)\.");
 
         public static long Solve1(string[] lines)
         {
@@ -29,6 +30,7 @@ namespace AOC.CSharp
                 lookup.Add(Tuple.Create(name, "Chris"), 0);
                 lookup.Add(Tuple.Create("Chris", name), 0);
             }
+
             names = names.Concat(new[] { "Chris" }).ToArray();
 
             List<List<Tuple<string, string>>> permutations = GetAllPermutations(names);
@@ -114,6 +116,7 @@ namespace AOC.CSharp
                 {
                     permutation.Add(Tuple.Create(names[j], names[j + 1]));
                 }
+
                 permutation.Add(Tuple.Create(names[names.Length - 1], names[0]));
                 permutations.Add(permutation);
             }

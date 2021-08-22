@@ -13,14 +13,15 @@ namespace AOC.CSharp
 
         private static Queue<Token> Tokenize(string str)
         {
-            return new Queue<Token>(str
-                .Replace(" ", "")
-                .Replace(Plus, " " + Plus + " ")
-                .Replace(Times, " " + Times + " ")
-                .Replace(LParen, " " + LParen + " ")
-                .Replace(RParen, " " + RParen + " ")
-                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(str => new Token(str)));
+            return new Queue<Token>(
+                str
+                    .Replace(" ", "")
+                    .Replace(Plus, " " + Plus + " ")
+                    .Replace(Times, " " + Times + " ")
+                    .Replace(LParen, " " + LParen + " ")
+                    .Replace(RParen, " " + RParen + " ")
+                    .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(str => new Token(str)));
         }
 
         public static Queue<Token> InfixToPostfix(Queue<Token> infix, Func<Token, Token, bool> isHigherPrecedence)
@@ -56,9 +57,11 @@ namespace AOC.CSharp
                         Token popped = stack.Pop();
                         postfix.Enqueue(popped);
                     }
+
                     stack.Pop();
                 }
             }
+
             while (stack.Any())
             {
                 Token popped = stack.Pop();
@@ -68,7 +71,7 @@ namespace AOC.CSharp
             return postfix;
         }
 
-        public static long SolvePostfix (Queue<Token> postfix)
+        public static long SolvePostfix(Queue<Token> postfix)
         {
             Stack<Token> stack = new();
 
@@ -79,6 +82,7 @@ namespace AOC.CSharp
                 {
                     stack.Push(currToken);
                 }
+
                 if (currToken.IsOperator)
                 {
                     long val2 = long.Parse(stack.Pop().Value);
@@ -115,6 +119,7 @@ namespace AOC.CSharp
             {
                 return true;
             }
+
             if (stackToken.Value == Times && newToken.Value == Times)
             {
                 return true;

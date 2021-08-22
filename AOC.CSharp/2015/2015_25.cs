@@ -41,8 +41,10 @@ namespace AOC.CSharp
                     {
                         return code;
                     }
+
                     counter--;
                 }
+
                 i++;
             }
         }

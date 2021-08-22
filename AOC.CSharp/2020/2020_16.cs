@@ -101,7 +101,8 @@ namespace AOC.CSharp
             }
 
             long product = 1;
-            foreach (int i in colValSets.Where(cvs => cvs.SingleRule.Name.StartsWith("departure")).Select(cvs => cvs.Idx))
+            foreach (int i in colValSets.Where(cvs => cvs.SingleRule.Name.StartsWith("departure"))
+                .Select(cvs => cvs.Idx))
             {
                 product *= yours[i];
             }

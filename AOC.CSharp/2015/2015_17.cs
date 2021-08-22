@@ -24,17 +24,25 @@ namespace AOC.CSharp
             return counts[minKey];
         }
 
-        private static void Recurse(int[] arr, Dictionary<int, int> counts, int total, int containers, int index, int target)
+        private static void Recurse(
+            int[] arr,
+            Dictionary<int, int> counts,
+            int total,
+            int containers,
+            int index,
+            int target)
         {
             if (total == target)
             {
                 counts[containers] = counts.TryGetValue(containers, out int v) ? v + 1 : 1;
                 return;
             }
+
             if (total > target)
             {
                 return;
             }
+
             if (index < 0)
             {
                 return;

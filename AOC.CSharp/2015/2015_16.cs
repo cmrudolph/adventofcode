@@ -70,18 +70,38 @@ namespace AOC.CSharp
                 string category = sp[0];
                 int value = int.Parse(sp[1]);
 
-                switch(category)
+                switch (category)
                 {
-                    case "children": sue.Children = value; break;
-                    case "cats": sue.Cats = value; break;
-                    case "samoyeds": sue.Samoyeds = value; break;
-                    case "pomeranians": sue.Pomeranians = value; break;
-                    case "akitas": sue.Akitas = value; break;
-                    case "vizslas": sue.Vizslas = value; break;
-                    case "goldfish": sue.Goldfish = value; break;
-                    case "trees": sue.Trees = value; break;
-                    case "cars": sue.Cars = value; break;
-                    case "perfumes": sue.Perfumes = value; break;
+                    case "children":
+                        sue.Children = value;
+                        break;
+                    case "cats":
+                        sue.Cats = value;
+                        break;
+                    case "samoyeds":
+                        sue.Samoyeds = value;
+                        break;
+                    case "pomeranians":
+                        sue.Pomeranians = value;
+                        break;
+                    case "akitas":
+                        sue.Akitas = value;
+                        break;
+                    case "vizslas":
+                        sue.Vizslas = value;
+                        break;
+                    case "goldfish":
+                        sue.Goldfish = value;
+                        break;
+                    case "trees":
+                        sue.Trees = value;
+                        break;
+                    case "cars":
+                        sue.Cars = value;
+                        break;
+                    case "perfumes":
+                        sue.Perfumes = value;
+                        break;
                 }
             }
 

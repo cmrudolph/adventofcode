@@ -15,8 +15,9 @@ namespace AOC.CSharp
             while (reader.Read())
             {
                 // Leverage Json.NET to do all the parsing and just sum up everything numeric it finds
-                total += reader.TokenType == JsonToken.Integer ? (long)reader.Value : 0;
+                total += reader.TokenType == JsonToken.Integer ? (long) reader.Value : 0;
             }
+
             return total;
         }
 
@@ -31,6 +32,7 @@ namespace AOC.CSharp
             {
                 tokens.Add(MapToken(reader));
             }
+
             tokens.RemoveAll(t => t == null);
 
             Stack<Token> stack = new();
@@ -49,6 +51,7 @@ namespace AOC.CSharp
                         {
                             valuePopped += popped.Value.Value;
                         }
+
                         popped = stack.Pop();
                     }
 
@@ -74,6 +77,7 @@ namespace AOC.CSharp
                             valuePopped = 0;
                             forceZero = true;
                         }
+
                         popped = stack.Pop();
                     }
 
@@ -101,9 +105,9 @@ namespace AOC.CSharp
                 case JsonToken.EndObject:
                     return new Token { Type = reader.TokenType };
                 case JsonToken.Integer:
-                    return new Token { Type = reader.TokenType, Value = (long)reader.Value };
+                    return new Token { Type = reader.TokenType, Value = (long) reader.Value };
                 case JsonToken.String:
-                    return (string)reader.Value == "red"
+                    return (string) reader.Value == "red"
                         ? new Token { Type = reader.TokenType, IsRed = true }
                         : null;
             }

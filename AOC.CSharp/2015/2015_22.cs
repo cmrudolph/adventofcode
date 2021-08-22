@@ -177,6 +177,7 @@ namespace AOC.CSharp
                     // WIN: New optimal solution. Boss was taken out by the poison timer
                     bestWinCost = afterTimerState.ManaSpent;
                 }
+
                 return;
             }
 

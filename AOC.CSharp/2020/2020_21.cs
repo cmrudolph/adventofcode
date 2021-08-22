@@ -120,6 +120,7 @@ namespace AOC.CSharp
                     _ingredientIndices[ingredients[i]] = i;
                     _ingredientNames[i] = ingredients[i];
                 }
+
                 for (int i = 0; i < allergens.Length; i++)
                 {
                     _allergenIndices[allergens[i]] = i;
@@ -172,7 +173,7 @@ namespace AOC.CSharp
                 {
                     for (int j = 0; j < _matrix.GetLength(1); j++)
                     {
-                        if (_matrix[i,j])
+                        if (_matrix[i, j])
                         {
                             string ingredient = _ingredientNames[i];
                             string allergen = _allergenNames[j];
@@ -211,9 +212,9 @@ namespace AOC.CSharp
                 {
                     if (i != ingredientIdx)
                     {
-                        if (_matrix[i,allergenIdx] == true)
+                        if (_matrix[i, allergenIdx] == true)
                         {
-                            _matrix[i,allergenIdx] = false;
+                            _matrix[i, allergenIdx] = false;
                             changed = true;
                         }
                     }
@@ -249,7 +250,10 @@ namespace AOC.CSharp
         {
             public static Line Parse(string line)
             {
-                var splits = line.Replace(")", "").Replace("(contains ", "|").Replace(",", "").Split('|', StringSplitOptions.RemoveEmptyEntries);
+                var splits = line.Replace(")", "")
+                    .Replace("(contains ", "|")
+                    .Replace(",", "")
+                    .Split('|', StringSplitOptions.RemoveEmptyEntries);
 
                 return new Line
                 {

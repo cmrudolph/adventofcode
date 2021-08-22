@@ -27,7 +27,10 @@ namespace AOC.CSharp
             FindGroups(values, group, rawSumGroups, target, MaxCount);
 
             List<Group> groups = rawSumGroups.Select(g => new Group(g.ToList())).ToList();
-            List<Solution> solutions = groups.Select(g => new Solution { Group1Count = g.Count, QuantumEntanglement = g.QuantumEntanglement }).ToList();
+            List<Solution> solutions = groups.Select(
+                    g => new Solution
+                        { Group1Count = g.Count, QuantumEntanglement = g.QuantumEntanglement })
+                .ToList();
             var first = groups.OrderBy(s => s.Count).ThenBy(s => s.QuantumEntanglement).First();
 
             return first.QuantumEntanglement;
@@ -38,7 +41,12 @@ namespace AOC.CSharp
             return lines.Select(long.Parse).ToArray();
         }
 
-        private static void FindGroups(List<long> values, HashSet<long> group, List<HashSet<long>> results, long sumTarget, int maxCount)
+        private static void FindGroups(
+            List<long> values,
+            HashSet<long> group,
+            List<HashSet<long>> results,
+            long sumTarget,
+            int maxCount)
         {
             if (group.Count > maxCount)
             {

@@ -31,8 +31,7 @@ namespace AOC.CSharp
             {
                 Increment(numeric);
                 isValid = IsValid(numeric);
-            }
-            while (!isValid);
+            } while (!isValid);
 
             return NumericToString(numeric);
         }
@@ -44,7 +43,7 @@ namespace AOC.CSharp
 
         private static string NumericToString(int[] arr)
         {
-            return new string(arr.Select(a => (char)('a' + a)).ToArray());
+            return new string(arr.Select(a => (char) ('a' + a)).ToArray());
         }
 
         private static bool IsValid(int[] arr)
