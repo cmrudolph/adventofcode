@@ -37,6 +37,7 @@
     <Compile Include="2020\2020_23.fs" />
     <Compile Include="2020\2020_24.fs" />
     <Compile Include="2020\2020_25.fs" />
+    <Compile Include="2016\2016_01.fs" />
   </ItemGroup>
 
 </Project>

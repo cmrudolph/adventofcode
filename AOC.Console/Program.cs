@@ -2,6 +2,6 @@
 using AOC.CSharp;
 using AOC.FSharp;
 
-var lines = Utils.ReadInput("2015", "25", "Actual");
-long result1 = AOC2015_25.Solve1(lines);
+var lines = Utils.ReadInput("2016", "01", "Actual");
+long result1 = AOC2016_01.solve2(lines);
 System.Console.WriteLine(result1);
