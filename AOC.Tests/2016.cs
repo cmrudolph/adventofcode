@@ -94,6 +94,30 @@ namespace AOC.Tests
         [Fact, Trait("Speed", "Fast")]
         public void Day08_1_Actual() => Actual(116L, AOC2016_08.Solve, "08");
 
+        [Theory]
+        [InlineData("(3x3)XYZ", 9)]
+        [InlineData("X(8x2)(3x3)ABCY", 20)]
+        [InlineData("(27x12)(20x12)(13x14)(7x10)(1x12)A", 241920)]
+        [InlineData("(25x3)(3x3)ABC(2x3)XY(5x2)PQRSTX(18x9)(3x2)TWO(5x7)SEVEN", 445)]
+        [Trait("Speed", "Fast")]
+        public void Day09_Cases(string input, int expected)
+        {
+            long result = AOC2016_09.Solve2(new[] { input });
+            Assert.Equal(expected, result);
+        }
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day09_1_Sample() => Sample(57L, AOC2016_09.Solve1, "09");
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day09_1_Actual() => Actual(102239L, AOC2016_09.Solve1, "09");
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day09_2_Sample() => Sample(56L, AOC2016_09.Solve2, "09");
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day09_2_Actual() => Actual(10780403063L, AOC2016_09.Solve2, "09");
+
         private static void Actual<T>(T expected, Func<string[], T> solver, string day)
         {
             Utils.Test(expected, solver, Utils.ReadInput("2016", day, "actual"));
