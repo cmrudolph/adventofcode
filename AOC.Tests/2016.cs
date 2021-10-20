@@ -118,6 +118,18 @@ namespace AOC.Tests
         [Fact, Trait("Speed", "Fast")]
         public void Day09_2_Actual() => Actual(10780403063L, AOC2016_09.Solve2, "09");
 
+        [Fact, Trait("Speed", "Fast")]
+        public void Day10_1_Sample() => Sample(2L, lines => AOC2016_10.Solve1(lines, new[] { 2, 5 }), "10");
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day10_1_Actual() => Actual(118L, lines => AOC2016_10.Solve1(lines, new[] { 17, 61 }), "10");
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day10_2_Sample() => Sample(30L, AOC2016_10.Solve2, "10");
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day10_2_Actual() => Actual(143153L, AOC2016_10.Solve2, "10");
+
         private static void Actual<T>(T expected, Func<string[], T> solver, string day)
         {
             Utils.Test(expected, solver, Utils.ReadInput("2016", day, "actual"));
