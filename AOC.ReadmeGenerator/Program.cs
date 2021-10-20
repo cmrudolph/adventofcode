@@ -58,6 +58,7 @@ namespace AOC.ReadmeGenerator
             string readmePath = rawPath.Replace(searchRoot, "");
             string sortName = Path.GetFileNameWithoutExtension(readmePath);
             string extension = Path.GetExtension(readmePath);
+            string markdownReadmePath = readmePath.Replace("\\", "/");
 
             string[] splits = sortName.Split("_");
             int year = int.Parse(splits[0]);
@@ -70,7 +71,7 @@ namespace AOC.ReadmeGenerator
                 _ => throw new NotSupportedException()
             };
 
-            return new(sortName, readmePath, year, day, language);
+            return new(sortName, markdownReadmePath, year, day, language);
         }
 
         private record TitleRecord(int Year, int Day, string Title);
@@ -79,7 +80,7 @@ namespace AOC.ReadmeGenerator
         {
             public string ToMarkdown(TitleRecord title)
             {
-                return $"**Day {Day} | [{title.Title}](${ReadmePath}) | {Language}**</br>";
+                return $"**Day {Day}** | [{title.Title}]({ReadmePath}) | {Language}</br>";
             }
         }
     }
