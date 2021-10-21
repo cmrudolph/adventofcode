@@ -8,9 +8,10 @@ namespace AOC.CSharp
         private const char On = '#';
         private const char Off = '.';
 
-        public static long Solve1(string[] lines, int iterations)
+        public static long Solve1(string[] lines, string extra)
         {
             var chars = Parse(lines, false);
+            int iterations = int.Parse(extra);
 
             for (int i = 0; i < iterations; i++)
             {
@@ -22,9 +23,10 @@ namespace AOC.CSharp
             return count;
         }
 
-        public static long Solve2(string[] lines, int iterations)
+        public static long Solve2(string[] lines, string extra)
         {
             var chars = Parse(lines, true);
+            int iterations = int.Parse(extra);
             Print(chars);
             Console.WriteLine();
 

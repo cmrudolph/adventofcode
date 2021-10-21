@@ -10,8 +10,9 @@ namespace AOC.CSharp
         private static Regex InitialValueRegex = new Regex(@"value (\d+) goes to bot (\d+)");
         private static Regex AssignRegex = new Regex(@"bot (\d+) gives low to (\w+) (\d+) and high to (\w+) (\d+)");
 
-        public static long Solve1(string[] lines, int[] targets)
+        public static long Solve1(string[] lines, string extra)
         {
+            int[] targets = extra.Split(',').Select(int.Parse).ToArray();
             (long result, _) = SolveBoth(lines, targets);
 
             return result;

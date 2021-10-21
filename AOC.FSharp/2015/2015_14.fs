@@ -53,12 +53,14 @@ module AOC2015_14 =
     let calcDistance seconds reindeer =
         [| 1 .. seconds |] |> Array.sumBy (getAmountForSecond reindeer)
 
-    let solve1 (lines: string []) seconds =
+    let solve1 (lines: string []) (extra: string) =
+        let seconds = extra |> int
         let allReindeer = lines |> Array.map (parse seconds)
 
         allReindeer |> Array.map (calcDistance seconds) |> Array.max |> int64
 
-    let solve2 (lines: string []) seconds =
+    let solve2 (lines: string []) (extra: string) =
+        let seconds = extra |> int
         let allReindeer = lines |> Array.map (parse seconds)
 
         let positions = new Dictionary<string, int>()

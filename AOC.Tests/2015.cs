@@ -116,13 +116,13 @@ namespace AOC.Tests
         public void Day09_2_Actual() => Actual(909L, AOC2015_09.Solve2, "09");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day10_1_Sample() => Sample(6L, lines => AOC2015_10.Solve(lines, 5), "10");
+        public void Day10_1_Sample() => Sample(6L, lines => AOC2015_10.Solve(lines, "5"), "10");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day10_1_Actual() => Actual(329356L, lines => AOC2015_10.Solve(lines, 40), "10");
+        public void Day10_1_Actual() => Actual(329356L, lines => AOC2015_10.Solve(lines, "40"), "10");
 
         [Fact, Trait("Speed", "Slow")]
-        public void Day10_2_Actual() => Actual(4666278L, lines => AOC2015_10.Solve(lines, 50), "10");
+        public void Day10_2_Actual() => Actual(4666278L, lines => AOC2015_10.Solve(lines, "50"), "10");
 
         [Fact, Trait("Speed", "Fast")]
         public void Day11_1_Sample() => Sample("abcdffaa", AOC2015_11.Solve1, "11");
@@ -158,16 +158,16 @@ namespace AOC.Tests
         public void Day13_2_Actual() => Actual(725L, AOC2015_13.Solve2, "13");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day14_1_Sample() => Sample(1120L, lines => AOC2015_14.solve1(lines, 1000), "14");
+        public void Day14_1_Sample() => Sample(1120L, lines => AOC2015_14.solve1(lines, "1000"), "14");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day14_1_Actual() => Actual(2655L, lines => AOC2015_14.solve1(lines, 2503), "14");
+        public void Day14_1_Actual() => Actual(2655L, lines => AOC2015_14.solve1(lines, "2503"), "14");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day14_2_Sample() => Sample(689L, lines => AOC2015_14.solve2(lines, 1000), "14");
+        public void Day14_2_Sample() => Sample(689L, lines => AOC2015_14.solve2(lines, "1000"), "14");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day14_2_Actual() => Actual(1059L, lines => AOC2015_14.solve2(lines, 2503), "14");
+        public void Day14_2_Actual() => Actual(1059L, lines => AOC2015_14.solve2(lines, "2503"), "14");
 
         [Fact, Trait("Speed", "Fast")]
         public void Day15_1_Sample() => Sample(62842880L, AOC2015_15.Solve1, "15");
@@ -188,28 +188,28 @@ namespace AOC.Tests
         public void Day16_2_Actual() => Actual(241L, AOC2015_16.Solve2, "16");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day17_1_Sample() => Sample(4L, lines => AOC2015_17.Solve1(lines, 25), "17");
+        public void Day17_1_Sample() => Sample(4L, lines => AOC2015_17.Solve1(lines, "25"), "17");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day17_1_Actual() => Actual(1304L, lines => AOC2015_17.Solve1(lines, 150), "17");
+        public void Day17_1_Actual() => Actual(1304L, lines => AOC2015_17.Solve1(lines, "150"), "17");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day17_2_Sample() => Sample(3L, lines => AOC2015_17.Solve2(lines, 25), "17");
+        public void Day17_2_Sample() => Sample(3L, lines => AOC2015_17.Solve2(lines, "25"), "17");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day17_2_Actual() => Actual(18L, lines => AOC2015_17.Solve2(lines, 150), "17");
+        public void Day17_2_Actual() => Actual(18L, lines => AOC2015_17.Solve2(lines, "150"), "17");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day18_1_Sample() => Sample(4L, lines => AOC2015_18.Solve1(lines, 4), "18");
+        public void Day18_1_Sample() => Sample(4L, lines => AOC2015_18.Solve1(lines, "4"), "18");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day18_1_Actual() => Actual(768L, lines => AOC2015_18.Solve1(lines, 100), "18");
+        public void Day18_1_Actual() => Actual(768L, lines => AOC2015_18.Solve1(lines, "100"), "18");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day18_2_Sample() => Sample(17L, lines => AOC2015_18.Solve2(lines, 5), "18");
+        public void Day18_2_Sample() => Sample(17L, lines => AOC2015_18.Solve2(lines, "5"), "18");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day18_2_Actual() => Actual(781L, lines => AOC2015_18.Solve2(lines, 100), "18");
+        public void Day18_2_Actual() => Actual(781L, lines => AOC2015_18.Solve2(lines, "100"), "18");
 
         [Fact, Trait("Speed", "Fast")]
         public void Day19_1_Sample() => Sample(4L, AOC2015_19.Solve1, "19");
@@ -236,13 +236,13 @@ namespace AOC.Tests
         public void Day21_2_Actual() => Actual(201L, AOC2015_21.solve2, "21");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day22_1_Sample() => Sample(226L, lines => AOC2015_22.Solve1(lines, 10, 250), "22");
+        public void Day22_1_Sample() => Sample(226L, lines => AOC2015_22.Solve1(lines, "10,250"), "22");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day22_1_Actual() => Actual(953L, lines => AOC2015_22.Solve1(lines, 50, 500), "22");
+        public void Day22_1_Actual() => Actual(953L, lines => AOC2015_22.Solve1(lines, "50,500"), "22");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day22_2_Actual() => Actual(1289L, lines => AOC2015_22.Solve2(lines, 50, 500), "22");
+        public void Day22_2_Actual() => Actual(1289L, lines => AOC2015_22.Solve2(lines, "50,500"), "22");
 
         [Fact, Trait("Speed", "Fast")]
         public void Day23_1_Sample() => Sample(2L, AOC2015_23.solve1, "23");

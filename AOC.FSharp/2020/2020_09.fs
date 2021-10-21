@@ -39,12 +39,14 @@ module AOC2020_09 =
 
         min + max |> int64
 
-    let solve1 window (lines: string []) =
+    let solve1 (lines: string []) (extra: string) =
+        let window = extra |> int
         let nums = lines |> Seq.map System.Int64.Parse |> Array.ofSeq
 
         nums |> solve1Impl window
 
-    let solve2 window (lines: string []) =
+    let solve2 (lines: string []) (extra: string) =
+        let window = extra |> int
         let nums = lines |> Seq.map System.Int64.Parse |> Array.ofSeq
 
         let ans1 = nums |> solve1Impl window

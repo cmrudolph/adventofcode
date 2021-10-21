@@ -5,18 +5,20 @@ namespace AOC.CSharp
 {
     public static class AOC2015_17
     {
-        public static long Solve1(string[] lines, int target)
+        public static long Solve1(string[] lines, string extra)
         {
             int[] values = lines.Select(int.Parse).ToArray();
+            int target = int.Parse(extra);
             Dictionary<int, int> counts = new();
             Recurse(values, counts, 0, 1, values.Length - 1, target);
 
             return counts.Values.Sum();
         }
 
-        public static long Solve2(string[] lines, int target)
+        public static long Solve2(string[] lines, string extra)
         {
             int[] values = lines.Select(int.Parse).ToArray();
+            int target = int.Parse(extra);
             Dictionary<int, int> counts = new();
             Recurse(values, counts, 0, 1, values.Length - 1, target);
 

@@ -27,9 +27,10 @@ namespace AOC.CSharp
             return sb.ToString();
         }
 
-        public static long Solve(string[] lines, int iterations)
+        public static long Solve(string[] lines, string extra)
         {
             string result = lines[0];
+            int iterations = int.Parse(extra);
 
             for (int i = 0; i < iterations; i++)
             {

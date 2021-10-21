@@ -104,16 +104,16 @@ namespace AOC.Tests
         public void Day08_2_Actual() => Actual(1984L, AOC2020_08.solve2, "08");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day09_1_Sample() => Sample(127L, lines => AOC2020_09.solve1(5, lines), "09");
+        public void Day09_1_Sample() => Sample(127L, lines => AOC2020_09.solve1(lines, "5"), "09");
 
         [Fact, Trait("Speed", "Slow")]
-        public void Day09_1_Actual() => Actual(1639024365L, lines => AOC2020_09.solve1(25, lines), "09");
+        public void Day09_1_Actual() => Actual(1639024365L, lines => AOC2020_09.solve1(lines, "25"), "09");
 
         [Fact, Trait("Speed", "Fast")]
-        public void Day09_2_Sample() => Sample(62L, lines => AOC2020_09.solve2(5, lines), "09");
+        public void Day09_2_Sample() => Sample(62L, lines => AOC2020_09.solve2(lines, "5"), "09");
 
         [Fact, Trait("Speed", "Slow")]
-        public void Day09_2_Actual() => Actual(219202240L, lines => AOC2020_09.solve2(25, lines), "09");
+        public void Day09_2_Actual() => Actual(219202240L, lines => AOC2020_09.solve2(lines, "25"), "09");
 
         [Fact, Trait("Speed", "Fast")]
         public void Day10_1_Sample() => Sample(35L, AOC2020_10.solve1, "10");

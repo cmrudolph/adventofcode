@@ -23,10 +23,13 @@ namespace AOC.CSharp
         private const int RechargeTurns = 5;
 
 
-        public static long Solve1(string[] lines, int playerHp, int playerMana)
+        public static long Solve1(string[] lines, string extra)
         {
             int bossHp = int.Parse(lines[0].Split(':')[1]);
             int bossDamage = int.Parse(lines[1].Split(':')[1]);
+            string[] splits = extra.Split(',');
+            int playerHp = int.Parse(splits[0]);
+            int playerMana = int.Parse(splits[1]);
 
             State state = new State
             {
@@ -42,10 +45,13 @@ namespace AOC.CSharp
             return bestWinCost;
         }
 
-        public static long Solve2(string[] lines, int playerHp, int playerMana)
+        public static long Solve2(string[] lines, string extra)
         {
             int bossHp = int.Parse(lines[0].Split(':')[1]);
             int bossDamage = int.Parse(lines[1].Split(':')[1]);
+            string[] splits = extra.Split(',');
+            int playerHp = int.Parse(splits[0]);
+            int playerMana = int.Parse(splits[1]);
 
             State state = new State
             {
