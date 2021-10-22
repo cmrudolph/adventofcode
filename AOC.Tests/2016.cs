@@ -130,6 +130,15 @@ namespace AOC.Tests
         [Fact, Trait("Speed", "Fast")]
         public void Day10_2_Actual() => Actual(143153L, AOC2016_10.Solve2, "10");
 
+        [Fact, Trait("Speed", "Fast")]
+        public void Day11_1_Sample() => Sample(11L, AOC2016_11.Solve1, "11");
+
+        [Fact, Trait("Speed", "VerySlow")]
+        public void Day11_1_Actual() => Actual(33L, AOC2016_11.Solve1, "11");
+
+        [Fact, Trait("Speed", "Fast")]
+        public void Day11_2_Actual() => Actual(143153L, AOC2016_11.Solve2, "11");
+
         private static void Actual<T>(T expected, Func<string[], T> solver, string day)
         {
             Utils.Test(expected, solver, Utils.ReadInput("2016", day, "actual"));

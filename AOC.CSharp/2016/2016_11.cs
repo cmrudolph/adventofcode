@@ -14,48 +14,64 @@ namespace AOC.CSharp
         {
             var initialState = BuildInitialState(lines);
 
-            int best = int.MaxValue;
-            HashSet<State> history = new();
-            TraverseOptions(history, initialState, ref best);
+            Queue<State> queue = new();
+            queue.Enqueue(initialState);
+
+            int best = Bfs(queue);
 
             return best;
         }
 
         public static long Solve2(string[] lines)
         {
+            lines[0] = lines[0] + "elerium generator elerium-compatible dilithium generator dilithium-compatible";
+            var initialState = BuildInitialState(lines);
+
+            Queue<State> queue = new();
+            queue.Enqueue(initialState);
+
+            int best = Bfs(queue);
+
+            return best;
+        }
+
+        private static int Bfs(Queue<State> queue)
+        {
+            int i = 0;
+            int level = 0;
+            HashSet<State> seen = new();
+            while (queue.Count > 0)
+            {
+                int levelLength = queue.Count;
+                Console.WriteLine("{0} {1} {2}", level, levelLength, seen.Count);
+
+                while (levelLength > 0)
+                {
+                    i++;
+                    State dequeued = queue.Dequeue();
+                    if (dequeued.IsSolution)
+                    {
+                        return level;
+                    }
+
+                    seen.Add(dequeued);
+                    var nextStates = GenerateNextValidStates(seen, dequeued);
+
+                    foreach (var next in nextStates)
+                    {
+                        queue.Enqueue(next);
+                    }
+
+                    levelLength--;
+                }
+
+                level++;
+            }
+
             return -1;
         }
 
-        private static void TraverseOptions(HashSet<State> history, State curr, ref int best)
-        {
-            int steps = history.Count;
-            if (steps >= best)
-            {
-                return;
-            }
-
-            curr.Print();
-            Console.WriteLine();
-
-            if (!curr.ItemsByFloor[0].Any() && !curr.ItemsByFloor[1].Any() && !curr.ItemsByFloor[2].Any())
-            {
-                // Everything on the top floor. We are done.
-                best = steps;
-                return;
-            }
-
-            var nextStates = GenerateNextValidStates(curr);
-            nextStates.RemoveAll(s => history.Contains(s));
-
-            foreach (State next in nextStates)
-            {
-                history.Add(curr);
-                TraverseOptions(history, next, ref best);
-                history.Remove(curr);
-            }
-        }
-
-        private static List<State> GenerateNextValidStates(State curr)
+        private static List<State> GenerateNextValidStates(HashSet<State> seen, State curr)
         {
             // TODO: Find all possible transition state
             // If the state is not in the history, recursively visit it
@@ -72,7 +88,11 @@ namespace AOC.CSharp
                     next.Elevator++;
                     next.ItemsByFloor[curr.Elevator].Remove(toMove);
                     next.AddItem(curr.Elevator + 1, toMove);
-                    possibilities.Add(next);
+                    if (next.IsValid && !seen.Contains(next))
+                    {
+                        possibilities.Add(next);
+                        seen.Add(next);
+                    }
 
                     for (int j = i + 1; j < thisFloorItems.Count; j++)
                     {
@@ -80,7 +100,11 @@ namespace AOC.CSharp
                         Item toMove2 = curr.ItemsByFloor[curr.Elevator][j];
                         next2.ItemsByFloor[curr.Elevator].Remove(toMove2);
                         next2.AddItem(curr.Elevator + 1, toMove2);
-                        possibilities.Add(next2);
+                        if (next2.IsValid && !seen.Contains(next2))
+                        {
+                            possibilities.Add(next2);
+                            seen.Add(next2);
+                        }
                     }
                 }
 
@@ -91,7 +115,11 @@ namespace AOC.CSharp
                     next.Elevator--;
                     next.ItemsByFloor[curr.Elevator].Remove(toMove);
                     next.AddItem(curr.Elevator - 1, toMove);
-                    possibilities.Add(next);
+                    if (next.IsValid && !seen.Contains(next))
+                    {
+                        possibilities.Add(next);
+                        seen.Add(next);
+                    }
 
                     for (int j = i + 1; j < thisFloorItems.Count; j++)
                     {
@@ -99,19 +127,25 @@ namespace AOC.CSharp
                         Item toMove2 = curr.ItemsByFloor[curr.Elevator][j];
                         next2.ItemsByFloor[curr.Elevator].Remove(toMove2);
                         next2.AddItem(curr.Elevator - 1, toMove2);
-                        possibilities.Add(next2);
+                        if (next2.IsValid && !seen.Contains(next2))
+                        {
+                            possibilities.Add(next2);
+                            seen.Add(next2);
+                        }
                     }
                 }
             }
 
-            return possibilities.Where(p => p.IsValid).ToList();
+            return possibilities;
         }
 
         private static State BuildInitialState(string[] lines)
         {
+            Dictionary<string, int> elementToIdx = new();
             State s = new();
             s.Elevator = 0;
 
+            int nextIdx = 1;
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i];
@@ -120,7 +154,11 @@ namespace AOC.CSharp
                 foreach (Match m in chipMatches)
                 {
                     string element = m.Groups[1].Value;
-                    Item item = new Item(ItemType.Microchip, element);
+                    if (!elementToIdx.ContainsKey(element))
+                    {
+                        elementToIdx.Add(element, nextIdx++);
+                    }
+                    Item item = new Item(ItemType.Microchip, elementToIdx[element]);
                     s.AddItem(i, item);
                 }
 
@@ -128,7 +166,11 @@ namespace AOC.CSharp
                 foreach (Match m in generatorMatches)
                 {
                     string element = m.Groups[1].Value;
-                    Item item = new Item(ItemType.Generator, element);
+                    if (!elementToIdx.ContainsKey(element))
+                    {
+                        elementToIdx.Add(element, nextIdx++);
+                    }
+                    Item item = new Item(ItemType.Generator, elementToIdx[element]);
                     s.AddItem(i, item);
                 }
             }
@@ -136,7 +178,13 @@ namespace AOC.CSharp
             return s;
         }
 
-        private record Item(ItemType Type, string Element);
+        private record Item(ItemType Type, int ElementIdx)
+        {
+            public override string ToString()
+            {
+                return Type.ToString().Substring(0, 1) + ElementIdx;
+            }
+        }
 
         private enum ItemType
         {
@@ -146,6 +194,8 @@ namespace AOC.CSharp
 
         private class State
         {
+            private Lazy<string> _equalityValue;
+
             public const int Floors = 4;
 
             public State()
@@ -155,6 +205,40 @@ namespace AOC.CSharp
                 {
                     ItemsByFloor[i] = new();
                 }
+
+                _equalityValue = new(() =>
+                {
+                    List<string> itemStrs = new();
+                    foreach (var floorItems in ItemsByFloor)
+                    {
+                        int pairs = 0;
+                        bool onlyPairs = true;
+                        var distinctElementsOnFloor = floorItems.Select(fi => fi.ElementIdx).Distinct();
+                        foreach (var distinct in distinctElementsOnFloor)
+                        {
+                            if (floorItems.Count(fi => fi.ElementIdx == distinct) == 2)
+                            {
+                                pairs++;
+                            }
+                            else
+                            {
+                                onlyPairs = false;
+                                break;
+                            }
+                        }
+
+                        if (onlyPairs && pairs > 0)
+                        {
+                            itemStrs.Add($"PAIR{pairs}");
+                        }
+                        else
+                        {
+                            string itemStr = string.Join("|", floorItems.Select(item => item.ToString()));
+                            itemStrs.Add(itemStr);
+                        }
+                    }
+                    return $"{Elevator}_{string.Join("_", itemStrs)}";
+                });
             }
 
             public State Clone()
@@ -185,7 +269,7 @@ namespace AOC.CSharp
 
                         foreach (Item chip in thisFloorItems.Where(item => item.Type == ItemType.Microchip))
                         {
-                            if (!thisFloorItems.Any(item => item.Type == ItemType.Generator && item.Element == chip.Element))
+                            if (!thisFloorItems.Any(item => item.Type == ItemType.Generator && item.ElementIdx == chip.ElementIdx))
                             {
                                 // A chip exists in the presence of other generators without its generator
                                 return false;
@@ -197,6 +281,14 @@ namespace AOC.CSharp
                 }
             }
 
+            public bool IsSolution
+            {
+                get
+                {
+                    return !ItemsByFloor[0].Any() && !ItemsByFloor[1].Any() && !ItemsByFloor[2].Any();
+                }
+            }
+
             public int Elevator { get; set; }
 
             public List<Item>[] ItemsByFloor { get; set; }
@@ -205,8 +297,9 @@ namespace AOC.CSharp
             {
                 for (int i = Floors - 1; i >= 0; i--)
                 {
+                    string elevatorStr = Elevator == i ? "E" : " ";
                     var floorItems = ItemsByFloor[i];
-                    string printStr = "F" + i + " " + string.Join(" ", floorItems.Select(i => i.Element.Substring(0, 1).ToUpperInvariant() + i.Type.ToString().Substring(0, 1)));
+                    string printStr = $"{elevatorStr} F" + i + " " + string.Join(" ", floorItems.Select(i => i.ElementIdx + i.Type.ToString().Substring(0, 1)));
                     Console.WriteLine(printStr);
                 }
             }
@@ -214,7 +307,7 @@ namespace AOC.CSharp
             public void AddItem(int floorIdx, Item item)
             {
                 ItemsByFloor[floorIdx].Add(item);
-                ItemsByFloor[floorIdx] = ItemsByFloor[floorIdx].OrderBy(i => i.Type).ThenBy(i => i.Element).ToList();
+                ItemsByFloor[floorIdx] = ItemsByFloor[floorIdx].OrderBy(i => i.Type).ThenBy(i => i.ElementIdx).ToList();
             }
 
             public override int GetHashCode()
@@ -231,14 +324,16 @@ namespace AOC.CSharp
             {
                 State other = (State)obj;
 
-                bool equal =
-                    Elevator == other.Elevator
-                    && ItemsByFloor[0].SequenceEqual(other.ItemsByFloor[0])
-                    && ItemsByFloor[1].SequenceEqual(other.ItemsByFloor[1])
-                    && ItemsByFloor[2].SequenceEqual(other.ItemsByFloor[2])
-                    && ItemsByFloor[3].SequenceEqual(other.ItemsByFloor[3]);
+                return other._equalityValue.Value == _equalityValue.Value;
 
-                return equal;
+                //bool equal =
+                //    Elevator == other.Elevator
+                //    && ItemsByFloor[0].SequenceEqual(other.ItemsByFloor[0])
+                //    && ItemsByFloor[1].SequenceEqual(other.ItemsByFloor[1])
+                //    && ItemsByFloor[2].SequenceEqual(other.ItemsByFloor[2])
+                //    && ItemsByFloor[3].SequenceEqual(other.ItemsByFloor[3]);
+
+                //return equal;
             }
         }
     }
