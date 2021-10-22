@@ -12,19 +12,17 @@ namespace AOC.CSharp
 
         public static long Solve1(string[] lines)
         {
-            var initialState = BuildInitialState(lines);
-
-            Queue<State> queue = new();
-            queue.Enqueue(initialState);
-
-            int best = Bfs(queue);
-
-            return best;
+            return Solve(lines);
         }
 
         public static long Solve2(string[] lines)
         {
             lines[0] = lines[0] + "elerium generator elerium-compatible dilithium generator dilithium-compatible";
+            return Solve(lines);
+        }
+
+        private static long Solve(string[] lines)
+        {
             var initialState = BuildInitialState(lines);
 
             Queue<State> queue = new();
@@ -37,9 +35,10 @@ namespace AOC.CSharp
 
         private static int Bfs(Queue<State> queue)
         {
-            int i = 0;
             int level = 0;
             HashSet<State> seen = new();
+            seen.Add(queue.Peek());
+
             while (queue.Count > 0)
             {
                 int levelLength = queue.Count;
@@ -47,14 +46,12 @@ namespace AOC.CSharp
 
                 while (levelLength > 0)
                 {
-                    i++;
                     State dequeued = queue.Dequeue();
                     if (dequeued.IsSolution)
                     {
                         return level;
                     }
 
-                    seen.Add(dequeued);
                     var nextStates = GenerateNextValidStates(seen, dequeued);
 
                     foreach (var next in nextStates)
@@ -73,66 +70,50 @@ namespace AOC.CSharp
 
         private static List<State> GenerateNextValidStates(HashSet<State> seen, State curr)
         {
-            // TODO: Find all possible transition state
-            // If the state is not in the history, recursively visit it
-
             List<State> possibilities = new();
-
             List<Item> thisFloorItems = curr.ItemsByFloor[curr.Elevator];
-            for (int i = 0; i < thisFloorItems.Count; i++)
-            {
-                if (curr.Elevator + 1 < State.Floors)
-                {
-                    State next = curr.Clone();
-                    Item toMove = curr.ItemsByFloor[curr.Elevator][i];
-                    next.Elevator++;
-                    next.ItemsByFloor[curr.Elevator].Remove(toMove);
-                    next.AddItem(curr.Elevator + 1, toMove);
-                    if (next.IsValid && !seen.Contains(next))
-                    {
-                        possibilities.Add(next);
-                        seen.Add(next);
-                    }
 
-                    for (int j = i + 1; j < thisFloorItems.Count; j++)
-                    {
-                        State next2 = next.Clone();
-                        Item toMove2 = curr.ItemsByFloor[curr.Elevator][j];
-                        next2.ItemsByFloor[curr.Elevator].Remove(toMove2);
-                        next2.AddItem(curr.Elevator + 1, toMove2);
-                        if (next2.IsValid && !seen.Contains(next2))
-                        {
-                            possibilities.Add(next2);
-                            seen.Add(next2);
-                        }
-                    }
+            void ProcessForMove(int i, int floorShift)
+            {
+                // Process the state where we move just one item
+                State next = curr.Clone();
+                Item toMove = curr.ItemsByFloor[curr.Elevator][i];
+                next.Elevator += floorShift;
+                next.ItemsByFloor[curr.Elevator].Remove(toMove);
+                next.AddItem(curr.Elevator + floorShift, toMove);
+                if (next.IsValid && !seen.Contains(next))
+                {
+                    possibilities.Add(next);
+                    seen.Add(next);
                 }
 
+                // Also consider the current item paired with each of the other items on the current floor
+                for (int j = i + 1; j < thisFloorItems.Count; j++)
+                {
+                    State next2 = next.Clone();
+                    Item toMove2 = curr.ItemsByFloor[curr.Elevator][j];
+                    next2.ItemsByFloor[curr.Elevator].Remove(toMove2);
+                    next2.AddItem(curr.Elevator + floorShift, toMove2);
+                    if (next2.IsValid && !seen.Contains(next2))
+                    {
+                        possibilities.Add(next2);
+                        seen.Add(next2);
+                    }
+                }
+            }
+
+            for (int i = 0; i < thisFloorItems.Count; i++)
+            {
+                // Check the floor above unless we are on the top floor
+                if (curr.Elevator + 1 < State.Floors)
+                {
+                    ProcessForMove(i, 1);
+                }
+
+                // Check the floor below unless we are on the bottom floor
                 if (curr.Elevator - 1 >= 0)
                 {
-                    State next = curr.Clone();
-                    Item toMove = curr.ItemsByFloor[curr.Elevator][i];
-                    next.Elevator--;
-                    next.ItemsByFloor[curr.Elevator].Remove(toMove);
-                    next.AddItem(curr.Elevator - 1, toMove);
-                    if (next.IsValid && !seen.Contains(next))
-                    {
-                        possibilities.Add(next);
-                        seen.Add(next);
-                    }
-
-                    for (int j = i + 1; j < thisFloorItems.Count; j++)
-                    {
-                        State next2 = next.Clone();
-                        Item toMove2 = curr.ItemsByFloor[curr.Elevator][j];
-                        next2.ItemsByFloor[curr.Elevator].Remove(toMove2);
-                        next2.AddItem(curr.Elevator - 1, toMove2);
-                        if (next2.IsValid && !seen.Contains(next2))
-                        {
-                            possibilities.Add(next2);
-                            seen.Add(next2);
-                        }
-                    }
+                    ProcessForMove(i, -1);
                 }
             }
 
@@ -145,7 +126,7 @@ namespace AOC.CSharp
             State s = new();
             s.Elevator = 0;
 
-            int nextIdx = 1;
+            int nextIdx = 0;
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i];
@@ -206,38 +187,42 @@ namespace AOC.CSharp
                     ItemsByFloor[i] = new();
                 }
 
+                // This equality representation is key to making the solution perform. For our purposes, we treat states
+                // as equivalent if they have the same layout of paired generators and chips (the specific elements do not
+                // matter except for identifying pairs). Doing this allows us to prune a LOT of states that would normally
+                // need to be visited (they are technically distinct), which brings the execution time down to a manageable
+                // level.
                 _equalityValue = new(() =>
                 {
-                    List<string> itemStrs = new();
-                    foreach (var floorItems in ItemsByFloor)
+                    Dictionary<Item, int> itemFloorLookup = new();
+                    for (int i = 0; i < Floors; i++)
                     {
-                        int pairs = 0;
-                        bool onlyPairs = true;
-                        var distinctElementsOnFloor = floorItems.Select(fi => fi.ElementIdx).Distinct();
-                        foreach (var distinct in distinctElementsOnFloor)
+                        var floorItems = ItemsByFloor[i];
+                        foreach (var floorItem in floorItems)
                         {
-                            if (floorItems.Count(fi => fi.ElementIdx == distinct) == 2)
-                            {
-                                pairs++;
-                            }
-                            else
-                            {
-                                onlyPairs = false;
-                                break;
-                            }
-                        }
-
-                        if (onlyPairs && pairs > 0)
-                        {
-                            itemStrs.Add($"PAIR{pairs}");
-                        }
-                        else
-                        {
-                            string itemStr = string.Join("|", floorItems.Select(item => item.ToString()));
-                            itemStrs.Add(itemStr);
+                            itemFloorLookup.Add(floorItem, i);
                         }
                     }
-                    return $"{Elevator}_{string.Join("_", itemStrs)}";
+
+                    List<Item> flatItems = ItemsByFloor
+                        .SelectMany(ibf => ibf)
+                        .OrderBy(i => i.ElementIdx)
+                        .ThenBy(i => i.Type)
+                        .ToList();
+
+                    List<Tuple<int, int>> pairs = new();
+                    for (int i = 0; i < flatItems.Count; i += 2)
+                    {
+                        Item item1 = flatItems[i];
+                        Item item2 = flatItems[i + 1];
+                        var pair = Tuple.Create(itemFloorLookup[item1], itemFloorLookup[item2]);
+                        pairs.Add(pair);
+                    }
+
+                    pairs = pairs.OrderBy(p => p).ToList();
+                    string pairStr = string.Join("_", pairs).Replace(" ", "").Replace("(", "").Replace(")", "");
+
+                    return $"{Elevator}_{pairStr}";
                 });
             }
 
@@ -293,17 +278,6 @@ namespace AOC.CSharp
 
             public List<Item>[] ItemsByFloor { get; set; }
 
-            public void Print()
-            {
-                for (int i = Floors - 1; i >= 0; i--)
-                {
-                    string elevatorStr = Elevator == i ? "E" : " ";
-                    var floorItems = ItemsByFloor[i];
-                    string printStr = $"{elevatorStr} F" + i + " " + string.Join(" ", floorItems.Select(i => i.ElementIdx + i.Type.ToString().Substring(0, 1)));
-                    Console.WriteLine(printStr);
-                }
-            }
-
             public void AddItem(int floorIdx, Item item)
             {
                 ItemsByFloor[floorIdx].Add(item);
@@ -312,12 +286,7 @@ namespace AOC.CSharp
 
             public override int GetHashCode()
             {
-                return HashCode.Combine(
-                    Elevator,
-                    ItemsByFloor[0].Count,
-                    ItemsByFloor[1].Count,
-                    ItemsByFloor[2].Count,
-                    ItemsByFloor[3].Count);
+                return _equalityValue.Value.GetHashCode();
             }
 
             public override bool Equals(object obj)
@@ -325,15 +294,6 @@ namespace AOC.CSharp
                 State other = (State)obj;
 
                 return other._equalityValue.Value == _equalityValue.Value;
-
-                //bool equal =
-                //    Elevator == other.Elevator
-                //    && ItemsByFloor[0].SequenceEqual(other.ItemsByFloor[0])
-                //    && ItemsByFloor[1].SequenceEqual(other.ItemsByFloor[1])
-                //    && ItemsByFloor[2].SequenceEqual(other.ItemsByFloor[2])
-                //    && ItemsByFloor[3].SequenceEqual(other.ItemsByFloor[3]);
-
-                //return equal;
             }
         }
     }
