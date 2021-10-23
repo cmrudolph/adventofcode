@@ -1,6 +1,6 @@
+using FluentAssertions;
 using System;
 using System.IO;
-using Xunit;
 
 namespace AOC.Tests
 {
@@ -14,7 +14,7 @@ namespace AOC.Tests
         public static void Test<T>(T expected, Func<string[], T> solver, string[] lines)
         {
             var result = solver(lines);
-            Assert.Equal(expected, result);
+            result.Should().Be(expected);
         }
     }
 }

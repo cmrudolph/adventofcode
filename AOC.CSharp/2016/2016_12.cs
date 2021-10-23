@@ -1,4 +1,5 @@
-﻿using AOC.Utils;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AOC.CSharp
 {
@@ -6,18 +7,18 @@ namespace AOC.CSharp
     {
         public static long Solve1(string[] lines)
         {
-            CustomDictionary<string, int> registers = new(0);
+            Registers registers = new();
             return Solve(registers, lines);
         }
 
         public static long Solve2(string[] lines)
         {
-            CustomDictionary<string, int> registers = new(0);
+            Registers registers = new();
             registers.Set("c", 1);
             return Solve(registers, lines);
         }
 
-        private static long Solve(CustomDictionary<string, int> registers, string[] lines)
+        private static long Solve(Registers registers, string[] lines)
         {
             int i = 0;
             while (i < lines.Length)
@@ -61,6 +62,30 @@ namespace AOC.CSharp
             }
 
             return registers.Get("a");
+        }
+
+        private class Registers
+        {
+            private const int DefaultValue = 0;
+
+            private readonly Dictionary<string, int> _dict = new();
+
+            public void Set(string reg, int value)
+            {
+                _dict[reg] = value;
+            }
+
+            public int Get(string reg)
+            {
+                return _dict.TryGetValue(reg, out int existing) ? existing : DefaultValue;
+            }
+
+            public void Transform(string reg, Func<int, int> transformer)
+            {
+                int existing = Get(reg);
+                int transformed = transformer(existing);
+                Set(reg, transformed);
+            }
         }
     }
 }

@@ -5,18 +5,18 @@ namespace AOC.CSharp
 {
     public static class AOC2016_05
     {
-        private static readonly MD5 Md5 = MD5.Create();
-        private static readonly StringBuilder HashSb = new();
-
         public static string Solve1(string[] lines)
         {
+            StringBuilder hashSb = new();
+            MD5 md5 = MD5.Create();
+
             string prefix = lines[0];
             string password = "";
             int i = 0;
 
             while (password.Length < 8)
             {
-                ValidHashResult result = TryGetHashResult(prefix + i, password.Length);
+                ValidHashResult result = TryGetHashResult(md5, hashSb, prefix + i, password.Length);
                 if (result != null)
                 {
                     password = password + result.Value;
@@ -28,6 +28,9 @@ namespace AOC.CSharp
 
         public static string Solve2(string[] lines)
         {
+            StringBuilder hashSb = new();
+            MD5 md5 = MD5.Create();
+
             string prefix = lines[0];
             char[] password = new char[8];
             int passwordChars = 0;
@@ -35,7 +38,7 @@ namespace AOC.CSharp
 
             while (passwordChars < 8)
             {
-                ValidHashResult result = TryGetHashResult(prefix + i, null);
+                ValidHashResult result = TryGetHashResult(md5, hashSb, prefix + i, null);
                 if (result != null)
                 {
                     if (password[result.Position] == '\0')
@@ -49,19 +52,19 @@ namespace AOC.CSharp
             return new string(password);
         }
 
-        private static ValidHashResult TryGetHashResult(string toHash, int? pos)
+        private static ValidHashResult TryGetHashResult(MD5 md5, StringBuilder hashSb, string toHash, int? pos)
         {
             byte[] bytes = Encoding.ASCII.GetBytes(toHash);
-            byte[] hashed = Md5.ComputeHash(bytes);
+            byte[] hashed = md5.ComputeHash(bytes);
 
             // Compute the hash as a hex string
-            HashSb.Clear();
+            hashSb.Clear();
             for (int i = 0; i < hashed.Length; i++)
             {
-                HashSb.Append(hashed[i].ToString("x2"));
+                hashSb.Append(hashed[i].ToString("x2"));
             }
 
-            string asStr = HashSb.ToString();
+            string asStr = hashSb.ToString();
             if (asStr.StartsWith("00000"))
             {
                 // If the position was passed in, use it. Otherwise derive it from the hash
