@@ -4,7 +4,7 @@ using Xunit;
 
 namespace AOC.Tests
 {
-    public static class Utils
+    public static class TestUtils
     {
         public static string[] ReadInput(string year, string problem, string suffix)
         {

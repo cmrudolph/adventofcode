@@ -273,12 +273,12 @@ namespace AOC.Tests
 
         private static void Actual<T>(T expected, Func<string[], T> solver, string day)
         {
-            Utils.Test(expected, solver, Utils.ReadInput("2015", day, "actual"));
+            TestUtils.Test(expected, solver, TestUtils.ReadInput("2015", day, "actual"));
         }
 
         private static void Sample<T>(T expected, Func<string[], T> solver, string day)
         {
-            Utils.Test(expected, solver, Utils.ReadInput("2015", day, "sample"));
+            TestUtils.Test(expected, solver, TestUtils.ReadInput("2015", day, "sample"));
         }
     }
 }
