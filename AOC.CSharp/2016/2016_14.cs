@@ -1,11 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AOC.CSharp
 {
     public class AOC2016_14
     {
+        // We know this is as far as we need to go (based on solving it). Bake this in as an optimization to
+        // make it easier to parallelize things
+        private const int MaxIndexToCalculateFor = 23744;
+
         public static long Solve1(string[] lines)
         {
             string salt = lines[0];
@@ -20,31 +27,21 @@ namespace AOC.CSharp
 
         private static long Solve(string salt, int md5Count)
         {
-            StringBuilder hashSb = new();
-            MD5 md5 = MD5.Create();
-
-            // Generate the first 1000 hashes right away. Each iteration will generate one more so we always have
-            // 1000 future results to work with.
-            List<HashResult> results = new();
-            for (int i = 0; i < 1000; i++)
-            {
-                results.Add(GetHashResult(md5, hashSb, salt, i, md5Count));
-            }
+            HashResult[] arr = new HashResult[MaxIndexToCalculateFor];
+            ComputeHashResultsParallel(arr, salt, md5Count, 0, MaxIndexToCalculateFor, 8);
 
             int keyCount = 0;
             int j = -1;
             while (keyCount < 64)
             {
                 j++;
-                var nextGen = GetHashResult(md5, hashSb, salt, j + 1000, md5Count);
-                results.Add(nextGen);
 
-                var curr = results[j];
+                var curr = arr[j];
                 if (curr.Triplet != null)
                 {
                     for (int k = j + 1; k < j + 1001; k++)
                     {
-                        if (results[k].Fives.Contains(curr.Triplet))
+                        if (arr[k].Fives.Contains(curr.Triplet))
                         {
                             keyCount++;
                         }
@@ -53,6 +50,51 @@ namespace AOC.CSharp
             }
 
             return j;
+        }
+
+        private static void ComputeHashResultsParallel(
+            HashResult[] arr,
+            string salt,
+            int md5Count,
+            int startIdxInc,
+            int endIdxExc,
+            int parallel)
+        {
+            int totalToCalc = endIdxExc - startIdxInc;
+            int workSize = totalToCalc / parallel;
+            if (workSize * parallel != totalToCalc)
+            {
+                throw new InvalidOperationException("Make sure range is divisible by parallel");
+            }
+
+            List<Tuple<int, int>> ranges = new();
+            for (int i = 0; i < parallel; i++)
+            {
+                int start = i * workSize;
+                int end = start + workSize;
+                ranges.Add(Tuple.Create(start, end));
+            }
+
+            Parallel.For(0, parallel, i =>
+            {
+                ComputeHashResultsSingleWorker(arr, salt, md5Count, ranges[i].Item1, ranges[i].Item2);
+            });
+        }
+
+        private static void ComputeHashResultsSingleWorker(
+            HashResult[] arr,
+            string salt,
+            int md5Count,
+            int startIdxInc,
+            int endIdxExc)
+        {
+            StringBuilder hashSb = new();
+            MD5 md5 = MD5.Create();
+
+            for (int i = startIdxInc; i < endIdxExc; i++)
+            {
+                arr[i] = GetHashResult(md5, hashSb, salt, i, md5Count);
+            }
         }
 
         private static HashResult GetHashResult(MD5 md5, StringBuilder hashSb, string salt, int idx, int md5Count)
