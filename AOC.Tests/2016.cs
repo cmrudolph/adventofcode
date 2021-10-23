@@ -164,6 +164,18 @@ namespace AOC.Tests
         [Test, Property("Speed", "Fast")]
         public void Day13_2_Actual() => Actual(141L, AOC2016_13.Solve2, "13");
 
+        [Test, Property("Speed", "Fast")]
+        public void Day14_1_Sample() => Sample(22728L, AOC2016_14.Solve1, "14");
+
+        [Test, Property("Speed", "Fast")]
+        public void Day14_1_Actual() => Actual(16106L, AOC2016_14.Solve1, "14");
+
+        [Test, Property("Speed", "VerySlow")]
+        public void Day14_2_Sample() => Sample(22551L, AOC2016_14.Solve2, "14");
+
+        [Test, Property("Speed", "VerySlow")]
+        public void Day14_2_Actual() => Actual(22423L, AOC2016_14.Solve2, "14");
+
         private static void Actual<T>(T expected, Func<string[], T> solver, string day)
         {
             TestUtils.Test(expected, solver, TestUtils.ReadInput("2016", day, "actual"));
