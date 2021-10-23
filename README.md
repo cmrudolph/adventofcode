@@ -37,6 +37,8 @@
 **Day 9** | [Explosives in Cyberspace](/AOC.CSharp/2016/2016_09.cs) | C#</br>
 **Day 10** | [Balance Bots](/AOC.CSharp/2016/2016_10.cs) | C#</br>
 **Day 11** | [Radioisotope Thermoelectric Generators](/AOC.CSharp/2016/2016_11.cs) | C#</br>
+**Day 12** | [Leonardo's Monorail](/AOC.CSharp/2016/2016_12.cs) | C#</br>
+**Day 13** | [A Maze of Twisty Little Cubicles](/AOC.CSharp/2016/2016_13.cs) | C#</br>
 </br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>
