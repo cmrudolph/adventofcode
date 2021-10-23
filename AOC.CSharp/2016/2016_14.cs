@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace AOC.CSharp
@@ -41,7 +40,7 @@ namespace AOC.CSharp
                 {
                     for (int k = j + 1; k < j + 1001; k++)
                     {
-                        if (arr[k].Fives.Contains(curr.Triplet))
+                        if (arr[k].Fives != null && arr[k].Fives.Contains(curr.Triplet))
                         {
                             keyCount++;
                         }
@@ -108,10 +107,7 @@ namespace AOC.CSharp
 
                 // Compute the hash as a hex string
                 hashSb.Clear();
-                for (int j = 0; j < hashed.Length; j++)
-                {
-                    hashSb.Append(hashed[j].ToString("x2"));
-                }
+                ByteUtils.ConvertToBase16Fast2Lower(hashed, hashSb);
                 asStr = hashSb.ToString();
                 bytes = Encoding.ASCII.GetBytes(asStr);
             }
@@ -126,13 +122,18 @@ namespace AOC.CSharp
                 }
             }
 
-            HashSet<string> fives = new();
-            for (int j = 0; j < asStr.Length - 4; j++)
+            HashSet<string> fives = null;
+
+            if (triplet != null)
             {
-                char ch = asStr[j];
-                if (ch == asStr[j + 1] && ch == asStr[j + 2] && ch == asStr[j + 3] && ch == asStr[j + 4])
+                fives = new();
+                for (int j = 0; j < asStr.Length - 4; j++)
                 {
-                    fives.Add(new string(ch, 3));
+                    char ch = asStr[j];
+                    if (ch == asStr[j + 1] && ch == asStr[j + 2] && ch == asStr[j + 3] && ch == asStr[j + 4])
+                    {
+                        fives.Add(new string(ch, 3));
+                    }
                 }
             }
 
