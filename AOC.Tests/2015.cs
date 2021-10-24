@@ -50,7 +50,7 @@ namespace AOC.Tests
         [Test, Property("Speed", "Fast")]
         public void Day04_1_Actual() => Actual(117946L, AOC2015_04.solve1, "04");
 
-        [Test, Property("Speed", "Slow")]
+        [Test, Property("Speed", "VerySlow")]
         public void Day04_2_Sample() => Sample(6742839L, AOC2015_04.solve2, "04");
 
         [Test, Property("Speed", "Slow")]
@@ -260,16 +260,16 @@ namespace AOC.Tests
         [Test, Property("Speed", "Fast")]
         public void Day24_1_Sample() => Sample(99L, AOC2015_24.Solve1, "24");
 
-        [Test, Property("Speed", "VerySlow")]
+        [Test, Property("Speed", "Slow")]
         public void Day24_1_Actual() => Actual(10723906903L, AOC2015_24.Solve1, "24");
 
         [Test, Property("Speed", "Fast")]
         public void Day24_2_Sample() => Sample(44L, AOC2015_24.Solve2, "24");
 
-        [Test, Property("Speed", "VerySlow")]
+        [Test, Property("Speed", "Slow")]
         public void Day24_2_Actual() => Actual(74850409L, AOC2015_24.Solve2, "24");
 
-        [Test, Property("Speed", "VerySlow")]
+        [Test, Property("Speed", "Slow")]
         public void Day25_1_Actual() => Actual(8997277L, AOC2015_25.Solve1, "25");
 
         private static void Actual<T>(T expected, Func<string[], T> solver, string day)

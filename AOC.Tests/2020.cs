@@ -209,7 +209,7 @@ namespace AOC.Tests
         [Test, Property("Speed", "Slow")]
         public void Day17_2_Sample() => Sample(848L, AOC2020_17.solve2, "17");
 
-        [Test, Property("Speed", "Slow")]
+        [Test, Property("Speed", "VerySlow")]
         public void Day17_2_Actual() => Actual(1792L, AOC2020_17.solve2, "17");
 
         [Test, Property("Speed", "Fast")]

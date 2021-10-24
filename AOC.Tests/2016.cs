@@ -54,16 +54,16 @@ namespace AOC.Tests
         [Test, Property("Speed", "Fast")]
         public void Day04_2_Actual() => Actual(267L, AOC2016_04.Solve2, "04");
 
-        [Test, Property("Speed", "VerySlow")]
+        [Test, Property("Speed", "Slow")]
         public void Day05_1_Sample() => Sample("18f47a30", AOC2016_05.Solve1, "05");
 
-        [Test, Property("Speed", "VerySlow")]
+        [Test, Property("Speed", "Slow")]
         public void Day05_1_Actual() => Actual("f97c354d", AOC2016_05.Solve1, "05");
 
-        [Test, Property("Speed", "VerySlow")]
+        [Test, Property("Speed", "Slow")]
         public void Day05_2_Sample() => Sample("05ace8e3", AOC2016_05.Solve2, "05");
 
-        [Test, Property("Speed", "VerySlow")]
+        [Test, Property("Speed", "Slow")]
         public void Day05_2_Actual() => Actual("863dde27", AOC2016_05.Solve2, "05");
 
         [Test, Property("Speed", "Fast")]
@@ -149,7 +149,7 @@ namespace AOC.Tests
         [Test, Property("Speed", "Fast")]
         public void Day12_2_Sample() => Sample(42L, AOC2016_12.Solve2, "12");
 
-        [Test, Property("Speed", "Slow")]
+        [Test, Property("Speed", "VerySlow")]
         public void Day12_2_Actual() => Actual(9227661L, AOC2016_12.Solve2, "12");
 
         [Test, Property("Speed", "Fast")]
