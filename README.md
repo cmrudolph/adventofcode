@@ -39,6 +39,8 @@
 **Day 11** | [Radioisotope Thermoelectric Generators](/AOC.CSharp/2016/2016_11.cs) | C#</br>
 **Day 12** | [Leonardo's Monorail](/AOC.CSharp/2016/2016_12.cs) | C#</br>
 **Day 13** | [A Maze of Twisty Little Cubicles](/AOC.CSharp/2016/2016_13.cs) | C#</br>
+**Day 14** | [One-Time Pad](/AOC.CSharp/2016/2016_14.cs) | C#</br>
+**Day 15** | [Timing is Everything](/AOC.CSharp/2016/2016_15.cs) | C#</br>
 </br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>

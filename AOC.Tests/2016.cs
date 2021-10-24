@@ -176,6 +176,30 @@ namespace AOC.Tests
         [Test, Property("Speed", "VerySlow")]
         public void Day14_2_Actual() => Actual(22423L, AOC2016_14.Solve2, "14");
 
+        [TestCase("Disc #1 has 5 positions; at time=0, it is at position 4.", 0, true)]
+        [TestCase("Disc #1 has 5 positions; at time=0, it is at position 4.", 1, false)]
+        [TestCase("Disc #1 has 5 positions; at time=0, it is at position 4.", 4, false)]
+        [TestCase("Disc #1 has 5 positions; at time=0, it is at position 4.", 5, true)]
+        [Property("Speed", "Fast")]
+        public void Day15_Cases(string line, int t, bool expected)
+        {
+            var d = AOC2016_15.Disc.Parse(line);
+            bool isOpen = d.IsOpenAt(t);
+            isOpen.Should().Be(expected);
+        }
+
+        [Test, Property("Speed", "Fast")]
+        public void Day15_1_Sample() => Sample(5L, AOC2016_15.Solve1, "15");
+
+        [Test, Property("Speed", "Fast")]
+        public void Day15_1_Actual() => Actual(203660L, AOC2016_15.Solve1, "15");
+
+        [Test, Property("Speed", "Fast")]
+        public void Day15_2_Sample() => Sample(85L, AOC2016_15.Solve2, "15");
+
+        [Test, Property("Speed", "Fast")]
+        public void Day15_2_Actual() => Actual(2408135L, AOC2016_15.Solve2, "15");
+
         private static void Actual<T>(T expected, Func<string[], T> solver, string day)
         {
             TestUtils.Test(expected, solver, TestUtils.ReadInput("2016", day, "actual"));
