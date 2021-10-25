@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using AOC.CSharp;
 using AOC.FSharp;
 using FluentAssertions;
@@ -200,21 +202,43 @@ namespace AOC.Tests
         [Test, Property("Speed", "Fast")]
         public void AOC2016_15_2_Actual() => Actual(2408135L, AOC2016_15.Solve2, "15");
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_16_1_Sample() => Sample(-1L, AOC2016_16.Solve1, "16");
+        [TestCase("1", "100")]
+        [TestCase("0", "001")]
+        [TestCase("11111", "11111000000")]
+        [TestCase("111100001010", "1111000010100101011110000")]
+        [Property("Speed", "New")]
+        public void AOC2016_16_Transform(string input, string expected)
+        {
+            byte[] arr = input.Select(ch => ch == '1' ? (byte)1 : (byte)0).Concat(new byte[input.Length + 1]).ToArray();
+            int size = AOC2016_16.Transform(arr, input.Length);
+            size.Should().Be(input.Length * 2 + 1);
+
+            StringBuilder sb = new();
+            for (int i = 0; i < size; i++)
+            {
+                sb.Append(arr[i] == 1 ? '1' : '0');
+            }
+            sb.ToString().Should().Be(expected);
+        }
+
+        [TestCase("110010110100", "100")]
+        [TestCase("10000011110010000111", "01100")]
+        [Property("Speed", "New")]
+        public void AOC2016_16_Checksum(string input, string expected)
+        {
+            byte[] byteInput = input.Select(ch => ch == '1' ? (byte)1 : (byte)0).ToArray();
+            string actual = AOC2016_16.CalculateChecksum(byteInput, byteInput.Length);
+            actual.Should().Be(expected);
+        }
 
         [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_16_1_Actual() => Actual(-1L, AOC2016_16.Solve1, "16");
+        public void AOC2016_16_1_Sample() => Sample("01100", x => AOC2016_16.Solve(x, "20"), "16");
 
         [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_16_2_Sample() => Sample(-1L, AOC2016_16.Solve2, "16");
+        public void AOC2016_16_1_Actual() => Actual("10010010110011010", x => AOC2016_16.Solve(x, "272"), "16");
 
         [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_16_2_Actual() => Actual(-1L, AOC2016_16.Solve2, "16");
+        public void AOC2016_16_2_Actual() => Actual("01010100101011100", x => AOC2016_16.Solve(x, "35651584"), "16");
 
         [Test, Property("Speed", "New")]
         [Ignore("Future")]
