@@ -41,6 +41,16 @@
 **Day 13** | [A Maze of Twisty Little Cubicles](/AOC.CSharp/2016/2016_13.cs) | C#</br>
 **Day 14** | [One-Time Pad](/AOC.CSharp/2016/2016_14.cs) | C#</br>
 **Day 15** | [Timing is Everything](/AOC.CSharp/2016/2016_15.cs) | C#</br>
+**Day 16** | [Dragon Checksum](/AOC.CSharp/2016/2016_16.cs) | C#</br>
+**Day 17** | [Two Steps Forward](/AOC.CSharp/2016/2016_17.cs) | C#</br>
+**Day 18** | [Like a Rogue](/AOC.CSharp/2016/2016_18.cs) | C#</br>
+**Day 19** | [An Elephant Named Joseph](/AOC.CSharp/2016/2016_19.cs) | C#</br>
+**Day 20** | [Firewall Rules](/AOC.CSharp/2016/2016_20.cs) | C#</br>
+**Day 21** | [Scrambled Letters and Hash](/AOC.CSharp/2016/2016_21.cs) | C#</br>
+**Day 22** | [Grid Computing](/AOC.CSharp/2016/2016_22.cs) | C#</br>
+**Day 23** | [Safe Cracking](/AOC.CSharp/2016/2016_23.cs) | C#</br>
+**Day 24** | [Air Duct Spelunking](/AOC.CSharp/2016/2016_24.cs) | C#</br>
+**Day 25** | [Clock Signal](/AOC.CSharp/2016/2016_25.cs) | C#</br>
 </br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>

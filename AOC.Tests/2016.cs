@@ -206,7 +206,7 @@ namespace AOC.Tests
         [TestCase("0", "001")]
         [TestCase("11111", "11111000000")]
         [TestCase("111100001010", "1111000010100101011110000")]
-        [Property("Speed", "New")]
+        [Property("Speed", "Fast")]
         public void AOC2016_16_Transform(string input, string expected)
         {
             byte[] arr = input.Select(ch => ch == '1' ? (byte)1 : (byte)0).Concat(new byte[input.Length + 1]).ToArray();
@@ -223,7 +223,7 @@ namespace AOC.Tests
 
         [TestCase("110010110100", "100")]
         [TestCase("10000011110010000111", "01100")]
-        [Property("Speed", "New")]
+        [Property("Speed", "Fast")]
         public void AOC2016_16_Checksum(string input, string expected)
         {
             byte[] byteInput = input.Select(ch => ch == '1' ? (byte)1 : (byte)0).ToArray();
@@ -231,30 +231,40 @@ namespace AOC.Tests
             actual.Should().Be(expected);
         }
 
-        [Test, Property("Speed", "New")]
+        [Test, Property("Speed", "Fast")]
         public void AOC2016_16_1_Sample() => Sample("01100", x => AOC2016_16.Solve(x, "20"), "16");
 
-        [Test, Property("Speed", "New")]
+        [Test, Property("Speed", "Fast")]
         public void AOC2016_16_1_Actual() => Actual("10010010110011010", x => AOC2016_16.Solve(x, "272"), "16");
 
-        [Test, Property("Speed", "New")]
+        [Test, Property("Speed", "Fast")]
         public void AOC2016_16_2_Actual() => Actual("01010100101011100", x => AOC2016_16.Solve(x, "35651584"), "16");
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_17_1_Sample() => Sample(-1L, AOC2016_17.Solve1, "17");
+        [Test, Property("Speed", "Fast")]
+        [TestCase("ihgpwlah", "DDRRRD")]
+        [TestCase("kglvqrro", "DDUDRLRRUDRD")]
+        [TestCase("ulqzkmiv", "DRURDRUDDLLDLUURRDULRLDUUDDDRR")]
+        public void AOC2016_17_1_Samples(string passcode, string expected)
+        {
+            string actual = AOC2016_17.Solve1(new[] { passcode });
+            actual.Should().Be(expected);
+        }
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_17_1_Actual() => Actual(-1L, AOC2016_17.Solve1, "17");
+        [Test, Property("Speed", "Fast")]
+        public void AOC2016_17_1_Actual() => Actual("RLRDRDUDDR", AOC2016_17.Solve1, "17");
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_17_2_Sample() => Sample(-1L, AOC2016_17.Solve2, "17");
+        [Test, Property("Speed", "Fast")]
+        [TestCase("ihgpwlah", 370)]
+        [TestCase("kglvqrro", 492)]
+        [TestCase("ulqzkmiv", 830)]
+        public void AOC2016_17_2_Sample(string passcode, int expected)
+        {
+            long actual = AOC2016_17.Solve2(new[] { passcode });
+            actual.Should().Be(expected);
+        }
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_17_2_Actual() => Actual(-1L, AOC2016_17.Solve2, "17");
+        [Test, Property("Speed", "Fast")]
+        public void AOC2016_17_2_Actual() => Actual(420L, AOC2016_17.Solve2, "17");
 
         [Test, Property("Speed", "New")]
         [Ignore("Future")]
