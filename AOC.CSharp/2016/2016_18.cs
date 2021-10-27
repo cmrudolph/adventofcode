@@ -1,75 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace AOC.CSharp
 {
     public class AOC2016_18
     {
-        private static int MakeCount = 0;
-
-        private static HashSet<string> TrapSet = new()
-        {
-            "^^.",
-            ".^^",
-            "^..",
-            "..^",
-        };
-
         public static long Solve(string[] lines, string extra)
         {
             int rowCount = int.Parse(extra);
+            int[] prevRow = Parse(lines[0]);
 
-            Dictionary<string, RowAndSafeCount> cache = new();
-            string prevRow = lines[0];
-
-            int safeCount = lines[0].Count(r => r == '.');
+            int safeCount = prevRow.Sum();
             for (int i = 0; i < rowCount - 1; i++)
             {
-                if (cache.TryGetValue(prevRow, out RowAndSafeCount cached))
-                {
-                    safeCount += cached.SafeCount;
-                    prevRow = cached.Row;
-                }
-                else
-                {
-                    RowAndSafeCount computed = MakeNextRow(prevRow);
-                    cache.Add(prevRow, computed);
-                    safeCount += computed.SafeCount;
-                    prevRow = computed.Row;
-                }
+                RowAndSafeCount computed = MakeNextRow(prevRow);
+                safeCount += computed.SafeCount;
+                prevRow = computed.Row;
             }
-
-            Console.WriteLine(MakeCount);
 
             return safeCount;
         }
 
-        public static RowAndSafeCount MakeNextRow(string prevRow)
-        {
-            MakeCount++;
-            int safeCount = 0;
-            string paddedRow = '.' + prevRow + '.';
-            StringBuilder sb = new();
+        public static int[] Parse(string line) => line.Select(x => x == '^' ? 0 : 1).ToArray();
 
-            for (int i = 0; i < paddedRow.Length - 2; i++)
+        public static string ReverseParse(int[] row) => new string(row.Select(x => x == 1 ? '.' : '^').ToArray());
+
+        public static RowAndSafeCount MakeNextRow(int[] prev)
+        {
+            int[] row = new int[prev.Length];
+            int safeCount = 0;
+
+            for (int i = 0; i < prev.Length; i++)
             {
-                string slice = paddedRow.Substring(i, 3);
-                if (slice == "^^." || slice == ".^^" || slice == "^.." || slice == "..^")
+                if (i == 0)
                 {
-                    sb.Append('^');
+                    if (prev[1] == 1)
+                    {
+                        // .^ or ^^ produce a trap
+                        row[i] = 1;
+                        safeCount++;
+                    }
+                }
+                else if (i == prev.Length - 1)
+                {
+                    if (prev[i - 1] == 1)
+                    {
+                        // ^. or ^^ produce a trap
+                        row[i] = 1;
+                        safeCount++;
+                    }
                 }
                 else
                 {
-                    safeCount++;
-                    sb.Append('.');
+                    if (!(
+                        (prev[i - 1] == 0 && prev[i] == 0 && prev[i + 1] == 1) ||
+                        (prev[i - 1] == 1 && prev[i] == 0 && prev[i + 1] == 0) ||
+                        (prev[i - 1] == 0 && prev[i] == 1 && prev[i + 1] == 1) ||
+                        (prev[i - 1] == 1 && prev[i] == 1 && prev[i + 1] == 0)))
+                    {
+                        row[i] = 1;
+                        safeCount++;
+                    }
                 }
             }
 
-            return new RowAndSafeCount(sb.ToString(), safeCount);
+            return new RowAndSafeCount(row, safeCount);
         }
 
-        public record RowAndSafeCount(string Row, int SafeCount);
+        public record RowAndSafeCount(int[] Row, int SafeCount);
     }
 }

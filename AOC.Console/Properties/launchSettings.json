@@ -2,7 +2,7 @@
   "profiles": {
     "AOC.Console": {
       "commandName": "Project",
-      "commandLineArgs": "-y 2016 -d 18 -t Actual -e 40000"
+      "commandLineArgs": "-y 2016 -d 18 -t Sample -e 10"
     }
   }
 }
