@@ -267,20 +267,25 @@ namespace AOC.Tests
         public void AOC2016_17_2_Actual() => Actual(420L, AOC2016_17.Solve2, "17");
 
         [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_18_1_Sample() => Sample(-1L, AOC2016_18.Solve1, "18");
+        [TestCase("..^^.", ".^^^^", 1)]
+        [TestCase(".^^^^", "^^..^", 2)]
+        [TestCase(".^^.^.^^^^", "^^^...^..^", 5)]
+        [TestCase(".^^^..^.^^", "^^.^^^..^^", 3)]
+        public void AOC2016_18_MakeNextRow(string prevRow, string expectedRow, int expectedCount)
+        {
+            var actual = AOC2016_18.MakeNextRow(prevRow);
+            var expected = new AOC2016_18.RowAndSafeCount(expectedRow, expectedCount);
+            actual.Should().Be(expected);
+        }
 
         [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_18_1_Actual() => Actual(-1L, AOC2016_18.Solve1, "18");
+        public void AOC2016_18_1_Sample() => Sample(38L, x => AOC2016_18.Solve(x, "10"), "18");
 
         [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_18_2_Sample() => Sample(-1L, AOC2016_18.Solve2, "18");
+        public void AOC2016_18_1_Actual() => Actual(1974L, x => AOC2016_18.Solve(x, "40"), "18");
 
         [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_18_2_Actual() => Actual(-1L, AOC2016_18.Solve2, "18");
+        public void AOC2016_18_2_Actual() => Actual(19991126L, x => AOC2016_18.Solve(x, "400000"), "18");
 
         [Test, Property("Speed", "New")]
         [Ignore("Future")]

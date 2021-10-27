@@ -13,8 +13,8 @@ namespace AOC.Console
         [Option('t', "type", Required = true, HelpText = "Sample or Actual")]
         public InputType InputType { get; set; }
 
-        [Option('p', "part", Required = true, HelpText = "Part 1 or 2")]
-        public int Part { get; set; }
+        [Option('p', "part", Required = false, HelpText = "Part 1 or 2")]
+        public string Part { get; set; }
 
         [Option('e', "extra", Required = false, HelpText = "Extra input data to pass")]
         public string Extra { get; set; }
