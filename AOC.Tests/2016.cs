@@ -307,21 +307,17 @@ namespace AOC.Tests
         [Test, Property("Speed", "Fast")]
         public void AOC2016_19_2_Actual() => Actual(1407007L, AOC2016_19.Solve2, "19");
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_20_1_Sample() => Sample(-1L, AOC2016_20.Solve1, "20");
+        [Test, Property("Speed", "Fast")]
+        public void AOC2016_20_1_Sample() => Sample(3L, AOC2016_20.Solve1, "20");
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_20_1_Actual() => Actual(-1L, AOC2016_20.Solve1, "20");
+        [Test, Property("Speed", "Fast")]
+        public void AOC2016_20_1_Actual() => Actual(23923783L, AOC2016_20.Solve1, "20");
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_20_2_Sample() => Sample(-1L, AOC2016_20.Solve2, "20");
+        [Test, Property("Speed", "Fast")]
+        public void AOC2016_20_2_Sample() => Sample(4294967288L, AOC2016_20.Solve2, "20");
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_20_2_Actual() => Actual(-1L, AOC2016_20.Solve2, "20");
+        [Test, Property("Speed", "Fast")]
+        public void AOC2016_20_2_Actual() => Actual(125L, AOC2016_20.Solve2, "20");
 
         [Test, Property("Speed", "New")]
         [Ignore("Future")]
