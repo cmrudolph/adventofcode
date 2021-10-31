@@ -331,21 +331,14 @@ namespace AOC.Tests
         [Test, Property("Speed", "Fast")]
         public void AOC2016_22_1_Actual() => Actual(981L, AOC2016_22.Solve1, "22");
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_23_1_Sample() => Sample(-1L, AOC2016_23.Solve1, "23");
+        [Test, Property("Speed", "Fast")]
+        public void AOC2016_23_1_Sample() => Sample(3L, AOC2016_23.Solve1, "23");
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_23_1_Actual() => Actual(-1L, AOC2016_23.Solve1, "23");
+        [Test, Property("Speed", "Fast")]
+        public void AOC2016_23_1_Actual() => Actual(12492L, AOC2016_23.Solve1, "23");
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_23_2_Sample() => Sample(-1L, AOC2016_23.Solve2, "23");
-
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_23_2_Actual() => Actual(-1L, AOC2016_23.Solve2, "23");
+        [Test, Property("Speed", "Fast")]
+        public void AOC2016_23_2_Actual() => Actual(479009052L, AOC2016_23.Solve2, "23");
 
         [Test, Property("Speed", "New")]
         [Ignore("Future")]
