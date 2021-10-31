@@ -349,21 +349,8 @@ namespace AOC.Tests
         [Test, Property("Speed", "Fast")]
         public void AOC2016_24_2_Actual() => Actual(748L, AOC2016_24.Solve2, "24");
 
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_25_1_Sample() => Sample(-1L, AOC2016_25.Solve1, "25");
-
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_25_1_Actual() => Actual(-1L, AOC2016_25.Solve1, "25");
-
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_25_2_Sample() => Sample(-1L, AOC2016_25.Solve2, "25");
-
-        [Test, Property("Speed", "New")]
-        [Ignore("Future")]
-        public void AOC2016_25_2_Actual() => Actual(-1L, AOC2016_25.Solve2, "25");
+        [Test, Property("Speed", "Fast")]
+        public void AOC2016_25_1_Actual() => Actual(158L, AOC2016_25.Solve1, "25");
 
         private static void Actual<T>(T expected, Func<string[], T> solver, string day)
         {
