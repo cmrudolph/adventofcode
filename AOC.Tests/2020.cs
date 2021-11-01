@@ -273,16 +273,16 @@ namespace AOC.Tests
         public void AOC2020_22_2_Actual() => Actual(32018L, AOC2020_22.solve2, "22");
 
         [Test, Property("Speed", "Fast")]
-        public void AOC2020_23_1_Sample() => Sample("67384529", AOC2020_23.solve1, "23");
+        public void AOC2020_23_1_Sample() => Sample("67384529", AOC2020_23.Solve1, "23");
 
         [Test, Property("Speed", "Fast")]
-        public void AOC2020_23_1_Actual() => Actual("98742365", AOC2020_23.solve1, "23");
+        public void AOC2020_23_1_Actual() => Actual("98742365", AOC2020_23.Solve1, "23");
 
-        [Test, Property("Speed", "VerySlow")]
-        public void AOC2020_23_2_Sample() => Sample(149245887792L, AOC2020_23.solve2, "23");
+        [Test, Property("Speed", "Slow")]
+        public void AOC2020_23_2_Sample() => Sample(149245887792L, AOC2020_23.Solve2, "23");
 
-        [Test, Property("Speed", "VerySlow")]
-        public void AOC2020_23_2_Actual() => Actual(294320513093L, AOC2020_23.solve2, "23");
+        [Test, Property("Speed", "Slow")]
+        public void AOC2020_23_2_Actual() => Actual(294320513093L, AOC2020_23.Solve2, "23");
 
         [Test, Property("Speed", "Fast")]
         public void AOC2020_24_1_Sample() => Sample(10L, AOC2020_24.solve1, "24");
