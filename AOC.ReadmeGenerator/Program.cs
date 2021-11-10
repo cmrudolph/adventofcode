@@ -19,6 +19,7 @@ namespace AOC.ReadmeGenerator
 
             var groups = Directory.GetFiles(searchRoot, "*_*.cs", SearchOption.AllDirectories)
                 .Concat(Directory.GetFiles(searchRoot, "*_*.fs", SearchOption.AllDirectories))
+                .Where(f => !f.Contains("XX"))
                 .Select(f => Create(searchRoot, f))
                 .OrderBy(f => f.SortName)
                 .GroupBy(f => f.Year)

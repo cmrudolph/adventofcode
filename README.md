@@ -52,6 +52,10 @@
 **Day 24** | [Air Duct Spelunking](/AOC.CSharp/2016/2016_24.cs) | C#</br>
 **Day 25** | [Clock Signal](/AOC.CSharp/2016/2016_25.cs) | C#</br>
 </br>
+# 2017
+**Day 1** | [Inverse Captcha](/AOC.CSharp/2017/2017_01.cs) | C#</br>
+**Day 2** | [Corruption Checksum](/AOC.CSharp/2017/2017_02.cs) | C#</br>
+</br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>
 **Day 2** | [Password Philosophy](/AOC.FSharp/2020/2020_02.fs) | F#</br>
@@ -75,7 +79,7 @@
 **Day 20** | [Jurassic Jigsaw](/AOC.FSharp/2020/2020_20.fs) | F#</br>
 **Day 21** | [Allergen Assessment](/AOC.CSharp/2020/2020_21.cs) | C#</br>
 **Day 22** | [Crab Combat](/AOC.FSharp/2020/2020_22.fs) | F#</br>
-**Day 23** | [Crab Cups](/AOC.FSharp/2020/2020_23.fs) | F#</br>
+**Day 23** | [Crab Cups](/AOC.CSharp/2020/2020_23.cs) | C#</br>
 **Day 24** | [Lobby Layout](/AOC.FSharp/2020/2020_24.fs) | F#</br>
 **Day 25** | [Combo Breaker](/AOC.FSharp/2020/2020_25.fs) | F#</br>
 </br>
