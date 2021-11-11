@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AOC.CSharp;
+﻿namespace AOC.CSharp;
 
 public class AOC2016_12
 {

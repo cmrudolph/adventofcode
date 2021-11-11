@@ -1,6 +1,4 @@
 using FluentAssertions;
-using System;
-using System.IO;
 
 namespace AOC.Tests;
 

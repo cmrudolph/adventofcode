@@ -1,6 +1,4 @@
-﻿using System;
-using AOC.CSharp;
-using AOC.FSharp;
+﻿using AOC.CSharp;
 using FluentAssertions;
 using NUnit.Framework;
 

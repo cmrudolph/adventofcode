@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace AOC.CSharp;
+﻿namespace AOC.CSharp;
 
 public static class AOC2015_11
 {

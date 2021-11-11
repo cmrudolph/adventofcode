@@ -1,5 +1,3 @@
-using System.IO;
-
 namespace AOC.Console;
 
 public static class Utils

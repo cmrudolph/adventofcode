@@ -1,5 +1,4 @@
-﻿using System;
-using AOC.CSharp;
+﻿using AOC.CSharp;
 using AOC.FSharp;
 using NUnit.Framework;
 

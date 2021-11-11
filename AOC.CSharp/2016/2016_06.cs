@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace AOC.CSharp;
+﻿namespace AOC.CSharp;
 
 public static class AOC2016_06
 {
