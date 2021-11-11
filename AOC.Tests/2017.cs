@@ -66,6 +66,18 @@ public class AOC2017
     [Test, Property("Speed", "Fast")]
     public void AOC2017_03_2_Actual() => Actual(266330L, AOC2017_03.Solve2, "03");
 
+    [Test, Property("Speed", "Fast")]
+    public void AOC2017_04_1_Sample() => Sample(2L, AOC2017_04.Solve1, "04");
+
+    [Test, Property("Speed", "Fast")]
+    public void AOC2017_04_1_Actual() => Actual(325L, AOC2017_04.Solve1, "04");
+
+    [Test, Property("Speed", "Fast")]
+    public void AOC2017_04_2_Sample() => Sample(2L, AOC2017_04.Solve2, "04");
+
+    [Test, Property("Speed", "Fast")]
+    public void AOC2017_04_2_Actual() => Actual(119L, AOC2017_04.Solve2, "04");
+
     //[Test, Property("Speed", "New")]
     //[Ignore("Future")]
     //public void AOC2017_XX_1_Sample() => Sample(-1L, AOC2017_XX.Solve1, "XX");
