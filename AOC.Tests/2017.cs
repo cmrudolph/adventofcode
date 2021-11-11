@@ -56,6 +56,18 @@ namespace AOC.Tests
         [Test, Property("Speed", "Fast")]
         public void AOC2017_02_2_Actual() => Actual(326L, AOC2017_02.Solve2, "02");
 
+        [Test, Property("Speed", "Fast")]
+        public void AOC2017_03_1_Sample() => Sample(31L, AOC2017_03.Solve1, "03");
+
+        [Test, Property("Speed", "Fast")]
+        public void AOC2017_03_1_Actual() => Actual(438L, AOC2017_03.Solve1, "03");
+
+        [Test, Property("Speed", "Fast")]
+        public void AOC2017_03_2_Sample() => Sample(1968L, AOC2017_03.Solve2, "03");
+
+        [Test, Property("Speed", "Fast")]
+        public void AOC2017_03_2_Actual() => Actual(266330L, AOC2017_03.Solve2, "03");
+
         //[Test, Property("Speed", "New")]
         //[Ignore("Future")]
         //public void AOC2017_XX_1_Sample() => Sample(-1L, AOC2017_XX.Solve1, "XX");
