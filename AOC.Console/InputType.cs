@@ -1,8 +1,7 @@
-﻿namespace AOC.Console
+﻿namespace AOC.Console;
+
+public enum InputType
 {
-    public enum InputType
-    {
-        Sample,
-        Actual
-    }
+    Sample,
+    Actual
 }

@@ -1,12 +1,11 @@
 using System.IO;
 
-namespace AOC.Console
+namespace AOC.Console;
+
+public static class Utils
 {
-    public static class Utils
+    public static string[] ReadInput(string year, string problem, string suffix)
     {
-        public static string[] ReadInput(string year, string problem, string suffix)
-        {
-            return File.ReadAllLines($"../../../../input/{year}/{problem}-{suffix}.txt");
-        }
+        return File.ReadAllLines($"../../../../input/{year}/{problem}-{suffix}.txt");
     }
 }

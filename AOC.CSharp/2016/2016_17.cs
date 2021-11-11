@@ -3,139 +3,139 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AOC.CSharp
+namespace AOC.CSharp;
+
+public class AOC2016_17
 {
-    public class AOC2016_17
+    public static string Solve1(string[] lines)
     {
-        public static string Solve1(string[] lines)
+        return Solve(lines, true);
+    }
+
+    public static long Solve2(string[] lines)
+    {
+        return Solve(lines, false).Length;
+    }
+
+    public static string Solve(string[] lines, bool shortest)
+    {
+        string prefix = lines[0];
+        MD5 md5 = MD5.Create();
+
+        XY target = new XY(3, 3);
+        XY curr = new XY(0, 0);
+        string path = "";
+        string best = null;
+
+        Recurse(md5, prefix, curr, target, path, shortest, ref best);
+        return best;
+    }
+
+    private static void Recurse(MD5 md5, string prefix, XY curr, XY target, string path, bool shortest, ref string bestSolution)
+    {
+        if (shortest && path.Length > bestSolution?.Length)
         {
-            return Solve(lines, true);
+            // Path is not optimal for shortest solution
+            return;
         }
 
-        public static long Solve2(string[] lines)
+        if (curr == target)
         {
-            return Solve(lines, false).Length;
+            if (shortest)
+            {
+                bestSolution = path;
+            }
+            else if (bestSolution == null || path.Length > bestSolution?.Length)
+            {
+                bestSolution = path;
+            }
+
+            return;
         }
 
-        public static string Solve(string[] lines, bool shortest)
+        var directions = GetDirections(md5, prefix, path);
+        var potentials = GetPotentials(curr, directions);
+
+        foreach (var potential in potentials)
         {
-            string prefix = lines[0];
-            MD5 md5 = MD5.Create();
+            path += potential.Letter;
+            Recurse(md5, prefix, potential.XY, target, path, shortest, ref bestSolution);
+            path = path[0..^1];
+        }
+    }
 
-            XY target = new XY(3, 3);
-            XY curr = new XY(0, 0);
-            string path = "";
-            string best = null;
+    private static List<Potential> GetPotentials(XY curr, Directions dir)
+    {
+        List<Potential> results = new(4);
 
-            Recurse(md5, prefix, curr, target, path, shortest, ref best);
-            return best;
+        if (dir.HasFlag(Directions.Left) && curr.X > 0)
+        {
+            results.Add(new Potential(curr with { X = curr.X - 1 }, Directions.Left));
+        }
+        if (dir.HasFlag(Directions.Right) && curr.X < 3)
+        {
+            results.Add(new Potential(curr with { X = curr.X + 1 }, Directions.Right));
+        }
+        if (dir.HasFlag(Directions.Up) && curr.Y > 0)
+        {
+            results.Add(new Potential(curr with { Y = curr.Y - 1 }, Directions.Up));
+        }
+        if (dir.HasFlag(Directions.Down) && curr.Y < 3)
+        {
+            results.Add(new Potential(curr with { Y = curr.Y + 1 }, Directions.Down));
         }
 
-        private static void Recurse(MD5 md5, string prefix, XY curr, XY target, string path, bool shortest, ref string bestSolution)
+        return results;
+    }
+
+    private record XY(int X, int Y);
+
+    private record Potential(XY XY, Directions Direction)
+    {
+        public string Letter => Direction.ToString().Substring(0, 1);
+    }
+
+    private static Directions GetDirections(MD5 md5, string prefix, string path)
+    {
+        string toHash = prefix + path;
+        byte[] bytes = Encoding.ASCII.GetBytes(toHash);
+        byte[] hashed = md5.ComputeHash(bytes);
+        string s1 = _base16CharTableLower[hashed[0]];
+        string s2 = _base16CharTableLower[hashed[1]];
+
+        Directions dir = Directions.None;
+        if (s1[0] >= 'b' && s1[0] <= 'f')
         {
-            if (shortest && path.Length > bestSolution?.Length)
-            {
-                // Path is not optimal for shortest solution
-                return;
-            }
-
-            if (curr == target)
-            {
-                if (shortest)
-                {
-                    bestSolution = path;
-                }
-                else if (bestSolution == null || path.Length > bestSolution?.Length)
-                {
-                    bestSolution = path;
-                }
-
-                return;
-            }
-
-            var directions = GetDirections(md5, prefix, path);
-            var potentials = GetPotentials(curr, directions);
-
-            foreach (var potential in potentials)
-            {
-                path += potential.Letter;
-                Recurse(md5, prefix, potential.XY, target, path, shortest, ref bestSolution);
-                path = path[0..^1];
-            }
+            dir |= Directions.Up;
+        }
+        if (s1[1] >= 'b' && s1[0] <= 'f')
+        {
+            dir |= Directions.Down;
+        }
+        if (s2[0] >= 'b' && s2[0] <= 'f')
+        {
+            dir |= Directions.Left;
+        }
+        if (s2[1] >= 'b' && s2[0] <= 'f')
+        {
+            dir |= Directions.Right;
         }
 
-        private static List<Potential> GetPotentials(XY curr, Directions dir)
-        {
-            List<Potential> results = new(4);
+        return dir;
+    }
 
-            if (dir.HasFlag(Directions.Left) && curr.X > 0)
-            {
-                results.Add(new Potential(curr with { X = curr.X - 1 }, Directions.Left));
-            }
-            if (dir.HasFlag(Directions.Right) && curr.X < 3)
-            {
-                results.Add(new Potential(curr with { X = curr.X + 1 }, Directions.Right));
-            }
-            if (dir.HasFlag(Directions.Up) && curr.Y > 0)
-            {
-                results.Add(new Potential(curr with { Y = curr.Y - 1 }, Directions.Up));
-            }
-            if (dir.HasFlag(Directions.Down) && curr.Y < 3)
-            {
-                results.Add(new Potential(curr with { Y = curr.Y + 1 }, Directions.Down));
-            }
+    [Flags]
+    private enum Directions
+    {
+        None = 0,
+        Up = 1,
+        Down = 2,
+        Left = 4,
+        Right = 8,
+    }
 
-            return results;
-        }
-
-        private record XY(int X, int Y);
-
-        private record Potential(XY XY, Directions Direction)
-        {
-            public string Letter => Direction.ToString().Substring(0, 1);
-        }
-
-        private static Directions GetDirections(MD5 md5, string prefix, string path)
-        {
-            string toHash = prefix + path;
-            byte[] bytes = Encoding.ASCII.GetBytes(toHash);
-            byte[] hashed = md5.ComputeHash(bytes);
-            string s1 = _base16CharTableLower[hashed[0]];
-            string s2 = _base16CharTableLower[hashed[1]];
-
-            Directions dir = Directions.None;
-            if (s1[0] >= 'b' && s1[0] <= 'f')
-            {
-                dir |= Directions.Up;
-            }
-            if (s1[1] >= 'b' && s1[0] <= 'f')
-            {
-                dir |= Directions.Down;
-            }
-            if (s2[0] >= 'b' && s2[0] <= 'f')
-            {
-                dir |= Directions.Left;
-            }
-            if (s2[1] >= 'b' && s2[0] <= 'f')
-            {
-                dir |= Directions.Right;
-            }
-
-            return dir;
-        }
-
-        [Flags]
-        private enum Directions
-        {
-            None = 0,
-            Up = 1,
-            Down = 2,
-            Left = 4,
-            Right = 8,
-        }
-
-        private static readonly string[] _base16CharTableLower = new[]
-        {
+    private static readonly string[] _base16CharTableLower = new[]
+    {
             "00", "01", "02", "03", "04", "05", "06", "07",
             "08", "09", "0a", "0b", "0c", "0d", "0e", "0f",
             "10", "11", "12", "13", "14", "15", "16", "17",
@@ -169,5 +169,4 @@ namespace AOC.CSharp
             "f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7",
             "f8", "f9", "fa", "fb", "fc", "fd", "fe", "ff"
         };
-    }
 }
