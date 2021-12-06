@@ -55,6 +55,10 @@
 # 2017
 **Day 1** | [Inverse Captcha](/AOC.CSharp/2017/2017_01.cs) | C#</br>
 **Day 2** | [Corruption Checksum](/AOC.CSharp/2017/2017_02.cs) | C#</br>
+**Day 3** | [Spiral Memory](/AOC.CSharp/2017/2017_03.cs) | C#</br>
+**Day 4** | [High-Entropy Passphrases](/AOC.CSharp/2017/2017_04.cs) | C#</br>
+**Day 5** | [A Maze of Twisty Trampolines, All Alike](/AOC.CSharp/2017/2017_05.cs) | C#</br>
+**Day 6** | [Memory Reallocation](/AOC.CSharp/2017/2017_06.cs) | C#</br>
 </br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>
@@ -82,4 +86,11 @@
 **Day 23** | [Crab Cups](/AOC.CSharp/2020/2020_23.cs) | C#</br>
 **Day 24** | [Lobby Layout](/AOC.FSharp/2020/2020_24.fs) | F#</br>
 **Day 25** | [Combo Breaker](/AOC.FSharp/2020/2020_25.fs) | F#</br>
+</br>
+# 2021
+**Day 1** | [Sonar Sweep](/AOC.CSharp/2021/2021_01.cs) | C#</br>
+**Day 2** | [Dive!](/AOC.CSharp/2021/2021_02.cs) | C#</br>
+**Day 3** | [Binary Diagnostic](/AOC.CSharp/2021/2021_03.cs) | C#</br>
+**Day 4** | [Giant Squid](/AOC.CSharp/2021/2021_04.cs) | C#</br>
+**Day 5** | [Hydrothermal Venture](/AOC.CSharp/2021/2021_05.cs) | C#</br>
 </br>

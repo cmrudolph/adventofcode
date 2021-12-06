@@ -53,6 +53,10 @@
 2017-01 | Inverse Captcha
 2017-02 | Corruption Checksum
 2017-03 | Spiral Memory
+2017-04 | High-Entropy Passphrases
+2017-05 | A Maze of Twisty Trampolines, All Alike
+2017-06 | Memory Reallocation
+2017-07 | Recursive Circus
 
 2020-01 | Report Repair
 2020-02 | Password Philosophy
@@ -79,3 +83,9 @@
 2020-23 | Crab Cups
 2020-24 | Lobby Layout
 2020-25 | Combo Breaker
+
+2021-01 | Sonar Sweep
+2021-02 | Dive!
+2021-03 | Binary Diagnostic
+2021-04 | Giant Squid
+2021-05 | Hydrothermal Venture
