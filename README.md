@@ -59,6 +59,7 @@
 **Day 4** | [High-Entropy Passphrases](/AOC.CSharp/2017/2017_04.cs) | C#</br>
 **Day 5** | [A Maze of Twisty Trampolines, All Alike](/AOC.CSharp/2017/2017_05.cs) | C#</br>
 **Day 6** | [Memory Reallocation](/AOC.CSharp/2017/2017_06.cs) | C#</br>
+**Day 7** | [Recursive Circus](/AOC.CSharp/2017/2017_07.cs) | C#</br>
 </br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>
@@ -93,4 +94,5 @@
 **Day 3** | [Binary Diagnostic](/AOC.CSharp/2021/2021_03.cs) | C#</br>
 **Day 4** | [Giant Squid](/AOC.CSharp/2021/2021_04.cs) | C#</br>
 **Day 5** | [Hydrothermal Venture](/AOC.CSharp/2021/2021_05.cs) | C#</br>
+**Day 6** | [Lanternfish](/AOC.CSharp/2021/2021_06.cs) | C#</br>
 </br>

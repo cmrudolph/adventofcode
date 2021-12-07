@@ -89,3 +89,4 @@
 2021-03 | Binary Diagnostic
 2021-04 | Giant Squid
 2021-05 | Hydrothermal Venture
+2021-06 | Lanternfish
