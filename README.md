@@ -95,4 +95,5 @@
 **Day 4** | [Giant Squid](/AOC.CSharp/2021/2021_04.cs) | C#</br>
 **Day 5** | [Hydrothermal Venture](/AOC.CSharp/2021/2021_05.cs) | C#</br>
 **Day 6** | [Lanternfish](/AOC.CSharp/2021/2021_06.cs) | C#</br>
+**Day 7** | [The Treachery of Whales](/AOC.CSharp/2021/2021_07.cs) | C#</br>
 </br>
