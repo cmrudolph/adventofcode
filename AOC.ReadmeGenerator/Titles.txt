@@ -92,3 +92,6 @@
 2021-06 | Lanternfish
 2021-07 | The Treachery of Whales
 2021-08 | Seven Segment Search
+2021-09 | Smoke Basin
+2021-10 | Syntax Scoring
+2021-11 | Dumbo Octopus
