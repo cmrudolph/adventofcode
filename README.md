@@ -96,4 +96,5 @@
 **Day 6** | [Lanternfish](/AOC.CSharp/2021/2021_06.cs) | C#</br>
 **Day 7** | [The Treachery of Whales](/AOC.CSharp/2021/2021_07.cs) | C#</br>
 **Day 8** | [Seven Segment Search](/AOC.CSharp/2021/2021_08.cs) | C#</br>
+**Day 9** | [Smoke Basin](/AOC.CSharp/2021/2021_09.cs) | C#</br>
 </br>
