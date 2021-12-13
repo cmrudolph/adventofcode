@@ -127,6 +127,18 @@ public class AOC2021
     [Test, Property("Speed", "Fast")]
     public void AOC2021_10_2_Actual() => Actual(2380061249L, AOC2021_10.Solve2, "10");
 
+    [Test, Property("Speed", "Fast")]
+    public void AOC2021_12_1_Sample() => Sample(10L, AOC2021_12.Solve1, "12");
+
+    [Test, Property("Speed", "Fast")]
+    public void AOC2021_12_1_Actual() => Actual(4495L, AOC2021_12.Solve1, "12");
+
+    [Test, Property("Speed", "Fast")]
+    public void AOC2021_12_2_Sample() => Sample(36L, AOC2021_12.Solve2, "12");
+
+    [Test, Property("Speed", "Fast")]
+    public void AOC2021_12_2_Actual() => Actual(131254L, AOC2021_12.Solve2, "12");
+
     //[Test, Property("Speed", "New")]
     //public void AOC2021_XX_1_Sample() => Sample(-1L, AOC2021_XX.Solve1, "XX");
 
