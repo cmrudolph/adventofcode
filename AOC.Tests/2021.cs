@@ -37,7 +37,7 @@ public class AOC2021
     [Test, Property("Speed", "Fast")]
     public void AOC2021_03_1_Actual() => Actual(3374136L, AOC2021_03.Solve1, "03");
 
-    [Test, Property("Speed", "Fast")] 
+    [Test, Property("Speed", "Fast")]
     public void AOC2021_03_2_Sample() => Sample(230L, AOC2021_03.Solve2, "03");
 
     [Test, Property("Speed", "Fast")]
@@ -151,17 +151,29 @@ public class AOC2021
     [Test, Property("Speed", "Fast")]
     public void AOC2021_12_2_Actual() => Actual(131254L, AOC2021_12.Solve2, "12");
 
-    //[Test, Property("Speed", "New")]
-    //public void AOC2021_11_1_Sample() => Sample(-1L, AOC2021_11.Solve1, "11");
+    [Test, Property("Speed", "New")]
+    public void AOC2021_13_1_Sample() => Sample(17L, AOC2021_13.Solve1, "13");
+
+    [Test, Property("Speed", "New")]
+    public void AOC2021_13_1_Actual() => Actual(678L, AOC2021_13.Solve1, "13");
+
+    [Test, Property("Speed", "New")]
+    public void AOC2021_13_2_Sample() => Sample(0L, AOC2021_13.Solve2, "13");
+
+    [Test, Property("Speed", "New")]
+    public void AOC2021_13_2_Actual() => Actual(0L, AOC2021_13.Solve2, "13");
 
     //[Test, Property("Speed", "New")]
-    //public void AOC2021_11_1_Actual() => Actual(-1L, AOC2021_11.Solve1, "11");
+    //public void AOC2021_XX_1_Sample() => Sample(-1L, AOC2021_XX.Solve1, "XX");
 
     //[Test, Property("Speed", "New")]
-    //public void AOC2021_11_2_Sample() => Sample(-1L, AOC2021_11.Solve2, "11");
+    //public void AOC2021_XX_1_Actual() => Actual(-1L, AOC2021_XX.Solve1, "XX");
 
     //[Test, Property("Speed", "New")]
-    //public void AOC2021_11_2_Actual() => Actual(-1L, AOC2021_11.Solve2, "11");
+    //public void AOC2021_XX_2_Sample() => Sample(-1L, AOC2021_XX.Solve2, "XX");
+
+    //[Test, Property("Speed", "New")]
+    //public void AOC2021_XX_2_Actual() => Actual(-1L, AOC2021_XX.Solve2, "XX");
 
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
     {

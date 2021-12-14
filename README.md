@@ -98,4 +98,7 @@
 **Day 8** | [Seven Segment Search](/AOC.CSharp/2021/2021_08.cs) | C#</br>
 **Day 9** | [Smoke Basin](/AOC.CSharp/2021/2021_09.cs) | C#</br>
 **Day 10** | [Syntax Scoring](/AOC.CSharp/2021/2021_10.cs) | C#</br>
+**Day 11** | [Dumbo Octopus](/AOC.CSharp/2021/2021_11.cs) | C#</br>
+**Day 12** | [Passage Pathing](/AOC.CSharp/2021/2021_12.cs) | C#</br>
+**Day 13** | [Transparent Origami](/AOC.CSharp/2021/2021_13.cs) | C#</br>
 </br>

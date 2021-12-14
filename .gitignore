@@ -6,3 +6,4 @@ obj
 *.user
 .fake
 .ionide
+.idea
