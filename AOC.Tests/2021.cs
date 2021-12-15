@@ -163,16 +163,28 @@ public class AOC2021
     [Test, Category("Fast")]
     public void AOC2021_13_2_Actual() => Actual(0L, AOC2021_13.Solve2, "13");
 
-    //[Test, Property("Speed", "New")]
+    [Test, Category("Fast")]
+    public void AOC2021_14_1_Sample() => Sample(1588L, AOC2021_14.Solve1, "14");
+
+    [Test, Category("Fast")]
+    public void AOC2021_14_1_Actual() => Actual(2947L, AOC2021_14.Solve1, "14");
+
+    [Test, Category("Fast")]
+    public void AOC2021_14_2_Sample() => Sample(2188189693529L, AOC2021_14.Solve2, "14");
+
+    [Test, Category("Fast")]
+    public void AOC2021_14_2_Actual() => Actual(3232426226464L, AOC2021_14.Solve2, "14");
+
+    // [Test, Category("New")]
     //public void AOC2021_XX_1_Sample() => Sample(-1L, AOC2021_XX.Solve1, "XX");
 
-    //[Test, Property("Speed", "New")]
+    //[Test, Category("New")]
     //public void AOC2021_XX_1_Actual() => Actual(-1L, AOC2021_XX.Solve1, "XX");
 
-    //[Test, Property("Speed", "New")]
+    //[Test, Category("New")]
     //public void AOC2021_XX_2_Sample() => Sample(-1L, AOC2021_XX.Solve2, "XX");
 
-    //[Test, Property("Speed", "New")]
+    //[Test, Category("New")]
     //public void AOC2021_XX_2_Actual() => Actual(-1L, AOC2021_XX.Solve2, "XX");
 
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
