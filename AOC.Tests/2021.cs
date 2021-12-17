@@ -187,6 +187,42 @@ public class AOC2021
     [Test, Category("Fast")]
     public void AOC2021_15_2_Actual() => Actual(3022L, AOC2021_15.Solve2, "15");
 
+    [TestCase("D2FE28", 6, "single packet")]
+    [TestCase("38006F45291200", 9, "two sub packets using LT 0")]
+    [TestCase("EE00D40C823060", 14, "three sub packets using LT 1")]
+    [TestCase("8A004A801A8002F478", 16, "nested operators 3x")]
+    [TestCase("620080001611562C8802118E34", 12, "operator with operators - complex")]
+    [TestCase("C0015000016115A2E0802F182340", 23, "operator with operators - complex")]
+    [TestCase("A0016C880162017C3686B18A3D4780", 31, "operator with operators - complex")]
+    [Category("Fast")]
+    public void AOC2021_16_1_SampleCases(string input, int expected, string desc)
+    {
+        long result = AOC2021_16.Solve1(new string[] { input });
+        result.Should().Be(expected);
+    }
+
+    [Test, Category("Fast")]
+    public void AOC2021_16_1_Actual() => Actual(847L, AOC2021_16.Solve1, "16");
+
+    [TestCase("D2FE28", 2021, "literal")]
+    [TestCase("C200B40A82", 3, "sum")]
+    [TestCase("04005AC33890", 54, "product")]
+    [TestCase("880086C3E88112", 7, "min")]
+    [TestCase("CE00C43D881120", 9, "max")]
+    [TestCase("D8005AC2A8F0", 1, "less")]
+    [TestCase("F600BC2D8F", 0, "greater")]
+    [TestCase("9C005AC2F8F0", 0, "equal")]
+    [TestCase("9C0141080250320F1802104A08", 1, "complex")]
+    [Category("Fast")]
+    public void AOC2021_16_2_SampleCases(string input, int expected, string desc)
+    {
+        long result = AOC2021_16.Solve2(new string[] { input });
+        result.Should().Be(expected);
+    }
+
+    [Test, Category("Fast")]
+    public void AOC2021_16_2_Actual() => Actual(333794664059L, AOC2021_16.Solve2, "16");
+
     // [Test, Category("New")]
     //public void AOC2021_XX_1_Sample() => Sample(-1L, AOC2021_XX.Solve1, "XX");
 
