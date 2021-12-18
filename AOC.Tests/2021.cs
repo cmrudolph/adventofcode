@@ -223,6 +223,18 @@ public class AOC2021
     [Test, Category("Fast")]
     public void AOC2021_16_2_Actual() => Actual(333794664059L, AOC2021_16.Solve2, "16");
 
+    [Test, Category("New")]
+    public void AOC2021_17_1_Sample() => Sample(45L, AOC2021_17.Solve1, "17");
+
+    [Test, Category("New")]
+    public void AOC2021_17_1_Actual() => Actual(13041L, AOC2021_17.Solve1, "17");
+
+    [Test, Category("New")]
+    public void AOC2021_17_2_Sample() => Sample(112L, AOC2021_17.Solve2, "17");
+
+    [Test, Category("New")]
+    public void AOC2021_17_2_Actual() => Actual(1031L, AOC2021_17.Solve2, "17");
+
     // [Test, Category("New")]
     //public void AOC2021_XX_1_Sample() => Sample(-1L, AOC2021_XX.Solve1, "XX");
 
