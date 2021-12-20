@@ -223,17 +223,95 @@ public class AOC2021
     [Test, Category("Fast")]
     public void AOC2021_16_2_Actual() => Actual(333794664059L, AOC2021_16.Solve2, "16");
 
-    [Test, Category("New")]
+    [Test, Category("Fast")]
     public void AOC2021_17_1_Sample() => Sample(45L, AOC2021_17.Solve1, "17");
 
-    [Test, Category("New")]
+    [Test, Category("Fast")]
     public void AOC2021_17_1_Actual() => Actual(13041L, AOC2021_17.Solve1, "17");
 
-    [Test, Category("New")]
+    [Test, Category("Fast")]
     public void AOC2021_17_2_Sample() => Sample(112L, AOC2021_17.Solve2, "17");
 
-    [Test, Category("New")]
+    [Test, Category("Fast")]
     public void AOC2021_17_2_Actual() => Actual(1031L, AOC2021_17.Solve2, "17");
+
+    [TestCase("[[1,2],[[3,4],5]]", 143)]
+    [TestCase("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]", 1384)]
+    [TestCase("[[[[1,1],[2,2]],[3,3]],[4,4]]", 445)]
+    [TestCase("[[[[3,0],[5,3]],[4,4]],[5,5]]", 791)]
+    [TestCase("[[[[5,0],[7,4]],[5,5]],[6,6]]", 1137)]
+    [TestCase("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]", 3488)]
+    public void AOC2021_18_Magnitude(string input, long expected)
+    {
+        var num = AOC2021_18.Number.Parse(input);
+        long actual = AOC2021_18.Magnitude(num);
+        actual.Should().Be(expected);
+    }
+
+    [TestCase("[1,1]", "[2,2]", "(1,2)|(1,2)|(2,2)|(2,2)")]
+    [TestCase("[[1,1],[2,2]]", "[3,3]", "(1,3)|(1,3)|(2,3)|(2,3)|(3,2)|(3,2)")]
+    [TestCase("[[[1,1],[2,2]],[3,3]]", "[4,4]", "(1,4)|(1,4)|(2,4)|(2,4)|(3,3)|(3,3)|(4,2)|(4,2)")]
+    public void AOC2021_18_Add(string input1, string input2, string expected)
+    {
+        var num1 = AOC2021_18.Number.Parse(input1);
+        var num2 = AOC2021_18.Number.Parse(input2);
+        var added = AOC2021_18.Add(num1, num2);
+        string actual = added.ToString();
+        actual.Should().Be(expected);
+    }
+
+    [TestCase("[[[[[9,8],1],2],3],4]", "(0,4)|(9,4)|(2,3)|(3,2)|(4,1)")]
+    [TestCase("[7,[6,[5,[4,[3,2]]]]]", "(7,1)|(6,2)|(5,3)|(7,4)|(0,4)")]
+    [TestCase("[[6,[5,[4,[3,2]]]],1]", "(6,2)|(5,3)|(7,4)|(0,4)|(3,1)")]
+    [TestCase("[[3,[2,[1,[7,3]]]],[6,[5,[4,[3,2]]]]]", "(3,2)|(2,3)|(8,4)|(0,4)|(9,2)|(5,3)|(4,4)|(3,5)|(2,5)")]
+    [TestCase("[[3,[2,[8,0]]],[9,[5,[4,[3,2]]]]]", "(3,2)|(2,3)|(8,4)|(0,4)|(9,2)|(5,3)|(7,4)|(0,4)")]
+    public void AOC2021_18_Explode(string input, string expected)
+    {
+        var num = AOC2021_18.Number.Parse(input);
+        var exploded = AOC2021_18.Explode(num);
+        string actual = exploded.ToString();
+        actual.Should().Be(expected);
+    }
+
+    [TestCase("[[[[0,7],4],[15,[0,13]]],[1,1]]", "(0,4)|(7,4)|(4,3)|(7,4)|(8,4)|(0,4)|(13,4)|(1,2)|(1,2)")]
+    [TestCase("[[[[0,7],4],[[7,8],[0,13]]],[1,1]]", "(0,4)|(7,4)|(4,3)|(7,4)|(8,4)|(0,4)|(6,5)|(7,5)|(1,2)|(1,2)")]
+    public void AOC2021_18_Split(string input, string expected)
+    {
+        var num = AOC2021_18.Number.Parse(input);
+        var exploded = AOC2021_18.Split(num);
+        string actual = exploded.ToString();
+        actual.Should().Be(expected);
+    }
+
+    [TestCase(
+        "[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]]",
+        "[7,[[[3,7],[4,3]],[[6,3],[8,8]]]]",
+        "(4,4)|(0,4)|(5,4)|(4,4)|(7,4)|(7,4)|(6,4)|(0,4)|(8,3)|(7,4)|(7,4)|(7,4)|(9,4)|(5,4)|(0,4)")]
+    [TestCase(
+        "[[[[4,0],[5,4]],[[7,7],[6,0]]],[[8,[7,7]],[[7,9],[5,0]]]]",
+        "[[2,[[0,8],[3,4]]],[[[6,7],1],[7,[1,6]]]]",
+        "(6,4)|(7,4)|(6,4)|(7,4)|(7,4)|(7,4)|(0,4)|(7,4)|(8,4)|(7,4)|(7,4)|(7,4)|(8,4)|(8,4)|(8,4)|(0,4)")]
+    public void AOC2021_18_Reduce(string input1, string input2, string expected)
+    {
+        var num1 = AOC2021_18.Number.Parse(input1);
+        var num2 = AOC2021_18.Number.Parse(input2);
+        var added = AOC2021_18.Add(num1, num2);
+        var reduced = AOC2021_18.Reduce(added);
+        string actual = reduced.ToString();
+        actual.Should().Be(expected);
+    }
+
+    [Test, Category("Fast")]
+    public void AOC2021_18_1_Sample() => Sample(4140L, AOC2021_18.Solve1, "18");
+
+    [Test, Category("Fast")]
+    public void AOC2021_18_1_Actual() => Actual(3647L, AOC2021_18.Solve1, "18");
+
+    [Test, Category("Fast")]
+    public void AOC2021_18_2_Sample() => Sample(3993L, AOC2021_18.Solve2, "18");
+
+    [Test, Category("Fast")]
+    public void AOC2021_18_2_Actual() => Actual(4600L, AOC2021_18.Solve2, "18");
 
     // [Test, Category("New")]
     //public void AOC2021_XX_1_Sample() => Sample(-1L, AOC2021_XX.Solve1, "XX");
