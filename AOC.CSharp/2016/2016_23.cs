@@ -147,6 +147,7 @@ public class AOC2016_23
             "dec" => new Command(CommandType.Decrement, splits[1]),
             "jnz" => new Command(CommandType.JumpNotZero, splits[1], splits[2]),
             "tgl" => new Command(CommandType.Toggle, splits[1]),
+            _ => throw new NotSupportedException(),
         };
     }
 
@@ -182,6 +183,7 @@ public class AOC2016_23
                 CommandType.Decrement => "dec",
                 CommandType.JumpNotZero => "jnz",
                 CommandType.Toggle => "tgl",
+                _ => throw new NotSupportedException(),
             };
 
             return $"{cmd} {Arg1} {Arg2}";

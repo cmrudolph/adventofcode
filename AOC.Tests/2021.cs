@@ -318,6 +318,18 @@ public class AOC2021
     [Test, Category("Fast")]
     public void AOC2021_18_2_Actual() => Actual(4600L, AOC2021_18.Solve2, "18");
 
+    //[Test, Category("New")]
+    //public void AOC2021_19_1_Sample() => Sample(-1L, AOC2021_19.Solve1, "19");
+
+    //[Test, Category("New")]
+    //public void AOC2021_19_1_Actual() => Actual(-1L, AOC2021_19.Solve1, "19");
+
+    //[Test, Category("New")]
+    //public void AOC2021_19_2_Sample() => Sample(-1L, AOC2021_19.Solve2, "19");
+
+    //[Test, Category("New")]
+    //public void AOC2021_19_2_Actual() => Actual(-1L, AOC2021_19.Solve2, "19");
+
     [Test, Category("Fast")]
     public void AOC2021_20_1_Sample() => Sample(35L, AOC2021_20.Solve1, "20");
 
@@ -330,17 +342,65 @@ public class AOC2021
     [Test, Category("Fast")]
     public void AOC2021_20_2_Actual() => Actual(19592L, AOC2021_20.Solve2, "20");
 
-    // [Test, Category("New")]
-    //public void AOC2021_XX_1_Sample() => Sample(-1L, AOC2021_XX.Solve1, "XX");
+    //[Test, Category("New")]
+    //public void AOC2021_21_1_Sample() => Sample(-1L, AOC2021_19.Solve1, "21");
 
     //[Test, Category("New")]
-    //public void AOC2021_XX_1_Actual() => Actual(-1L, AOC2021_XX.Solve1, "XX");
+    //public void AOC2021_21_1_Actual() => Actual(-1L, AOC2021_19.Solve1, "21");
 
     //[Test, Category("New")]
-    //public void AOC2021_XX_2_Sample() => Sample(-1L, AOC2021_XX.Solve2, "XX");
+    //public void AOC2021_21_2_Sample() => Sample(-1L, AOC2021_19.Solve2, "21");
 
     //[Test, Category("New")]
-    //public void AOC2021_XX_2_Actual() => Actual(-1L, AOC2021_XX.Solve2, "XX");
+    //public void AOC2021_21_2_Actual() => Actual(-1L, AOC2021_19.Solve2, "21");
+
+    //[Test, Category("New")]
+    //public void AOC2021_22_1_Sample() => Sample(-1L, AOC2021_22.Solve1, "22");
+
+    //[Test, Category("New")]
+    //public void AOC2021_22_1_Actual() => Actual(-1L, AOC2021_22.Solve1, "22");
+
+    //[Test, Category("New")]
+    //public void AOC2021_22_2_Sample() => Sample(-1L, AOC2021_22.Solve2, "22");
+
+    //[Test, Category("New")]
+    //public void AOC2021_22_2_Actual() => Actual(-1L, AOC2021_22.Solve2, "22");
+
+    //[Test, Category("New")]
+    //public void AOC2021_23_1_Sample() => Sample(-1L, AOC2021_23.Solve1, "23");
+
+    //[Test, Category("New")]
+    //public void AOC2021_23_1_Actual() => Actual(-1L, AOC2021_23.Solve1, "23");
+
+    //[Test, Category("New")]
+    //public void AOC2021_23_2_Sample() => Sample(-1L, AOC2021_23.Solve2, "23");
+
+    //[Test, Category("New")]
+    //public void AOC2021_23_2_Actual() => Actual(-1L, AOC2021_23.Solve2, "23");
+
+    //[Test, Category("New")]
+    //public void AOC2021_24_1_Sample() => Sample(-1L, AOC2021_24.Solve1, "24");
+
+    //[Test, Category("New")]
+    //public void AOC2021_24_1_Actual() => Actual(-1L, AOC2021_24.Solve1, "24");
+
+    //[Test, Category("New")]
+    //public void AOC2021_24_2_Sample() => Sample(-1L, AOC2021_24.Solve2, "24");
+
+    //[Test, Category("New")]
+    //public void AOC2021_24_2_Actual() => Actual(-1L, AOC2021_24.Solve2, "24");
+
+    //[Test, Category("New")]
+    //public void AOC2021_25_1_Sample() => Sample(-1L, AOC2021_25.Solve1, "25");
+
+    //[Test, Category("New")]
+    //public void AOC2021_25_1_Actual() => Actual(-1L, AOC2021_25.Solve1, "25");
+
+    //[Test, Category("New")]
+    //public void AOC2021_25_2_Sample() => Sample(-1L, AOC2021_25.Solve2, "25");
+
+    //[Test, Category("New")]
+    //public void AOC2021_25_2_Actual() => Actual(-1L, AOC2021_25.Solve2, "25");
 
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
     {
