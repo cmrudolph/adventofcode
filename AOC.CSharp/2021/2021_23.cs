@@ -4,16 +4,9 @@ namespace AOC.CSharp;
 
 public static class AOC2021_23
 {
-    public const int Room1X = 2;
-    public const int Room2X = 4;
-    public const int Room3X = 6;
-    public const int Room4X = 8;
-
-    public const int HallwayY = 0;
-    public const int UpperY = 1;
-    public const int LowerY = 2;
-
-    public static readonly List<int> HallXSpots = new() { 0, 1, 3, 5, 7, 9, 10 };
+    private const int HallwayY = 0;
+    private static readonly int[] RoomX = { 2, 4, 6, 8 };
+    private static readonly List<int> HallXSpots = new() { 0, 1, 3, 5, 7, 9, 10 };
 
     public static long Solve1(string[] lines)
     {
@@ -22,7 +15,7 @@ public static class AOC2021_23
         int idx = 0;
         for (int x = 2; x <= 8; x += 2)
         {
-            for (int y = UpperY; y <= LowerY; y++)
+            for (int y = 1; y <= 2; y++)
             {
                 Antipode a = new(idx++, lines[y + 1][x + 1], x, y);
                 antipodes.Add(a);
@@ -31,15 +24,36 @@ public static class AOC2021_23
 
         HashSet<string> seen = new();
         Dictionary<string, int?> bestCost = new();
-        State state = new(antipodes);
+        State state = new(antipodes, 2);
         int? best = Recurse(state, seen, bestCost);
 
-        return best.Value;
+        return best.GetValueOrDefault();
     }
 
     public static long Solve2(string[] lines)
     {
-        return 0L;
+        List<Antipode> antipodes = new();
+
+        List<string> finalLines = lines.ToList();
+        finalLines.Insert(3, "  #D#C#B#A#  ");
+        finalLines.Insert(4, "  #D#B#A#C#  ");
+
+        int idx = 0;
+        for (int x = 2; x <= 8; x += 2)
+        {
+            for (int y = 1; y <= 4; y++)
+            {
+                Antipode a = new(idx++, finalLines[y + 1][x + 1], x, y);
+                antipodes.Add(a);
+            }
+        }
+
+        HashSet<string> seen = new();
+        Dictionary<string, int?> bestCost = new();
+        State state = new(antipodes, 4);
+        int? best = Recurse(state, seen, bestCost);
+
+        return best.GetValueOrDefault();
     }
 
     private static int? Recurse(State s, HashSet<string> visited, Dictionary <string, int?> bestCost)
@@ -57,8 +71,8 @@ public static class AOC2021_23
         visited.Add(s.Key);
 
         int? myBestCost = null;
-        var nextStates = GetNextStates(s).Where(x => !visited.Contains(x.State.Key));
-        foreach (var nextState in nextStates)
+        IEnumerable<NextState> nextStates = s.GetNextStates().Where(x => !visited.Contains(x.State.Key));
+        foreach (NextState nextState in nextStates)
         {
             int? subCost = Recurse(nextState.State, visited, bestCost);
             if (subCost.HasValue)
@@ -77,82 +91,80 @@ public static class AOC2021_23
         return myBestCost;
     }
 
-    private static List<NextState> GetNextStates(State s)
-    {
-        List<NextState> states = new();
-
-        foreach (Antipode a in s.Antipodes)
-        {
-            if (s.IsInFinalSpot(a))
-            {
-                // Already in final resting place. No need to move this one ever again (so no next move exists)
-                continue;
-            }
-            if (a.InRoom)
-            {
-                foreach (int x in HallXSpots)
-                {
-                    int? cost = s.GetMoveCost(a, x, HallwayY);
-                    if (cost.HasValue)
-                    {
-                        State newState = s.Move(a, x, HallwayY);
-                        states.Add(new(newState, cost.Value));
-                    }
-                }
-            }
-            else if (a.InHallway)
-            {
-                Antipode inLower = s.GetAtPos(a.HomeX, LowerY);
-                if (inLower == null)
-                {
-                    int? cost = s.GetMoveCost(a, a.HomeX, LowerY);
-                    if (cost.HasValue)
-                    {
-                        State newState = s.Move(a, a.HomeX, LowerY);
-                        states.Add(new(newState, cost.Value));
-                    }
-                }
-
-                Antipode inUpper = s.GetAtPos(a.HomeX, UpperY);
-                if (inLower?.Letter == a.Letter && inUpper == null)
-                {
-                    int? cost = s.GetMoveCost(a, a.HomeX, UpperY);
-                    if (cost.HasValue)
-                    {
-                        State newState = s.Move(a, a.HomeX, UpperY);
-                        states.Add(new(newState, cost.Value));
-                    }
-                }
-            }
-        }
-
-        return states;
-    }
-
     private class State
     {
-        private Antipode[,] _layout = new Antipode[11, 3];
-        private List<Antipode> _antipodes;
+        private readonly int _roomDepth;
+        private readonly Antipode[,] _layout;
+        private readonly List<Antipode> _antipodes;
 
-        private readonly string _key;
-
-        public State(List<Antipode> antipodes)
+        public State(List<Antipode> antipodes, int roomDepth)
         {
+            _roomDepth = roomDepth;
             _antipodes = antipodes.ToList();
+            _layout = new Antipode[11, roomDepth + 1];
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < antipodes.Count; i++)
             {
                 _layout[_antipodes[i].X, _antipodes[i].Y] = _antipodes[i];
             }
 
-            _key = MakeKey();
+            Key = MakeKey();
+        }
+        
+        public  List<NextState> GetNextStates()
+        {
+            List<NextState> states = new();
+
+            foreach (Antipode a in _antipodes)
+            {
+                if (IsInFinalSpot(a))
+                {
+                    // Already in final resting place. No need to move this one ever again (so no next move exists)
+                    continue;
+                }
+                if (a.InRoom)
+                {
+                    foreach (int x in HallXSpots)
+                    {
+                        int? cost = GetMoveCost(a, x, HallwayY);
+                        if (cost.HasValue)
+                        {
+                            State newState = Move(a, x, HallwayY);
+                            states.Add(new(newState, cost.Value));
+                        }
+                    }
+                }
+                else if (a.InHallway)
+                {
+                    for (int y = _roomDepth; y >= HallwayY; y--)
+                    {
+                        bool lowerOk = true;
+                        for (int y2 = _roomDepth; y2 > y; y2--)
+                        {
+                            Antipode inLower = GetAtPos(a.HomeX, y2);
+                            lowerOk &= inLower?.Letter == a.Letter;
+                        }
+
+                        Antipode inTarget = GetAtPos(a.HomeX, y);
+                        if (inTarget == null && lowerOk)
+                        {
+                            int? cost = GetMoveCost(a, a.HomeX, y);
+                            if (cost.HasValue)
+                            {
+                                State newState = Move(a, a.HomeX, y);
+                                states.Add(new(newState, cost.Value));
+                            }
+                        }
+                    }
+                }
+            }
+
+            return states;
         }
 
-        public List<Antipode> Antipodes => _antipodes;
+        private Antipode GetAtPos(int x, int y) => _layout[x, y];
 
-        public Antipode GetAtPos(int x, int y) => _layout[x, y];
-
-        public State Move(Antipode a, int x, int y)
+        private State Move(Antipode a, int x, int y)
         {
             Antipode toMove = GetAtPos(a.X, a.Y);
             Antipode newA = toMove.At(x, y);
@@ -160,24 +172,29 @@ public static class AOC2021_23
             List<Antipode> newAntipodes = _antipodes.ToList();
             newAntipodes[a.Idx] = newA;
 
-            return new State(newAntipodes);
+            return new State(newAntipodes, _roomDepth);
         }
 
-        public bool IsInFinalSpot(Antipode a)
+        private bool IsInFinalSpot(Antipode a)
         {
-            bool inHomeLower = a.X == a.HomeX && a.Y == LowerY;
-            if (inHomeLower)
+            if (a.X != a.HomeX || a.InHallway)
             {
-                return true;
+                return false;
+            }
+            
+            for (int y2 = _roomDepth; y2 > a.Y; y2--)
+            {
+                Antipode inLower = GetAtPos(a.HomeX, y2);
+                if (inLower?.Letter != a.Letter)
+                {
+                    return false;
+                }
             }
 
-            bool inHomeUpper = a.X == a.HomeX && a.Y == UpperY;
-            Antipode atLower = GetAtPos(a.HomeX, LowerY);
-
-            return inHomeUpper && atLower?.Letter == a.Letter;
+            return true;
         }
 
-        public int? GetMoveCost(Antipode a, int x, int y)
+        private int? GetMoveCost(Antipode a, int x, int y)
         {
             int cost = 0;
 
@@ -214,7 +231,7 @@ public static class AOC2021_23
                     }
                 }
 
-                for (int tempY = UpperY; tempY <= y; tempY++)
+                for (int tempY = HallwayY + 1; tempY <= y; tempY++)
                 {
                     // Moving down
                     Antipode inSpot = GetAtPos(x, tempY);
@@ -277,7 +294,7 @@ public static class AOC2021_23
             return cost;
         }
 
-        public string Key => _key;
+        public string Key { get; }
 
         public bool IsDone => _antipodes.All(a => a.InRoom && a.X == a.HomeX);
 
@@ -289,14 +306,13 @@ public static class AOC2021_23
                 sb.Append(_layout[i, HallwayY]?.Letter ?? '.');
             }
 
-            sb.Append(_layout[Room1X, UpperY]?.Letter ?? '.');
-            sb.Append(_layout[Room1X, LowerY]?.Letter ?? '.');
-            sb.Append(_layout[Room2X, UpperY]?.Letter ?? '.');
-            sb.Append(_layout[Room2X, LowerY]?.Letter ?? '.');
-            sb.Append(_layout[Room3X, UpperY]?.Letter ?? '.');
-            sb.Append(_layout[Room3X, LowerY]?.Letter ?? '.');
-            sb.Append(_layout[Room4X, UpperY]?.Letter ?? '.');
-            sb.Append(_layout[Room4X, LowerY]?.Letter ?? '.');
+            foreach (int x in RoomX)
+            {
+                for (int y = 1; y <= _roomDepth; y++)
+                {
+                    sb.Append(_layout[x, y]?.Letter ?? '.');                    
+                }
+            }
 
             return sb.ToString();
         }
@@ -317,7 +333,7 @@ public static class AOC2021_23
             Y = y;
         }
 
-        public Antipode At(int x, int y) => new Antipode(Idx, Letter, x, y);
+        public Antipode At(int x, int y) => new(Idx, Letter, x, y);
 
         public bool InHallway => Y == HallwayY;
         public bool InRoom => !InHallway;
