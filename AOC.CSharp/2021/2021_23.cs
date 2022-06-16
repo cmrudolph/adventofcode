@@ -134,6 +134,8 @@ public static class AOC2021_23
         private Antipode[,] _layout = new Antipode[11, 3];
         private List<Antipode> _antipodes;
 
+        private readonly string _key;
+
         public State(List<Antipode> antipodes)
         {
             _antipodes = antipodes.ToList();
@@ -142,6 +144,8 @@ public static class AOC2021_23
             {
                 _layout[_antipodes[i].X, _antipodes[i].Y] = _antipodes[i];
             }
+
+            _key = MakeKey();
         }
 
         public List<Antipode> Antipodes => _antipodes;
@@ -150,14 +154,13 @@ public static class AOC2021_23
 
         public State Move(Antipode a, int x, int y)
         {
-            State newState = new(_antipodes);
-            Antipode toMove = newState.GetAtPos(a.X, a.Y);
+            Antipode toMove = GetAtPos(a.X, a.Y);
             Antipode newA = toMove.At(x, y);
-            newState._layout[x, y] = newA;
-            newState._layout[a.X, a.Y] = null;
-            newState._antipodes[a.Idx] = newA;
 
-            return newState;
+            List<Antipode> newAntipodes = _antipodes.ToList();
+            newAntipodes[a.Idx] = newA;
+
+            return new State(newAntipodes);
         }
 
         public bool IsInFinalSpot(Antipode a)
@@ -274,30 +277,29 @@ public static class AOC2021_23
             return cost;
         }
 
-        public string Key
-        {
-            get
-            {
-                StringBuilder sb = new();
-                for (int i = 0; i < 11; i++)
-                {
-                    sb.Append(_layout[i, HallwayY]?.Letter ?? '.');
-                }
-
-                sb.Append(_layout[Room1X, UpperY]?.Letter ?? '.');
-                sb.Append(_layout[Room1X, LowerY]?.Letter ?? '.');
-                sb.Append(_layout[Room2X, UpperY]?.Letter ?? '.');
-                sb.Append(_layout[Room2X, LowerY]?.Letter ?? '.');
-                sb.Append(_layout[Room3X, UpperY]?.Letter ?? '.');
-                sb.Append(_layout[Room3X, LowerY]?.Letter ?? '.');
-                sb.Append(_layout[Room4X, UpperY]?.Letter ?? '.');
-                sb.Append(_layout[Room4X, LowerY]?.Letter ?? '.');
-
-                return sb.ToString();
-            }
-        }
+        public string Key => _key;
 
         public bool IsDone => _antipodes.All(a => a.InRoom && a.X == a.HomeX);
+
+        private string MakeKey()
+        {
+            StringBuilder sb = new();
+            for (int i = 0; i < 11; i++)
+            {
+                sb.Append(_layout[i, HallwayY]?.Letter ?? '.');
+            }
+
+            sb.Append(_layout[Room1X, UpperY]?.Letter ?? '.');
+            sb.Append(_layout[Room1X, LowerY]?.Letter ?? '.');
+            sb.Append(_layout[Room2X, UpperY]?.Letter ?? '.');
+            sb.Append(_layout[Room2X, LowerY]?.Letter ?? '.');
+            sb.Append(_layout[Room3X, UpperY]?.Letter ?? '.');
+            sb.Append(_layout[Room3X, LowerY]?.Letter ?? '.');
+            sb.Append(_layout[Room4X, UpperY]?.Letter ?? '.');
+            sb.Append(_layout[Room4X, LowerY]?.Letter ?? '.');
+
+            return sb.ToString();
+        }
     }
 
     private class Antipode
