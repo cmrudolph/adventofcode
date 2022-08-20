@@ -1,167 +1,116 @@
-﻿using System.Text;
-using MoreLinq;
-
-namespace AOC.CSharp;
+﻿namespace AOC.CSharp;
 
 public static class AOC2021_24
 {
-    public static long Solve1(string[] lines)
+    public static string Solve1(string[] lines)
     {
-        Vars vars = new();
-
-        List<PartialResults> results = new();
-
-        for (int i = 1; i <= 9; i++)
-        {
-            for (int j = 1; j <= 9; j++)
-            {
-                for (int k = 1; k <= 9; k++)
-                {
-                    for (int l = 1; l <= 9; l++)
-                    {
-                        string model = $"11111111{i}{j}{k}{l}";
-                        var pr = Process(model, vars, lines, 12);
-                        results.Add(pr);
-                    }
-                }
-            }
-        }
-
-        File.WriteAllLines(@"c:\temp\202124dbg.txt", results.OrderByDescending(r => r.Z).Select(r => string.Join(",", r.W) + " -> " + ToBase26(r.Z) + " -> " + r.Z));
-
-        // Process("21111111111111", vars, lines);
-        // Process("31111111111111", vars, lines);
-        // Process("41111111111111", vars, lines);
-        // Process("51111111111111", vars, lines);
-        // Process("61111111111111", vars, lines);
-        // Process("71111111111111", vars, lines);
-        // Process("81111111111111", vars, lines);
-        // Process("91111111111111", vars, lines);
-        // Process("13579246899999", vars, lines);
-
-        return 0L;
+        return Solve(lines, true);
+    }
+    
+    public static string Solve2(string[] lines)
+    {
+        return Solve(lines, false);
     }
 
-    public static long Solve2(string[] lines)
+    private static string Solve(string[] lines, bool largest)
     {
-        return 0L;
-    }
+        // Build the simplified instructions by parsing the lines, looking for known markers, and extracting only
+        // the pieces of important information.
+        var steps = MakeSteps(lines);
 
-    private static string ToBase26(long value)
-    {
-        StringBuilder sb = new();
-        while (value > 0)
+        int[] wOrder = Enumerable.Range(1, 9).ToArray();
+        if (largest)
         {
-            long remainder = value % 26;
-            value /= 26;
-            if (remainder <= 9)
+            wOrder = wOrder.Reverse().ToArray();
+        }
+        
+        string[] solutionBuffer = new string[14];
+        foreach (int w in wOrder)
+        {
+            string solution = ProcessLevel(w, 0, steps, 0, solutionBuffer, wOrder);
+            if (solution != null)
             {
-                sb.Append(remainder);
-            }
-            else
-            {
-                sb.Append((char)('A' + (remainder - 10)));
+                return solution;
             }
         }
-
-        return sb.ToString();
-    }
-
-    private static PartialResults Process(string model, Vars vars, string[] lines, int depth)
-    {
-        int modelIdx = 0;
-        List<long> w = new();
-
-        foreach (string line in lines)
-        {
-            string[] splits = line.Split(' ');
-            string inst = splits[0];
-            string target = splits[1];
-            switch (inst)
-            {
-                case "inp":
-                {
-                    long value = model[modelIdx++] - '0';
-                    w.Add(value);
-                    vars.Set(target, value);
-                    if (modelIdx == depth)
-                    {
-                        return new(w.ToArray(), vars.Get("z"));
-                    }
-                    break;
-                }
-                case "add":
-                {
-                    long toAdd = InterpretValue(splits[2], vars);
-                    vars.Transform(target, old => old + toAdd);
-                    break;
-                }
-                case "mul":
-                {
-                    long toMul = InterpretValue(splits[2], vars);
-                    vars.Transform(target, old => old * toMul);
-                    break;
-                }
-                case "div":
-                {
-                    long toDivBy = InterpretValue(splits[2], vars);
-                    vars.Transform(target, old => old / toDivBy);
-                    break;
-                }
-                case "mod":
-                {
-                    long toModBy = InterpretValue(splits[2], vars);
-                    vars.Transform(target, old => old % toModBy);
-                    break;
-                }
-                case "eql":
-                {
-                    long toCompare1 = vars.Get(target);
-                    long toCompare2 = InterpretValue(splits[2], vars);
-                    int result = toCompare1 == toCompare2 ? 1 : 0;
-                    vars.Transform(target, _ => result);
-                    break;
-                }
-            }
-        }
-
+        
         return null;
     }
 
-    private static long InterpretValue(string raw, Vars vars)
+    private static string ProcessLevel(int w, int z, List<Func<int, int, StepResult>> steps, int depth, string[] buf, int[] wOrder)
     {
-        return char.IsLetter(raw[0])
-            ? vars.Get(raw)
-            : long.Parse(raw);
+        if (depth == 14)
+        {
+            // Successfully reaching this depth means we did not abort early. This guarantees that we found a valid
+            // solution since any failure along the way would have terminated the search already.
+            return string.Join("", buf);
+        }
+
+        StepResult sr = steps[depth](w, z);
+        if (!sr.Ok)
+        {
+            // Found a path that will not succeed. Skip searching all paths based on this one.
+            return null;
+        }
+
+        buf[depth] = w.ToString();
+        foreach (int nextW in wOrder)
+        {
+            string result = ProcessLevel(nextW, sr.Z, steps, depth + 1, buf, wOrder);
+            if (result != null)
+            {
+                return result;
+            }
+        }
+
+        buf[depth] = "";
+        
+        return null;
     }
 
-    public class Vars
+    record StepResult(bool Ok, int Z);
+
+    private static List<Func<int, int, StepResult>> MakeSteps(string[] lines)
     {
-        public Vars()
+        List<Func<int, int, StepResult>> steps = new();
+
+        for (int i = 0; i < lines.Length; i += 18)
         {
-            Set("w", 0);
-            Set("x", 0);
-            Set("y", 0);
-            Set("z", 0);
+            if (lines[i + 4] == "div z 1")
+            {
+                // Half of the lines increase z. These are identifiable by this divide by 1 instruction. The line-specific
+                // input into the increase formula can be parsed from a specific instruction line.
+                int magicNum = int.Parse(lines[i + 15].Replace("add y ", ""));
+                steps.Add(MakeIncreaseStep(magicNum));
+            }
+            else
+            {
+                // The other half can decrease z. These are identifiable by a "div z 26" instruction. The line-specific
+                // input into the decrease formula can be parsed from a specific instruction line.
+                int magicNum = -1 * int.Parse(lines[i + 5].Replace("add x ", ""));
+                steps.Add(MakeDecreaseStep(magicNum));
+            }
         }
 
-        private Dictionary<string, long> _values = new();
-
-        public long Get(string target)
-        {
-            return _values[target];
-        }
-
-        public void Set(string target, long value)
-        {
-            _values[target] = value;
-        }
-
-        public void Transform(string target, Func<long, long> transformer)
-        {
-            _values[target] = transformer(_values[target]);
-        }
+        return steps;
     }
-
-    private record PartialResults(long[] W, long Z);
+    
+    private static Func<int, int, StepResult> MakeIncreaseStep(int magicNum)
+    {
+        // Simplification of the "z is increased" code sections. They always produce this result.
+        return (w, z) => new StepResult(true, (26 * z) + w + magicNum);
+    }
+    
+    private static Func<int, int, StepResult> MakeDecreaseStep(int magicNum)
+    {
+        // Simplification of the "z is decreased" code sections. They sometimes decrease z. If z is not decreased, we
+        // do not care about the result since we need every possible decrease step to succeed for z to get back to
+        // zero. Returning an explicit failure allows us to stop searching the current path since we know it cannot
+        // get us to a valid final result.
+        return (w, z) => ((z % 26) - magicNum == w)
+            ? new StepResult(true, (z / 26))
+            : new StepResult(false, -1);
+    }
 }
+
+
