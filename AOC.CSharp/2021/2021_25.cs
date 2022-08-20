@@ -5,7 +5,6 @@ public static class AOC2021_25
     public static long Solve1(string[] lines)
     {
         char[,] grid = Parse(lines);
-        Print(grid);
 
         int transformCount = 0;
         while (true)
@@ -16,6 +15,8 @@ public static class AOC2021_25
             {
                 return transformCount;
             }
+
+            grid = newGrid;
         }
     }
 
@@ -56,10 +57,79 @@ public static class AOC2021_25
         }
     }
 
+    private static char[,] Init(int width, int height)
+    {
+        char[,] newGrid = new char[width, height];
+        
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                newGrid[x, y] = '.';
+            }
+        }
+
+        return newGrid;
+    }
+
     private static char[,] Transform(char[,] grid)
     {
-        // TODO
-        return grid;
+        int height = grid.GetLength(1);
+        int width = grid.GetLength(0);
+
+        char[,] newGrid = Init(width, height);
+        
+        // Process the east to west moves first
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                char curr = grid[x, y];
+                if (curr == '>')
+                {
+                    int checkY = y;
+                    int checkX = x + 1;
+                    checkX = checkX == width ? 0 : checkX;
+                    if (grid[checkX, checkY] == '.')
+                    {
+                        newGrid[checkX, checkY] = '>';
+                    }
+                    else
+                    {
+                        newGrid[x, y] = '>';
+                    }
+                }
+            }
+        }
+        
+        //Now process north to south
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                char curr = grid[x, y];
+                if (curr == 'v')
+                {
+                    int checkX = x;
+                    int checkY = y + 1;
+                    checkY = checkY == height ? 0 : checkY;
+                    if (grid[checkX, checkY] == 'v')
+                    {
+                        newGrid[x, y] = 'v';
+                    }
+                    else if (newGrid[checkX, checkY] == '>')
+                    {
+                        newGrid[x, y] = 'v';
+                    }
+                    else
+                    {
+                        newGrid[checkX, checkY] = 'v';
+                    }
+                }
+            }
+        }
+
+        return newGrid;
     }
     
     private static bool Same(char[,] grid1, char[,] grid2)

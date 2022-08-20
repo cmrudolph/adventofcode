@@ -387,8 +387,8 @@ public class AOC2021
     [Test, Category("New")]
     public void AOC2021_25_1_Sample() => Sample(58L, AOC2021_25.Solve1, "25");
 
-    //[Test, Category("New")]
-    //public void AOC2021_25_1_Actual() => Actual(-1L, AOC2021_25.Solve1, "25");
+    [Test, Category("New")]
+    public void AOC2021_25_1_Actual() => Actual(429L, AOC2021_25.Solve1, "25");
 
     //[Test, Category("New")]
     //public void AOC2021_25_2_Sample() => Sample(-1L, AOC2021_25.Solve2, "25");
