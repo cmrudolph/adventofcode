@@ -106,5 +106,11 @@
 **Day 16** | [Packet Decoder](/AOC.CSharp/2021/2021_16.cs) | C#</br>
 **Day 17** | [Trick Shot](/AOC.CSharp/2021/2021_17.cs) | C#</br>
 **Day 18** | [Snailfish](/AOC.CSharp/2021/2021_18.cs) | C#</br>
+**Day 19** | [Beacon Scanner](/AOC.CSharp/2021/2021_19.cs) | C#</br>
 **Day 20** | [Trench Map](/AOC.CSharp/2021/2021_20.cs) | C#</br>
+**Day 21** | [Dirac Dice](/AOC.CSharp/2021/2021_21.cs) | C#</br>
+**Day 22** | [Reactor Reboot](/AOC.CSharp/2021/2021_22.cs) | C#</br>
+**Day 23** | [Amphipod](/AOC.CSharp/2021/2021_23.cs) | C#</br>
+**Day 24** | [Arithmetic Logic Unit](/AOC.CSharp/2021/2021_24.cs) | C#</br>
+**Day 25** | [Sea Cucumber](/AOC.CSharp/2021/2021_25.cs) | C#</br>
 </br>
