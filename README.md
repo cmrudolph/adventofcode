@@ -54,12 +54,12 @@
 </br>
 # 2017
 **Day 1** | [Inverse Captcha](/AOC.CSharp/2017/2017_01.cs) | C#</br>
+**Day 1** | [Inverse Captcha](/AOC.Python/aoc2017/aoc2017_01.py) | Python</br>
 **Day 2** | [Corruption Checksum](/AOC.CSharp/2017/2017_02.cs) | C#</br>
 **Day 3** | [Spiral Memory](/AOC.CSharp/2017/2017_03.cs) | C#</br>
 **Day 4** | [High-Entropy Passphrases](/AOC.CSharp/2017/2017_04.cs) | C#</br>
 **Day 5** | [A Maze of Twisty Trampolines, All Alike](/AOC.CSharp/2017/2017_05.cs) | C#</br>
 **Day 6** | [Memory Reallocation](/AOC.CSharp/2017/2017_06.cs) | C#</br>
-**Day 7** | [Recursive Circus](/AOC.CSharp/2017/2017_07.cs) | C#</br>
 </br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>
@@ -96,4 +96,22 @@
 **Day 5** | [Hydrothermal Venture](/AOC.CSharp/2021/2021_05.cs) | C#</br>
 **Day 6** | [Lanternfish](/AOC.CSharp/2021/2021_06.cs) | C#</br>
 **Day 7** | [The Treachery of Whales](/AOC.CSharp/2021/2021_07.cs) | C#</br>
+**Day 8** | [Seven Segment Search](/AOC.CSharp/2021/2021_08.cs) | C#</br>
+**Day 9** | [Smoke Basin](/AOC.CSharp/2021/2021_09.cs) | C#</br>
+**Day 10** | [Syntax Scoring](/AOC.CSharp/2021/2021_10.cs) | C#</br>
+**Day 11** | [Dumbo Octopus](/AOC.CSharp/2021/2021_11.cs) | C#</br>
+**Day 12** | [Passage Pathing](/AOC.CSharp/2021/2021_12.cs) | C#</br>
+**Day 13** | [Transparent Origami](/AOC.CSharp/2021/2021_13.cs) | C#</br>
+**Day 14** | [Extended Polymerization](/AOC.CSharp/2021/2021_14.cs) | C#</br>
+**Day 15** | [Chiton](/AOC.CSharp/2021/2021_15.cs) | C#</br>
+**Day 16** | [Packet Decoder](/AOC.CSharp/2021/2021_16.cs) | C#</br>
+**Day 17** | [Trick Shot](/AOC.CSharp/2021/2021_17.cs) | C#</br>
+**Day 18** | [Snailfish](/AOC.CSharp/2021/2021_18.cs) | C#</br>
+**Day 19** | [Beacon Scanner](/AOC.CSharp/2021/2021_19.cs) | C#</br>
+**Day 20** | [Trench Map](/AOC.CSharp/2021/2021_20.cs) | C#</br>
+**Day 21** | [Dirac Dice](/AOC.CSharp/2021/2021_21.cs) | C#</br>
+**Day 22** | [Reactor Reboot](/AOC.CSharp/2021/2021_22.cs) | C#</br>
+**Day 23** | [Amphipod](/AOC.CSharp/2021/2021_23.cs) | C#</br>
+**Day 24** | [Arithmetic Logic Unit](/AOC.CSharp/2021/2021_24.cs) | C#</br>
+**Day 25** | [Sea Cucumber](/AOC.CSharp/2021/2021_25.cs) | C#</br>
 </br>

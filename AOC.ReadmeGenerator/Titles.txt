@@ -57,6 +57,24 @@
 2017-05 | A Maze of Twisty Trampolines, All Alike
 2017-06 | Memory Reallocation
 2017-07 | Recursive Circus
+2017-08 | I Heard You Like Registers
+2017-09 | Stream Processing
+2017-10 | Knot Hash
+2017-11 | Hex Ed
+2017-12 | Digital Plumber
+2017-13 | Packet Scanners
+2017-14 | Disk Defragmentation
+2017-15 | Dueling Generators
+2017-16 | Permutation Promenade
+2017-17 | Spinlock
+2017-18 | Duet
+2017-19 | A Series of Tubes
+2017-20 | Particle Swarm
+2017-21 | Fractal Art
+2017-22 | Sporifica Virus
+2017-23 | Coprocessor Conflagration
+2017-24 | Electromagnetic Moat
+2017-25 | The Halting Problem
 
 2020-01 | Report Repair
 2020-02 | Password Philosophy
@@ -91,3 +109,21 @@
 2021-05 | Hydrothermal Venture
 2021-06 | Lanternfish
 2021-07 | The Treachery of Whales
+2021-08 | Seven Segment Search
+2021-09 | Smoke Basin
+2021-10 | Syntax Scoring
+2021-11 | Dumbo Octopus
+2021-12 | Passage Pathing
+2021-13 | Transparent Origami
+2021-14 | Extended Polymerization
+2021-15 | Chiton
+2021-16 | Packet Decoder
+2021-17 | Trick Shot
+2021-18 | Snailfish
+2021-19 | Beacon Scanner
+2021-20 | Trench Map
+2021-21 | Dirac Dice
+2021-22 | Reactor Reboot
+2021-23 | Amphipod
+2021-24 | Arithmetic Logic Unit
+2021-25 | Sea Cucumber

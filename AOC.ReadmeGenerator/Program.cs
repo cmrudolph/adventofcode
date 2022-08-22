@@ -16,6 +16,7 @@ class Program
 
         var groups = Directory.GetFiles(searchRoot, "*_*.cs", SearchOption.AllDirectories)
             .Concat(Directory.GetFiles(searchRoot, "*_*.fs", SearchOption.AllDirectories))
+            .Concat(Directory.GetFiles(searchRoot, "aoc*_*.py", SearchOption.AllDirectories))
             .Where(f => !f.Contains("XX"))
             .Select(f => Create(searchRoot, f))
             .OrderBy(f => f.SortName)
@@ -54,10 +55,11 @@ class Program
     private static SourceFile Create(string searchRoot, string rawPath)
     {
         string readmePath = rawPath.Replace(searchRoot, "");
-        string sortName = Path.GetFileNameWithoutExtension(readmePath);
+        string sortName = Path.GetFileNameWithoutExtension(readmePath).Replace("aoc", "");
         string extension = Path.GetExtension(readmePath);
         string markdownReadmePath = readmePath.Replace("\\", "/");
 
+        Console.WriteLine(sortName);
         string[] splits = sortName.Split("_");
         int year = int.Parse(splits[0]);
         int day = int.Parse(splits[1]);
@@ -66,6 +68,7 @@ class Program
         {
             ".cs" => "C#",
             ".fs" => "F#",
+            ".py" => "Python",
             _ => throw new NotSupportedException()
         };
 
