@@ -7,53 +7,6 @@ namespace AOC.Tests;
 [Parallelizable(ParallelScope.All)]
 public class AOC2017
 {
-    [TestCase("1122", 3)]
-    [TestCase("1111", 4)]
-    [TestCase("1234", 0)]
-    [TestCase("91212129", 9)]
-    [Category("Fast")]
-    public void AOC2017_01_1_Cases(string input, int expected)
-    {
-        long result = AOC2017_01.Solve1(new[] { input });
-        result.Should().Be(expected);
-    }
-
-    [Test, Category("Fast")]
-    public void AOC2017_01_1_Sample() => Sample(9L, AOC2017_01.Solve1, "01");
-
-    [Test, Category("Fast")]
-    public void AOC2017_01_1_Actual() => Actual(1144L, AOC2017_01.Solve1, "01");
-
-    [TestCase("1212", 6)]
-    [TestCase("1221", 0)]
-    [TestCase("123425", 4)]
-    [TestCase("123123", 12)]
-    [TestCase("12131415", 4)]
-    [Category("Fast")]
-    public void AOC2017_01_2_Cases(string input, int expected)
-    {
-        long result = AOC2017_01.Solve2(new[] { input });
-        result.Should().Be(expected);
-    }
-
-    [Test, Category("Fast")]
-    public void AOC2017_01_2_Sample() => Sample(6L, AOC2017_01.Solve2, "01");
-
-    [Test, Category("Fast")]
-    public void AOC2017_01_2_Actual() => Actual(1194L, AOC2017_01.Solve2, "01");
-
-    [Test, Category("Fast")]
-    public void AOC2017_02_1_Sample() => Sample(18L, AOC2017_02.Solve1, "02");
-
-    [Test, Category("Fast")]
-    public void AOC2017_02_1_Actual() => Actual(45972L, AOC2017_02.Solve1, "02");
-
-    [Test, Category("Fast")]
-    public void AOC2017_02_2_Sample() => Sample(9L, AOC2017_02.Solve2, "02");
-
-    [Test, Category("Fast")]
-    public void AOC2017_02_2_Actual() => Actual(326L, AOC2017_02.Solve2, "02");
-
     [Test, Category("Fast")]
     public void AOC2017_03_1_Sample() => Sample(31L, AOC2017_03.Solve1, "03");
 
