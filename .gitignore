@@ -7,3 +7,4 @@ obj
 .fake
 .ionide
 .idea
+__pycache__
