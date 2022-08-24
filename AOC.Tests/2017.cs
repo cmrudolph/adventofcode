@@ -114,19 +114,31 @@ public class AOC2017
     [Test, Category("Fast")]
     public void AOC2017_07_2_Actual() => Actual(1226L, AOC2017_07.Solve2, "07");
 
-    //[Test, Property("Speed", "New")]
+    [Test, Category("Fast")]
+    public void AOC2017_08_1_Sample() => Sample(1L, AOC2017_08.Solve1, "08");
+
+    [Test, Category("Fast")]
+    public void AOC2017_08_1_Actual() => Actual(4647L, AOC2017_08.Solve1, "08");
+
+    [Test, Category("Fast")]
+    public void AOC2017_08_2_Sample() => Sample(10L, AOC2017_08.Solve2, "08");
+
+    [Test, Category("Fast")]
+    public void AOC2017_08_2_Actual() => Actual(5590L, AOC2017_08.Solve2, "08");
+    
+    //[Test, Category("New")]
     //[Ignore("Future")]
     //public void AOC2017_XX_1_Sample() => Sample(-1L, AOC2017_XX.Solve1, "XX");
 
-    //[Test, Property("Speed", "New")]
+    //[Test, Category("New")]
     //[Ignore("Future")]
     //public void AOC2017_XX_1_Actual() => Actual(-1L, AOC2017_XX.Solve1, "XX");
 
-    //[Test, Property("Speed", "New")]
+    //[Test, Category("New")]
     //[Ignore("Future")]
     //public void AOC2017_XX_2_Sample() => Sample(-1L, AOC2017_XX.Solve2, "XX");
 
-    //[Test, Property("Speed", "New")]
+    //[Test, Category("New")]
     //[Ignore("Future")]
     //public void AOC2017_XX_2_Actual() => Actual(-1L, AOC2017_XX.Solve2, "XX");
 
