@@ -126,6 +126,47 @@ public class AOC2017
     [Test, Category("Fast")]
     public void AOC2017_08_2_Actual() => Actual(5590L, AOC2017_08.Solve2, "08");
     
+    [TestCase("{}", 1)]
+    [TestCase("{{{}}}", 6)]
+    [TestCase("{{},{}}", 5)]
+    [TestCase("{{{},{},{{}}}}", 16)]
+    [TestCase("{<a>,<a>,<a>,<a>}", 1)]
+    [TestCase("{{<ab>},{<ab>},{<ab>},{<ab>}}", 9)]
+    [TestCase("{{<!!>},{<!!>},{<!!>},{<!!>}}", 9)]
+    [TestCase("{{<a!>},{<a!>},{<a!>},{<ab>}}", 3)]
+    [Category("Fast")]
+    public void AOC2017_09_1_Cases(string input, int expected)
+    {
+        long result = AOC2017_09.Solve1(new[] { input });
+        result.Should().Be(expected);
+    }
+    
+    [TestCase("<>", 0)]
+    [TestCase("<random characters>", 17)]
+    [TestCase("<<<<>", 3)]
+    [TestCase("<{!>}>", 2)]
+    [TestCase("<!!>", 0)]
+    [TestCase("<!!!>>", 0)]
+    [TestCase("<{o\"i!a,<{i<a>", 10)]
+    [Category("Fast")]
+    public void AOC2017_09_2_Cases(string input, int expected)
+    {
+        long result = AOC2017_09.Solve2(new[] { input });
+        result.Should().Be(expected);
+    }
+    
+    [Test, Category("Fast")]
+    public void AOC2017_09_1_Sample() => Sample(50L, AOC2017_09.Solve1, "09");
+
+    [Test, Category("Fast")]
+    public void AOC2017_09_1_Actual() => Actual(20530L, AOC2017_09.Solve1, "09");
+
+    [Test, Category("Fast")]
+    public void AOC2017_09_2_Sample() => Sample(29L, AOC2017_09.Solve2, "09");
+
+    [Test, Category("Fast")]
+    public void AOC2017_09_2_Actual() => Actual(9978L, AOC2017_09.Solve2, "09");
+    
     //[Test, Category("New")]
     //[Ignore("Future")]
     //public void AOC2017_XX_1_Sample() => Sample(-1L, AOC2017_XX.Solve1, "XX");
