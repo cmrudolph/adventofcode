@@ -187,21 +187,22 @@ public class AOC2017
     [Test, Category("Fast")]
     public void AOC2017_10_2_Actual() => Actual("d067d3f14d07e09c2e7308c3926605c4", AOC2017_10.Solve2, "10");
 
-    //[Test, Category("New")]
-    //[Ignore("Future")]
-    //public void AOC2017_XX_1_Sample() => Sample(-1L, AOC2017_XX.Solve1, "XX");
+    [TestCase("ne,ne,ne", 3)]
+    [TestCase("ne,ne,sw,sw", 0)]
+    [TestCase("ne,ne,s,s", 2)]
+    [TestCase("se,sw,se,sw,sw", 3)]
+    [Category("Fast")]
+    public void AOC2017_11_1_Cases(string input, long expected)
+    {
+        long actual = AOC2017_11.Solve1(new[] { input });
+        actual.Should().Be(expected);
+    }
 
-    //[Test, Category("New")]
-    //[Ignore("Future")]
-    //public void AOC2017_XX_1_Actual() => Actual(-1L, AOC2017_XX.Solve1, "XX");
+    [Test, Category("Fast")]
+    public void AOC2017_11_1_Actual() => Actual(682L, AOC2017_11.Solve1, "11");
 
-    //[Test, Category("New")]
-    //[Ignore("Future")]
-    //public void AOC2017_XX_2_Sample() => Sample(-1L, AOC2017_XX.Solve2, "XX");
-
-    //[Test, Category("New")]
-    //[Ignore("Future")]
-    //public void AOC2017_XX_2_Actual() => Actual(-1L, AOC2017_XX.Solve2, "XX");
+    [Test, Category("Fast")]
+    public void AOC2017_11_2_Actual() => Actual(1406L, AOC2017_11.Solve2, "11");
 
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
     {
