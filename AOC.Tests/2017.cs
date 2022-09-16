@@ -125,7 +125,7 @@ public class AOC2017
 
     [Test, Category("Fast")]
     public void AOC2017_08_2_Actual() => Actual(5590L, AOC2017_08.Solve2, "08");
-    
+
     [TestCase("{}", 1)]
     [TestCase("{{{}}}", 6)]
     [TestCase("{{},{}}", 5)]
@@ -140,7 +140,7 @@ public class AOC2017
         long result = AOC2017_09.Solve1(new[] { input });
         result.Should().Be(expected);
     }
-    
+
     [TestCase("<>", 0)]
     [TestCase("<random characters>", 17)]
     [TestCase("<<<<>", 3)]
@@ -154,7 +154,7 @@ public class AOC2017
         long result = AOC2017_09.Solve2(new[] { input });
         result.Should().Be(expected);
     }
-    
+
     [Test, Category("Fast")]
     public void AOC2017_09_1_Sample() => Sample(50L, AOC2017_09.Solve1, "09");
 
@@ -166,7 +166,27 @@ public class AOC2017
 
     [Test, Category("Fast")]
     public void AOC2017_09_2_Actual() => Actual(9978L, AOC2017_09.Solve2, "09");
-    
+
+    [Test, Category("Fast")]
+    public void AOC2017_10_1_Sample() => Sample(12L, x => AOC2017_10.Solve1(x, 5), "10");
+
+    [Test, Category("Fast")]
+    public void AOC2017_10_1_Actual() => Actual(826L, x => AOC2017_10.Solve1(x, 256), "10");
+
+    [TestCase("", "a2582a3a0e66e6e86e3812dcb672a272")]
+    [TestCase("AoC 2017", "33efeb34ea91902bb2f59c9920caa6cd")]
+    [TestCase("1,2,3", "3efbe78a8d82f29979031a4aa0b16a9d")]
+    [TestCase("1,2,4", "63960835bcdc130f0b66d7ff4f6a5a8e")]
+    [Category("Fast")]
+    public void AOC2017_10_2_Cases(string input, string expected)
+    {
+        string actual = AOC2017_10.Solve2(new[] { input });
+        actual.Should().Be(expected);
+    }
+
+    [Test, Category("Fast")]
+    public void AOC2017_10_2_Actual() => Actual("d067d3f14d07e09c2e7308c3926605c4", AOC2017_10.Solve2, "10");
+
     //[Test, Category("New")]
     //[Ignore("Future")]
     //public void AOC2017_XX_1_Sample() => Sample(-1L, AOC2017_XX.Solve1, "XX");
