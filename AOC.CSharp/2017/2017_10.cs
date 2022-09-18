@@ -16,8 +16,13 @@ public static class AOC2017_10
 
     public static string Solve2(string[] lines)
     {
+        return CalculateKnotHash(lines[0]);
+    }
+
+    public static string CalculateKnotHash(string input)
+    {
         List<int> nums = Enumerable.Range(0, 256).ToList();
-        List<int> lengths = lines[0].Select(ch => (int)ch).Concat(new[] { 17, 31, 73, 47, 23 }).ToList();
+        List<int> lengths = input.Select(ch => (int)ch).Concat(new[] { 17, 31, 73, 47, 23 }).ToList();
         int curr = 0;
         int skip = 0;
 

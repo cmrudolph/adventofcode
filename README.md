@@ -60,6 +60,14 @@
 **Day 4** | [High-Entropy Passphrases](/AOC.CSharp/2017/2017_04.cs) | C#</br>
 **Day 5** | [A Maze of Twisty Trampolines, All Alike](/AOC.CSharp/2017/2017_05.cs) | C#</br>
 **Day 6** | [Memory Reallocation](/AOC.CSharp/2017/2017_06.cs) | C#</br>
+**Day 7** | [Recursive Circus](/AOC.CSharp/2017/2017_07.cs) | C#</br>
+**Day 8** | [I Heard You Like Registers](/AOC.CSharp/2017/2017_08.cs) | C#</br>
+**Day 9** | [Stream Processing](/AOC.CSharp/2017/2017_09.cs) | C#</br>
+**Day 10** | [Knot Hash](/AOC.CSharp/2017/2017_10.cs) | C#</br>
+**Day 11** | [Hex Ed](/AOC.CSharp/2017/2017_11.cs) | C#</br>
+**Day 12** | [Digital Plumber](/AOC.CSharp/2017/2017_12.cs) | C#</br>
+**Day 13** | [Packet Scanners](/AOC.CSharp/2017/2017_13.cs) | C#</br>
+**Day 14** | [Disk Defragmentation](/AOC.CSharp/2017/2017_14.cs) | C#</br>
 </br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>
