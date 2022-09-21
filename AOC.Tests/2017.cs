@@ -270,14 +270,26 @@ public class AOC2017
     [Test, Category("Fast")]
     public void AOC2017_17_2_Actual() => Actual(11162912L, AOC2017_17.Solve2, "17");
 
-    [Test, Category("New")]
+    [Test, Category("Fast")]
     public void AOC2017_18_1_Sample() => Sample(4L, AOC2017_18.Solve1, "18");
 
-    [Test, Category("New")]
+    [Test, Category("Fast")]
     public void AOC2017_18_1_Actual() => Actual(1187L, AOC2017_18.Solve1, "18");
 
-    [Test, Category("New")]
+    [Test, Category("Fast")]
     public void AOC2017_18_2_Actual() => Actual(5969L, AOC2017_18.Solve2, "18");
+
+    [Test, Category("Fast")]
+    public void AOC2017_19_1_Sample() => Sample("ABCDEF", AOC2017_19.Solve1, "19");
+
+    [Test, Category("Fast")]
+    public void AOC2017_19_1_Actual() => Actual("PBAZYFMHT", AOC2017_19.Solve1, "19");
+
+    [Test, Category("Fast")]
+    public void AOC2017_19_2_Sample() => Sample(38L, AOC2017_19.Solve2, "19");
+
+    [Test, Category("Fast")]
+    public void AOC2017_19_2_Actual() => Actual(16072L, AOC2017_19.Solve2, "19");
 
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
     {
