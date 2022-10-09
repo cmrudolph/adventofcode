@@ -68,6 +68,17 @@
 **Day 12** | [Digital Plumber](/AOC.CSharp/2017/2017_12.cs) | C#</br>
 **Day 13** | [Packet Scanners](/AOC.CSharp/2017/2017_13.cs) | C#</br>
 **Day 14** | [Disk Defragmentation](/AOC.CSharp/2017/2017_14.cs) | C#</br>
+**Day 15** | [Dueling Generators](/AOC.CSharp/2017/2017_15.cs) | C#</br>
+**Day 16** | [Permutation Promenade](/AOC.CSharp/2017/2017_16.cs) | C#</br>
+**Day 17** | [Spinlock](/AOC.CSharp/2017/2017_17.cs) | C#</br>
+**Day 18** | [Duet](/AOC.CSharp/2017/2017_18.cs) | C#</br>
+**Day 19** | [A Series of Tubes](/AOC.CSharp/2017/2017_19.cs) | C#</br>
+**Day 20** | [Particle Swarm](/AOC.CSharp/2017/2017_20.cs) | C#</br>
+**Day 21** | [Fractal Art](/AOC.CSharp/2017/2017_21.cs) | C#</br>
+**Day 22** | [Sporifica Virus](/AOC.CSharp/2017/2017_22.cs) | C#</br>
+**Day 23** | [Coprocessor Conflagration](/AOC.CSharp/2017/2017_23.cs) | C#</br>
+**Day 24** | [Electromagnetic Moat](/AOC.CSharp/2017/2017_24.cs) | C#</br>
+**Day 25** | [The Halting Problem](/AOC.CSharp/2017/2017_25.cs) | C#</br>
 </br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>
