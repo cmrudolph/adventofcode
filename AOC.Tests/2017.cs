@@ -339,6 +339,9 @@ public class AOC2017
     [Test, Category("VerySlow")]
     public void AOC2017_24_2_Actual() => Actual(1824L, AOC2017_24.Solve2, "24");
 
+    [Test, Category("Fast")]
+    public void AOC2017_25_1_Actual() => Actual(5587L, AOC2017_25.Solve1, "22");
+
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
     {
         TestUtils.Test(expected, solver, TestUtils.ReadInput("2017", day, "actual"));
