@@ -9,8 +9,8 @@ import (
 )
 
 func main() {
-	lines := read_input("2018", "01", "sample")
-	fmt.Println(a.AOC2018_01_1(lines))
+	lines := read_input("2018", "02", "actual")
+	fmt.Println(a.Solve2018_02_1(lines))
 }
 
 func read_input(year string, problem string, suffix string) []string {

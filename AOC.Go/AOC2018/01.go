@@ -4,7 +4,7 @@ import (
 	"strconv"
 )
 
-func AOC2018_01_1(lines []string) int64 {
+func Solve2018_01_1(lines []string) int64 {
 	var sum int64 = 0
 	for _, line := range lines {
 		num, _ := strconv.ParseInt(line, 10, 64)
@@ -14,7 +14,7 @@ func AOC2018_01_1(lines []string) int64 {
 	return sum
 }
 
-func AOC2018_01_2(lines []string) int64 {
+func Solve2018_01_2(lines []string) int64 {
 	var sum int64 = 0
 	seen := make(map[int64]int)
 	for {
@@ -28,6 +28,4 @@ func AOC2018_01_2(lines []string) int64 {
 			seen[sum] = 1
 		}
 	}
-
-	return 0
 }
