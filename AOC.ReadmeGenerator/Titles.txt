@@ -76,6 +76,9 @@
 2017-24 | Electromagnetic Moat
 2017-25 | The Halting Problem
 
+2018-01 | Chronal Calibration
+2018-02 | Inventory Management System
+
 2020-01 | Report Repair
 2020-02 | Password Philosophy
 2020-03 | Toboggan Trajectory

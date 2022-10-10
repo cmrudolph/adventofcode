@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 
 namespace AOC.ReadmeGenerator;
 
@@ -6,8 +7,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        var searchRoot = @"..\..\..\..";
-        string titlePath = "Titles.txt";
+        string exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        string titlePath = Path.Combine(exeDir, "Titles.txt");
+        var searchRoot = Path.Combine(exeDir, @"..\..\..\..");
+
+        Console.WriteLine(Assembly.GetExecutingAssembly().Location);
+        Console.WriteLine(exeDir);
 
         var titles = File.ReadAllLines(titlePath)
             .Where(line => !string.IsNullOrWhiteSpace(line))
@@ -17,7 +22,9 @@ class Program
         var groups = Directory.GetFiles(searchRoot, "*_*.cs", SearchOption.AllDirectories)
             .Concat(Directory.GetFiles(searchRoot, "*_*.fs", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(searchRoot, "aoc*_*.py", SearchOption.AllDirectories))
+            .Concat(Directory.GetFiles(searchRoot, "*_*.go", SearchOption.AllDirectories))
             .Where(f => !f.Contains("XX"))
+            .Where(f => !f.Contains("test"))
             .Select(f => Create(searchRoot, f))
             .OrderBy(f => f.SortName)
             .GroupBy(f => f.Year)
@@ -69,6 +76,7 @@ class Program
             ".cs" => "C#",
             ".fs" => "F#",
             ".py" => "Python",
+            ".go" => "Go",
             _ => throw new NotSupportedException()
         };
 
