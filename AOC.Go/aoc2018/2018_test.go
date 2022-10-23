@@ -56,6 +56,22 @@ func Test_2018_03_Actual_2(t *testing.T) {
 	doTestInt64(t, 695, Solve2018_03_2, "03", "actual")
 }
 
+func Test_2018_04_Sample_1(t *testing.T) {
+	doTestInt64(t, 240, Solve2018_04_1, "04", "sample")
+}
+
+func Test_2018_04_Actual_1(t *testing.T) {
+	doTestInt64(t, 39698, Solve2018_04_1, "04", "actual")
+}
+
+func Test_2018_04_Sample_2(t *testing.T) {
+	doTestInt64(t, 4455, Solve2018_04_2, "04", "sample")
+}
+
+func Test_2018_04_Actual_2(t *testing.T) {
+	doTestInt64(t, 14920, Solve2018_04_2, "04", "actual")
+}
+
 func assertInt64(t *testing.T, actual int64, expected int64) {
 	if actual != expected {
 		t.Errorf("Actual %d Expected %d", actual, expected)
