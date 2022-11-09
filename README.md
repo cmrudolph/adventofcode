@@ -81,8 +81,11 @@
 **Day 25** | [The Halting Problem](/AOC.CSharp/2017/2017_25.cs) | C#</br>
 </br>
 # 2018
-**Day 1** | [Chronal Calibration](/AOC.Go/aoc2018/2018_01.go) | Go</br>
-**Day 2** | [Inventory Management System](/AOC.Go/aoc2018/2018_02.go) | Go</br>
+**Day 1** | [Chronal Calibration](/AOC.CSharp/2018/2018_01.cs) | C#</br>
+**Day 2** | [Inventory Management System](/AOC.CSharp/2018/2018_02.cs) | C#</br>
+**Day 3** | [No Matter How You Slice It](/AOC.CSharp/2018/2018_03.cs) | C#</br>
+**Day 4** | [Repose Record](/AOC.CSharp/2018/2018_04.cs) | C#</br>
+**Day 5** | [Alchemical Reduction](/AOC.CSharp/2018/2018_05.cs) | C#</br>
 </br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>

@@ -1,0 +1,1 @@
+& .\AOC.ReadmeGenerator\bin\Debug\net6.0\AOC.ReadmeGenerator.exe
