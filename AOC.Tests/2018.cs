@@ -18,14 +18,6 @@ public class AOC2018
     }
 
     [Ignore("TODO")]
-    [Test, Category("New")]
-    public void AOC2018_XX_1_Sample() => Sample(9L, AOC2018_XX.Solve1, "XX");
-
-    [Ignore("TODO")]
-    [Test, Category("New")]
-    public void AOC2018_XX_1_Actual() => Actual(1144L, AOC2018_XX.Solve1, "XX");
-
-    [Ignore("TODO")]
     [TestCase("3", 3)]
     [TestCase("4", 4)]
     [Category("New")]
@@ -34,6 +26,14 @@ public class AOC2018
         long result = AOC2018_XX.Solve2(new[] { input });
         result.Should().Be(expected);
     }
+
+    [Ignore("TODO")]
+    [Test, Category("New")]
+    public void AOC2018_XX_1_Sample() => Sample(9L, AOC2018_XX.Solve1, "XX");
+
+    [Ignore("TODO")]
+    [Test, Category("New")]
+    public void AOC2018_XX_1_Actual() => Actual(1144L, AOC2018_XX.Solve1, "XX");
 
     [Ignore("TODO")]
     [Test, Category("New")]
@@ -102,6 +102,30 @@ public class AOC2018
 
     [Test, Category("Slow")]
     public void AOC2018_05_2_Actual() => Actual(6968L, AOC2018_05.Solve2, "05");
+
+    [Test, Category("Fast")]
+    public void AOC2018_06_1_Sample() => Sample(17L, AOC2018_06.Solve1, "06");
+
+    [Test, Category("Fast")]
+    public void AOC2018_06_1_Actual() => Actual(3238L, AOC2018_06.Solve1, "06");
+
+    [Test, Category("Fast")]
+    public void AOC2018_06_2_Sample() => Sample(16L, x => AOC2018_06.Solve2(x, 32), "06");
+
+    [Test, Category("Fast")]
+    public void AOC2018_06_2_Actual() => Actual(45046L, x => AOC2018_06.Solve2(x, 10000), "06");
+
+    [Test, Category("New")]
+    public void AOC2018_07_1_Sample() => Sample("CABDFE", AOC2018_07.Solve1, "07");
+
+    [Test, Category("New")]
+    public void AOC2018_07_1_Actual() => Actual("AHJDBEMNFQUPVXGCTYLWZKSROI", AOC2018_07.Solve1, "07");
+
+    [Test, Category("New")]
+    public void AOC2018_07_2_Sample() => Sample(6L, AOC2018_07.Solve2, "07");
+
+    [Test, Category("New")]
+    public void AOC2018_07_2_Actual() => Actual(1194L, AOC2018_07.Solve2, "07");
 
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
     {
