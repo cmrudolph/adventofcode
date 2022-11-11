@@ -115,17 +115,17 @@ public class AOC2018
     [Test, Category("Fast")]
     public void AOC2018_06_2_Actual() => Actual(45046L, x => AOC2018_06.Solve2(x, 10000), "06");
 
-    [Test, Category("New")]
+    [Test, Category("Fast")]
     public void AOC2018_07_1_Sample() => Sample("CABDFE", AOC2018_07.Solve1, "07");
 
-    [Test, Category("New")]
+    [Test, Category("Fast")]
     public void AOC2018_07_1_Actual() => Actual("AHJDBEMNFQUPVXGCTYLWZKSROI", AOC2018_07.Solve1, "07");
 
-    [Test, Category("New")]
-    public void AOC2018_07_2_Sample() => Sample(6L, AOC2018_07.Solve2, "07");
+    [Test, Category("Fast")]
+    public void AOC2018_07_2_Sample() => Sample(15L, x => AOC2018_07.Solve2(x, 2, 0), "07");
 
-    [Test, Category("New")]
-    public void AOC2018_07_2_Actual() => Actual(1194L, AOC2018_07.Solve2, "07");
+    [Test, Category("Fast")]
+    public void AOC2018_07_2_Actual() => Actual(1031L, x => AOC2018_07.Solve2(x, 5, 60), "07");
 
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
     {

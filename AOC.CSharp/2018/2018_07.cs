@@ -8,6 +8,16 @@ public static class AOC2018_07
 
     public static string Solve1(string[] lines)
     {
+        return Solve(lines, 1, _ => 0).Item1;
+    }
+
+    public static long Solve2(string[] lines, int workers, int flatCost)
+    {
+        return Solve(lines, workers, c => c - 'A' + 1 + flatCost).Item2;
+    }
+
+    public static (string, long) Solve(string[] lines, int numWorkers, Func<char, int> getCost)
+    {
         List<Link> links = lines.Select(Parse).ToList();
 
         // Get an ordered list of all the chars that are part of our input. This serves as our priority ordering
@@ -26,51 +36,89 @@ public static class AOC2018_07
             dependencies[link.To].Add(link.From);
         }
 
+        List<Worker> workers = new();
+        long time = 0;
         List<char> results = new();
+
         while (results.Count < distinctChars.Count)
         {
-            bool done = false;
-            int charIdx = 0;
-            while (!done && charIdx < distinctChars.Count)
+            // Move time forward by one second. This means updating each worker and handling any completion events that
+            // result
+            for (int i = workers.Count - 1; i >= 0; i--)
             {
-                char c1 = distinctChars[charIdx];
-                if (!results.Contains(c1))
+                Worker curr = workers[i];
+                curr.Tick();
+                if (curr.IsDone)
                 {
-                    List<char> deps = dependencies[c1];
-                    if (!deps.Any())
+                    results.Add(curr.Char);
+                    foreach (char c2 in distinctChars)
                     {
-                        // Found an unvisited char that has no dependencies. Since we repeatedly search based on
-                        // our initial sorted list, we know we found the next eligible character based on priority.
-                        // Process it and remove it from all the dependency lists that contain it
-                        results.Add(c1);
-                        foreach (char c2 in distinctChars)
-                        {
-                            dependencies[c2].Remove(c1);
-                        }
-
-                        // Break out because we need to return to the outer while. If we continue the inner loop we
-                        // will not process things in priority order. We need to start over from the beginning of
-                        // our character list to find items that might have just become eligible
-                        done = true;
+                        dependencies[c2].Remove(curr.Char);
                     }
+                    workers.RemoveAt(i);
+                }
+            }
+
+            // Can skip everything below if our workers are still tied up
+            bool hasCapacity = workers.Count < numWorkers;
+            bool workerAdded = true;
+
+            while (hasCapacity && workerAdded)
+            {
+                // We have room. Look for another character to start processing. This might not be possible (due to
+                // unsatisfied dependencies), but we need to check
+                workerAdded = false;
+                int charIdx = 0;
+
+                while (!workerAdded && charIdx < distinctChars.Count)
+                {
+                    // Look for the next char to try in priority order. Find the first one alphabetically that
+                    // has not already been processed and is not actively being processed
+                    char c1 = distinctChars[charIdx];
+                    if (!results.Contains(c1) && !workers.Select(w => w.Char).Contains(c1))
+                    {
+                        List<char> deps = dependencies[c1];
+                        if (!deps.Any())
+                        {
+                            // Found an unprocessed char with no outstanding dependencies
+                            Worker proc = new(c1, getCost(c1));
+                            workers.Add(proc);
+                            workerAdded = true;
+                        }
+                    }
+
+                    charIdx++;
                 }
 
-                charIdx++;
+                hasCapacity = workers.Count < numWorkers;
             }
+
+            time++;
         }
 
-        return new string(results.ToArray());
-    }
-
-    public static long Solve2(string[] lines)
-    {
-        return 888;
+        return (new string(results.ToArray()), time - 1);
     }
 
     private static Link Parse(string line)
     {
         Match m = Re.Match(line);
         return new Link(m.Groups[1].Value[0], m.Groups[2].Value[0]);
+    }
+
+    private class Worker
+    {
+        public Worker(char c, int cost)
+        {
+            Char = c;
+            Cost = cost;
+        }
+
+        public char Char { get; }
+        public int Cost { get; private set; }
+
+        public void Tick() => Cost--;
+
+        public bool IsDone => Cost <= 0;
     }
 
     private record Link(char From, char To);
