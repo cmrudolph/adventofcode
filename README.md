@@ -86,6 +86,8 @@
 **Day 3** | [No Matter How You Slice It](/AOC.CSharp/2018/2018_03.cs) | C#</br>
 **Day 4** | [Repose Record](/AOC.CSharp/2018/2018_04.cs) | C#</br>
 **Day 5** | [Alchemical Reduction](/AOC.CSharp/2018/2018_05.cs) | C#</br>
+**Day 6** | [Chronal Coordinates](/AOC.CSharp/2018/2018_06.cs) | C#</br>
+**Day 7** | [The Sum of Its Parts](/AOC.CSharp/2018/2018_07.cs) | C#</br>
 </br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>
@@ -140,4 +142,7 @@
 **Day 23** | [Amphipod](/AOC.CSharp/2021/2021_23.cs) | C#</br>
 **Day 24** | [Arithmetic Logic Unit](/AOC.CSharp/2021/2021_24.cs) | C#</br>
 **Day 25** | [Sea Cucumber](/AOC.CSharp/2021/2021_25.cs) | C#</br>
+</br>
+# 2022
+**Day 1** | [Calorie Counting](/AOC.CSharp/2022/2022_01.cs) | C#</br>
 </br>
