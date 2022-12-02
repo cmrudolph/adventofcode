@@ -145,4 +145,5 @@
 </br>
 # 2022
 **Day 1** | [Calorie Counting](/AOC.CSharp/2022/2022_01.cs) | C#</br>
+**Day 2** | [Rock Paper Scissors](/AOC.CSharp/2022/2022_02.cs) | C#</br>
 </br>

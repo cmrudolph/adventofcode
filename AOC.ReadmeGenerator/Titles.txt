@@ -137,7 +137,7 @@
 2021-25 | Sea Cucumber
 
 2022-01 | Calorie Counting
-2022-02 | TODO
+2022-02 | Rock Paper Scissors
 2022-03 | TODO
 2022-04 | TODO
 2022-05 | TODO
