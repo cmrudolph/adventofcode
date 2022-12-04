@@ -59,6 +59,18 @@ public class AOC2022
     [Test, Category("Fast")]
     public void AOC2022_03_2_Actual() => Actual(2585, AOC2022_03.Solve2, "03");
 
+    [Test, Category("Fast")]
+    public void AOC2022_04_1_Sample() => Sample(2, AOC2022_04.Solve1, "04");
+
+    [Test, Category("Fast")]
+    public void AOC2022_04_1_Actual() => Actual(580, AOC2022_04.Solve1, "04");
+
+    [Test, Category("Fast")]
+    public void AOC2022_04_2_Sample() => Sample(4, AOC2022_04.Solve2, "04");
+
+    [Test, Category("Fast")]
+    public void AOC2022_04_2_Actual() => Actual(895, AOC2022_04.Solve2, "04");
+
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
     {
         TestUtils.Test(expected, solver, TestUtils.ReadInput("2022", day, "actual"));
