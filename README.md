@@ -146,4 +146,8 @@
 # 2022
 **Day 1** | [Calorie Counting](/AOC.CSharp/2022/2022_01.cs) | C#</br>
 **Day 2** | [Rock Paper Scissors](/AOC.CSharp/2022/2022_02.cs) | C#</br>
+**Day 3** | [Rucksack Reorganization](/AOC.CSharp/2022/2022_03.cs) | C#</br>
+**Day 4** | [Camp Cleanup](/AOC.CSharp/2022/2022_04.cs) | C#</br>
+**Day 5** | [Supply Stacks](/AOC.CSharp/2022/2022_05.cs) | C#</br>
+**Day 6** | [Tuning Trouble](/AOC.CSharp/2022/2022_06.cs) | C#</br>
 </br>
