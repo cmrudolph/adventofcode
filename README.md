@@ -153,4 +153,5 @@
 **Day 7** | [No Space Left On Device](/AOC.CSharp/2022/2022_07.cs) | C#</br>
 **Day 8** | [Treetop Tree House](/AOC.CSharp/2022/2022_08.cs) | C#</br>
 **Day 9** | [Rope Bridge](/AOC.CSharp/2022/2022_09.cs) | C#</br>
+**Day 10** | [Cathode-Ray Tube](/AOC.CSharp/2022/2022_10.cs) | C#</br>
 </br>
