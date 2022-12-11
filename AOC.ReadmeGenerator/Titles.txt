@@ -190,7 +190,7 @@
 2022-08 | Treetop Tree House
 2022-09 | Rope Bridge
 2022-10 | Cathode-Ray Tube
-2022-11 | TODO
+2022-11 | Monkey in the Middle
 2022-12 | TODO
 2022-13 | TODO
 2022-14 | TODO
