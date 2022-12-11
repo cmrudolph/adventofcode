@@ -89,6 +89,33 @@
 **Day 6** | [Chronal Coordinates](/AOC.CSharp/2018/2018_06.cs) | C#</br>
 **Day 7** | [The Sum of Its Parts](/AOC.CSharp/2018/2018_07.cs) | C#</br>
 </br>
+# 2019
+**Day 1** | [TODO](/AOC.CSharp/2019/2019_01.cs) | C#</br>
+**Day 2** | [TODO](/AOC.CSharp/2019/2019_02.cs) | C#</br>
+**Day 3** | [TODO](/AOC.CSharp/2019/2019_03.cs) | C#</br>
+**Day 4** | [TODO](/AOC.CSharp/2019/2019_04.cs) | C#</br>
+**Day 5** | [TODO](/AOC.CSharp/2019/2019_05.cs) | C#</br>
+**Day 6** | [TODO](/AOC.CSharp/2019/2019_06.cs) | C#</br>
+**Day 7** | [TODO](/AOC.CSharp/2019/2019_07.cs) | C#</br>
+**Day 8** | [TODO](/AOC.CSharp/2019/2019_08.cs) | C#</br>
+**Day 9** | [TODO](/AOC.CSharp/2019/2019_09.cs) | C#</br>
+**Day 10** | [TODO](/AOC.CSharp/2019/2019_10.cs) | C#</br>
+**Day 11** | [TODO](/AOC.CSharp/2019/2019_11.cs) | C#</br>
+**Day 12** | [TODO](/AOC.CSharp/2019/2019_12.cs) | C#</br>
+**Day 13** | [TODO](/AOC.CSharp/2019/2019_13.cs) | C#</br>
+**Day 14** | [TODO](/AOC.CSharp/2019/2019_14.cs) | C#</br>
+**Day 15** | [TODO](/AOC.CSharp/2019/2019_15.cs) | C#</br>
+**Day 16** | [TODO](/AOC.CSharp/2019/2019_16.cs) | C#</br>
+**Day 17** | [TODO](/AOC.CSharp/2019/2019_17.cs) | C#</br>
+**Day 18** | [TODO](/AOC.CSharp/2019/2019_18.cs) | C#</br>
+**Day 19** | [TODO](/AOC.CSharp/2019/2019_19.cs) | C#</br>
+**Day 20** | [TODO](/AOC.CSharp/2019/2019_20.cs) | C#</br>
+**Day 21** | [TODO](/AOC.CSharp/2019/2019_21.cs) | C#</br>
+**Day 22** | [TODO](/AOC.CSharp/2019/2019_22.cs) | C#</br>
+**Day 23** | [TODO](/AOC.CSharp/2019/2019_23.cs) | C#</br>
+**Day 24** | [TODO](/AOC.CSharp/2019/2019_24.cs) | C#</br>
+**Day 25** | [TODO](/AOC.CSharp/2019/2019_25.cs) | C#</br>
+</br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>
 **Day 2** | [Password Philosophy](/AOC.FSharp/2020/2020_02.fs) | F#</br>
