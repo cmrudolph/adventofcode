@@ -191,7 +191,7 @@
 2022-09 | Rope Bridge
 2022-10 | Cathode-Ray Tube
 2022-11 | Monkey in the Middle
-2022-12 | TODO
+2022-12 | Hill Climbing Algorithm
 2022-13 | TODO
 2022-14 | TODO
 2022-15 | TODO
