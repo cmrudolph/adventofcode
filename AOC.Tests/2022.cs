@@ -190,21 +190,41 @@ public class Tests
 
     private class Day13
     {
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_13_1_Sample() => Sample(9L, AOC2022_13.Solve1, "13");
+        [TestCase("[1,1,3,1,1]", "[1,1,5,1,1]", 1)]
+        [TestCase("[[1],[2,3,4]]", "[[1],4]", 1)]
+        [TestCase("[9]", "[[8,7,6]]", 0)]
+        [TestCase("[[4,4],4,4]", "[[4,4],4,4,4]", 1)]
+        [TestCase("[7,7,7,7]", "[7,7,7]", 0)]
+        [TestCase("[]", "[3]", 1)]
+        [TestCase("[[[]]]", "[[]]", 0)]
+        [TestCase("[1,[2,[3,[4,[5,6,7]]]],8,9]", "[1,[2,[3,[4,[5,6,0]]]],8,9]", 0)]
+        [TestCase("[[6],[7],[9,[0,[8,6]],[9]]]", "[[[[6],[],[2,10],0],[8,[4,10],[4,5,8,0,0]]],[3,1],[[10]]]", 1)]
+        [TestCase(
+            "[[6],[[8,[9],[3,6,0,8,6],7],9,4],[[],[[10,0],[9,3,8,10,1],[10,4]]]]",
+            "[[6,[2,[0,0,0,5,5],[7,1,2,9],7],[],0,[8]],[],[6,9,6],[8,4,[[7,3,3],[3],6],0,0],[]]",
+            1)]
+        [TestCase(
+            "[[],[9,[[4,6,9],[9,1,9,1,10],[0,0,5,10]]],[[],[[7],[7,6,4,1,4],7,[0],[10,3,5,0]],[]],[5]]",
+            "[[[]],[],[[2,[0,8],9,6,[4]],[7,[3,7],[1,7,6,7,7],[6,9,7,3,8],[2]],[10,[5,3,1,8,8],2,8,[]],0],[4,[7,0,[]],6]]",
+            1)]
+        [Category("Fast")]
+        public void AOC2022_13_1_Cases(string left, string right, int expected)
+        {
+            long result = AOC2022_13.Solve1(new[] { left, right });
+            result.Should().Be(expected);
+        }
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_13_1_Actual() => Actual(24000L, AOC2022_13.Solve1, "13");
+        [Test, Category("Fast")]
+        public void AOC2022_13_1_Sample() => Sample(13, AOC2022_13.Solve1, "13");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_13_2_Sample() => Sample(6L, AOC2022_13.Solve2, "13");
+        [Test, Category("Fast")]
+        public void AOC2022_13_1_Actual() => Actual(5682, AOC2022_13.Solve1, "13");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_13_2_Actual() => Actual(1194L, AOC2022_13.Solve2, "13");
+        [Test, Category("Fast")]
+        public void AOC2022_13_2_Sample() => Sample(140, AOC2022_13.Solve2, "13");
+
+        [Test, Category("Fast")]
+        public void AOC2022_13_2_Actual() => Actual(20304, AOC2022_13.Solve2, "13");
     }
 
     private class Day14
