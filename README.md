@@ -185,7 +185,7 @@
 **Day 12** | [Hill Climbing Algorithm](/AOC.CSharp/2022/2022_12.cs) | C#</br>
 **Day 13** | [Distress Signal](/AOC.CSharp/2022/2022_13.cs) | C#</br>
 **Day 14** | [Regolith Reservoir](/AOC.CSharp/2022/2022_14.cs) | C#</br>
-**Day 15** | [TODO](/AOC.CSharp/2022/2022_15.cs) | C#</br>
+**Day 15** | [Beacon Exclusion Zone](/AOC.CSharp/2022/2022_15.cs) | C#</br>
 **Day 16** | [TODO](/AOC.CSharp/2022/2022_16.cs) | C#</br>
 **Day 17** | [TODO](/AOC.CSharp/2022/2022_17.cs) | C#</br>
 **Day 18** | [TODO](/AOC.CSharp/2022/2022_18.cs) | C#</br>
