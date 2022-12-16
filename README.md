@@ -183,8 +183,8 @@
 **Day 10** | [Cathode-Ray Tube](/AOC.CSharp/2022/2022_10.cs) | C#</br>
 **Day 11** | [Monkey in the Middle](/AOC.CSharp/2022/2022_11.cs) | C#</br>
 **Day 12** | [Hill Climbing Algorithm](/AOC.CSharp/2022/2022_12.cs) | C#</br>
-**Day 13** | [TODO](/AOC.CSharp/2022/2022_13.cs) | C#</br>
-**Day 14** | [TODO](/AOC.CSharp/2022/2022_14.cs) | C#</br>
+**Day 13** | [Distress Signal](/AOC.CSharp/2022/2022_13.cs) | C#</br>
+**Day 14** | [Regolith Reservoir](/AOC.CSharp/2022/2022_14.cs) | C#</br>
 **Day 15** | [TODO](/AOC.CSharp/2022/2022_15.cs) | C#</br>
 **Day 16** | [TODO](/AOC.CSharp/2022/2022_16.cs) | C#</br>
 **Day 17** | [TODO](/AOC.CSharp/2022/2022_17.cs) | C#</br>
