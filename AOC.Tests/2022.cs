@@ -259,13 +259,11 @@ public class Tests
 
     public class Day16
     {
-        [Ignore("TODO")]
         [Test, Category("New")]
-        public void AOC2022_16_1_Sample() => Sample(9L, AOC2022_16.Solve1, "16");
+        public void AOC2022_16_1_Sample() => Sample(1651, AOC2022_16.Solve1, "16");
 
-        [Ignore("TODO")]
         [Test, Category("New")]
-        public void AOC2022_16_1_Actual() => Actual(24000L, AOC2022_16.Solve1, "16");
+        public void AOC2022_16_1_Actual() => Actual(2059, AOC2022_16.Solve1, "16");
 
         [Ignore("TODO")]
         [Test, Category("New")]
