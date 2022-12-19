@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace AOC.CSharp;
 
@@ -6,25 +7,27 @@ public static class AOC2022_16
 {
     public static long Solve1(string[] lines)
     {
-        return new Solver(lines).Solve();
+        return new Solver(lines).Solve1();
     }
 
     public static long Solve2(string[] lines)
     {
-        return 888;
+        return new Solver(lines).Solve2();
     }
 
     public class Solver
     {
         private static Regex Re = new(@"Valve (.*) has flow rate=(\d+);.*valve.? (.*)");
 
+        private Stopwatch _sw;
         private long _tries;
         private long _curr;
         private long _best;
         private Dictionary<string, Dictionary<string, int>> _distances;
-        private List<Valve> _visited = new();
         private HashSet<Valve> _unvisited = new();
         private Dictionary<string, Valve> _valves;
+        private int[] _availableAt = new int[2];
+        private List<Valve>[] _visited = new List<Valve>[2];
 
         public Solver(string[] lines)
         {
@@ -32,19 +35,51 @@ public static class AOC2022_16
             BuildDistanceLookup();
         }
 
-        public long Solve()
+        public long Solve1()
         {
+            _sw = Stopwatch.StartNew();
             var start = _valves["AA"];
+
+            _availableAt[0] = 30;
+            _visited = new List<Valve>[1];
+            _visited[0] = new List<Valve>();
 
             // Only visit all the meaningful valves (with contributions to the total)
             _unvisited = _valves.Values.Where(v => v.FlowRate > 0).ToHashSet();
-            _visited.Add(start);
+            _visited[0].Add(start);
 
             var toVisit = _unvisited.ToList();
             foreach (var uv in toVisit)
             {
                 // Process each potential path through the significant valves
-                Recurse(start, uv, 30);
+                Recurse(uv, 1, 30);
+            }
+
+            Console.WriteLine(_tries);
+            return _best;
+        }
+
+        public long Solve2()
+        {
+            _sw = Stopwatch.StartNew();
+            var start = _valves["AA"];
+
+            _availableAt[0] = 26;
+            _availableAt[1] = 26;
+            _visited = new List<Valve>[2];
+            _visited[0] = new List<Valve>();
+            _visited[1] = new List<Valve>();
+
+            // Only visit all the meaningful valves (with contributions to the total)
+            _unvisited = _valves.Values.Where(v => v.FlowRate > 0).ToHashSet();
+            _visited[0].Add(start);
+            _visited[1].Add(start);
+
+            var toVisit = _unvisited.ToList();
+            foreach (var uv in toVisit)
+            {
+                _availableAt = new[] { 26, 26 };
+                Recurse(uv, 2, 26);
             }
 
             return _best;
@@ -86,40 +121,72 @@ public static class AOC2022_16
             }
         }
 
-        private void Recurse(Valve from, Valve to, int timeRemaining)
+        private void Recurse(Valve to, int numSearchers, int timeRemaining)
         {
-            if (timeRemaining <= 0)
+            if (timeRemaining <= 0 || _availableAt.All(a => a < 0))
             {
+                _tries++;
                 return;
             }
 
-            _visited.Add(to);
-            _unvisited.Remove(to);
+            long contribution = 0;
+            List<int> visitedIndices = new();
+            int[] availableAtCorrections = new int[numSearchers];
 
-            // Assume we will open a valve when we visit it. Account for the time to move there and the time to open
-            // the valve
-            int movementCost = _distances[from.Name][to.Name];
-            timeRemaining -= (movementCost + 1);
-
-            long contribution = Math.Max(to.FlowRate * (timeRemaining), 0);
-            _curr += contribution;
-            if (_curr > _best)
+            int best = _availableAt[0];
+            int searcher = 0;
+            int i;
+            for (i = 1; i < numSearchers; i++)
             {
-                Console.WriteLine("{0} --> {1}", _curr, string.Join(" | ", _visited.Select(v => v.Name)));
-                _best = _curr;
+                if (_availableAt[i] > best)
+                {
+                    best = _availableAt[i];
+                    searcher = i;
+                }
             }
 
-            // Continue to visit all the other valves we haven't checked yet
-            var toVisit = _unvisited.ToList();
-            foreach (var next in toVisit)
+            i = searcher;
+
+            int at = _availableAt[i];
+            if (at >= timeRemaining)
             {
-                Recurse(to, next, timeRemaining);
+                Valve from = _visited[i].Last();
+
+                visitedIndices.Add(i);
+                _visited[i].Add(to);
+                _unvisited.Remove(to);
+
+                // Assume we will open a valve when we visit it. Account for the time to move there and the time to open
+                // the valve
+                int movementCost = _distances[from.Name][to.Name];
+                contribution += Math.Max(to.FlowRate * (timeRemaining - movementCost - 1), 0);
+                _availableAt[i] -= (movementCost + 1);
+                availableAtCorrections[i] = movementCost + 1;
+
+                _curr += contribution;
+                if (_curr > _best)
+                {
+                    Console.WriteLine("{0} --> {1} {2}", _curr, string.Join(" | ", _visited[i].Select(v => v.Name)), _sw.ElapsedMilliseconds);
+                    _best = _curr;
+                }
+
+                // Continue to visit all the other valves we haven't checked yet
+                var toVisit = _unvisited.ToList();
+                if (timeRemaining > 1 && _availableAt.Any(a => a > 0))
+                {
+                    int nextTime = _availableAt.Take(numSearchers).Max();
+
+                    foreach (var next in toVisit)
+                    {
+                        Recurse(next, numSearchers, nextTime);
+                    }
+                }
+
+                _curr -= contribution;
+                _availableAt[i] += movementCost + 1;
+                _visited[i].RemoveAt(_visited[i].Count - 1);
+                _unvisited.Add(to);
             }
-
-            _curr -= contribution;
-
-            _visited.Remove(to);
-            _unvisited.Add(to);
         }
 
         private static List<Valve> Parse(string[] lines)

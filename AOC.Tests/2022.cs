@@ -259,18 +259,18 @@ public class Tests
 
     public class Day16
     {
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void AOC2022_16_1_Sample() => Sample(1651, AOC2022_16.Solve1, "16");
 
-        [Test, Category("New")]
+        [Test, Category("Slow")]
         public void AOC2022_16_1_Actual() => Actual(2059, AOC2022_16.Solve1, "16");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_16_2_Sample() => Sample(6L, AOC2022_16.Solve2, "16");
+        [Test, Category("Fast")]
+        public void AOC2022_16_2_Sample() => Sample(1707, AOC2022_16.Solve2, "16");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
+        // Takes around 9 minutes. Found answer. Don't care to optimize it further.
+        [Ignore("WayTooSlow")]
+        [Test, Category("WayTooSlow")]
         public void AOC2022_16_2_Actual() => Actual(1194L, AOC2022_16.Solve2, "16");
     }
 
@@ -295,21 +295,17 @@ public class Tests
 
     public class Day18
     {
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_18_1_Sample() => Sample(9L, AOC2022_18.Solve1, "18");
+        [Test, Category("Fast")]
+        public void AOC2022_18_1_Sample() => Sample(64, AOC2022_18.Solve1, "18");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_18_1_Actual() => Actual(24000L, AOC2022_18.Solve1, "18");
+        [Test, Category("Fast")]
+        public void AOC2022_18_1_Actual() => Actual(4536, AOC2022_18.Solve1, "18");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_18_2_Sample() => Sample(6L, AOC2022_18.Solve2, "18");
+        [Test, Category("Slow")]
+        public void AOC2022_18_2_Sample() => Sample(58, AOC2022_18.Solve2, "18");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_18_2_Actual() => Actual(1194L, AOC2022_18.Solve2, "18");
+        [Test, Category("Slow")]
+        public void AOC2022_18_2_Actual() => Actual(2606, AOC2022_18.Solve2, "18");
     }
 
     public class Day19
