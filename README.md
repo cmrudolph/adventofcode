@@ -186,11 +186,11 @@
 **Day 13** | [Distress Signal](/AOC.CSharp/2022/2022_13.cs) | C#</br>
 **Day 14** | [Regolith Reservoir](/AOC.CSharp/2022/2022_14.cs) | C#</br>
 **Day 15** | [Beacon Exclusion Zone](/AOC.CSharp/2022/2022_15.cs) | C#</br>
-**Day 16** | [TODO](/AOC.CSharp/2022/2022_16.cs) | C#</br>
-**Day 17** | [TODO](/AOC.CSharp/2022/2022_17.cs) | C#</br>
-**Day 18** | [TODO](/AOC.CSharp/2022/2022_18.cs) | C#</br>
-**Day 19** | [TODO](/AOC.CSharp/2022/2022_19.cs) | C#</br>
-**Day 20** | [TODO](/AOC.CSharp/2022/2022_20.cs) | C#</br>
+**Day 16** | [Proboscidea Volcanium](/AOC.CSharp/2022/2022_16.cs) | C#</br>
+**Day 17** | [Pyroclastic Flow](/AOC.CSharp/2022/2022_17.cs) | C#</br>
+**Day 18** | [Boiling Boulders](/AOC.CSharp/2022/2022_18.cs) | C#</br>
+**Day 19** | [Not Enough Minerals](/AOC.CSharp/2022/2022_19.cs) | C#</br>
+**Day 20** | [Grove Positioning System](/AOC.CSharp/2022/2022_20.cs) | C#</br>
 **Day 21** | [TODO](/AOC.CSharp/2022/2022_21.cs) | C#</br>
 **Day 22** | [TODO](/AOC.CSharp/2022/2022_22.cs) | C#</br>
 **Day 23** | [TODO](/AOC.CSharp/2022/2022_23.cs) | C#</br>

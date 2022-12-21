@@ -5,99 +5,77 @@ public static class AOC2022_17
     public static long Solve1(string[] lines)
     {
         char[] pushes = lines[0].ToCharArray();
-        var g = new Grid();
-        int shapeNum = 1;
-        int pushIdx = 0;
-
-        for (int i = 0; i < 2022; i++)
-        {
-            bool settled = false;
-            g.AddShape(shapeNum);
-
-            // g.Print();
-            // Console.WriteLine();
-
-            while (!settled)
-            {
-                char push = pushes[pushIdx];
-                if (push == '>')
-                {
-                    g.TryShiftRight();
-                }
-                else
-                {
-                    g.TryShiftLeft();
-                }
-
-                settled = !g.TryMoveDown();
-
-                pushIdx++;
-                if (pushIdx == pushes.Length)
-                {
-                    pushIdx = 0;
-                }
-            }
-
-            shapeNum++;
-            if (shapeNum == 6)
-            {
-                shapeNum = 1;
-            }
-
-            // g.Print();
-            // Console.WriteLine();
-        }
-
-        g.TrimTop();
-
-        return g.Rows - 1;
+        var heights = GetHeights(2022, pushes);
+        return heights.Last();
     }
-
-    // public static long Solve2(string[] lines)
-    // {
-    //     long shapes = 300000;
-    //     long total = 454289;
-    //     int jumpIdx = 0;
-    //     long[] jumpVals = { 75719, 75713, 75714, 75714, 75713, 75715, 75712 };
-    //     while (shapes != 1000000000000)
-    //     {
-    //         total += jumpVals[jumpIdx];
-    //         shapes += 50000;
-    //         jumpIdx++;
-    //         if (jumpIdx == jumpVals.Length)
-    //         {
-    //             jumpIdx = 0;
-    //         }
-    //
-    //         if (shapes % 1000000000 == 0)
-    //         {
-    //             Console.WriteLine(shapes);
-    //         }
-    //     }
-    //
-    //     return total - 1;
-    // }
 
     public static long Solve2(string[] lines)
     {
         char[] pushes = lines[0].ToCharArray();
+
+        // Build up a large enough sample to find the repeat info
+        var heights = GetHeights(50000, pushes);
+
+        List<int> gaps = new();
+        for (int i = 0; i < heights.Count - 1; i++)
+        {
+            // We care about the gaps between subsequent levels. This is where we will look for a pattern
+            gaps.Add(heights[i + 1] - heights[i]);
+        }
+
+        // Arbitrary values that work
+        int firstChunkStart = 10000;
+        int sliceSize = 500;
+
+        var firstChunk = gaps.Skip(firstChunkStart).Take(sliceSize).ToList();
+        for (int secondStartIdx = firstChunkStart + 1; secondStartIdx < gaps.Count - sliceSize; secondStartIdx++)
+        {
+            var secondChunk = gaps.Skip(secondStartIdx).Take(sliceSize).ToList();
+            if (firstChunk.SequenceEqual(secondChunk))
+            {
+                int startShapeIdx = firstChunkStart + 1;
+                int shapeJumpAmount = secondStartIdx - firstChunkStart;
+                long heightJumpAmount = gaps.Skip(firstChunkStart).Take(shapeJumpAmount).Sum();
+
+                long remainingShapes = 1000000000000 - startShapeIdx;
+                long fullJumps = remainingShapes / shapeJumpAmount;
+                long fullJumpIncrease = fullJumps * heightJumpAmount;
+
+                long heightUntilJumps = gaps.Take(startShapeIdx).Sum();
+                long heightWithJumps = heightUntilJumps + fullJumpIncrease;
+
+                long finalHeight = heightWithJumps;
+                long remainderShapes = remainingShapes - (fullJumps * shapeJumpAmount);
+
+                for (int j = 0; j < remainderShapes; j++)
+                {
+                    int gapIdx = startShapeIdx + j;
+                    finalHeight += gaps[gapIdx];
+                }
+
+                return finalHeight;
+            }
+        }
+
+        return -1;
+    }
+
+    private static List<int> GetHeights(int shapeCount, char[] pushes)
+    {
         var g = new Grid();
         int shapeNum = 1;
         int pushIdx = 0;
+        List<int> heights = new();
 
-        RepeatInfo repeatInfo = null;
-
-        List<int> gaps = new();
-        for (int i = 0; i < 1000000; i++)
+        for (int i = 0; i < shapeCount; i++)
         {
-            g.TrimTop();
-            int heightBefore = g.Rows - 1;
-
+            // Push the next shape onto the top
             bool settled = false;
             g.AddShape(shapeNum);
 
             while (!settled)
             {
+                // First handle L-R movement
                 char push = pushes[pushIdx];
                 if (push == '>')
                 {
@@ -108,6 +86,7 @@ public static class AOC2022_17
                     g.TryShiftLeft();
                 }
 
+                // Go down until we hit something
                 settled = !g.TryMoveDown();
 
                 pushIdx++;
@@ -123,63 +102,12 @@ public static class AOC2022_17
                 shapeNum = 1;
             }
 
+            // Remove empty rows because these should not count as height
             g.TrimTop();
-
-            if (i > 0)
-            {
-                int heightAfter = g.Rows - 1;
-                gaps.Add(heightAfter - heightBefore);
-            }
-
-            if (i % 10000 == 0)
-            {
-                repeatInfo = LookForRepeat(gaps);
-                if (repeatInfo != null)
-                {
-                    long remainingShapes = 1000000000000 - repeatInfo.StartShapeIdx;
-                    long fullJumps = remainingShapes / repeatInfo.ShapeJumpAmount;
-                    long fullJumpIncrease = fullJumps * repeatInfo.HeightJumpAmount;
-
-                    long heightUntilJumps = gaps.Take(repeatInfo.StartShapeIdx).Sum();
-                    long heightWithJumps = heightUntilJumps + fullJumpIncrease;
-
-                    long finalHeight = heightWithJumps;
-                    long remainderShapes = remainingShapes - (fullJumps * repeatInfo.ShapeJumpAmount);
-                    for (int j = 0; j < remainderShapes; j++)
-                    {
-                        int gapIdx = repeatInfo.StartShapeIdx + j;
-                        finalHeight += gaps[gapIdx];
-                    }
-
-                    return finalHeight;
-                }
-            }
+            heights.Add(g.Rows - 1);
         }
 
-        return g.Rows - 1;
-    }
-
-    private static RepeatInfo LookForRepeat(List<int> gaps)
-    {
-        int firstChunkStart = 10000;
-        int sliceSize = 500;
-
-        if (gaps.Count >= firstChunkStart * 3)
-        {
-            var firstChunk = gaps.Skip(firstChunkStart).Take(sliceSize).ToList();
-            for (int i = firstChunkStart + 1; i < gaps.Count - sliceSize; i++)
-            {
-                var secondChunk = gaps.Skip(i).Take(sliceSize).ToList();
-                if (firstChunk.SequenceEqual(secondChunk))
-                {
-                    int num = i - firstChunkStart;
-                    RepeatInfo info = new(firstChunkStart + 1, num, gaps.Skip(firstChunkStart).Take(num).Sum());
-                    return info;
-                }
-            }
-        }
-
-        return null;
+        return heights;
     }
 
     private record RepeatInfo(int StartShapeIdx, long ShapeJumpAmount, long HeightJumpAmount);
