@@ -4,43 +4,56 @@ public static class AOC2022_20
 {
     public static long Solve1(string[] lines)
     {
-        return Solve1Efficient(lines);
+        List<long> orig = lines.Select(long.Parse).ToList();
+        return Solve1Efficient(orig, 1);
     }
 
-    public static long Solve1Efficient(string[] lines)
+    public static long Solve2(string[] lines)
     {
-        List<int> orig = lines.Select(int.Parse).ToList();
+        List<long> orig = lines.Select(x => long.Parse(x) * 811589153L).ToList();
+        return Solve1Efficient(orig, 10);
+    }
+
+    private static long Solve1Efficient(List<long> orig, int mixes)
+    {
+        // Use a record with the index and value because searching for just the value is not good enough (the input
+        // can contain duplicates)
         List<NodeVal> shuffled = orig.Select((val, i) => new NodeVal(i, val)).ToList();
         NodeVal zeroVal = null;
 
-        for (int i = 0; i < orig.Count; i++)
+        for (int j = 0; j < mixes; j++)
         {
-            NodeVal val = new(i, orig[i]);
-            if (orig[i] == 0)
+            for (int i = 0; i < orig.Count; i++)
             {
-                zeroVal = val;
+                NodeVal val = new(i, orig[i]);
+                if (orig[i] == 0)
+                {
+                    zeroVal = val;
+                }
+
+                int oldPos = shuffled.FindIndex(x => x.Equals(val));
+                long newPos = oldPos + val.Val;
+
+                shuffled.RemoveAt(oldPos);
+
+                // Account for the final destination being out of range in either direction. The trick is to use the
+                // little mod formulas below to get into the target range. Repeated addition or subtraction works for
+                // part 1, but is too slow for the large numbers in part 2
+                if (newPos < 0)
+                {
+                    newPos = shuffled.Count - (Math.Abs(newPos) % shuffled.Count);
+                }
+                else if (newPos >= shuffled.Count)
+                {
+                    newPos %= shuffled.Count;
+                }
+
+                shuffled.Insert((int)newPos, val);
             }
-
-            int oldPos = shuffled.FindIndex(x => x.Equals(val));
-            int newPos = oldPos + val.Val;
-
-            shuffled.RemoveAt(oldPos);
-
-            while (newPos < 0)
-            {
-                newPos += shuffled.Count;
-            }
-
-            while (newPos >= shuffled.Count)
-            {
-                newPos -= shuffled.Count;
-            }
-
-            shuffled.Insert(newPos, val);
         }
 
         int finalIdx = shuffled.FindIndex(x => x.Equals(zeroVal));
-        int finalSum = 0;
+        long finalSum = 0;
         for (int i = 1; i <= 3000; i++)
         {
             finalIdx++;
@@ -58,92 +71,5 @@ public static class AOC2022_20
         return finalSum;
     }
 
-    private static long Solve1LinkedList(string[] lines)
-    {
-        LinkedList<NodeVal> linked = new();
-        LinkedListNode<NodeVal> head = null;
-        LinkedListNode<NodeVal> curr = null;
-        NodeVal zero = null;
-
-        List<int> orig = lines.Select(int.Parse).ToList();
-
-        for (int i = 0; i < orig.Count; i++)
-        {
-            int val = orig[i];
-            if (val == 0)
-            {
-                zero = new NodeVal(i, 0);
-            }
-
-            if (linked.Count == 0)
-            {
-                head = linked.AddFirst(new NodeVal(i, val));
-                curr = head;
-            }
-            else
-            {
-                curr = linked.AddAfter(curr, new NodeVal(i, val));
-            }
-        }
-
-        for (int i = 0; i < orig.Count; i++)
-        {
-            int val = orig[i];
-            var target = new NodeVal(i, val);
-            var node = linked.Find(target);
-
-            int moves = Math.Abs(val);
-            bool forward = val > 0;
-            for (int j = 0; j < moves; j++)
-            {
-                if (forward)
-                {
-                    var toAddAfter = node.Next;
-                    if (toAddAfter == null)
-                    {
-                        toAddAfter = linked.First;
-                    }
-                    linked.Remove(node);
-                    linked.AddAfter(toAddAfter, node);
-                }
-                else
-                {
-                    var toAddBefore = node.Previous;
-                    if (toAddBefore == null)
-                    {
-                        toAddBefore = linked.Last;
-                    }
-                    linked.Remove(node);
-                    linked.AddBefore(toAddBefore, node);
-                }
-            }
-        }
-
-        var zeroNode = linked.Find(zero);
-        var finalCurr = zeroNode;
-        int finalSum = 0;
-        for (int i = 1; i <= 3000; i++)
-        {
-            var next = finalCurr.Next;
-            if (next == null)
-            {
-                next = linked.First;
-            }
-
-            finalCurr = next;
-            if (i % 1000 == 0)
-            {
-                finalSum += finalCurr.Value.Val;
-            }
-        }
-
-        return finalSum;
-    }
-
-    public static long Solve2(string[] lines)
-    {
-        return 888;
-    }
-
-    private record NodeVal(int Idx, int Val);
+    private record NodeVal(int Idx, long Val);
 }
