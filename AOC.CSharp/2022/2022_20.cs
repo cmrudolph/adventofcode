@@ -4,6 +4,62 @@ public static class AOC2022_20
 {
     public static long Solve1(string[] lines)
     {
+        return Solve1Efficient(lines);
+    }
+
+    public static long Solve1Efficient(string[] lines)
+    {
+        List<int> orig = lines.Select(int.Parse).ToList();
+        List<NodeVal> shuffled = orig.Select((val, i) => new NodeVal(i, val)).ToList();
+        NodeVal zeroVal = null;
+
+        for (int i = 0; i < orig.Count; i++)
+        {
+            NodeVal val = new(i, orig[i]);
+            if (orig[i] == 0)
+            {
+                zeroVal = val;
+            }
+
+            int oldPos = shuffled.FindIndex(x => x.Equals(val));
+            int newPos = oldPos + val.Val;
+
+            shuffled.RemoveAt(oldPos);
+
+            while (newPos < 0)
+            {
+                newPos += shuffled.Count;
+            }
+
+            while (newPos >= shuffled.Count)
+            {
+                newPos -= shuffled.Count;
+            }
+
+            shuffled.Insert(newPos, val);
+        }
+
+        int finalIdx = shuffled.FindIndex(x => x.Equals(zeroVal));
+        int finalSum = 0;
+        for (int i = 1; i <= 3000; i++)
+        {
+            finalIdx++;
+            if (finalIdx == shuffled.Count)
+            {
+                finalIdx = 0;
+            }
+
+            if (i > 0 && i % 1000 == 0)
+            {
+                finalSum += shuffled[finalIdx].Val;
+            }
+        }
+
+        return finalSum;
+    }
+
+    private static long Solve1LinkedList(string[] lines)
+    {
         LinkedList<NodeVal> linked = new();
         LinkedListNode<NodeVal> head = null;
         LinkedListNode<NodeVal> curr = null;
@@ -80,48 +136,6 @@ public static class AOC2022_20
                 finalSum += finalCurr.Value.Val;
             }
         }
-
-        // List<int> shuffled = orig.ToList();
-        // for (int i = 0; i < orig.Count; i++)
-        // {
-        //     // Console.WriteLine(string.Join(", ", shuffled));
-        //     int val = orig[i];
-        //     int oldPos = shuffled.FindIndex(x => x == val);
-        //     int newPos = oldPos + val;
-        //
-        //     shuffled.RemoveAt(oldPos);
-        //
-        //     while (newPos < 0)
-        //     {
-        //         newPos += shuffled.Count;
-        //     }
-        //
-        //     while (newPos >= shuffled.Count)
-        //     {
-        //         newPos -= shuffled.Count;
-        //     }
-        //
-        //     shuffled.Insert(newPos, val);
-        //     // Console.WriteLine(string.Join(", ", shuffled));
-        //     // Console.WriteLine();
-        // }
-        //
-        // int finalIdx = shuffled.FindIndex(x => x == 0);
-        // int finalSum = 0;
-        // for (int i = 1; i <= 3000; i++)
-        // {
-        //     finalIdx++;
-        //     if (finalIdx == shuffled.Count)
-        //     {
-        //         finalIdx = 0;
-        //     }
-        //
-        //     if (i > 0 && i % 1000 == 0)
-        //     {
-        //         Console.WriteLine("{0} | {1} | {2}", i, finalIdx, shuffled[finalIdx]);
-        //         finalSum += shuffled[finalIdx];
-        //     }
-        // }
 
         return finalSum;
     }
