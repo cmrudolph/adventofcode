@@ -340,19 +340,17 @@ public class Tests
 
     public class Day21
     {
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void AOC2022_21_1_Sample() => Sample(152, AOC2022_21.Solve1, "21");
 
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void AOC2022_21_1_Actual() => Actual(324122188240430L, AOC2022_21.Solve1, "21");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_21_2_Sample() => Sample(6L, AOC2022_21.Solve2, "21");
+        [Test, Category("Fast")]
+        public void AOC2022_21_2_Sample() => Sample(301, AOC2022_21.Solve2, "21");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_21_2_Actual() => Actual(1194L, AOC2022_21.Solve2, "21");
+        [Test, Category("Fast")]
+        public void AOC2022_21_2_Actual() => Actual(3412650897405, AOC2022_21.Solve2, "21");
     }
 
     public class Day22
