@@ -200,8 +200,8 @@
 2022-18 | Boiling Boulders
 2022-19 | Not Enough Minerals
 2022-20 | Grove Positioning System
-2022-21 | TODO
-2022-22 | TODO
-2022-23 | TODO
-2022-24 | TODO
+2022-21 | Monkey Math
+2022-22 | Monkey Map
+2022-23 | Unstable Diffusion
+2022-24 | Blizzard Basin
 2022-25 | TODO

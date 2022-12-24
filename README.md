@@ -191,9 +191,9 @@
 **Day 18** | [Boiling Boulders](/AOC.CSharp/2022/2022_18.cs) | C#</br>
 **Day 19** | [Not Enough Minerals](/AOC.CSharp/2022/2022_19.cs) | C#</br>
 **Day 20** | [Grove Positioning System](/AOC.CSharp/2022/2022_20.cs) | C#</br>
-**Day 21** | [TODO](/AOC.CSharp/2022/2022_21.cs) | C#</br>
-**Day 22** | [TODO](/AOC.CSharp/2022/2022_22.cs) | C#</br>
-**Day 23** | [TODO](/AOC.CSharp/2022/2022_23.cs) | C#</br>
-**Day 24** | [TODO](/AOC.CSharp/2022/2022_24.cs) | C#</br>
+**Day 21** | [Monkey Math](/AOC.CSharp/2022/2022_21.cs) | C#</br>
+**Day 22** | [Monkey Map](/AOC.CSharp/2022/2022_22.cs) | C#</br>
+**Day 23** | [Unstable Diffusion](/AOC.CSharp/2022/2022_23.cs) | C#</br>
+**Day 24** | [Blizzard Basin](/AOC.CSharp/2022/2022_24.cs) | C#</br>
 **Day 25** | [TODO](/AOC.CSharp/2022/2022_25.cs) | C#</br>
 </br>
