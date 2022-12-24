@@ -353,17 +353,17 @@ public class Tests
 
     public class Day22
     {
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void AOC2022_22_1_Sample() => Sample(6032, AOC2022_22.Solve1, "22");
 
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void AOC2022_22_1_Actual() => Actual(73346, AOC2022_22.Solve1, "22");
 
         [Ignore("Sample Not Implemented")]
         [Test, Category("NotImplemented")]
         public void AOC2022_22_2_Sample() => Sample(6, AOC2022_22.Solve2, "22");
 
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void AOC2022_22_2_Actual() => Actual(106392, AOC2022_22.Solve2, "22");
     }
 
