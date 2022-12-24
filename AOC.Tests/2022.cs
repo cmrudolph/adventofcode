@@ -353,13 +353,11 @@ public class Tests
 
     public class Day22
     {
-        [Ignore("TODO")]
         [Test, Category("New")]
-        public void AOC2022_22_1_Sample() => Sample(9L, AOC2022_22.Solve1, "22");
+        public void AOC2022_22_1_Sample() => Sample(6032, AOC2022_22.Solve1, "22");
 
-        [Ignore("TODO")]
         [Test, Category("New")]
-        public void AOC2022_22_1_Actual() => Actual(24000L, AOC2022_22.Solve1, "22");
+        public void AOC2022_22_1_Actual() => Actual(73346, AOC2022_22.Solve1, "22");
 
         [Ignore("TODO")]
         [Test, Category("New")]
