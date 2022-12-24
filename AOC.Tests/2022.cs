@@ -372,21 +372,19 @@ public class Tests
 
     public class Day23
     {
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_23_1_Sample() => Sample(9L, AOC2022_23.Solve1, "23");
+        [Test, Category("Fast")]
+        public void AOC2022_23_1_Sample() => Sample(110, AOC2022_23.Solve1, "23");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_23_1_Actual() => Actual(24000L, AOC2022_23.Solve1, "23");
+        [Test, Category("Fast")]
+        public void AOC2022_23_1_Actual() => Actual(3849, AOC2022_23.Solve1, "23");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_23_2_Sample() => Sample(6L, AOC2022_23.Solve2, "23");
+        [Test, Category("Fast")]
+        public void AOC2022_23_2_Sample() => Sample(20, AOC2022_23.Solve2, "23");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_23_2_Actual() => Actual(1194L, AOC2022_23.Solve2, "23");
+        // Takes around 1 minute. Found answer. Don't care to optimize it further.
+        [Ignore("WayTooSlow")]
+        [Test, Category("WayTooSlow")]
+        public void AOC2022_23_2_Actual() => Actual(995, AOC2022_23.Solve2, "23");
     }
 
     public class Day24
