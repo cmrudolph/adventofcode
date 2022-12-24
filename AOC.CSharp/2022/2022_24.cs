@@ -6,14 +6,44 @@ public static class AOC2022_24
     {
         (Board board, Blizzards blizzards) = Parse(lines);
 
+        XY start = new(1, 0);
+        XY end = new(board.MaxX - 1, board.MaxY);
+
+        return Solve(board, blizzards, start, end);
+    }
+
+    public static long Solve2(string[] lines)
+    {
+        (Board board, Blizzards blizzards) = Parse(lines);
+
+        XY start = new(1, 0);
+        XY end = new(board.MaxX - 1, board.MaxY);
+
+        List<Tuple<XY, XY>> trips = new()
+        {
+            Tuple.Create(start, end),
+            Tuple.Create(end, start),
+            Tuple.Create(start, end),
+        };
+
+        long total = 0;
+        foreach (var t in trips)
+        {
+            long tripCost = Solve(board, blizzards, t.Item1, t.Item2);
+            total += tripCost;
+        }
+
+        return total;
+    }
+
+    private static long Solve(Board board, Blizzards blizzards, XY start, XY end)
+    {
         int minute = 1;
         Queue<QueueEntry> q = new();
-        q.Enqueue(new QueueEntry(board.Start, 0));
+        q.Enqueue(new QueueEntry(start, 0));
         while (true)
         {
             blizzards.AdvanceAll(board);
-
-            //Print(board, blizzards);
 
             HashSet<QueueEntry> newEntries = new();
             while (q.Any())
@@ -31,7 +61,7 @@ public static class AOC2022_24
                 foreach (Direction dir in Enum.GetValues<Direction>())
                 {
                     var candidate = GetNextPos(curr.Pos, dir);
-                    if (board.End == candidate)
+                    if (end == candidate)
                     {
                         return minute;
                     }
@@ -46,11 +76,6 @@ public static class AOC2022_24
             q = new Queue<QueueEntry>(newEntries);
             minute++;
         }
-    }
-
-    public static long Solve2(string[] lines)
-    {
-        return 888;
     }
 
     private static (Board, Blizzards) Parse(string[] lines)
@@ -147,11 +172,7 @@ public static class AOC2022_24
         }
     }
 
-    private record Board(int MinX, int MaxX, int MinY, int MaxY)
-    {
-        public XY Start => new(1, 0);
-        public XY End => new(MaxX - 1, MaxY);
-    }
+    private record Board(int MinX, int MaxX, int MinY, int MaxY);
 
     private sealed class Blizzards
     {

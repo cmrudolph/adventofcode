@@ -389,19 +389,17 @@ public class Tests
 
     public class Day24
     {
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void AOC2022_24_1_Sample() => Sample(18, AOC2022_24.Solve1, "24");
 
-        [Test, Category("New")]
+        [Test, Category("Slow")]
         public void AOC2022_24_1_Actual() => Actual(295, AOC2022_24.Solve1, "24");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_24_2_Sample() => Sample(6L, AOC2022_24.Solve2, "24");
+        [Test, Category("Fast")]
+        public void AOC2022_24_2_Sample() => Sample(54, AOC2022_24.Solve2, "24");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_24_2_Actual() => Actual(1194L, AOC2022_24.Solve2, "24");
+        [Test, Category("Slow")]
+        public void AOC2022_24_2_Actual() => Actual(851, AOC2022_24.Solve2, "24");
     }
 
     public class Day25
