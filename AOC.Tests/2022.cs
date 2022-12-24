@@ -389,13 +389,11 @@ public class Tests
 
     public class Day24
     {
-        [Ignore("TODO")]
         [Test, Category("New")]
-        public void AOC2022_24_1_Sample() => Sample(9L, AOC2022_24.Solve1, "24");
+        public void AOC2022_24_1_Sample() => Sample(18, AOC2022_24.Solve1, "24");
 
-        [Ignore("TODO")]
         [Test, Category("New")]
-        public void AOC2022_24_1_Actual() => Actual(24000L, AOC2022_24.Solve1, "24");
+        public void AOC2022_24_1_Actual() => Actual(295, AOC2022_24.Solve1, "24");
 
         [Ignore("TODO")]
         [Test, Category("New")]
