@@ -401,19 +401,34 @@ public class Tests
 
     public class Day25
     {
-        [Test, Category("New")]
-        public void AOC2022_25_1_Sample() => Sample(9L, AOC2022_25.Solve1, "25");
+        [TestCase("1=", 3)]
+        [TestCase("12", 7)]
+        [TestCase("1=-0-2", 1747)]
+        [Category("Fast")]
+        public void AOC2022_25_RoundTrip(string snafu, long numeric)
+        {
+            long result = AOC2022_25.ToDecimal(snafu);
+            result.Should().Be(numeric);
+
+            string reversed = AOC2022_25.ToSnafu(result);
+            reversed.Should().Be(snafu);
+        }
+
+        [TestCase("1=", 3)]
+        [TestCase("12", 7)]
+        [TestCase("1=-0-2", 1747)]
+        [Category("Fast")]
+        public void AOC2022_25_ToSnafu(string snafu, long expected)
+        {
+            long result = AOC2022_25.ToDecimal(snafu);
+            result.Should().Be(expected);
+        }
 
         [Test, Category("New")]
-        public void AOC2022_25_1_Actual() => Actual(24000L, AOC2022_25.Solve1, "25");
+        public void AOC2022_25_1_Sample() => Sample("2=-1=0", AOC2022_25.Solve1, "25");
 
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_25_2_Sample() => Sample(6L, AOC2022_25.Solve2, "25");
-
-        [Ignore("TODO")]
-        [Test, Category("New")]
-        public void AOC2022_25_2_Actual() => Actual(1194L, AOC2022_25.Solve2, "25");
+        [Test, Category("Fast")]
+        public void AOC2022_25_1_Actual() => Actual("2-20=01--0=0=0=2-120", AOC2022_25.Solve1, "25");
     }
 
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
