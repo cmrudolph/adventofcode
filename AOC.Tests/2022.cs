@@ -424,7 +424,7 @@ public class Tests
             result.Should().Be(expected);
         }
 
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void AOC2022_25_1_Sample() => Sample("2=-1=0", AOC2022_25.Solve1, "25");
 
         [Test, Category("Fast")]
