@@ -151,6 +151,7 @@ public static class AOC2022_21
             "-" => (a, b) => a - b,
             "*" => (a, b) => a * b,
             "/" => (a, b) => a / b,
+            _ => throw new NotSupportedException(),
         };
 
         decimal val1 = sums[e.Left];

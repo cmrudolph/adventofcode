@@ -401,11 +401,9 @@ public class Tests
 
     public class Day25
     {
-        [Ignore("TODO")]
         [Test, Category("New")]
         public void AOC2022_25_1_Sample() => Sample(9L, AOC2022_25.Solve1, "25");
 
-        [Ignore("TODO")]
         [Test, Category("New")]
         public void AOC2022_25_1_Actual() => Actual(24000L, AOC2022_25.Solve1, "25");
 

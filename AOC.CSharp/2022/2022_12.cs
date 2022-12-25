@@ -56,7 +56,6 @@ public static class AOC2022_12
     private static long FindShortestPath(GridCell start, GridCell[,] grid, long bestSoFar)
     {
         Dictionary<Location, long> distances = new();
-        long distance = 0;
         Queue<Location> q = new();
 
         distances.Add(start.Loc, 0);

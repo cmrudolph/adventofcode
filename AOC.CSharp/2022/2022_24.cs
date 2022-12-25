@@ -98,6 +98,7 @@ public static class AOC2022_24
                         '>' => Direction.East,
                         'v' => Direction.South,
                         '<' => Direction.West,
+                        _ => throw new NotSupportedException(),
                     };
 
                     blizzards.Add(new Blizzard(pos, dir));
@@ -119,6 +120,7 @@ public static class AOC2022_24
                 Direction.East => next with { X = board.MinX + 1 },
                 Direction.South => next with { Y = board.MinY + 1 },
                 Direction.West => next with { X = board.MaxX - 1 },
+                _ => throw new NotSupportedException(),
             };
         }
 
@@ -133,6 +135,7 @@ public static class AOC2022_24
             Direction.East => curr with { X = curr.X + 1 },
             Direction.South => curr with { Y = curr.Y + 1 },
             Direction.West => curr with { X = curr.X - 1 },
+            _ => throw new NotSupportedException(),
         };
     }
 
@@ -161,6 +164,7 @@ public static class AOC2022_24
                         Direction.East => '>',
                         Direction.South => 'v',
                         Direction.West => '<',
+                        _ => throw new NotSupportedException(),
                     };
                     Console.Write(toWrite);
                 }

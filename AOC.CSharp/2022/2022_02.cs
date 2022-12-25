@@ -37,6 +37,7 @@ public static class AOC2022_02
                 "X" => toLose[theirChoice],
                 "Y" => toDraw[theirChoice],
                 "Z" => toWin[theirChoice],
+                _ => throw new NotSupportedException(),
             };
 
             newLines.Add($"{theirChoice} {yourChoice}");

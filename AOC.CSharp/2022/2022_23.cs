@@ -298,6 +298,7 @@ public static class AOC2022_23
             Direction.SW => curr with { X = curr.X - 1, Y = curr.Y + 1 },
             Direction.W => curr with { X = curr.X - 1 },
             Direction.NW => curr with { X = curr.X - 1, Y = curr.Y - 1 },
+            _ => throw new NotSupportedException(),
         };
     }
 
