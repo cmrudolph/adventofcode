@@ -6,7 +6,7 @@ namespace AOC.Tests.AOC2022;
 
 public class Tests
 {
-    public class Day01
+    private class Day01
     {
         [Test, Category("Fast")]
         public void AOC2022_01_1_Sample() => Sample(24000, AOC2022_01.Solve1, "01");
@@ -257,7 +257,7 @@ public class Tests
         public void AOC2022_15_2_Actual() => Actual(13340867187704, x => AOC2022_15.Solve2(x, 4000000), "15");
     }
 
-    public class Day16
+    private class Day16
     {
         [Test, Category("Fast")]
         public void AOC2022_16_1_Sample() => Sample(1651, AOC2022_16.Solve1, "16");
@@ -274,7 +274,7 @@ public class Tests
         public void AOC2022_16_2_Actual() => Actual(1194L, AOC2022_16.Solve2, "16");
     }
 
-    public class Day17
+    private class Day17
     {
         [Test, Category("Fast")]
         public void AOC2022_17_1_Sample() => Sample(3068, AOC2022_17.Solve1, "17");
@@ -289,7 +289,7 @@ public class Tests
         public void AOC2022_17_2_Actual() => Actual(1577077363915L, AOC2022_17.Solve2, "17");
     }
 
-    public class Day18
+    private class Day18
     {
         [Test, Category("Fast")]
         public void AOC2022_18_1_Sample() => Sample(64, AOC2022_18.Solve1, "18");
@@ -304,7 +304,7 @@ public class Tests
         public void AOC2022_18_2_Actual() => Actual(2606, AOC2022_18.Solve2, "18");
     }
 
-    public class Day19
+    private class Day19
     {
         [Test, Category("VerySlow")]
         public void AOC2022_19_1_Sample() => Sample(33, AOC2022_19.Solve1, "19");
@@ -321,7 +321,7 @@ public class Tests
         public void AOC2022_19_2_Actual() => Actual(5394, AOC2022_19.Solve2, "19");
     }
 
-    public class Day20
+    private class Day20
     {
         [Test, Category("Fast")]
         public void AOC2022_20_1_Sample() => Sample(3, AOC2022_20.Solve1, "20");
@@ -336,7 +336,7 @@ public class Tests
         public void AOC2022_20_2_Actual() => Actual(3760092545849L, AOC2022_20.Solve2, "20");
     }
 
-    public class Day21
+    private class Day21
     {
         [Test, Category("Fast")]
         public void AOC2022_21_1_Sample() => Sample(152, AOC2022_21.Solve1, "21");
@@ -351,7 +351,7 @@ public class Tests
         public void AOC2022_21_2_Actual() => Actual(3412650897405, AOC2022_21.Solve2, "21");
     }
 
-    public class Day22
+    private class Day22
     {
         [Test, Category("Fast")]
         public void AOC2022_22_1_Sample() => Sample(6032, AOC2022_22.Solve1, "22");
@@ -367,7 +367,7 @@ public class Tests
         public void AOC2022_22_2_Actual() => Actual(106392, AOC2022_22.Solve2, "22");
     }
 
-    public class Day23
+    private class Day23
     {
         [Test, Category("Fast")]
         public void AOC2022_23_1_Sample() => Sample(110, AOC2022_23.Solve1, "23");
@@ -384,7 +384,7 @@ public class Tests
         public void AOC2022_23_2_Actual() => Actual(995, AOC2022_23.Solve2, "23");
     }
 
-    public class Day24
+    private class Day24
     {
         [Test, Category("Fast")]
         public void AOC2022_24_1_Sample() => Sample(18, AOC2022_24.Solve1, "24");
@@ -399,7 +399,7 @@ public class Tests
         public void AOC2022_24_2_Actual() => Actual(851, AOC2022_24.Solve2, "24");
     }
 
-    public class Day25
+    private class Day25
     {
         [TestCase("1=", 3)]
         [TestCase("12", 7)]
