@@ -56,7 +56,7 @@ public static class AOC2021_23
         return best.GetValueOrDefault();
     }
 
-    private static int? Recurse(State s, HashSet<string> visited, Dictionary <string, int?> bestCost)
+    private static int? Recurse(State s, HashSet<string> visited, Dictionary<string, int?> bestCost)
     {
         if (bestCost.ContainsKey(s.Key))
         {
@@ -71,7 +71,8 @@ public static class AOC2021_23
         visited.Add(s.Key);
 
         int? myBestCost = null;
-        IEnumerable<NextState> nextStates = s.GetNextStates().Where(x => !visited.Contains(x.State.Key));
+        IEnumerable<NextState> nextStates = s.GetNextStates()
+            .Where(x => !visited.Contains(x.State.Key));
         foreach (NextState nextState in nextStates)
         {
             int? subCost = Recurse(nextState.State, visited, bestCost);
@@ -110,8 +111,8 @@ public static class AOC2021_23
 
             Key = MakeKey();
         }
-        
-        public  List<NextState> GetNextStates()
+
+        public List<NextState> GetNextStates()
         {
             List<NextState> states = new();
 
@@ -181,7 +182,7 @@ public static class AOC2021_23
             {
                 return false;
             }
-            
+
             for (int y2 = _roomDepth; y2 > a.Y; y2--)
             {
                 Antipode inLower = GetAtPos(a.HomeX, y2);
@@ -310,7 +311,7 @@ public static class AOC2021_23
             {
                 for (int y = 1; y <= _roomDepth; y++)
                 {
-                    sb.Append(_layout[x, y]?.Letter ?? '.');                    
+                    sb.Append(_layout[x, y]?.Letter ?? '.');
                 }
             }
 

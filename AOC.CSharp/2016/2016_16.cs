@@ -47,8 +47,7 @@ public class AOC2016_16
                 value[i / 2] = areSame ? (byte)1 : (byte)0;
             }
             size /= 2;
-        }
-        while (size % 2 == 0);
+        } while (size % 2 == 0);
 
         StringBuilder sb = new();
         for (int i = 0; i < size; i++)

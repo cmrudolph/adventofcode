@@ -6,7 +6,7 @@ public static class AOC2021_24
     {
         return Solve(lines, true);
     }
-    
+
     public static string Solve2(string[] lines)
     {
         return Solve(lines, false);
@@ -23,7 +23,7 @@ public static class AOC2021_24
         {
             wOrder = wOrder.Reverse().ToArray();
         }
-        
+
         string[] solutionBuffer = new string[14];
         foreach (int w in wOrder)
         {
@@ -33,11 +33,18 @@ public static class AOC2021_24
                 return solution;
             }
         }
-        
+
         return null;
     }
 
-    private static string ProcessLevel(int w, int z, List<Func<int, int, StepResult>> steps, int depth, string[] buf, int[] wOrder)
+    private static string ProcessLevel(
+        int w,
+        int z,
+        List<Func<int, int, StepResult>> steps,
+        int depth,
+        string[] buf,
+        int[] wOrder
+    )
     {
         if (depth == 14)
         {
@@ -64,7 +71,7 @@ public static class AOC2021_24
         }
 
         buf[depth] = "";
-        
+
         return null;
     }
 
@@ -94,23 +101,20 @@ public static class AOC2021_24
 
         return steps;
     }
-    
+
     private static Func<int, int, StepResult> MakeIncreaseStep(int magicNum)
     {
         // Simplification of the "z is increased" code sections. They always produce this result.
         return (w, z) => new StepResult(true, (26 * z) + w + magicNum);
     }
-    
+
     private static Func<int, int, StepResult> MakeDecreaseStep(int magicNum)
     {
         // Simplification of the "z is decreased" code sections. They sometimes decrease z. If z is not decreased, we
         // do not care about the result since we need every possible decrease step to succeed for z to get back to
         // zero. Returning an explicit failure allows us to stop searching the current path since we know it cannot
         // get us to a valid final result.
-        return (w, z) => ((z % 26) - magicNum == w)
-            ? new StepResult(true, (z / 26))
-            : new StepResult(false, -1);
+        return (w, z) =>
+            ((z % 26) - magicNum == w) ? new StepResult(true, (z / 26)) : new StepResult(false, -1);
     }
 }
-
-

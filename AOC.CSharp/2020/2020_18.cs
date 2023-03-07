@@ -10,17 +10,20 @@ public static class AOC2020_18
     private static Queue<Token> Tokenize(string str)
     {
         return new Queue<Token>(
-            str
-                .Replace(" ", "")
+            str.Replace(" ", "")
                 .Replace(Plus, " " + Plus + " ")
                 .Replace(Times, " " + Times + " ")
                 .Replace(LParen, " " + LParen + " ")
                 .Replace(RParen, " " + RParen + " ")
                 .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(str => new Token(str)));
+                .Select(str => new Token(str))
+        );
     }
 
-    public static Queue<Token> InfixToPostfix(Queue<Token> infix, Func<Token, Token, bool> isHigherPrecedence)
+    public static Queue<Token> InfixToPostfix(
+        Queue<Token> infix,
+        Func<Token, Token, bool> isHigherPrecedence
+    )
     {
         Queue<Token> postfix = new();
         Stack<Token> stack = new();
@@ -34,7 +37,11 @@ public static class AOC2020_18
             }
             else if (currToken.IsOperator)
             {
-                while (stack.Any() && stack.Peek().IsOperator && isHigherPrecedence(currToken, stack.Peek()))
+                while (
+                    stack.Any()
+                    && stack.Peek().IsOperator
+                    && isHigherPrecedence(currToken, stack.Peek())
+                )
                 {
                     Token popped = stack.Pop();
                     postfix.Enqueue(popped);

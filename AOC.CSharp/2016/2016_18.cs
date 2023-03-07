@@ -20,7 +20,8 @@ public class AOC2016_18
 
     public static int[] Parse(string line) => line.Select(x => x == '^' ? 0 : 1).ToArray();
 
-    public static string ReverseParse(int[] row) => new string(row.Select(x => x == 1 ? '.' : '^').ToArray());
+    public static string ReverseParse(int[] row) =>
+        new string(row.Select(x => x == 1 ? '.' : '^').ToArray());
 
     public static RowAndSafeCount MakeNextRow(int[] prev)
     {
@@ -49,11 +50,14 @@ public class AOC2016_18
             }
             else
             {
-                if (!(
-                    (prev[i - 1] == 0 && prev[i] == 0 && prev[i + 1] == 1) ||
-                    (prev[i - 1] == 1 && prev[i] == 0 && prev[i + 1] == 0) ||
-                    (prev[i - 1] == 0 && prev[i] == 1 && prev[i + 1] == 1) ||
-                    (prev[i - 1] == 1 && prev[i] == 1 && prev[i + 1] == 0)))
+                if (
+                    !(
+                        (prev[i - 1] == 0 && prev[i] == 0 && prev[i + 1] == 1)
+                        || (prev[i - 1] == 1 && prev[i] == 0 && prev[i + 1] == 0)
+                        || (prev[i - 1] == 0 && prev[i] == 1 && prev[i + 1] == 1)
+                        || (prev[i - 1] == 1 && prev[i] == 1 && prev[i + 1] == 0)
+                    )
+                )
                 {
                     row[i] = 1;
                     safeCount++;

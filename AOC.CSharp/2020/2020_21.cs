@@ -85,7 +85,10 @@ public static class AOC2020_21
 
         matrix.Resolve();
 
-        string ans2 = string.Join(",", matrix.GetFinalPairs().OrderBy(p => p.Item2).Select(p => p.Item1));
+        string ans2 = string.Join(
+            ",",
+            matrix.GetFinalPairs().OrderBy(p => p.Item2).Select(p => p.Item1)
+        );
         return Tuple.Create<long, string>(0L, ans2);
     }
 

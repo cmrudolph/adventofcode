@@ -5,7 +5,7 @@ namespace AOC.CSharp;
 public static class AOC2017_08
 {
     private static readonly Regex Re = new(@"(\w+) (\w+) (-?\d+) if (\w+) (.*) (-?\d+)");
-    
+
     public static long Solve1(string[] lines)
     {
         Registers registers = Solve(lines);
@@ -62,7 +62,7 @@ public static class AOC2017_08
     {
         private int _allTimeMax = 0;
         private readonly Dictionary<string, int> _values = new();
-        
+
         public int Get(string reg) => _values.TryGetValue(reg, out int found) ? found : 0;
 
         public void Change(string reg, IncDec incDec, int amt)
@@ -82,7 +82,14 @@ public static class AOC2017_08
         public int AllTimeMax => _allTimeMax;
     }
 
-    private record Instruction(string ChangeReg, IncDec IncDec, int ChangeAmt, string TestReg, string TestOp, int TestAmt);
+    private record Instruction(
+        string ChangeReg,
+        IncDec IncDec,
+        int ChangeAmt,
+        string TestReg,
+        string TestOp,
+        int TestAmt
+    );
 
     private enum IncDec
     {

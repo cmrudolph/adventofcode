@@ -68,7 +68,7 @@ public static class AOC2021_17
 
     private static bool IsInTarget(Target target, int x, int y)
     {
-        return (x >= target.MinX && x<= target.MaxX) && (y >= target.MinY && y <= target.MaxY);
+        return (x >= target.MinX && x <= target.MaxX) && (y >= target.MinY && y <= target.MaxY);
     }
 
     private static Target Parse(string[] lines)

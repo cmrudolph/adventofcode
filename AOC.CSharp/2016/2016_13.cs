@@ -123,11 +123,23 @@ public class AOC2016_13
         {
             XY[] options = new[]
             {
-                    xy with { Y = xy.Y - 1 },
-                    xy with { X = xy.X + 1 },
-                    xy with { Y = xy.Y + 1 },
-                    xy with { X = xy.X - 1 },
-                };
+                xy with
+                {
+                    Y = xy.Y - 1
+                },
+                xy with
+                {
+                    X = xy.X + 1
+                },
+                xy with
+                {
+                    Y = xy.Y + 1
+                },
+                xy with
+                {
+                    X = xy.X - 1
+                },
+            };
 
             return options
                 .Where(o => o.IsInBounds && Get(o) == State.Open && !seen.Contains(o))

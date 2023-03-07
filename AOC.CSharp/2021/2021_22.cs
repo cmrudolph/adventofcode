@@ -7,7 +7,7 @@ public static class AOC2021_22
     public static long Solve1(string[] lines)
     {
         int[,,] grid = new int[101, 101, 101];
-        
+
         Change[] changes = lines.Select(Parse1).Where(x => x != null).ToArray();
         foreach (Change c in changes)
         {
@@ -17,7 +17,7 @@ public static class AOC2021_22
             long maxY = Math.Min(c.Cuboid.MaxY, 100);
             long minZ = Math.Max(c.Cuboid.MinZ, 0);
             long maxZ = Math.Min(c.Cuboid.MaxZ, 100);
-        
+
             for (long x = minX; x <= maxX; x++)
             {
                 for (long y = minY; y <= maxY; y++)
@@ -29,11 +29,11 @@ public static class AOC2021_22
                 }
             }
         }
-        
+
         int endX = grid.GetLength(0);
         int endY = grid.GetLength(1);
         int endZ = grid.GetLength(2);
-        
+
         int onCount = 0;
         for (int x = 0; x < endX; x++)
         {
@@ -45,7 +45,7 @@ public static class AOC2021_22
                 }
             }
         }
-        
+
         return onCount;
     }
 
@@ -62,7 +62,7 @@ public static class AOC2021_22
         foreach (Change newChange in changes)
         {
             Dictionary<Cuboid, long> newState = new();
-            
+
             foreach (Cuboid known in state.Keys)
             {
                 Cuboid intersection = newChange.Cuboid.IntersectWith(known);
@@ -115,7 +115,7 @@ public static class AOC2021_22
 
         return result;
     }
-    
+
     private static Change Parse1(string line)
     {
         Regex regex = new(@"(\w+) x=(-?\d+)\.\.(-?\d+),y=(-?\d+)\.\.(-?\d+),z=(-?\d+)\.\.(-?\d+)");
@@ -156,7 +156,7 @@ public static class AOC2021_22
     }
 
     private record Change(bool On, Cuboid Cuboid);
-    
+
     public record Cuboid(long MinX, long MaxX, long MinY, long MaxY, long MinZ, long MaxZ)
     {
         public long Volume => (MaxX - MinX + 1) * (MaxY - MinY + 1) * (MaxZ - MinZ + 1);
@@ -169,14 +169,14 @@ public static class AOC2021_22
             {
                 return null;
             }
-            
+
             long smallerMaxY = Math.Min(MaxY, c2.MaxY);
             long biggerMinY = Math.Max(MinY, c2.MinY);
             if (smallerMaxY < biggerMinY)
             {
                 return null;
             }
-            
+
             long smallerMaxZ = Math.Min(MaxZ, c2.MaxZ);
             long biggerMinZ = Math.Max(MinZ, c2.MinZ);
             if (smallerMaxZ < biggerMinZ)

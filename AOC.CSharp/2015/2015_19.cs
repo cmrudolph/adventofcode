@@ -47,7 +47,8 @@ public static class AOC2015_19
 
     private static HashSet<string> FindUniqueTransformations(
         string original,
-        List<Tuple<string, string>> replacements)
+        List<Tuple<string, string>> replacements
+    )
     {
         HashSet<string> uniques = new();
 
@@ -82,7 +83,9 @@ public static class AOC2015_19
         return replacements;
     }
 
-    private static List<Tuple<string, string>> SwapReplacements(List<Tuple<string, string>> replacements)
+    private static List<Tuple<string, string>> SwapReplacements(
+        List<Tuple<string, string>> replacements
+    )
     {
         return replacements.Select(r => Tuple.Create(r.Item2, r.Item1)).ToList();
     }

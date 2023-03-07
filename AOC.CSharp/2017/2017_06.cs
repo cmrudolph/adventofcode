@@ -19,7 +19,8 @@ public static class AOC2017_06
 
         int[] values = lines[0]
             .Split(new[] { '\t', ' ' }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(int.Parse).ToArray();
+            .Select(int.Parse)
+            .ToArray();
         string asStr = ToString(values);
         int iteration = 0;
         seen.Add(asStr);
@@ -54,8 +55,7 @@ public static class AOC2017_06
 
             asStr = ToString(values);
             iteration++;
-        }
-        while (!seen.Contains(asStr));
+        } while (!seen.Contains(asStr));
 
         return (iteration, iteration - idxOfSeen[asStr]);
     }

@@ -48,7 +48,11 @@ public static class AOC2022_11
             }
         }
 
-        var topTwo = monkeys.Select(x => x.InspectionCount).OrderByDescending(x => x).Take(2).ToList();
+        var topTwo = monkeys
+            .Select(x => x.InspectionCount)
+            .OrderByDescending(x => x)
+            .Take(2)
+            .ToList();
 
         return topTwo[0] * topTwo[1];
     }

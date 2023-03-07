@@ -27,10 +27,10 @@ public class AOC2016_21
     {
         string target = extra;
 
-        // Build up the transformations and then apply the transformation to all the permutations of the
-        // target string (potential inputs) until we find the one that produces the desired result. I don't
-        // think we can run the actual steps in reverse, but the length of the password is short enough
-        // that we can brute force it quickly.
+        // Build up the transformations and then apply the transformation to all the
+        // permutations of the target string (potential inputs) until we find the one that
+        // produces the desired result. I don't think we can run the actual steps in reverse,
+        // but the length of the password is short enough that we can brute force it quickly.
         List<Action<StringBuilder>> transformations = BuildTransformList(lines);
         Func<string, string> scramble = s =>
         {
@@ -177,7 +177,13 @@ public class AOC2016_21
         }
     }
 
-    private static string FindWorkingPermutation(string s, int left, int right, Func<string, string> scramble, string target)
+    private static string FindWorkingPermutation(
+        string s,
+        int left,
+        int right,
+        Func<string, string> scramble,
+        string target
+    )
     {
         static string SwapInStr(string s, int pos1, int pos2)
         {

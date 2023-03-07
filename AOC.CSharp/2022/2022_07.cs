@@ -12,9 +12,7 @@ public static class AOC2022_07
         List<Node> folders = BuildStructure(lines);
         CalcSizes(folders[0]);
 
-        return folders
-            .Where(f => f.Type == NodeType.Folder && f.Size <= 100000)
-            .Sum(f => f.Size);
+        return folders.Where(f => f.Type == NodeType.Folder && f.Size <= 100000).Sum(f => f.Size);
     }
 
     public static long Solve2(string[] lines)
@@ -66,7 +64,14 @@ public static class AOC2022_07
                 else
                 {
                     // Going down into a new folder. Ignore sizes for now - we will calculate them in a separate step
-                    Node newNode = new() { Type = NodeType.Folder, Name = dir, Parent = curr, Size = 0 };
+                    Node newNode =
+                        new()
+                        {
+                            Type = NodeType.Folder,
+                            Name = dir,
+                            Parent = curr,
+                            Size = 0
+                        };
                     folders.Add(newNode);
                     curr?.Children.Add(newNode);
                     curr = newNode;
@@ -79,7 +84,13 @@ public static class AOC2022_07
             {
                 int size = int.Parse(fileMatch.Groups[1].Value);
                 string name = fileMatch.Groups[2].Value;
-                var fileNode = new Node { Type = NodeType.File, Name = name, Size = size, Parent = curr };
+                var fileNode = new Node
+                {
+                    Type = NodeType.File,
+                    Name = name,
+                    Size = size,
+                    Parent = curr
+                };
                 curr.Children.Add(fileNode);
             }
         }

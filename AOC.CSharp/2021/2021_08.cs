@@ -22,13 +22,11 @@ public static class AOC2021_08
 
     private static int CalculateOutputValue(string line)
     {
-        List<string> signals = line
-            .Split(" | ")[0]
+        List<string> signals = line.Split(" | ")[0]
             .Split(' ')
             .Select(s => new string(s.OrderBy(c => c).ToArray()))
             .ToList();
-        List<string> outputStrings = line
-            .Split(" | ")[1]
+        List<string> outputStrings = line.Split(" | ")[1]
             .Split(' ')
             .Select(s => new string(s.OrderBy(c => c).ToArray()))
             .ToList();

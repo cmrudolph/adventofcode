@@ -166,7 +166,12 @@ public static class AOC2022_16
                 _curr += contribution;
                 if (_curr > _best)
                 {
-                    Console.WriteLine("{0} --> {1} {2}", _curr, string.Join(" | ", _visited[i].Select(v => v.Name)), _sw.ElapsedMilliseconds);
+                    Console.WriteLine(
+                        "{0} --> {1} {2}",
+                        _curr,
+                        string.Join(" | ", _visited[i].Select(v => v.Name)),
+                        _sw.ElapsedMilliseconds
+                    );
                     _best = _curr;
                 }
 

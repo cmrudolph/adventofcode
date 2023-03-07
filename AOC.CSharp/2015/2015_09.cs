@@ -95,8 +95,7 @@ public static class AOC2015_09
 
     private static long FindByDistance(Data d, Func<IEnumerable<long>, long> chooser)
     {
-        IEnumerable<long> distances = d
-            .GetCityPermutationsCopy()
+        IEnumerable<long> distances = d.GetCityPermutationsCopy()
             .Select(perm => ComputeTotalDistance(d, perm));
 
         return chooser(distances);

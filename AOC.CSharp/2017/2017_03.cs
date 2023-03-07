@@ -2,13 +2,26 @@
 
 public static class AOC2017_03
 {
-    private static readonly Dictionary<Directions, DirectionInfo> DirectionLookup = new()
-    {
-        { Directions.Right, new DirectionInfo(Directions.Up, 0, xy => xy with { X = xy.X + 1 }) },
-        { Directions.Up, new DirectionInfo(Directions.Left, 1, xy => xy with { Y = xy.Y - 1 }) },
-        { Directions.Left, new DirectionInfo(Directions.Down, 0, xy => xy with { X = xy.X - 1 }) },
-        { Directions.Down, new DirectionInfo(Directions.Right, 1, xy => xy with { Y = xy.Y + 1 }) },
-    };
+    private static readonly Dictionary<Directions, DirectionInfo> DirectionLookup =
+        new()
+        {
+            {
+                Directions.Right,
+                new DirectionInfo(Directions.Up, 0, xy => xy with { X = xy.X + 1 })
+            },
+            {
+                Directions.Up,
+                new DirectionInfo(Directions.Left, 1, xy => xy with { Y = xy.Y - 1 })
+            },
+            {
+                Directions.Left,
+                new DirectionInfo(Directions.Down, 0, xy => xy with { X = xy.X - 1 })
+            },
+            {
+                Directions.Down,
+                new DirectionInfo(Directions.Right, 1, xy => xy with { Y = xy.Y + 1 })
+            },
+        };
 
     public static long Solve1(string[] lines)
     {
@@ -46,8 +59,9 @@ public static class AOC2017_03
             var initialInfo = DirectionLookup[direction];
             if (remainingTravelAmount == 0)
             {
-                // Not going any further in this direction. Time to turn and reset the steps we need to head in
-                // the next direction. This step count grows when we make certain turns
+                // Not going any further in this direction. Time to turn and reset the
+                // steps we need to head in the next direction. This step count grows when
+                // we make certain turns
                 direction = initialInfo.Next;
                 nextDirectionTravelAmount += initialInfo.StartAdjust;
                 remainingTravelAmount = nextDirectionTravelAmount;

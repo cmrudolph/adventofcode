@@ -11,7 +11,9 @@ public static class AOC2018_06
         int height = bounds.MaxY + 1;
 
         Point[,] grid = new Point[width, height];
-        Dictionary<int, int> pointCounts = points.Select(p => p.Idx).ToDictionary(idx => idx, _ => 0);
+        Dictionary<int, int> pointCounts = points
+            .Select(p => p.Idx)
+            .ToDictionary(idx => idx, _ => 0);
         HashSet<Point> candidatePoints = points.ToHashSet();
 
         for (int x = -1; x <= width; x++)
@@ -35,7 +37,8 @@ public static class AOC2018_06
         }
 
         HashSet<int> validIndexes = candidatePoints.Select(p => p.Idx).ToHashSet();
-        int resultArea = pointCounts.Where(kvp => validIndexes.Contains(kvp.Key))
+        int resultArea = pointCounts
+            .Where(kvp => validIndexes.Contains(kvp.Key))
             .OrderByDescending(kvp => kvp.Value)
             .First()
             .Value;

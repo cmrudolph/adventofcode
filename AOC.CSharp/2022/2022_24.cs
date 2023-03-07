@@ -19,12 +19,8 @@ public static class AOC2022_24
         XY start = new(1, 0);
         XY end = new(board.MaxX - 1, board.MaxY);
 
-        List<Tuple<XY, XY>> trips = new()
-        {
-            Tuple.Create(start, end),
-            Tuple.Create(end, start),
-            Tuple.Create(start, end),
-        };
+        List<Tuple<XY, XY>> trips =
+            new() { Tuple.Create(start, end), Tuple.Create(end, start), Tuple.Create(start, end), };
 
         long total = 0;
         foreach (var t in trips)
@@ -66,7 +62,10 @@ public static class AOC2022_24
                         return minute;
                     }
 
-                    if (!IsOnEdgeOrOutOfBounds(board, candidate) && blizzards.GetCountAt(candidate) == 0)
+                    if (
+                        !IsOnEdgeOrOutOfBounds(board, candidate)
+                        && blizzards.GetCountAt(candidate) == 0
+                    )
                     {
                         newEntries.Add(new QueueEntry(candidate, minute));
                     }
@@ -112,7 +111,7 @@ public static class AOC2022_24
     private static Blizzard GetNextBlizzard(Board board, Blizzard blizzard)
     {
         XY next = GetNextPos(blizzard.Pos, blizzard.Dir);
-        if(IsOnEdgeOrOutOfBounds(board, next))
+        if (IsOnEdgeOrOutOfBounds(board, next))
         {
             next = blizzard.Dir switch
             {
@@ -141,7 +140,9 @@ public static class AOC2022_24
 
     private static bool IsOnEdgeOrOutOfBounds(Board board, XY xy)
     {
-        return (xy.X <= board.MinX || xy.X >= board.MaxX || xy.Y <= board.MinY || xy.Y >= board.MaxY);
+        return (
+            xy.X <= board.MinX || xy.X >= board.MaxX || xy.Y <= board.MinY || xy.Y >= board.MaxY
+        );
     }
 
     private static void Print(Board board, Blizzards blizzards)
@@ -200,11 +201,14 @@ public static class AOC2022_24
 
         public int GetCountAt(XY pos) => _counts.TryGetValue(pos, out int found) ? found : 0;
 
-        public Direction? GetDirectionAt(XY pos) => _dirs.TryGetValue(pos, out Direction found) ? found : null;
+        public Direction? GetDirectionAt(XY pos) =>
+            _dirs.TryGetValue(pos, out Direction found) ? found : null;
     }
 
     private record QueueEntry(XY Pos, int Minute);
+
     private record Blizzard(XY Pos, Direction Dir);
+
     private record XY(int X, int Y);
 
     private enum Direction

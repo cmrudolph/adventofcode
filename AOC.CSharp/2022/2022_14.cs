@@ -45,6 +45,7 @@ public static class AOC2022_14
     }
 
     private static void PrintSample(char[,] grid) => Print(grid, 0, 11, 470, 530);
+
     private static void PrintActual(char[,] grid) => Print(grid, 13, 168, 460, 550);
 
     private static char[,] Parse(string[] lines, bool floor)
@@ -112,7 +113,13 @@ public static class AOC2022_14
             }
         }
 
-        Console.WriteLine("R:{0} to {1} | C:{2} to {3}", overallMinRow, overallMaxRow, overallMinCol, overallMaxCol);
+        Console.WriteLine(
+            "R:{0} to {1} | C:{2} to {3}",
+            overallMinRow,
+            overallMaxRow,
+            overallMinCol,
+            overallMaxCol
+        );
 
         return grid;
     }

@@ -58,17 +58,18 @@ public static class AOC2022_09
     private static bool IsConnected(XY curr, XY next)
     {
         // Nodes are connected if they touch at an edge or corner. Check all 8 options
-        List<XY> toCheck = new()
-        {
-            curr.Move(Up),
-            curr.Move(Up).Move(Right),
-            curr.Move(Right),
-            curr.Move(Right).Move(Down),
-            curr.Move(Down),
-            curr.Move(Down).Move(Left),
-            curr.Move(Left),
-            curr.Move(Left).Move(Up),
-        };
+        List<XY> toCheck =
+            new()
+            {
+                curr.Move(Up),
+                curr.Move(Up).Move(Right),
+                curr.Move(Right),
+                curr.Move(Right).Move(Down),
+                curr.Move(Down),
+                curr.Move(Down).Move(Left),
+                curr.Move(Left),
+                curr.Move(Left).Move(Up),
+            };
 
         return toCheck.Any(x => x.Equals(next));
     }

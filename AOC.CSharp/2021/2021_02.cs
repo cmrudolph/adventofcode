@@ -27,7 +27,7 @@ public static class AOC2021_02
     }
 
     private record Instruction(string Direction, int Amount);
-    
+
     private record Position1(int X, int Y)
     {
         public Position1 Move(Instruction inst)

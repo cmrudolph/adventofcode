@@ -104,21 +104,23 @@ public static class AOC2017_18
                 case "rcv":
                     if (queues[running].TryDequeue(out long result))
                     {
-                        // Tried to receive and had something on the queue. We can continue executing this program
+                        // Tried to receive and had something on the queue. We can continue
+                        // executing this program
                         reg[running].Set(line.Arg1, result);
                         ip[running]++;
                         isWaiting[running] = false;
                     }
                     else if (isWaiting[waiting] && queues[waiting].Count == 0)
                     {
-                        // Deadlock. Neither program is able to continue since both are waiting to receive and there
-                        // is nothing on either queue.
+                        // Deadlock. Neither program is able to continue since both are waiting
+                        // to receive and there is nothing on either queue.
                         return sendCounts[1];
                     }
                     else
                     {
-                        // Tried to receive and had nothing on the queue (but did not land in the termination condition
-                        // yet). Mark this program as waiting and do a context switch
+                        // Tried to receive and had nothing on the queue (but did not land in
+                        // the termination condition yet). Mark this program as waiting and do
+                        // a context switch
                         isWaiting[running] = true;
                         (running, waiting) = (waiting, running);
                     }
@@ -140,18 +142,22 @@ public static class AOC2017_18
 
         public void Set(string name, long value) => _values[name] = value;
 
-        public void Add(string name, string value) => _values[name] = Get(name) + GetRegOrLiteral(value);
+        public void Add(string name, string value) =>
+            _values[name] = Get(name) + GetRegOrLiteral(value);
 
-        public void Mul(string name, string value) => _values[name] = Get(name) * GetRegOrLiteral(value);
+        public void Mul(string name, string value) =>
+            _values[name] = Get(name) * GetRegOrLiteral(value);
 
-        public void Mod(string name, string value) => _values[name] = Get(name) % GetRegOrLiteral(value);
+        public void Mod(string name, string value) =>
+            _values[name] = Get(name) % GetRegOrLiteral(value);
 
-        // Get the value of the register or the literal if the argument is numeric (bypass the register lookup).
-        // Encapsulating the key/literal decisions here eliminates conditionals in the instruction processing
-        // logic above
+        // Get the value of the register or the literal if the argument is numeric (bypass
+        // the register lookup). Encapsulating the key/literal decisions here eliminates
+        // conditionals in the instruction processing logic above
         public long Get(string value) => GetRegOrLiteral(value);
 
-        private long GetRegOrLiteral(string value) => long.TryParse(value, out long parsed) ? parsed : GetReg(value);
+        private long GetRegOrLiteral(string value) =>
+            long.TryParse(value, out long parsed) ? parsed : GetReg(value);
 
         private long GetReg(string name) => _values.TryGetValue(name, out long value) ? value : 0L;
     }

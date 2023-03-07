@@ -2,13 +2,8 @@
 
 public static class AOC2021_10
 {
-    private static readonly Dictionary<char, char> Pairs = new()
-    {
-        { '(', ')' },
-        { '{', '}' },
-        { '[', ']' },
-        { '<', '>' },
-    };
+    private static readonly Dictionary<char, char> Pairs =
+        new() { { '(', ')' }, { '{', '}' }, { '[', ']' }, { '<', '>' }, };
 
     public static long Solve1(string[] lines)
     {
@@ -17,14 +12,19 @@ public static class AOC2021_10
 
     public static long Solve2(string[] lines)
     {
-        var scores = lines.Select(ScoreLine2).Where(s => s != null).Select(s => s.Value).OrderBy(s => s).ToList();
+        var scores = lines
+            .Select(ScoreLine2)
+            .Where(s => s != null)
+            .Select(s => s.Value)
+            .OrderBy(s => s)
+            .ToList();
         return scores[scores.Count / 2];
     }
 
     private static int ScoreLine1(string line)
     {
         Stack<char> stack = new();
-        foreach(char c in line)
+        foreach (char c in line)
         {
             if (Pairs.ContainsKey(c))
             {

@@ -19,7 +19,7 @@ public static class AOC2017_09
         long score = 0;
         long currScore = 0;
         long nonCanceled = 0;
-        
+
         List<char> chars = lines[0].ToList();
         for (int i = 0; i < chars.Count; i++)
         {

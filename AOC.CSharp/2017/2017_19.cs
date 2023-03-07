@@ -30,7 +30,8 @@ public static class AOC2017_19
 
             if (nextChar != ' ')
             {
-                // Always continue in the current direction whenever the next character is not a blank
+                // Always continue in the current direction whenever the next character is not
+                // a blank
                 if (char.IsLetter(nextChar))
                 {
                     letters.Add(nextChar);
@@ -39,22 +40,23 @@ public static class AOC2017_19
             }
             else
             {
-                // Next character in the current direction is a blank. We need to change course. There are only two
-                // options since backtracking is not allowed
+                // Next character in the current direction is a blank. We need to change course.
+                // There are only two options since backtracking is not allowed
                 var options = curr.ChangeOptions(direction);
 
                 XY changeNext = null;
 
                 foreach (var opt in options)
                 {
-                    // Try both options (turn left or right) to see which one yields a valid path to follow
+                    // Try both options (turn left or right) to see which one yields a valid path
+                    // to follow
                     XY potentialNext = curr.Move(opt);
                     char potentialNextChar = map[potentialNext.X, potentialNext.Y];
 
                     if (potentialNextChar != ' ')
                     {
-                        // Found a path to continue down. Stash the choice and new direction so we can adjust the
-                        // current position later
+                        // Found a path to continue down. Stash the choice and new direction so
+                        // we can adjust the current position later
                         if (char.IsLetter(potentialNextChar))
                         {
                             letters.Add(potentialNextChar);
@@ -67,8 +69,8 @@ public static class AOC2017_19
 
                 if (changeNext == null)
                 {
-                    // Special case where we reach the end of the puzzle. There is nowhere left to go, so return the
-                    // progress info we accumulated along the journey
+                    // Special case where we reach the end of the puzzle. There is nowhere left
+                    // to go, so return the progress info we accumulated along the journey
                     return (new string(letters.ToArray()), steps + 1);
                 }
 

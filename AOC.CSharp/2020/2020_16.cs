@@ -8,7 +8,8 @@ public static class AOC2020_16
     {
         static bool IsValidForOne(int value, RuleDefinition rule)
         {
-            return value >= rule.Min1 && value <= rule.Max1 || value >= rule.Min2 && value <= rule.Max2;
+            return value >= rule.Min1 && value <= rule.Max1
+                || value >= rule.Min2 && value <= rule.Max2;
         }
 
         static bool IsValidForAll(int value, IEnumerable<RuleDefinition> rules)
@@ -48,7 +49,9 @@ public static class AOC2020_16
             else if (yours != null || validating)
             {
                 int[] ticketValues = lines[line].Split(',').Select(int.Parse).ToArray();
-                var invalidForThisTicket = ticketValues.Where(value => !IsValidForAll(value, rules)).ToList();
+                var invalidForThisTicket = ticketValues
+                    .Where(value => !IsValidForAll(value, rules))
+                    .ToList();
                 if (validating)
                 {
                     invalidValues.AddRange(invalidForThisTicket);
@@ -98,8 +101,11 @@ public static class AOC2020_16
         }
 
         long product = 1;
-        foreach (int i in colValSets.Where(cvs => cvs.SingleRule.Name.StartsWith("departure"))
-            .Select(cvs => cvs.Idx))
+        foreach (
+            int i in colValSets
+                .Where(cvs => cvs.SingleRule.Name.StartsWith("departure"))
+                .Select(cvs => cvs.Idx)
+        )
         {
             product *= yours[i];
         }
@@ -126,7 +132,8 @@ public static class AOC2020_16
                 Min1: int.Parse(match.Groups[2].Value),
                 Max1: int.Parse(match.Groups[3].Value),
                 Min2: int.Parse(match.Groups[4].Value),
-                Max2: int.Parse(match.Groups[5].Value));
+                Max2: int.Parse(match.Groups[5].Value)
+            );
         }
     }
 
@@ -159,7 +166,8 @@ public static class AOC2020_16
 
         private static bool IsValid(int value, RuleDefinition rule)
         {
-            return value >= rule.Min1 && value <= rule.Max1 || value >= rule.Min2 && value <= rule.Max2;
+            return value >= rule.Min1 && value <= rule.Max1
+                || value >= rule.Min2 && value <= rule.Max2;
         }
     }
 }

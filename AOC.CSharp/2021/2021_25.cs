@@ -45,7 +45,7 @@ public static class AOC2021_25
     {
         int height = grid.GetLength(1);
         int width = grid.GetLength(0);
-        
+
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -60,7 +60,7 @@ public static class AOC2021_25
     private static char[,] Init(int width, int height)
     {
         char[,] newGrid = new char[width, height];
-        
+
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -78,7 +78,7 @@ public static class AOC2021_25
         int width = grid.GetLength(0);
 
         char[,] newGrid = Init(width, height);
-        
+
         // Process the east to west moves first
         for (int y = 0; y < height; y++)
         {
@@ -101,7 +101,7 @@ public static class AOC2021_25
                 }
             }
         }
-        
+
         //Now process north to south
         for (int y = 0; y < height; y++)
         {
@@ -131,7 +131,7 @@ public static class AOC2021_25
 
         return newGrid;
     }
-    
+
     private static bool Same(char[,] grid1, char[,] grid2)
     {
         for (int y = 0; y < grid1.GetLength(1); y++)

@@ -42,7 +42,6 @@ public class Tests
         [Test, Category("New")]
         public void AOC2018_XX_2_Sample() => Sample(6L, AOC2018_XX.Solve2, "XX");
 
-
         [Test, Category("New")]
         public void AOC2018_XX_2_Actual() => Actual(1194L, AOC2018_XX.Solve2, "XX");
     }
@@ -74,7 +73,8 @@ public class Tests
         public void AOC2018_02_2_Sample() => Sample("abcde", AOC2018_02.Solve2, "02");
 
         [Test, Category("Fast")]
-        public void AOC2018_02_2_Actual() => Actual("zihwtxagifpbsnwleydukjmqv", AOC2018_02.Solve2, "02");
+        public void AOC2018_02_2_Actual() =>
+            Actual("zihwtxagifpbsnwleydukjmqv", AOC2018_02.Solve2, "02");
     }
 
     private class Day03
@@ -143,7 +143,8 @@ public class Tests
         public void AOC2018_07_1_Sample() => Sample("CABDFE", AOC2018_07.Solve1, "07");
 
         [Test, Category("Fast")]
-        public void AOC2018_07_1_Actual() => Actual("AHJDBEMNFQUPVXGCTYLWZKSROI", AOC2018_07.Solve1, "07");
+        public void AOC2018_07_1_Actual() =>
+            Actual("AHJDBEMNFQUPVXGCTYLWZKSROI", AOC2018_07.Solve1, "07");
 
         [Test, Category("Fast")]
         public void AOC2018_07_2_Sample() => Sample(15L, x => AOC2018_07.Solve2(x, 2, 0), "07");

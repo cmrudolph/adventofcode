@@ -20,7 +20,6 @@ public static class AOC2015_22
     private const int RechargeMana = 101;
     private const int RechargeTurns = 5;
 
-
     public static long Solve1(string[] lines, string extra)
     {
         int bossHp = int.Parse(lines[0].Split(':')[1]);

@@ -4,8 +4,8 @@ namespace AOC.CSharp;
 
 public static class AOC2015_13
 {
-    private static readonly Regex
-        regex = new(@"(\w+) would (\w+) (\d+) happiness units by sitting next to (\w+)\.");
+    private static readonly Regex regex =
+        new(@"(\w+) would (\w+) (\d+) happiness units by sitting next to (\w+)\.");
 
     public static long Solve1(string[] lines)
     {
@@ -67,7 +67,8 @@ public static class AOC2015_13
 
     private static long FindMaximumHappiness(
         List<List<Tuple<string, string>>> permutations,
-        Dictionary<Tuple<string, string>, int> lookup)
+        Dictionary<Tuple<string, string>, int> lookup
+    )
     {
         return permutations.Select(perm => perm.Select(perm => lookup[perm]).Sum()).Max();
     }
@@ -84,20 +85,17 @@ public static class AOC2015_13
 
         return new[]
         {
-                new Parsed
-                {
-                    NamePair = Tuple.Create(name1, name2),
-                    Amount = finalAmount
-                },
-                new Parsed
-                {
-                    NamePair = Tuple.Create(name2, name1),
-                    Amount = finalAmount
-                }
-            };
+            new Parsed { NamePair = Tuple.Create(name1, name2), Amount = finalAmount },
+            new Parsed { NamePair = Tuple.Create(name2, name1), Amount = finalAmount }
+        };
     }
 
-    private static void Permute(string[] names, int n, int i, List<List<Tuple<string, string>>> permutations)
+    private static void Permute(
+        string[] names,
+        int n,
+        int i,
+        List<List<Tuple<string, string>>> permutations
+    )
     {
         void Swap(string[] arr, int idx1, int idx2)
         {

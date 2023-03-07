@@ -4,21 +4,12 @@ public static class AOC2022_03
 {
     public static long Solve1(string[] lines)
     {
-        return lines
-            .Select(FindCommon1)
-            .Select(Cost)
-            .ToList()
-            .Sum();
+        return lines.Select(FindCommon1).Select(Cost).ToList().Sum();
     }
 
     public static long Solve2(string[] lines)
     {
-        return lines
-            .Chunk(3)
-            .Select(FindCommon2)
-            .Select(Cost)
-            .ToList()
-            .Sum();
+        return lines.Chunk(3).Select(FindCommon2).Select(Cost).ToList().Sum();
     }
 
     private static int Cost(char c) => char.ToLower(c) - 'a' + 1 + (char.IsUpper(c) ? 26 : 0);

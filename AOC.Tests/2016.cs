@@ -123,7 +123,8 @@ public class AOC2016
     public void AOC2016_10_1_Sample() => Sample(2L, lines => AOC2016_10.Solve1(lines, "2,5"), "10");
 
     [Test, Category("Fast")]
-    public void AOC2016_10_1_Actual() => Actual(118L, lines => AOC2016_10.Solve1(lines, "17,61"), "10");
+    public void AOC2016_10_1_Actual() =>
+        Actual(118L, lines => AOC2016_10.Solve1(lines, "17,61"), "10");
 
     [Test, Category("Fast")]
     public void AOC2016_10_2_Sample() => Sample(30L, AOC2016_10.Solve2, "10");
@@ -153,10 +154,12 @@ public class AOC2016
     public void AOC2016_12_2_Actual() => Actual(9227661L, AOC2016_12.Solve2, "12");
 
     [Test, Category("Fast")]
-    public void AOC2016_13_1_Sample() => Sample(11L, lines => AOC2016_13.Solve1(lines, "7,4"), "13");
+    public void AOC2016_13_1_Sample() =>
+        Sample(11L, lines => AOC2016_13.Solve1(lines, "7,4"), "13");
 
     [Test, Category("Fast")]
-    public void AOC2016_13_1_Actual() => Actual(96L, lines => AOC2016_13.Solve1(lines, "31,39"), "13");
+    public void AOC2016_13_1_Actual() =>
+        Actual(96L, lines => AOC2016_13.Solve1(lines, "31,39"), "13");
 
     [Test, Category("Fast")]
     public void AOC2016_13_2_Sample() => Sample(151L, AOC2016_13.Solve2, "13");
@@ -207,7 +210,10 @@ public class AOC2016
     [Category("Fast")]
     public void AOC2016_16_Transform(string input, string expected)
     {
-        byte[] arr = input.Select(ch => ch == '1' ? (byte)1 : (byte)0).Concat(new byte[input.Length + 1]).ToArray();
+        byte[] arr = input
+            .Select(ch => ch == '1' ? (byte)1 : (byte)0)
+            .Concat(new byte[input.Length + 1])
+            .ToArray();
         int size = AOC2016_16.Transform(arr, input.Length);
         size.Should().Be(input.Length * 2 + 1);
 
@@ -233,10 +239,12 @@ public class AOC2016
     public void AOC2016_16_1_Sample() => Sample("01100", x => AOC2016_16.Solve(x, "20"), "16");
 
     [Test, Category("Fast")]
-    public void AOC2016_16_1_Actual() => Actual("10010010110011010", x => AOC2016_16.Solve(x, "272"), "16");
+    public void AOC2016_16_1_Actual() =>
+        Actual("10010010110011010", x => AOC2016_16.Solve(x, "272"), "16");
 
     [Test, Category("Fast")]
-    public void AOC2016_16_2_Actual() => Actual("01010100101011100", x => AOC2016_16.Solve(x, "35651584"), "16");
+    public void AOC2016_16_2_Actual() =>
+        Actual("01010100101011100", x => AOC2016_16.Solve(x, "35651584"), "16");
 
     [Test, Category("Fast")]
     [TestCase("ihgpwlah", "DDRRRD")]
@@ -273,7 +281,6 @@ public class AOC2016
     [TestCase(".^^.^.^^^^", "^^^...^..^", 5)]
     [TestCase(".^^^..^.^^", "^^.^^^..^^", 3)]
     [TestCase("^^^...^..^", "^.^^.^.^^.", 4)]
-
     public void AOC2016_18_MakeNextRow(string prevRow, string expectedRow, int expectedCount)
     {
         int[] prevRowInt = AOC2016_18.Parse(prevRow);
@@ -291,7 +298,8 @@ public class AOC2016
     public void AOC2016_18_1_Actual() => Actual(1974L, x => AOC2016_18.Solve(x, "40"), "18");
 
     [Test, Category("Fast")]
-    public void AOC2016_18_2_Actual() => Actual(19991126L, x => AOC2016_18.Solve(x, "400000"), "18");
+    public void AOC2016_18_2_Actual() =>
+        Actual(19991126L, x => AOC2016_18.Solve(x, "400000"), "18");
 
     [Test, Category("Fast")]
     public void AOC2016_19_1_Sample() => Sample(3L, AOC2016_19.Solve1, "19");
@@ -321,10 +329,12 @@ public class AOC2016
     public void AOC2016_21_1_Sample() => Sample("decab", x => AOC2016_21.Solve1(x, "abcde"), "21");
 
     [Test, Category("Fast")]
-    public void AOC2016_21_1_Actual() => Actual("gbhafcde", x => AOC2016_21.Solve1(x, "abcdefgh"), "21");
+    public void AOC2016_21_1_Actual() =>
+        Actual("gbhafcde", x => AOC2016_21.Solve1(x, "abcdefgh"), "21");
 
     [Test, Category("Fast")]
-    public void AOC2016_21_2_Actual() => Actual("bcfaegdh", x => AOC2016_21.Solve2(x, "fbgdceah"), "21");
+    public void AOC2016_21_2_Actual() =>
+        Actual("bcfaegdh", x => AOC2016_21.Solve2(x, "fbgdceah"), "21");
 
     [Test, Category("Fast")]
     public void AOC2016_22_1_Actual() => Actual(981L, AOC2016_22.Solve1, "22");

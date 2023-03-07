@@ -19,7 +19,8 @@ public static class AOC2022_25
         for (int j = line.Length - 1; j >= 0; j--)
         {
             char ch = line[j];
-            int decCharValue = ch switch {
+            int decCharValue = ch switch
+            {
                 '=' => -2,
                 '-' => -1,
                 '0' => 0,
@@ -50,7 +51,8 @@ public static class AOC2022_25
             long toReduce = rounded * multiplier;
             if (result.Length > 0 || rounded > 0)
             {
-                char toAppend = rounded switch {
+                char toAppend = rounded switch
+                {
                     2 => '2',
                     1 => '1',
                     0 => '0',

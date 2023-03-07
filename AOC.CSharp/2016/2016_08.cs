@@ -71,9 +71,8 @@ public static class AOC2016_08
 
         for (int copyToIdx = 0; copyToIdx < arr.GetLength(0); copyToIdx++)
         {
-            int copyFromIdx = copyToIdx < amount
-                ? copyToIdx + arr.GetLength(0) - amount
-                : copyToIdx - amount;
+            int copyFromIdx =
+                copyToIdx < amount ? copyToIdx + arr.GetLength(0) - amount : copyToIdx - amount;
 
             arr[copyToIdx, col] = oldValues[copyFromIdx];
         }
@@ -89,9 +88,8 @@ public static class AOC2016_08
 
         for (int copyToIdx = 0; copyToIdx < arr.GetLength(1); copyToIdx++)
         {
-            int copyFromIdx = copyToIdx < amount
-                ? copyToIdx + arr.GetLength(1) - amount
-                : copyToIdx - amount;
+            int copyFromIdx =
+                copyToIdx < amount ? copyToIdx + arr.GetLength(1) - amount : copyToIdx - amount;
 
             arr[row, copyToIdx] = oldValues[copyFromIdx];
         }

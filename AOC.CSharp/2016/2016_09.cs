@@ -13,9 +13,7 @@ public class AOC2016_09
 
     public static long Solve2(string[] lines)
     {
-        return lines
-            .Select(line => Recurse(line, 0, line.Length, 0))
-            .Sum(r => r.Decompressed);
+        return lines.Select(line => Recurse(line, 0, line.Length, 0)).Sum(r => r.Decompressed);
     }
 
     private static RecurseResult Recurse(string s, int start, int length, int depth)

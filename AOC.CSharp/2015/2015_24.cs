@@ -24,9 +24,15 @@ public static class AOC2015_24
         FindGroups(values, group, rawSumGroups, target, MaxCount);
 
         List<Group> groups = rawSumGroups.Select(g => new Group(g.ToList())).ToList();
-        List<Solution> solutions = groups.Select(
-                g => new Solution
-                { Group1Count = g.Count, QuantumEntanglement = g.QuantumEntanglement })
+        List<Solution> solutions = groups
+            .Select(
+                g =>
+                    new Solution
+                    {
+                        Group1Count = g.Count,
+                        QuantumEntanglement = g.QuantumEntanglement
+                    }
+            )
             .ToList();
         var first = groups.OrderBy(s => s.Count).ThenBy(s => s.QuantumEntanglement).First();
 
@@ -43,7 +49,8 @@ public static class AOC2015_24
         HashSet<long> group,
         List<HashSet<long>> results,
         long sumTarget,
-        int maxCount)
+        int maxCount
+    )
     {
         if (group.Count > maxCount)
         {

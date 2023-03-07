@@ -7,7 +7,8 @@ public static class AOC2017_17
         int skipAmount = int.Parse(lines[0]);
         List<int> nums = new(2018) { 0 };
 
-        // The number of iterations is small enough we can maintain a list and manipulate it during each step
+        // The number of iterations is small enough we can maintain a list and manipulate
+        // it during each step
         int curr = 0;
         for (int i = 1; i <= 2017; i++)
         {
@@ -37,9 +38,9 @@ public static class AOC2017_17
         int result = 1;
         for (int i = 2; i <= 50000000; i++)
         {
-            // We only need to maintain curr/next values - not the whole list. We only care about the value in list
-            // position [1]. Walk through the circular buffer by advancing our tracking index values by the appropriate
-            // amount
+            // We only need to maintain curr/next values - not the whole list. We only care
+            // about the value in list position [1]. Walk through the circular buffer by
+            // advancing our tracking index values by the appropriate amount
             int next = (curr + skipAmount) % i;
             next = next == 0 ? 1 : next + 1;
             if (next == 1)

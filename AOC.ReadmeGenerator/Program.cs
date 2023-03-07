@@ -19,7 +19,8 @@ class Program
             .Select(CreateTitleRecord)
             .ToList();
 
-        var groups = Directory.GetFiles(searchRoot, "*_*.cs", SearchOption.AllDirectories)
+        var groups = Directory
+            .GetFiles(searchRoot, "*_*.cs", SearchOption.AllDirectories)
             .Concat(Directory.GetFiles(searchRoot, "*_*.fs", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(searchRoot, "aoc*_*.py", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(searchRoot, "*_*.go", SearchOption.AllDirectories))
@@ -85,7 +86,13 @@ class Program
 
     private record TitleRecord(int Year, int Day, string Title);
 
-    private record SourceFile(string SortName, string ReadmePath, int Year, int Day, string Language)
+    private record SourceFile(
+        string SortName,
+        string ReadmePath,
+        int Year,
+        int Day,
+        string Language
+    )
     {
         public string ToMarkdown(TitleRecord title)
         {

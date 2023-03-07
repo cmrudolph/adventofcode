@@ -66,8 +66,7 @@ public static class AOC2021_04
 
         public BingoBoard(string[] lines)
         {
-            int[] numbers = string
-                .Join(' ', lines)
+            int[] numbers = string.Join(' ', lines)
                 .Split(' ', StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToArray();
@@ -95,9 +94,7 @@ public static class AOC2021_04
 
         public int? GetWinningScore()
         {
-            return _winningSets.Any(set => set.Count == 0)
-                ? _unmarked.Sum() * _lastMarked
-                : null;
+            return _winningSets.Any(set => set.Count == 0) ? _unmarked.Sum() * _lastMarked : null;
         }
     }
 }

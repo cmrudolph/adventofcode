@@ -76,8 +76,7 @@ public static class AOC2021_11
                     }
                 }
             }
-        }
-        while (hasFlashes);
+        } while (hasFlashes);
 
         for (int y = 0; y < map.GetLength(0); y++)
         {
@@ -111,17 +110,18 @@ public static class AOC2021_11
 
     private static void IncrementNeighbors(Cell[,] map, Cell curr)
     {
-        List<Tuple<int, int>> neighbors = new()
-        {
-            Tuple.Create(curr.X - 1, curr.Y - 1), // NW
-            Tuple.Create(curr.X, curr.Y - 1), // N
-            Tuple.Create(curr.X + 1, curr.Y - 1), // NE
-            Tuple.Create(curr.X + 1, curr.Y), // E
-            Tuple.Create(curr.X + 1, curr.Y + 1), // SE
-            Tuple.Create(curr.X, curr.Y + 1), // S
-            Tuple.Create(curr.X - 1, curr.Y + 1), // SW
-            Tuple.Create(curr.X - 1, curr.Y), // W
-        };
+        List<Tuple<int, int>> neighbors =
+            new()
+            {
+                Tuple.Create(curr.X - 1, curr.Y - 1), // NW
+                Tuple.Create(curr.X, curr.Y - 1), // N
+                Tuple.Create(curr.X + 1, curr.Y - 1), // NE
+                Tuple.Create(curr.X + 1, curr.Y), // E
+                Tuple.Create(curr.X + 1, curr.Y + 1), // SE
+                Tuple.Create(curr.X, curr.Y + 1), // S
+                Tuple.Create(curr.X - 1, curr.Y + 1), // SW
+                Tuple.Create(curr.X - 1, curr.Y), // W
+            };
 
         foreach (Tuple<int, int> neighbor in neighbors)
         {

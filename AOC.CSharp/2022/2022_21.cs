@@ -115,7 +115,8 @@ public static class AOC2022_21
                             high,
                             leftVal,
                             rightVal,
-                            leftVal - rightVal);
+                            leftVal - rightVal
+                        );
 
                         if (leftVal == rightVal)
                         {
@@ -146,7 +147,8 @@ public static class AOC2022_21
     private static void Eval(Dictionary<string, decimal> sums, Expression e, string key)
     {
         // It is important that we use decimal here for part 2 since integer-based division will result in the wrong answer
-        Func<decimal, decimal, decimal> op = e.Op switch {
+        Func<decimal, decimal, decimal> op = e.Op switch
+        {
             "+" => (a, b) => a + b,
             "-" => (a, b) => a - b,
             "*" => (a, b) => a * b,

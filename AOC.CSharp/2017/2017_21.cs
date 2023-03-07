@@ -76,7 +76,8 @@ public static class AOC2017_21
 
     private static List<char[,]> Split(char[,] arr, int size)
     {
-        // Take a big 2D array and break it apart into a list of smaller arrays (to evaluate for transformation)
+        // Take a big 2D array and break it apart into a list of smaller arrays
+        // (to evaluate for transformation)
         int rBlocks = arr.GetLength(0) / size;
         int cBlocks = arr.GetLength(0) / size;
         List<char[,]> results = new();

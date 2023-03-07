@@ -19,7 +19,11 @@ public class AOC2016_24
 
         var pairwiseCosts = FindPairwiseCosts(maze, numbered);
         long best = long.MaxValue;
-        int[] numbers = numbered.Where(n => n.Number != 0).OrderBy(n => n.Number).Select(n => n.Number).ToArray();
+        int[] numbers = numbered
+            .Where(n => n.Number != 0)
+            .OrderBy(n => n.Number)
+            .Select(n => n.Number)
+            .ToArray();
         FindShortestPath(numbers, rearPad, 0, numbers.Length - 1, pairwiseCosts, ref best);
 
         return best;
@@ -68,13 +72,16 @@ public class AOC2016_24
 
     private record NumberPair(int Num1, int Num2);
 
-    private static Dictionary<NumberPair, int> FindPairwiseCosts(Cell[,] maze, List<NumberedLocation> numbered)
+    private static Dictionary<NumberPair, int> FindPairwiseCosts(
+        Cell[,] maze,
+        List<NumberedLocation> numbered
+    )
     {
         Dictionary<NumberPair, int> best = new();
 
-        // Run BFS starting from each numbered location to find the best path between each pair of numbered
-        // locations in the maze. This gives us the building blocks necessary to find the overall best path
-        // later on by brute force.
+        // Run BFS starting from each numbered location to find the best path between
+        // each pair of numbered locations in the maze. This gives us the building blocks
+        // necessary to find the overall best path later on by brute force.
         foreach (NumberedLocation start in numbered)
         {
             HashSet<Cell> visited = new();
@@ -137,14 +144,17 @@ public class AOC2016_24
         int start,
         int end,
         Dictionary<NumberPair, int> pairwiseCosts,
-        ref long best)
+        ref long best
+    )
     {
-        // Use recursion to discover all permutations of the numbered locations. Compute the cost of each path by
-        // using the optimal location-to-location mapping generated during the earlier BFS stage. This is a naive
-        // traveling salesman approach, but N is small enough that the execution time stays under control.
+        // Use recursion to discover all permutations of the numbered locations. Compute
+        // the cost of each path by using the optimal location-to-location mapping generated
+        // during the earlier BFS stage. This is a naive traveling salesman approach, but
+        // N is small enough that the execution time stays under control.
         if (start == end)
         {
-            // Accommodate the fact that we always want zero at the front and sometimes want zero at the end (part 2)
+            // Accommodate the fact that we always want zero at the front and sometimes
+            // want zero at the end (part 2)
             int[] finalArr = new int[] { 0 }.Concat(numbers).Concat(rearPad).ToArray();
             int pathCost = 0;
             for (int i = 0; i < finalArr.Length - 1; i++)

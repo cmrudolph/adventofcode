@@ -2,16 +2,17 @@
 
 public static class AOC2021_21
 {
-    private static readonly List<Case> Cases = new()
-    {
-        new Case(3, 1),
-        new Case(4, 3),
-        new Case(5, 6),
-        new Case(6, 7),
-        new Case(7, 6),
-        new Case(8, 3),
-        new Case(9, 1),
-    };
+    private static readonly List<Case> Cases =
+        new()
+        {
+            new Case(3, 1),
+            new Case(4, 3),
+            new Case(5, 6),
+            new Case(6, 7),
+            new Case(7, 6),
+            new Case(8, 3),
+            new Case(9, 1),
+        };
 
     private const int Target2 = 21;
 

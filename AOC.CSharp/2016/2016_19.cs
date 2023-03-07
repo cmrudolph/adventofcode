@@ -39,9 +39,10 @@ public class AOC2016_19
 
         powResult = (int)Math.Pow(3, pow - 1);
 
-        // The result at 3^x is itself. The solutions then start over at 1 and go up by 1 until we reach
-        // 3^x. Once we hit this point, we start going up by 2 until the next cube (or in our case until we
-        // hit our target which we know is coming up before 3^(x+1))
+        // The result at 3^x is itself. The solutions then start over at 1 and go up by
+        // 1 until we reach 3^x. Once we hit this point, we start going up by 2 until the
+        // next cube (or in our case until we hit our target which we know is coming up
+        // before 3^(x+1))
         int result = 0;
         for (int i = powResult; i < n; i++)
         {

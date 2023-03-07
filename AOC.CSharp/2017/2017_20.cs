@@ -6,7 +6,8 @@ public static class AOC2017_20
 {
     public static long Solve1(string[] lines)
     {
-        // Arbitrary number of iterations. Tried until result was stable. This is good enough to get us to the answer
+        // Arbitrary number of iterations. Tried until result was stable. This is good enough to
+        // get us to the answer
         List<Particle> particles = lines.Select((x, i) => new Particle(i, x)).ToList();
         for (int i = 0; i < 500; i++)
         {
@@ -21,7 +22,10 @@ public static class AOC2017_20
     {
         void RemoveCollisions(List<Particle> particles)
         {
-            var counts = particles.Select(p => p.Position).GroupBy(p => p).ToDictionary(x => x.Key, x => x.Count());
+            var counts = particles
+                .Select(p => p.Position)
+                .GroupBy(p => p)
+                .ToDictionary(x => x.Key, x => x.Count());
             foreach (var kvp in counts.Where(x => x.Value > 1))
             {
                 particles.RemoveAll(p => p.Position.Equals(kvp.Key));
@@ -31,7 +35,8 @@ public static class AOC2017_20
         List<Particle> particles = lines.Select((x, i) => new Particle(i, x)).ToList();
         RemoveCollisions(particles);
 
-        // Arbitrary number of iterations. Tried until result was stable. This is good enough to get us to the answer
+        // Arbitrary number of iterations. Tried until result was stable. This is good enough
+        // to get us to the answer
         for (int i = 0; i < 500; i++)
         {
             particles.ForEach(x => x.Update());
@@ -43,7 +48,8 @@ public static class AOC2017_20
 
     private class Particle
     {
-        private static readonly Regex Re = new("p=<(.*),(.*),(.*)>, v=<(.*),(.*),(.*)>, a=<(.*),(.*),(.*)>");
+        private static readonly Regex Re =
+            new("p=<(.*),(.*),(.*)>, v=<(.*),(.*),(.*)>, a=<(.*),(.*),(.*)>");
 
         public Particle(int num, string line)
         {
@@ -52,7 +58,11 @@ public static class AOC2017_20
             XYZ Extract(Match m, int startIdx)
             {
                 long ExtractOne(Match m, int idx) => long.Parse(m.Groups[idx].Value);
-                return new(ExtractOne(m, startIdx), ExtractOne(m, startIdx + 1), ExtractOne(m, startIdx + 2));
+                return new(
+                    ExtractOne(m, startIdx),
+                    ExtractOne(m, startIdx + 1),
+                    ExtractOne(m, startIdx + 2)
+                );
             }
 
             Match m = Re.Match(line);
@@ -76,8 +86,8 @@ public static class AOC2017_20
     private class XYZ
     {
         public long X { get; private set; }
-        public long Y { get; private set;}
-        public long Z { get; private set;}
+        public long Y { get; private set; }
+        public long Z { get; private set; }
 
         public XYZ(long x, long y, long z)
         {

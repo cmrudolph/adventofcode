@@ -107,13 +107,15 @@ public class AOC2020
     public void AOC2020_09_1_Sample() => Sample(127L, lines => AOC2020_09.solve1(lines, "5"), "09");
 
     [Test, Category("Slow")]
-    public void AOC2020_09_1_Actual() => Actual(1639024365L, lines => AOC2020_09.solve1(lines, "25"), "09");
+    public void AOC2020_09_1_Actual() =>
+        Actual(1639024365L, lines => AOC2020_09.solve1(lines, "25"), "09");
 
     [Test, Category("Fast")]
     public void AOC2020_09_2_Sample() => Sample(62L, lines => AOC2020_09.solve2(lines, "5"), "09");
 
     [Test, Category("Slow")]
-    public void AOC2020_09_2_Actual() => Actual(219202240L, lines => AOC2020_09.solve2(lines, "25"), "09");
+    public void AOC2020_09_2_Actual() =>
+        Actual(219202240L, lines => AOC2020_09.solve2(lines, "25"), "09");
 
     [Test, Category("Fast")]
     public void AOC2020_10_1_Sample() => Sample(35L, AOC2020_10.solve1, "10");
@@ -257,7 +259,8 @@ public class AOC2020
     public void AOC2020_21_2_Sample() => Sample("mxmxvkd,sqjhc,fvjkl", AOC2020_21.Solve2, "21");
 
     [Test, Category("Fast")]
-    public void AOC2020_21_2_Actual() => Actual("bxjvzk,hqgqj,sp,spl,hsksz,qzzzf,fmpgn,tpnnkc", AOC2020_21.Solve2, "21");
+    public void AOC2020_21_2_Actual() =>
+        Actual("bxjvzk,hqgqj,sp,spl,hsksz,qzzzf,fmpgn,tpnnkc", AOC2020_21.Solve2, "21");
 
     [Test, Category("Fast")]
     public void AOC2020_22_1_Sample() => Sample(306L, AOC2020_22.solve1, "22");

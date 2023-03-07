@@ -78,7 +78,11 @@ public static class AOC2022_15
 
             // It is too expensive to brute force all coordinates. Instead, collapse the X search into ranges so we can
             // enumerate a much smaller set of values (just the number of sensors * each row).
-            var ranges = sensors.Select(s => GetSensorRange(s, row)).Where(s => s != null).OrderBy(x => x.MinX).ToList();
+            var ranges = sensors
+                .Select(s => GetSensorRange(s, row))
+                .Where(s => s != null)
+                .OrderBy(x => x.MinX)
+                .ToList();
 
             for (int i = 0; i < ranges.Count; i++)
             {
@@ -127,5 +131,6 @@ public static class AOC2022_15
 
     private record Point(int X, int Y);
 
-    private static int Manhattan(Point p1, Point p2) => Math.Abs(p1.X - p2.X) + Math.Abs(p1.Y - p2.Y);
+    private static int Manhattan(Point p1, Point p2) =>
+        Math.Abs(p1.X - p2.X) + Math.Abs(p1.Y - p2.Y);
 }

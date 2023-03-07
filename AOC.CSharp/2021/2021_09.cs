@@ -32,7 +32,11 @@ public static class AOC2021_09
                 foreach (var neighbor in neighbors)
                 {
                     int neighborHeight = map[neighbor.X, neighbor.Y];
-                    if (neighborHeight < 9 && neighborHeight > currHeight && !visited.Contains(neighbor))
+                    if (
+                        neighborHeight < 9
+                        && neighborHeight > currHeight
+                        && !visited.Contains(neighbor)
+                    )
                     {
                         toVisit.Enqueue(neighbor);
                         visited.Add(neighbor);
@@ -68,7 +72,8 @@ public static class AOC2021_09
         {
             for (int j = 0; j < map.GetLength(1); j++)
             {
-                var neighborHeights = FindNeighbors(map, new Point(i, j)).Select(n => map[n.X, n.Y]);
+                var neighborHeights = FindNeighbors(map, new Point(i, j))
+                    .Select(n => map[n.X, n.Y]);
                 if (neighborHeights.All(nh => nh > map[i, j]))
                 {
                     lowSpots.Add(new Point(i, j));

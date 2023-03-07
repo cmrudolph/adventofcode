@@ -113,7 +113,7 @@ public static class AOC2021_16
         private static string HexToBinary(string hex)
         {
             StringBuilder sb = new();
-            foreach(char c in hex)
+            foreach (char c in hex)
             {
                 int asInt = Convert.ToInt32(c.ToString(), 16);
                 string asBinary = Convert.ToString(asInt, 2).PadLeft(4, '0');

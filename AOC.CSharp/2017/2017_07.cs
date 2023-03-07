@@ -20,15 +20,20 @@ public static class AOC2017_07
         Dictionary<string, AggregatedWeight> aggregatedWeights = new();
         BuildAggregatedWeights(root, nodes, aggregatedWeights);
         long? result = FindWeightCorrection(root, nodes, aggregatedWeights);
-        
+
         return result.Value;
     }
 
-    private static void BuildAggregatedWeights(Node curr, Dictionary<string, Node> nodes, Dictionary<string, AggregatedWeight> weights)
+    private static void BuildAggregatedWeights(
+        Node curr,
+        Dictionary<string, Node> nodes,
+        Dictionary<string, AggregatedWeight> weights
+    )
     {
         if (!curr.SubNames.Any())
         {
-            // Leaf node. Record its own weight with a fixed zero value for its subtree (not applicable)
+            // Leaf node. Record its own weight with a fixed zero value for its subtree
+            // (not applicable)
             weights.Add(curr.Name, new(curr.Weight, 0));
             return;
         }
@@ -40,20 +45,25 @@ public static class AOC2017_07
             BuildAggregatedWeights(subNode, nodes, weights);
         }
 
-        // Separate out the node's own weight from the weight of its subtree. Together these constitute the total
-        // weight of the node (necessary for finding the imbalance). However, the node's own weight is essential
-        // for calculating the correction once the imbalance is located.
+        // Separate out the node's own weight from the weight of its subtree. Together
+        // these constitute the total weight of the node (necessary for finding the imbalance).
+        // However, the node's own weight is essential for calculating the correction once
+        // the imbalance is located.
         long subSum = curr.SubNames.Sum(sub => weights[sub].Total);
         weights.Add(curr.Name, new AggregatedWeight(curr.Weight, subSum));
     }
 
-    private static long? FindWeightCorrection(Node curr, Dictionary<string, Node> nodes, Dictionary<string, AggregatedWeight> aggregated)
+    private static long? FindWeightCorrection(
+        Node curr,
+        Dictionary<string, Node> nodes,
+        Dictionary<string, AggregatedWeight> aggregated
+    )
     {
         if (curr.SubNames.Any())
         {
-            // Prioritize continuing deeper down the tree. We need to work backwards from the leaf nodes to discover the
-            // defunct node since the error will propagate all the way back to the root, potentially affecting multiple
-            // nodes on the way.
+            // Prioritize continuing deeper down the tree. We need to work backwards from the
+            // leaf nodes to discover the defunct node since the error will propagate all the
+            // way back to the root, potentially affecting multiple nodes on the way.
             foreach (string subName in curr.SubNames)
             {
                 Node nextNode = nodes[subName];
@@ -64,30 +74,30 @@ public static class AOC2017_07
                 }
             }
         }
-        
+
         if (!curr.SubNames.Any())
         {
-            // Base case. We will never find the solution when inspecting a leaf since we need to be looking at a node with
-            // children to find the imbalance.
+            // Base case. We will never find the solution when inspecting a leaf since we need
+            // to be looking at a node with children to find the imbalance.
             return null;
         }
 
         var subWeights = curr.SubNames.Select(n => aggregated[n]).ToList();
         var subCounts = subWeights.GroupBy(s => s.Total).ToDictionary(s => s.Key, s => s.Count());
-        
+
         if (subCounts.Count == 2)
         {
-            // We found an imbalance! There are two distinct total weights found in the subtrees we are inspecting.
-            // Find the outlier and then calculate the difference.
+            // We found an imbalance! There are two distinct total weights found in the subtrees
+            // we are inspecting. Find the outlier and then calculate the difference.
             long mismatchWeight = subCounts.Single(kvp => kvp.Value == 1).Key;
             long correctWeight = subCounts.First(kvp => kvp.Value > 1).Key;
             long diff = correctWeight - mismatchWeight;
-            
-            // Apply the difference to the problem node''s own weight to figure out the weight it ought to have to
-            // balance things out.
+
+            // Apply the difference to the problem node''s own weight to figure out the weight
+            // it ought to have to balance things out.
             AggregatedWeight toCorrect = subWeights.Single(w => w.Total == mismatchWeight);
             long? result = toCorrect.Self + diff;
-            
+
             return result;
         }
 
@@ -99,7 +109,8 @@ public static class AOC2017_07
         HashSet<string> all = nodes.Select(n => n.Key).ToHashSet();
         HashSet<string> notRoot = nodes.SelectMany(kvp => kvp.Value.SubNames).ToHashSet();
 
-        // The root is the only node whose name does not appear in the complete list of sub node names
+        // The root is the only node whose name does not appear in the complete list of
+        // sub node names
         return nodes[all.Except(notRoot).Single()];
     }
 

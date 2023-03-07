@@ -28,7 +28,11 @@ public static class AOC2022_17
         int sliceSize = 500;
 
         var firstChunk = gaps.Skip(firstChunkStart).Take(sliceSize).ToList();
-        for (int secondStartIdx = firstChunkStart + 1; secondStartIdx < gaps.Count - sliceSize; secondStartIdx++)
+        for (
+            int secondStartIdx = firstChunkStart + 1;
+            secondStartIdx < gaps.Count - sliceSize;
+            secondStartIdx++
+        )
         {
             var secondChunk = gaps.Skip(secondStartIdx).Take(sliceSize).ToList();
             if (firstChunk.SequenceEqual(secondChunk))
@@ -255,10 +259,7 @@ public static class AOC2022_17
             switch (num)
             {
                 case 1:
-                    return new[]
-                    {
-                        new[] { '|', '.', '.', '@', '@', '@', '@', '.', '|' },
-                    };
+                    return new[] { new[] { '|', '.', '.', '@', '@', '@', '@', '.', '|' }, };
                 case 2:
                     return new[]
                     {
@@ -274,7 +275,7 @@ public static class AOC2022_17
                         new[] { '|', '.', '.', '@', '@', '@', '.', '.', '|' },
                     };
                 case 4:
-                    return new []
+                    return new[]
                     {
                         new[] { '|', '.', '.', '@', '.', '.', '.', '.', '|' },
                         new[] { '|', '.', '.', '@', '.', '.', '.', '.', '|' },
@@ -282,7 +283,7 @@ public static class AOC2022_17
                         new[] { '|', '.', '.', '@', '.', '.', '.', '.', '|' },
                     };
                 default:
-                    return new []
+                    return new[]
                     {
                         new[] { '|', '.', '.', '@', '@', '.', '.', '.', '|' },
                         new[] { '|', '.', '.', '@', '@', '.', '.', '.', '|' },
@@ -315,7 +316,7 @@ public static class AOC2022_17
 
         public void AddEmpty()
         {
-            _data.Add(new [] { '|', '.', '.', '.', '.', '.', '.', '.', '|' });
+            _data.Add(new[] { '|', '.', '.', '.', '.', '.', '.', '.', '|' });
         }
 
         public void TrimTop()

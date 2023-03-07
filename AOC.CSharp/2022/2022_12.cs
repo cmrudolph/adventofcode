@@ -132,7 +132,6 @@ public static class AOC2022_12
         return results;
     }
 
-
     private static GridCell[,] Parse(string[] lines)
     {
         int height = lines.Length;

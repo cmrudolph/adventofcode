@@ -13,7 +13,8 @@ public class AOC2016_22
             {
                 Node n1 = nodes[i];
                 Node n2 = nodes[j];
-                bool viable = n1.Used != 0 && n1.Used <= n2.Avail || n2.Used != 0 && n2.Used <= n1.Avail;
+                bool viable =
+                    n1.Used != 0 && n1.Used <= n2.Avail || n2.Used != 0 && n2.Used <= n1.Avail;
                 viablePairs += viable ? 1 : 0;
 
                 if (viable)

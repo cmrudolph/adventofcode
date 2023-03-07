@@ -22,9 +22,7 @@ public static class AOC2021_19
         List<Point> currentSet = new();
         foreach (string line in lines)
         {
-            if (string.IsNullOrWhiteSpace(line))
-            {
-            }
+            if (string.IsNullOrWhiteSpace(line)) { }
             else if (line.StartsWith("---"))
             {
                 if (currentSet.Any())
@@ -49,12 +47,12 @@ public static class AOC2021_19
 
         List<Vector> vectors = new();
         int idx = 0;
-        
+
         // Continue until we have accounts for all scanners
         while (originalScannerSets.Any())
         {
             bool found = false;
-            
+
             List<Point> currSet = originalScannerSets[idx];
             List<List<Point>> permutedSets = Permute(currSet);
             for (int i = 0; i < permutedSets.Count && !found; i++)
@@ -123,18 +121,18 @@ public static class AOC2021_19
         {
             return new(-p.Y, p.X, p.Z);
         }
-        
+
         List<List<Point>> permuted = new(24);
 
         for (int i = 0; i < 24; i++)
         {
             permuted.Add(new());
         }
-        
+
         foreach (var p in points)
         {
             int i = 0;
-            
+
             Point curr = p;
             for (int j = 0; j < 3; j++)
             {
@@ -154,7 +152,7 @@ public static class AOC2021_19
             curr = Roll(curr);
             curr = Turn(curr);
             curr = Roll(curr);
-            
+
             for (int j = 0; j < 3; j++)
             {
                 curr = Roll(curr);
@@ -170,19 +168,24 @@ public static class AOC2021_19
                 permuted[i++].Add(curr);
             }
         }
-        
+
         return permuted;
     }
-    
+
     private static Vector FindSolutionVector(List<Point> fixedPoints, List<Point> candidatePoints)
     {
         Dictionary<Vector, int> counts = new();
-        
+
         foreach (Point fixedPoint in fixedPoints)
         {
             foreach (var candidate in candidatePoints)
             {
-                Vector v = new(fixedPoint.X - candidate.X, fixedPoint.Y - candidate.Y, fixedPoint.Z - candidate.Z);
+                Vector v =
+                    new(
+                        fixedPoint.X - candidate.X,
+                        fixedPoint.Y - candidate.Y,
+                        fixedPoint.Z - candidate.Z
+                    );
                 if (counts.TryGetValue(v, out int count))
                 {
                     if (count == 11)

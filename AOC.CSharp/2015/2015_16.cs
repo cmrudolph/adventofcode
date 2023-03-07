@@ -12,16 +12,26 @@ public static class AOC2015_16
 
         foreach (Sue sue in sues)
         {
-            if (sue.Children.HasValue && sue.Children.Value != 3) continue;
-            if (sue.Cats.HasValue && sue.Cats.Value != 7) continue;
-            if (sue.Samoyeds.HasValue && sue.Samoyeds.Value != 2) continue;
-            if (sue.Pomeranians.HasValue && sue.Pomeranians.Value != 3) continue;
-            if (sue.Akitas.HasValue && sue.Akitas.Value != 0) continue;
-            if (sue.Vizslas.HasValue && sue.Vizslas.Value != 0) continue;
-            if (sue.Goldfish.HasValue && sue.Goldfish.Value != 5) continue;
-            if (sue.Trees.HasValue && sue.Trees.Value != 3) continue;
-            if (sue.Cars.HasValue && sue.Cars.Value != 2) continue;
-            if (sue.Perfumes.HasValue && sue.Perfumes.Value != 1) continue;
+            if (sue.Children.HasValue && sue.Children.Value != 3)
+                continue;
+            if (sue.Cats.HasValue && sue.Cats.Value != 7)
+                continue;
+            if (sue.Samoyeds.HasValue && sue.Samoyeds.Value != 2)
+                continue;
+            if (sue.Pomeranians.HasValue && sue.Pomeranians.Value != 3)
+                continue;
+            if (sue.Akitas.HasValue && sue.Akitas.Value != 0)
+                continue;
+            if (sue.Vizslas.HasValue && sue.Vizslas.Value != 0)
+                continue;
+            if (sue.Goldfish.HasValue && sue.Goldfish.Value != 5)
+                continue;
+            if (sue.Trees.HasValue && sue.Trees.Value != 3)
+                continue;
+            if (sue.Cars.HasValue && sue.Cars.Value != 2)
+                continue;
+            if (sue.Perfumes.HasValue && sue.Perfumes.Value != 1)
+                continue;
 
             return sue.Num;
         }
@@ -35,16 +45,26 @@ public static class AOC2015_16
 
         foreach (Sue sue in sues)
         {
-            if (sue.Children.HasValue && sue.Children.Value != 3) continue;
-            if (sue.Cats.HasValue && sue.Cats.Value <= 7) continue;
-            if (sue.Samoyeds.HasValue && sue.Samoyeds.Value != 2) continue;
-            if (sue.Pomeranians.HasValue && sue.Pomeranians.Value >= 3) continue;
-            if (sue.Akitas.HasValue && sue.Akitas.Value != 0) continue;
-            if (sue.Vizslas.HasValue && sue.Vizslas.Value != 0) continue;
-            if (sue.Goldfish.HasValue && sue.Goldfish.Value >= 5) continue;
-            if (sue.Trees.HasValue && sue.Trees.Value <= 3) continue;
-            if (sue.Cars.HasValue && sue.Cars.Value != 2) continue;
-            if (sue.Perfumes.HasValue && sue.Perfumes.Value != 1) continue;
+            if (sue.Children.HasValue && sue.Children.Value != 3)
+                continue;
+            if (sue.Cats.HasValue && sue.Cats.Value <= 7)
+                continue;
+            if (sue.Samoyeds.HasValue && sue.Samoyeds.Value != 2)
+                continue;
+            if (sue.Pomeranians.HasValue && sue.Pomeranians.Value >= 3)
+                continue;
+            if (sue.Akitas.HasValue && sue.Akitas.Value != 0)
+                continue;
+            if (sue.Vizslas.HasValue && sue.Vizslas.Value != 0)
+                continue;
+            if (sue.Goldfish.HasValue && sue.Goldfish.Value >= 5)
+                continue;
+            if (sue.Trees.HasValue && sue.Trees.Value <= 3)
+                continue;
+            if (sue.Cars.HasValue && sue.Cars.Value != 2)
+                continue;
+            if (sue.Perfumes.HasValue && sue.Perfumes.Value != 1)
+                continue;
 
             return sue.Num;
         }
@@ -61,7 +81,9 @@ public static class AOC2015_16
 
         string remaining = m.Groups[2].Value;
         string[] splits = remaining.Split(',');
-        List<string[]> splitList = splits.Select(s => s.Split(':').Select(s => s.Trim()).ToArray()).ToList();
+        List<string[]> splitList = splits
+            .Select(s => s.Split(':').Select(s => s.Trim()).ToArray())
+            .ToList();
 
         foreach (string[] sp in splitList)
         {

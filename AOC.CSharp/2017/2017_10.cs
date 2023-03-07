@@ -22,7 +22,10 @@ public static class AOC2017_10
     public static string CalculateKnotHash(string input)
     {
         List<int> nums = Enumerable.Range(0, 256).ToList();
-        List<int> lengths = input.Select(ch => (int)ch).Concat(new[] { 17, 31, 73, 47, 23 }).ToList();
+        List<int> lengths = input
+            .Select(ch => (int)ch)
+            .Concat(new[] { 17, 31, 73, 47, 23 })
+            .ToList();
         int curr = 0;
         int skip = 0;
 
@@ -51,7 +54,12 @@ public static class AOC2017_10
         return hex;
     }
 
-    private static (int curr, int skip) DoRound(List<int> nums, List<int> lengths, int curr, int skip)
+    private static (int curr, int skip) DoRound(
+        List<int> nums,
+        List<int> lengths,
+        int curr,
+        int skip
+    )
     {
         foreach (int length in lengths)
         {

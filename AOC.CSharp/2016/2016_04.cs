@@ -8,10 +8,7 @@ public static class AOC2016_04
 
     public static long Solve1(string[] lines)
     {
-        int result = lines
-            .Select(Parse)
-            .Select(ToSumValue)
-            .Sum();
+        int result = lines.Select(Parse).Select(ToSumValue).Sum();
 
         return result;
     }

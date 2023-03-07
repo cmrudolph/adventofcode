@@ -24,7 +24,8 @@ public static class AOC2015_12
 
         List<Token?> tokens = new();
 
-        // Preprocess the tokens to make them easier to deal with (strip out all the details we do not care about)
+        // Preprocess the tokens to make them easier to deal with (strip out all the details we
+        // do not care about)
         while (reader.Read())
         {
             tokens.Add(MapToken(reader));
@@ -37,9 +38,9 @@ public static class AOC2015_12
         {
             if (t.Type == JsonToken.EndArray)
             {
-                // End of an array: The red value does not matter here. Simply sum up every integer contained
-                // within the bounds of the array and push the result back onto the stack. Ignore any reds that
-                // we encounter during the traversal
+                // End of an array: The red value does not matter here. Simply sum up every
+                // integer contained within the bounds of the array and push the result back onto
+                // the stack. Ignore any reds that we encounter during the traversal
                 long valuePopped = 0L;
                 Token popped = stack.Pop();
                 while (popped.Type != JsonToken.StartArray)
@@ -56,10 +57,10 @@ public static class AOC2015_12
             }
             else if (t.Type == JsonToken.EndObject)
             {
-                // End of an object. If we find a red value here, force the sum (that we push back onto the stack)
-                // to zero. Pushing a zero will nullify any summing done in children and will also cause the
-                // effects of this red instance to propagate back to callers (by having them include our zero
-                // result in their sum calculation)
+                // End of an object. If we find a red value here, force the sum (that we push
+                // back onto the stack) to zero. Pushing a zero will nullify any summing done in
+                // children and will also cause the effects of this red instance to propagate back
+                // to callers (by having them include our zero result in their sum calculation)
                 long valuePopped = 0L;
                 bool forceZero = false;
                 Token popped = stack.Pop();
@@ -86,8 +87,8 @@ public static class AOC2015_12
             }
         }
 
-        // What remains at the end of the traversal is the final sum that we pushed onto the stack when processing
-        // the final 'end' token
+        // What remains at the end of the traversal is the final sum that we pushed onto
+        // the stack when processing the final 'end' token
         Token final = stack.Pop();
         return final.Value.Value;
     }

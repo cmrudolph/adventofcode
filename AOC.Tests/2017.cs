@@ -185,7 +185,8 @@ public class AOC2017
     }
 
     [Test, Category("Fast")]
-    public void AOC2017_10_2_Actual() => Actual("d067d3f14d07e09c2e7308c3926605c4", AOC2017_10.Solve2, "10");
+    public void AOC2017_10_2_Actual() =>
+        Actual("d067d3f14d07e09c2e7308c3926605c4", AOC2017_10.Solve2, "10");
 
     [TestCase("ne,ne,ne", 3)]
     [TestCase("ne,ne,sw,sw", 0)]
@@ -256,10 +257,12 @@ public class AOC2017
     public void AOC2017_16_1_Sample() => Sample("baedc", x => AOC2017_16.Solve1(x, 5), "16");
 
     [Test, Category("Fast")]
-    public void AOC2017_16_1_Actual() => Actual("nlciboghjmfdapek", x => AOC2017_16.Solve1(x, 16), "16");
+    public void AOC2017_16_1_Actual() =>
+        Actual("nlciboghjmfdapek", x => AOC2017_16.Solve1(x, 16), "16");
 
     [Test, Category("Fast")]
-    public void AOC2017_16_2_Actual() => Actual("nlciboghmkedpfja", x => AOC2017_16.Solve2(x, 16), "16");
+    public void AOC2017_16_2_Actual() =>
+        Actual("nlciboghmkedpfja", x => AOC2017_16.Solve2(x, 16), "16");
 
     [Test, Category("Fast")]
     public void AOC2017_17_1_Sample() => Sample(638L, AOC2017_17.Solve1, "17");

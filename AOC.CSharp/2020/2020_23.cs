@@ -76,7 +76,12 @@ public static class AOC2020_23
             Node segment3 = segment2.Next;
 
             int destIdx = (int)curr.Number - 1;
-            while (destIdx < 1 || segment1.Number == destIdx || segment2.Number == destIdx || segment3.Number == destIdx)
+            while (
+                destIdx < 1
+                || segment1.Number == destIdx
+                || segment2.Number == destIdx
+                || segment3.Number == destIdx
+            )
             {
                 if (destIdx < 1)
                 {

@@ -25,7 +25,13 @@ public static class AOC2021_12
         return count;
     }
 
-    private static void Recurse(Dictionary<Node, List<Node>> graph, Node curr, List<Node> visited, ref int count, bool smallVisitedTwice)
+    private static void Recurse(
+        Dictionary<Node, List<Node>> graph,
+        Node curr,
+        List<Node> visited,
+        ref int count,
+        bool smallVisitedTwice
+    )
     {
         visited.Add(curr);
         var graphEntry = graph[curr];

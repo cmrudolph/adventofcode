@@ -14,7 +14,7 @@ public class AOC2016_11
 
     public static long Solve2(string[] lines)
     {
-        lines[0] = lines[0] + "elerium generator elerium-compatible dilithium generator dilithium-compatible";
+        lines[0] += "elerium generator elerium-compatible dilithium generator dilithium-compatible";
         return Solve(lines);
     }
 
@@ -84,7 +84,8 @@ public class AOC2016_11
                 seen.Add(next);
             }
 
-            // Also consider the current item paired with each of the other items on the current floor
+            // Also consider the current item paired with each of the other items on
+            // the current floor
             for (int j = i + 1; j < thisFloorItems.Count; j++)
             {
                 State next2 = next.Clone();
@@ -184,11 +185,12 @@ public class AOC2016_11
                 ItemsByFloor[i] = new();
             }
 
-            // This equality representation is key to making the solution perform. For our purposes, we treat states
-            // as equivalent if they have the same layout of paired generators and chips (the specific elements do not
-            // matter except for identifying pairs). Doing this allows us to prune a LOT of states that would normally
-            // need to be visited (they are technically distinct), which brings the execution time down to a manageable
-            // level.
+            // This equality representation is key to making the solution perform. For
+            // our purposes, we treat states as equivalent if they have the same layout
+            // of paired generators and chips (the specific elements do not matter except
+            // for identifying pairs). Doing this allows us to prune a LOT of states that
+            // would normally need to be visited (they are technically distinct), which brings
+            // the execution time down to a manageable level.
             _equalityValue = new(() =>
             {
                 Dictionary<Item, int> itemFloorLookup = new();
@@ -217,7 +219,10 @@ public class AOC2016_11
                 }
 
                 pairs = pairs.OrderBy(p => p).ToList();
-                string pairStr = string.Join("_", pairs).Replace(" ", "").Replace("(", "").Replace(")", "");
+                string pairStr = string.Join("_", pairs)
+                    .Replace(" ", "")
+                    .Replace("(", "")
+                    .Replace(")", "");
 
                 return $"{Elevator}_{pairStr}";
             });
@@ -249,11 +254,20 @@ public class AOC2016_11
                         continue;
                     }
 
-                    foreach (Item chip in thisFloorItems.Where(item => item.Type == ItemType.Microchip))
+                    foreach (
+                        Item chip in thisFloorItems.Where(item => item.Type == ItemType.Microchip)
+                    )
                     {
-                        if (!thisFloorItems.Any(item => item.Type == ItemType.Generator && item.ElementIdx == chip.ElementIdx))
+                        if (
+                            !thisFloorItems.Any(
+                                item =>
+                                    item.Type == ItemType.Generator
+                                    && item.ElementIdx == chip.ElementIdx
+                            )
+                        )
                         {
-                            // A chip exists in the presence of other generators without its generator
+                            // A chip exists in the presence of other generators without its
+                            // generator
                             return false;
                         }
                     }
@@ -278,7 +292,10 @@ public class AOC2016_11
         public void AddItem(int floorIdx, Item item)
         {
             ItemsByFloor[floorIdx].Add(item);
-            ItemsByFloor[floorIdx] = ItemsByFloor[floorIdx].OrderBy(i => i.Type).ThenBy(i => i.ElementIdx).ToList();
+            ItemsByFloor[floorIdx] = ItemsByFloor[floorIdx]
+                .OrderBy(i => i.Type)
+                .ThenBy(i => i.ElementIdx)
+                .ToList();
         }
 
         public override int GetHashCode()

@@ -22,11 +22,18 @@ public static class AOC2021_14
             counts = UpdatePairCounts(counts, lookup);
         }
 
-        (long min, long max) = FindCharCounts(counts, lines[0][0].ToString(), lines[0][^1].ToString());
+        (long min, long max) = FindCharCounts(
+            counts,
+            lines[0][0].ToString(),
+            lines[0][^1].ToString()
+        );
         return max - min;
     }
 
-    private static Dictionary<string, long> UpdatePairCounts(Dictionary<string, long> counts, Dictionary<string, string[]> lookup)
+    private static Dictionary<string, long> UpdatePairCounts(
+        Dictionary<string, long> counts,
+        Dictionary<string, string[]> lookup
+    )
     {
         // Init the dictionary to avoid having to check for key existence. Use a new dictionary to avoid contaminating
         // state when performing the lookups below
@@ -47,7 +54,11 @@ public static class AOC2021_14
         return newCounts;
     }
 
-    private static (long min, long max) FindCharCounts(Dictionary<string, long> pairCounts, string first, string last)
+    private static (long min, long max) FindCharCounts(
+        Dictionary<string, long> pairCounts,
+        string first,
+        string last
+    )
     {
         // Init the dictionary to avoid having to check for key existence
         Dictionary<string, long> charCounts = pairCounts.Keys

@@ -2,12 +2,7 @@
 
 public static class AOC2015_11
 {
-    private static readonly int[] BannedDigits = new int[]
-    {
-            'i' - 'a',
-            'l' - 'a',
-            'o' - 'a',
-    };
+    private static readonly int[] BannedDigits = new int[] { 'i' - 'a', 'l' - 'a', 'o' - 'a', };
 
     public static string Solve1(string[] lines)
     {

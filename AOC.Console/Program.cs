@@ -2,7 +2,8 @@
 using CommandLine;
 using System.Reflection;
 
-Parser.Default.ParseArguments<CommandLineOptions>(args)
+Parser.Default
+    .ParseArguments<CommandLineOptions>(args)
     .WithParsed(o =>
     {
         string paddedDay = o.Day.ToString().PadLeft(2, '0');
@@ -21,10 +22,7 @@ Parser.Default.ParseArguments<CommandLineOptions>(args)
             cSharpAssembly.GetType(cSharpType)?.GetMethod(cSharpMethod)
             ?? fSharpAssembly.GetType(fSharpType)?.GetMethod(fSharpMethod);
 
-        List<object> invokeParams = new()
-        {
-            lines,
-        };
+        List<object> invokeParams = new() { lines, };
 
         if (o.Extra != null)
         {

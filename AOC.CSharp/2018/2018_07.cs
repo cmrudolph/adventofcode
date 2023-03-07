@@ -20,7 +20,8 @@ public static class AOC2018_07
     {
         List<Link> links = lines.Select(Parse).ToList();
 
-        // Get an ordered list of all the chars that are part of our input. This serves as our priority ordering
+        // Get an ordered list of all the chars that are part of our input. This serves as our
+        // priority ordering
         List<char> distinctChars = links
             .Select(x => x.From)
             .Concat(links.Select(x => x.To))
@@ -28,9 +29,13 @@ public static class AOC2018_07
             .OrderBy(x => x)
             .ToList();
 
-        // Keep track of the dependencies (what needs to be finished) of each character. Once all dependencies have
-        // been visited, the character represented by the key is eligible for processing
-        Dictionary<char, List<char>> dependencies = distinctChars.ToDictionary(ch => ch, _ => new List<char>());
+        // Keep track of the dependencies (what needs to be finished) of each character. Once all
+        // dependencies have been visited, the character represented by the key is eligible
+        // for processing
+        Dictionary<char, List<char>> dependencies = distinctChars.ToDictionary(
+            ch => ch,
+            _ => new List<char>()
+        );
         foreach (Link link in links)
         {
             dependencies[link.To].Add(link.From);
@@ -42,8 +47,8 @@ public static class AOC2018_07
 
         while (results.Count < distinctChars.Count)
         {
-            // Move time forward by one second. This means updating each worker and handling any completion events that
-            // result
+            // Move time forward by one second. This means updating each worker and handling any
+            // completion events that result
             for (int i = workers.Count - 1; i >= 0; i--)
             {
                 Worker curr = workers[i];
@@ -65,15 +70,16 @@ public static class AOC2018_07
 
             while (hasCapacity && workerAdded)
             {
-                // We have room. Look for another character to start processing. This might not be possible (due to
-                // unsatisfied dependencies), but we need to check
+                // We have room. Look for another character to start processing. This might not
+                // be possible (due to unsatisfied dependencies), but we need to check
                 workerAdded = false;
                 int charIdx = 0;
 
                 while (!workerAdded && charIdx < distinctChars.Count)
                 {
-                    // Look for the next char to try in priority order. Find the first one alphabetically that
-                    // has not already been processed and is not actively being processed
+                    // Look for the next char to try in priority order. Find the first one
+                    // alphabetically that has not already been processed and is not actively
+                    // being processed
                     char c1 = distinctChars[charIdx];
                     if (!results.Contains(c1) && !workers.Select(w => w.Char).Contains(c1))
                     {

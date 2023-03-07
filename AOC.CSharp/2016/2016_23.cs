@@ -24,9 +24,9 @@ public class AOC2016_23
         registers.Set("a", 7);
         long solution = Solve(registers, lines);
 
-        // Solve a fast and simple case and use the formula we derived to compute versions that get MUCH
-        // more expensive to solve by going through the motions. The solution is easy to compute using the
-        // previous solution and a bit of factorial math.
+        // Solve a fast and simple case and use the formula we derived to compute
+        // versions that get MUCH more expensive to solve by going through the motions.
+        // The solution is easy to compute using the previous solution and a bit of factorial math.
         for (int i = 8; i <= 12; i++)
         {
             long prevFact = Factorial(i - 1);
@@ -63,72 +63,81 @@ public class AOC2016_23
             switch (c.Type)
             {
                 case CommandType.Copy:
+                {
+                    int value = c.Arg1IsInt ? int.Parse(c.Arg1) : registers.Get(c.Arg1);
+                    if (c.Arg2IsString)
                     {
-                        int value = c.Arg1IsInt ? int.Parse(c.Arg1) : registers.Get(c.Arg1);
-                        if (c.Arg2IsString)
-                        {
-                            registers.Set(c.Arg2, value);
-                        }
-                        i++;
-                        break;
+                        registers.Set(c.Arg2, value);
                     }
+                    i++;
+                    break;
+                }
                 case CommandType.Increment:
+                {
+                    if (c.Arg1IsString)
                     {
-                        if (c.Arg1IsString)
-                        {
-                            registers.Transform(c.Arg1, v => v + 1);
-                        }
-                        i++;
-                        break;
+                        registers.Transform(c.Arg1, v => v + 1);
                     }
+                    i++;
+                    break;
+                }
                 case CommandType.Decrement:
+                {
+                    if (c.Arg1IsString)
                     {
-                        if (c.Arg1IsString)
-                        {
-                            registers.Transform(c.Arg1, v => v - 1);
-                        }
-                        i++;
-                        break;
+                        registers.Transform(c.Arg1, v => v - 1);
                     }
+                    i++;
+                    break;
+                }
                 case CommandType.JumpNotZero:
-                    {
-                        int cmpValue = c.Arg1IsInt ? int.Parse(c.Arg1) : registers.Get(c.Arg1);
-                        int jmpAmount = cmpValue == 0
+                {
+                    int cmpValue = c.Arg1IsInt ? int.Parse(c.Arg1) : registers.Get(c.Arg1);
+                    int jmpAmount =
+                        cmpValue == 0
                             ? 1
                             : c.Arg2IsInt
                                 ? int.Parse(c.Arg2)
                                 : registers.Get(c.Arg2);
-                        i += jmpAmount;
-                        break;
-                    }
+                    i += jmpAmount;
+                    break;
+                }
                 case CommandType.Toggle:
+                {
+                    int offsetValue = c.Arg1IsInt ? int.Parse(c.Arg1) : registers.Get(c.Arg1);
+                    int targetIdx = i + offsetValue;
+                    if (targetIdx >= 0 && targetIdx < commands.Count)
                     {
-                        int offsetValue = c.Arg1IsInt ? int.Parse(c.Arg1) : registers.Get(c.Arg1);
-                        int targetIdx = i + offsetValue;
-                        if (targetIdx >= 0 && targetIdx < commands.Count)
+                        Command tgt = commands[targetIdx];
+                        switch (tgt.Type)
                         {
-                            Command tgt = commands[targetIdx];
-                            switch (tgt.Type)
-                            {
-                                case CommandType.Increment:
-                                    commands[targetIdx] = new Command(CommandType.Decrement, tgt.Arg1);
-                                    break;
-                                case CommandType.Decrement:
-                                case CommandType.Toggle:
-                                    commands[targetIdx] = new Command(CommandType.Increment, tgt.Arg1);
-                                    break;
-                                case CommandType.Copy:
-                                    commands[targetIdx] = new Command(CommandType.JumpNotZero, tgt.Arg1, tgt.Arg2);
-                                    break;
-                                case CommandType.JumpNotZero:
-                                    commands[targetIdx] = new Command(CommandType.Copy, tgt.Arg1, tgt.Arg2);
-                                    break;
-                            }
+                            case CommandType.Increment:
+                                commands[targetIdx] = new Command(CommandType.Decrement, tgt.Arg1);
+                                break;
+                            case CommandType.Decrement:
+                            case CommandType.Toggle:
+                                commands[targetIdx] = new Command(CommandType.Increment, tgt.Arg1);
+                                break;
+                            case CommandType.Copy:
+                                commands[targetIdx] = new Command(
+                                    CommandType.JumpNotZero,
+                                    tgt.Arg1,
+                                    tgt.Arg2
+                                );
+                                break;
+                            case CommandType.JumpNotZero:
+                                commands[targetIdx] = new Command(
+                                    CommandType.Copy,
+                                    tgt.Arg1,
+                                    tgt.Arg2
+                                );
+                                break;
                         }
-
-                        i++;
-                        break;
                     }
+
+                    i++;
+                    break;
+                }
             }
         }
 

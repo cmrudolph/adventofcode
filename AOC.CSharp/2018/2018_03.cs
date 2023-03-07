@@ -27,7 +27,7 @@ public static class AOC2018_03
             {
                 for (int col = p.ColOffset; col < p.ColOffset + p.NumCols; col++)
                 {
-                    grid[row,col]++;
+                    grid[row, col]++;
                 }
             }
         }
@@ -74,7 +74,8 @@ public static class AOC2018_03
             int.Parse(m.Groups[1].Value),
             int.Parse(m.Groups[2].Value),
             int.Parse(m.Groups[3].Value),
-            int.Parse(m.Groups[4].Value));
+            int.Parse(m.Groups[4].Value)
+        );
     }
 
     private record Parsed(int ColOffset, int RowOffset, int NumCols, int NumRows);

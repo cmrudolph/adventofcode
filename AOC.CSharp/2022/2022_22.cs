@@ -12,28 +12,78 @@ public static class AOC2022_22
     /// cube and identify the relationships and necessary transformations. When we move across an edge, this tells us
     /// how to translate our position and direction so we can continue moving across the new cube.
     /// </summary>
-    private static readonly List<Part2Wrap> Part2Wraps = new()
-    {
-        new Part2Wrap("A to E (L)", 50, 50, 0, 49, Left, Right, old => new XY(0, 149 - old.Y)),
-        new Part2Wrap("A to F (U)", 50, 99, 0, 0, Up, Right, old => new XY(0, 100 + old.X)),
-
-        new Part2Wrap("B to C (D)", 100, 149, 49, 49, Down, Left, old => new XY(99, old.X - 50)),
-        new Part2Wrap("B to D (R)", 149, 149, 0, 49, Right, Left, old => new XY(99, 149 - old.Y)),
-        new Part2Wrap("B to F (U)", 100, 149, 0, 0, Up, Up, old => new XY(old.X - 100, 199)),
-
-        new Part2Wrap("C to B (R)", 99, 99, 50, 99, Right, Up, old => new XY(old.Y + 50, 49)),
-        new Part2Wrap("C to E (L)", 50, 50, 50, 99, Left, Down, old => new XY(old.Y - 50, 100)),
-
-        new Part2Wrap("E to B (R)", 99, 99, 100, 149, Right, Left, old => new XY(149, 149 - old.Y)),
-        new Part2Wrap("D to F (D)", 50, 99, 149, 149, Down, Left, old => new XY(49, 100 + old.X)),
-
-        new Part2Wrap("E to A (L)", 0, 0, 100, 149, Left, Right, old => new XY(50, 149 - old.Y)),
-        new Part2Wrap("E to C (U)", 0, 49, 100, 100, Up, Right, old => new XY(50, 50 + old.X)),
-
-        new Part2Wrap("F to A (L)", 0, 0, 150, 199, Left, Down, old => new XY(old.Y - 100, 0)),
-        new Part2Wrap("F to B (D)", 0, 49, 199, 199, Down, Down, old => new XY(old.X + 100, 0)),
-        new Part2Wrap("F to D (R)", 49, 49, 150, 199, Right, Up, old => new XY(old.Y - 100, 149)),
-    };
+    private static readonly List<Part2Wrap> Part2Wraps =
+        new()
+        {
+            new Part2Wrap("A to E (L)", 50, 50, 0, 49, Left, Right, old => new XY(0, 149 - old.Y)),
+            new Part2Wrap("A to F (U)", 50, 99, 0, 0, Up, Right, old => new XY(0, 100 + old.X)),
+            new Part2Wrap(
+                "B to C (D)",
+                100,
+                149,
+                49,
+                49,
+                Down,
+                Left,
+                old => new XY(99, old.X - 50)
+            ),
+            new Part2Wrap(
+                "B to D (R)",
+                149,
+                149,
+                0,
+                49,
+                Right,
+                Left,
+                old => new XY(99, 149 - old.Y)
+            ),
+            new Part2Wrap("B to F (U)", 100, 149, 0, 0, Up, Up, old => new XY(old.X - 100, 199)),
+            new Part2Wrap("C to B (R)", 99, 99, 50, 99, Right, Up, old => new XY(old.Y + 50, 49)),
+            new Part2Wrap("C to E (L)", 50, 50, 50, 99, Left, Down, old => new XY(old.Y - 50, 100)),
+            new Part2Wrap(
+                "E to B (R)",
+                99,
+                99,
+                100,
+                149,
+                Right,
+                Left,
+                old => new XY(149, 149 - old.Y)
+            ),
+            new Part2Wrap(
+                "D to F (D)",
+                50,
+                99,
+                149,
+                149,
+                Down,
+                Left,
+                old => new XY(49, 100 + old.X)
+            ),
+            new Part2Wrap(
+                "E to A (L)",
+                0,
+                0,
+                100,
+                149,
+                Left,
+                Right,
+                old => new XY(50, 149 - old.Y)
+            ),
+            new Part2Wrap("E to C (U)", 0, 49, 100, 100, Up, Right, old => new XY(50, 50 + old.X)),
+            new Part2Wrap("F to A (L)", 0, 0, 150, 199, Left, Down, old => new XY(old.Y - 100, 0)),
+            new Part2Wrap("F to B (D)", 0, 49, 199, 199, Down, Down, old => new XY(old.X + 100, 0)),
+            new Part2Wrap(
+                "F to D (R)",
+                49,
+                49,
+                150,
+                199,
+                Right,
+                Up,
+                old => new XY(old.Y - 100, 149)
+            ),
+        };
 
     private static void Print(char[,] grid)
     {
@@ -151,7 +201,16 @@ public static class AOC2022_22
         public XY NewDirection { get; }
         public Func<XY, XY> Transform { get; }
 
-        public Part2Wrap(string desc, int minX, int maxX, int minY, int maxY, XY oldDirection, XY newDirection, Func<XY, XY> transform)
+        public Part2Wrap(
+            string desc,
+            int minX,
+            int maxX,
+            int minY,
+            int maxY,
+            XY oldDirection,
+            XY newDirection,
+            Func<XY, XY> transform
+        )
         {
             Desc = desc;
             MinX = minX;
@@ -214,7 +273,8 @@ public static class AOC2022_22
                     }
 
                     curr = new(x, curr.Y);
-                    if (grid[curr.Y, curr.X] != '.') throw new InvalidOperationException("oops");
+                    if (grid[curr.Y, curr.X] != '.')
+                        throw new InvalidOperationException("oops");
                 }
                 if (direction == Left)
                 {
@@ -230,7 +290,8 @@ public static class AOC2022_22
                     }
 
                     curr = new(x, curr.Y);
-                    if (grid[curr.Y, curr.X] != '.') throw new InvalidOperationException("oops");
+                    if (grid[curr.Y, curr.X] != '.')
+                        throw new InvalidOperationException("oops");
                 }
                 if (direction == Up)
                 {
@@ -246,7 +307,8 @@ public static class AOC2022_22
                     }
 
                     curr = new(curr.X, y);
-                    if (grid[curr.Y, curr.X] != '.') throw new InvalidOperationException("oops");
+                    if (grid[curr.Y, curr.X] != '.')
+                        throw new InvalidOperationException("oops");
                 }
                 if (direction == Down)
                 {
@@ -262,7 +324,8 @@ public static class AOC2022_22
                     }
 
                     curr = new(curr.X, y);
-                    if (grid[curr.Y, curr.X] != '.') throw new InvalidOperationException("oops");
+                    if (grid[curr.Y, curr.X] != '.')
+                        throw new InvalidOperationException("oops");
                 }
             }
             else if (nextCh == '#')
@@ -312,7 +375,10 @@ public static class AOC2022_22
             }
             else if (nextCh == ' ')
             {
-                var wrapToApply = Part2Wraps.Single(w => InRange(curr, w.MinX, w.MaxX, w.MinY, w.MaxY) && direction == w.OldDirection);
+                var wrapToApply = Part2Wraps.Single(
+                    w =>
+                        InRange(curr, w.MinX, w.MaxX, w.MinY, w.MaxY) && direction == w.OldDirection
+                );
                 XY wrappedPos = wrapToApply.Transform(curr);
 
                 char charAfterWrap = grid[wrappedPos.Y, wrappedPos.X];

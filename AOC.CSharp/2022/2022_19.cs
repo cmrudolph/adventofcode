@@ -36,7 +36,9 @@ public static class AOC2022_19
 
     private class Solver
     {
-        private static readonly Material[] OrderedMats = Enum.GetValues<Material>().OrderByDescending(x => x).ToArray();
+        private static readonly Material[] OrderedMats = Enum.GetValues<Material>()
+            .OrderByDescending(x => x)
+            .ToArray();
 
         private static readonly int Geode = (int)Material.Geode;
         private static readonly int Obsidian = (int)Material.Obsidian;
@@ -64,8 +66,7 @@ public static class AOC2022_19
             int minute = 1;
             while (minute < minutes + 1)
             {
-                var prioritized = q
-                    .OrderByDescending(qe => qe.RobotFitness)
+                var prioritized = q.OrderByDescending(qe => qe.RobotFitness)
                     .ThenByDescending(qe => qe.ResourceFitness)
                     .Take(queueKeep)
                     .ToList();
@@ -98,7 +99,8 @@ public static class AOC2022_19
                                 // Add the new robot we just built
                                 curr.RobotCounts[(int)materialBuy]++;
 
-                                QueueEntry newQEntry = new(curr.RobotCounts, curr.Resources, minute);
+                                QueueEntry newQEntry =
+                                    new(curr.RobotCounts, curr.Resources, minute);
                                 q.Enqueue(newQEntry);
 
                                 // Revert the purchase
@@ -260,7 +262,14 @@ public static class AOC2022_19
 
                 long[] cost = { 0, costObsidian, costClay, costOre };
 
-                robots.Add(new Robot { Material = robotMaterial, Produces = produces, Costs = cost, });
+                robots.Add(
+                    new Robot
+                    {
+                        Material = robotMaterial,
+                        Produces = produces,
+                        Costs = cost,
+                    }
+                );
             }
 
             _templates = robots.ToDictionary(r => r.Material);
@@ -291,8 +300,16 @@ public static class AOC2022_19
             // public long RobotFitness => RobotCounts[Geode] << 48 | RobotCounts[Obsidian] << 32 | RobotCounts[Clay] << 16 | RobotCounts[Ore];
             // public long ResourceFitness => Resources[Geode] << 48 | Resources[Obsidian] << 32 | Resources[Clay] << 16 | Resources[Ore];
 
-            public long RobotFitness => (RobotCounts[Geode] * 1000) | (RobotCounts[Obsidian] * 100) | (RobotCounts[Clay] * 10) | RobotCounts[Ore];
-            public long ResourceFitness => (Resources[Geode] * 1000) | (Resources[Obsidian] * 100) | (Resources[Clay] * 10) | Resources[Ore];
+            public long RobotFitness =>
+                (RobotCounts[Geode] * 1000)
+                | (RobotCounts[Obsidian] * 100)
+                | (RobotCounts[Clay] * 10)
+                | RobotCounts[Ore];
+            public long ResourceFitness =>
+                (Resources[Geode] * 1000)
+                | (Resources[Obsidian] * 100)
+                | (Resources[Clay] * 10)
+                | Resources[Ore];
         }
 
         private enum Material

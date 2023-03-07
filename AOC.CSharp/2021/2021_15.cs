@@ -159,13 +159,14 @@ public static class AOC2021_15
     {
         List<Cell> results = new();
 
-        List<Tuple<int, int>> neighbors = new()
-        {
-            Tuple.Create(curr.X, curr.Y - 1), // N
-            Tuple.Create(curr.X + 1, curr.Y), // E
-            Tuple.Create(curr.X, curr.Y + 1), // S
-            Tuple.Create(curr.X - 1, curr.Y), // W
-        };
+        List<Tuple<int, int>> neighbors =
+            new()
+            {
+                Tuple.Create(curr.X, curr.Y - 1), // N
+                Tuple.Create(curr.X + 1, curr.Y), // E
+                Tuple.Create(curr.X, curr.Y + 1), // S
+                Tuple.Create(curr.X - 1, curr.Y), // W
+            };
 
         foreach (Tuple<int, int> neighbor in neighbors)
         {

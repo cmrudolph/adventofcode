@@ -149,37 +149,37 @@ public static class AOC2022_18
             var p2 = p1 with { Y = p1.Y + 1 };
             var p3 = p1 with { X = p1.X + 1 };
             var p4 = p1 with { X = p1.X + 1, Y = p1.Y + 1 };
-            sides.Add(new Side(new List<Point>{ p1, p2, p3, p4 }));
+            sides.Add(new Side(new List<Point> { p1, p2, p3, p4 }));
 
             p1 = p1 with { X = p1.X + 1 };
             p2 = p2 with { X = p2.X + 1 };
             p3 = p3 with { Z = p3.Z + 1 };
             p4 = p4 with { Z = p4.Z + 1 };
-            sides.Add(new Side(new List<Point>{ p1, p2, p3, p4 }));
+            sides.Add(new Side(new List<Point> { p1, p2, p3, p4 }));
 
             p1 = p1 with { Z = p1.Z + 1 };
             p2 = p2 with { Z = p2.Z + 1 };
             p3 = p3 with { X = p3.X - 1 };
             p4 = p4 with { X = p4.X - 1 };
-            sides.Add(new Side(new List<Point>{ p1, p2, p3, p4 }));
+            sides.Add(new Side(new List<Point> { p1, p2, p3, p4 }));
 
             p1 = p1 with { X = p1.X - 1 };
             p2 = p2 with { X = p2.X - 1 };
             p3 = p3 with { Z = p3.Z - 1 };
             p4 = p4 with { Z = p4.Z - 1 };
-            sides.Add(new Side(new List<Point>{ p1, p2, p3, p4 }));
+            sides.Add(new Side(new List<Point> { p1, p2, p3, p4 }));
 
             var pTop1 = p1 with { Y = p1.Y + 1 };
             var pTop2 = p2 with { Z = p2.Z + 1 };
             var pTop3 = p3 with { Y = p3.Y + 1 };
             var pTop4 = p4 with { Z = p4.Z + 1 };
-            sides.Add(new Side(new List<Point>{ pTop1, pTop2, pTop3, pTop4 }));
+            sides.Add(new Side(new List<Point> { pTop1, pTop2, pTop3, pTop4 }));
 
             var pBottom1 = p1 with { Z = p1.Z + 1 };
             var pBottom2 = p2 with { Y = p2.Y - 1 };
             var pBottom3 = p3 with { Z = p3.Z + 1 };
             var pBottom4 = p4 with { Y = p4.Y - 1 };
-            sides.Add(new Side(new List<Point>{ pBottom1, pBottom2, pBottom3, pBottom4 }));
+            sides.Add(new Side(new List<Point> { pBottom1, pBottom2, pBottom3, pBottom4 }));
 
             InitialCorner = initialCorner;
             AsString = string.Join("||", sides.Select(x => x.AsString));

@@ -31,18 +31,20 @@ public static class AOC2015_15
         return new Ingredient(
             new[]
             {
-                    int.Parse(m.Groups[1].Value),
-                    int.Parse(m.Groups[2].Value),
-                    int.Parse(m.Groups[3].Value),
-                    int.Parse(m.Groups[4].Value),
-                    int.Parse(m.Groups[5].Value)
-            });
+                int.Parse(m.Groups[1].Value),
+                int.Parse(m.Groups[2].Value),
+                int.Parse(m.Groups[3].Value),
+                int.Parse(m.Groups[4].Value),
+                int.Parse(m.Groups[5].Value)
+            }
+        );
     }
 
     private static long FindMax(
         IEnumerable<Ingredient> ingredients,
         int teaspoons,
-        Func<long, bool> caloriePredicate)
+        Func<long, bool> caloriePredicate
+    )
     {
         State state = new(ingredients, teaspoons);
         Recurse(state, caloriePredicate);
@@ -54,9 +56,11 @@ public static class AOC2015_15
     {
         int idx = state.Ingredients.Length - state.DepthRemaining;
         state.DepthRemaining--;
-        for (int i = state.TeaspoonsRemaining;
+        for (
+            int i = state.TeaspoonsRemaining;
             (state.DepthRemaining > 0 && i >= 0) || i == state.TeaspoonsRemaining;
-            i--)
+            i--
+        )
         {
             state.Distribution[idx] = i;
             state.TeaspoonsRemaining -= i;
@@ -81,7 +85,10 @@ public static class AOC2015_15
         state.DepthRemaining++;
     }
 
-    private static (long total, long calories) Calculate(Ingredient[] ingredients, int[] distribution)
+    private static (long total, long calories) Calculate(
+        Ingredient[] ingredients,
+        int[] distribution
+    )
     {
         long[] weightTotals = new long[] { 0L, 0L, 0L, 0L };
         long calories = 0L;

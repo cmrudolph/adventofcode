@@ -25,36 +25,38 @@ public class AOC2016_12
             switch (inst)
             {
                 case "cpy":
-                    {
-                        string src = splits[1];
-                        string destReg = splits[2];
-                        int value = char.IsDigit(src[0]) ? int.Parse(src) : registers.Get(src);
-                        registers.Set(destReg, value);
-                        i++;
-                        break;
-                    }
+                {
+                    string src = splits[1];
+                    string destReg = splits[2];
+                    int value = char.IsDigit(src[0]) ? int.Parse(src) : registers.Get(src);
+                    registers.Set(destReg, value);
+                    i++;
+                    break;
+                }
                 case "inc":
-                    {
-                        string reg = splits[1];
-                        registers.Transform(reg, v => v + 1);
-                        i++;
-                        break;
-                    }
+                {
+                    string reg = splits[1];
+                    registers.Transform(reg, v => v + 1);
+                    i++;
+                    break;
+                }
                 case "dec":
-                    {
-                        string reg = splits[1];
-                        registers.Transform(reg, v => v - 1);
-                        i++;
-                        break;
-                    }
+                {
+                    string reg = splits[1];
+                    registers.Transform(reg, v => v - 1);
+                    i++;
+                    break;
+                }
                 case "jnz":
-                    {
-                        string cmpValueRaw = splits[1];
-                        int cmpValue = char.IsDigit(cmpValueRaw[0]) ? int.Parse(cmpValueRaw) : registers.Get(cmpValueRaw);
-                        int jmpAmount = cmpValue == 0 ? 1 : int.Parse(splits[2]);
-                        i += jmpAmount;
-                        break;
-                    }
+                {
+                    string cmpValueRaw = splits[1];
+                    int cmpValue = char.IsDigit(cmpValueRaw[0])
+                        ? int.Parse(cmpValueRaw)
+                        : registers.Get(cmpValueRaw);
+                    int jmpAmount = cmpValue == 0 ? 1 : int.Parse(splits[2]);
+                    i += jmpAmount;
+                    break;
+                }
             }
         }
 

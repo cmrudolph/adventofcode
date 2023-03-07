@@ -18,13 +18,8 @@ public static class AOC2022_23
     {
         char[,] grid = Parse(lines);
 
-        List<Func<char[,], XY, Direction?>> tryMoves = new()
-        {
-            TryMoveNorth,
-            TryMoveSouth,
-            TryMoveWest,
-            TryMoveEast,
-        };
+        List<Func<char[,], XY, Direction?>> tryMoves =
+            new() { TryMoveNorth, TryMoveSouth, TryMoveWest, TryMoveEast, };
 
         int minRow = int.MaxValue;
         int maxRow = 0;
@@ -67,7 +62,9 @@ public static class AOC2022_23
                 }
             }
 
-            Dictionary<XY, int> destCounts = moves.GroupBy(m => m.To).ToDictionary(g => g.Key, g => g.Count());
+            Dictionary<XY, int> destCounts = moves
+                .GroupBy(m => m.To)
+                .ToDictionary(g => g.Key, g => g.Count());
 
             if (part == 2 && !moves.Any())
             {
@@ -195,7 +192,13 @@ public static class AOC2022_23
         return grid[other.Y, other.X];
     }
 
-    private static (int, int, int, int) Trim(char[,] grid, int minRow, int maxRow, int minCol, int maxCol)
+    private static (int, int, int, int) Trim(
+        char[,] grid,
+        int minRow,
+        int maxRow,
+        int minCol,
+        int maxCol
+    )
     {
         for (int row = minRow; row <= maxRow; row++)
         {

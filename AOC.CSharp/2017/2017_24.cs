@@ -39,9 +39,16 @@ public static class AOC2017_24
         return bestStrength;
     }
 
-    private static void FindStrongest(Component[] comps, Dictionary<int, List<Component>> lookup, int searchVal, ref int best)
+    private static void FindStrongest(
+        Component[] comps,
+        Dictionary<int, List<Component>> lookup,
+        int searchVal,
+        ref int best
+    )
     {
-        List<Component> candidates = lookup.TryGetValue(searchVal, out List<Component> found) ? found : Empty;
+        List<Component> candidates = lookup.TryGetValue(searchVal, out List<Component> found)
+            ? found
+            : Empty;
         foreach (Component c in candidates)
         {
             int? next = c.TryUse(searchVal);
@@ -56,9 +63,17 @@ public static class AOC2017_24
         }
     }
 
-    private static void FindLongest(Component[] comps, Dictionary<int, List<Component>> lookup, int searchVal, ref int bestLen, ref int bestStrength)
+    private static void FindLongest(
+        Component[] comps,
+        Dictionary<int, List<Component>> lookup,
+        int searchVal,
+        ref int bestLen,
+        ref int bestStrength
+    )
     {
-        List<Component> candidates = lookup.TryGetValue(searchVal, out List<Component> found) ? found : Empty;
+        List<Component> candidates = lookup.TryGetValue(searchVal, out List<Component> found)
+            ? found
+            : Empty;
         foreach (Component c in candidates)
         {
             int? next = c.TryUse(searchVal);

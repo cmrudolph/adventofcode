@@ -68,8 +68,7 @@ public class AOC2016_20
 
         public bool CanMergeWith(Range r)
         {
-            return
-                Start < r.Start && End >= r.Start - 1
+            return Start < r.Start && End >= r.Start - 1
                 || r.Start < Start && r.End >= Start - 1
                 || End > r.End && Start <= r.End + 1
                 || r.End > End && r.Start <= End + 1;

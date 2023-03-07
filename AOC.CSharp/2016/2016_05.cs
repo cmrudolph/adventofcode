@@ -16,7 +16,13 @@ public static class AOC2016_05
 
         while (password.Length < 8)
         {
-            ValidHashResult[] results = TryGenerateResultsChunk(prefix, i, i + ChunkSize, password.Length, ParallelWorkers);
+            ValidHashResult[] results = TryGenerateResultsChunk(
+                prefix,
+                i,
+                i + ChunkSize,
+                password.Length,
+                ParallelWorkers
+            );
             for (int j = 0; password.Length < 8 && j < results.Length; j++)
             {
                 ValidHashResult result = results[j];
@@ -39,7 +45,13 @@ public static class AOC2016_05
 
         while (passwordChars < 8)
         {
-            ValidHashResult[] results = TryGenerateResultsChunk(prefix, i, i + ChunkSize, null, ParallelWorkers);
+            ValidHashResult[] results = TryGenerateResultsChunk(
+                prefix,
+                i,
+                i + ChunkSize,
+                null,
+                ParallelWorkers
+            );
             for (int j = 0; passwordChars < 8 && j < results.Length; j++)
             {
                 ValidHashResult result = results[j];
@@ -60,7 +72,8 @@ public static class AOC2016_05
         int startIdxInc,
         int endIdxExc,
         int? pos,
-        int parallel)
+        int parallel
+    )
     {
         int totalToCalc = endIdxExc - startIdxInc;
         int workSize = totalToCalc / parallel;
@@ -78,11 +91,22 @@ public static class AOC2016_05
             ranges.Add(Tuple.Create(start, end));
         }
 
-        Parallel.For(0, parallel, i =>
-        {
-            int arrOffset = i * workSize;
-            ComputeHashResultsSingleWorker(arr, prefix, arrOffset, ranges[i].Item1, ranges[i].Item2, pos);
-        });
+        Parallel.For(
+            0,
+            parallel,
+            i =>
+            {
+                int arrOffset = i * workSize;
+                ComputeHashResultsSingleWorker(
+                    arr,
+                    prefix,
+                    arrOffset,
+                    ranges[i].Item1,
+                    ranges[i].Item2,
+                    pos
+                );
+            }
+        );
 
         return arr.Where(a => a != null).ToArray();
     }
@@ -93,7 +117,8 @@ public static class AOC2016_05
         int arrOffset,
         int startIdxInc,
         int endIdxExc,
-        int? pos)
+        int? pos
+    )
     {
         StringBuilder hashSb = new();
         MD5 md5 = MD5.Create();
@@ -105,7 +130,12 @@ public static class AOC2016_05
         }
     }
 
-    private static ValidHashResult TryGetHashResult(MD5 md5, StringBuilder hashSb, string toHash, int? pos)
+    private static ValidHashResult TryGetHashResult(
+        MD5 md5,
+        StringBuilder hashSb,
+        string toHash,
+        int? pos
+    )
     {
         byte[] bytes = Encoding.ASCII.GetBytes(toHash);
         byte[] hashed = md5.ComputeHash(bytes);
@@ -131,9 +161,7 @@ public static class AOC2016_05
             // Vary where we find the password value based on whether or not we were passed a position
             if (finalPos > -1)
             {
-                char value = pos.HasValue
-                    ? asStr[5]
-                    : asStr[6];
+                char value = pos.HasValue ? asStr[5] : asStr[6];
 
                 return new ValidHashResult(finalPos, value);
             }

@@ -4,17 +4,12 @@ public static class AOC2016_03
 {
     public static long Solve1(string[] lines)
     {
-        return lines
-            .Select(Parse1)
-            .Select(TestForValidTriangle)
-            .Count(result => result);
+        return lines.Select(Parse1).Select(TestForValidTriangle).Count(result => result);
     }
 
     public static long Solve2(string[] lines)
     {
-        return Parse2(lines)
-            .Select(TestForValidTriangle)
-            .Count(result => result);
+        return Parse2(lines).Select(TestForValidTriangle).Count(result => result);
     }
 
     private static int[] Parse1(string line)

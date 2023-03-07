@@ -5,7 +5,9 @@ namespace AOC.CSharp;
 public class AOC2016_10
 {
     private static Regex InitialValueRegex = new Regex(@"value (\d+) goes to bot (\d+)");
-    private static Regex AssignRegex = new Regex(@"bot (\d+) gives low to (\w+) (\d+) and high to (\w+) (\d+)");
+    private static Regex AssignRegex = new Regex(
+        @"bot (\d+) gives low to (\w+) (\d+) and high to (\w+) (\d+)"
+    );
 
     public static long Solve1(string[] lines, string extra)
     {
@@ -27,11 +29,13 @@ public class AOC2016_10
         var initials = lines.Select(TryParseInitial).Where(i => i != null).ToList();
         var assigns = lines.Select(TryParseAssign).Where(i => i != null).ToList();
 
-        // Figure out how big our bot and output collections need to be based on the data we are working with
+        // Figure out how big our bot and output collections need to be based on the data
+        // we are working with
         int maxBot = Math.Max(initials.Max(i => i.Bot), assigns.Max(a => a.Bot));
         int maxOutput = Math.Max(
             assigns.Where(a => a.LowType == AssignType.Output).Max(a => a.Low),
-            assigns.Where(a => a.HighType == AssignType.Output).Max(a => a.High));
+            assigns.Where(a => a.HighType == AssignType.Output).Max(a => a.High)
+        );
 
         Bot[] bots = new Bot[maxBot + 1];
         int[] outputs = new int[maxOutput + 1];
@@ -75,7 +79,8 @@ public class AOC2016_10
             }
         }
 
-        var result1 = bots.FirstOrDefault(b => b.Low == targets[0] && b.High == targets[1])?.Num ?? 0L;
+        var result1 =
+            bots.FirstOrDefault(b => b.Low == targets[0] && b.High == targets[1])?.Num ?? 0L;
         var result2 = outputs[0] * outputs[1] * outputs[2];
 
         return (result1, result2);

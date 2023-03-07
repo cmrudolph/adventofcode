@@ -37,7 +37,8 @@ public static class AOC2016_07
         string s,
         int length,
         bool inside,
-        Func<string, int, string> getSequence)
+        Func<string, int, string> getSequence
+    )
     {
         List<string> results = new();
         bool isInside = false;
@@ -87,9 +88,7 @@ public static class AOC2016_07
         int end = start + 2;
         if (end < s.Length)
         {
-            bool isSequence =
-                s[start] == s[start + 2]
-                && s[start] != s[start + 1];
+            bool isSequence = s[start] == s[start + 2] && s[start] != s[start + 1];
 
             if (isSequence)
             {

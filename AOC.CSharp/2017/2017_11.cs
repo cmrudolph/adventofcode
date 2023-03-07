@@ -4,22 +4,19 @@ namespace AOC.CSharp;
 
 public static class AOC2017_11
 {
-    private static readonly List<Tuple<string, string>> CancelPairs = new()
-    {
-        Tuple.Create("ne", "sw"),
-        Tuple.Create("nw", "se"),
-        Tuple.Create("n", "s"),
-    };
+    private static readonly List<Tuple<string, string>> CancelPairs =
+        new() { Tuple.Create("ne", "sw"), Tuple.Create("nw", "se"), Tuple.Create("n", "s"), };
 
-    private static readonly List<Tuple<string, string, string>> ChangePairs = new()
-    {
-        Tuple.Create("nw", "ne", "n"),
-        Tuple.Create("sw", "se", "s"),
-        Tuple.Create("ne", "s", "se"),
-        Tuple.Create("se", "n", "ne"),
-        Tuple.Create("nw", "s", "sw"),
-        Tuple.Create("sw", "n", "nw"),
-    };
+    private static readonly List<Tuple<string, string, string>> ChangePairs =
+        new()
+        {
+            Tuple.Create("nw", "ne", "n"),
+            Tuple.Create("sw", "se", "s"),
+            Tuple.Create("ne", "s", "se"),
+            Tuple.Create("se", "n", "ne"),
+            Tuple.Create("nw", "s", "sw"),
+            Tuple.Create("sw", "n", "nw"),
+        };
 
     public static long Solve1(string[] lines)
     {
@@ -52,7 +49,8 @@ public static class AOC2017_11
 
     private static Dictionary<string, int> InitCounts()
     {
-        return new Dictionary<string, int> {
+        return new Dictionary<string, int>
+        {
             { "ne", 0 },
             { "se", 0 },
             { "s", 0 },
