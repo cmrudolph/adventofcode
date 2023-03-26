@@ -166,6 +166,33 @@ public class Tests
         public void _2_Actual() => Actual(40688, AOC2018_08.Solve2, "08");
     }
 
+    private class Day09
+    {
+        [TestCase("10 players; last marble is worth 1618 points", 8317)]
+        [TestCase("13 players; last marble is worth 7999 points", 146373)]
+        [TestCase("17 players; last marble is worth 1104 points", 2764)]
+        [TestCase("21 players; last marble is worth 6111 points", 54718)]
+        [TestCase("30 players; last marble is worth 5807 points", 37305)]
+        [Category("Fast")]
+        public void _1_Cases(string input, int expected)
+        {
+            long result = AOC2018_09.Solve1(new[] { input });
+            result.Should().Be(expected);
+        }
+
+        [Test, Category("Fast")]
+        public void _1_Sample() => Sample(32, AOC2018_09.Solve1, "09");
+
+        [Test, Category("Fast")]
+        public void _1_Actual() => Actual(408679, AOC2018_09.Solve1, "09");
+
+        [Test, Category("Fast")]
+        public void _2_Sample() => Sample(22563L, AOC2018_09.Solve2, "09");
+
+        [Test, Category("Slow")]
+        public void _2_Actual() => Actual(3443939356L, AOC2018_09.Solve2, "09");
+    }
+
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
     {
         TestUtils.Test(expected, solver, TestUtils.ReadInput("2018", day, "actual"));
