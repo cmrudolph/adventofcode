@@ -1,4 +1,4 @@
-﻿namespace AOC.CSharp;
+namespace AOC.CSharp;
 
 public static class AOC2018_02
 {

@@ -1,6 +1,6 @@
 namespace AOC.CSharp;
 
-public static class AOC2018_XX
+public static class AOC2018_19
 {
     public static long Solve1(string[] lines)
     {

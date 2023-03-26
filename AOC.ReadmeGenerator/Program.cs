@@ -25,6 +25,7 @@ class Program
             .Concat(Directory.GetFiles(searchRoot, "aoc*_*.py", SearchOption.AllDirectories))
             .Concat(Directory.GetFiles(searchRoot, "*_*.go", SearchOption.AllDirectories))
             .Where(f => !f.Contains("XX"))
+            .Where(f => !Path.GetFileName(f).StartsWith("_"))
             .Where(f => !f.Contains("test"))
             .Select(f => Create(searchRoot, f))
             .OrderBy(f => f.SortName)
