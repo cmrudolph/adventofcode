@@ -88,6 +88,9 @@
 **Day 5** | [Alchemical Reduction](/AOC.CSharp/2018/2018_05.cs) | C#</br>
 **Day 6** | [Chronal Coordinates](/AOC.CSharp/2018/2018_06.cs) | C#</br>
 **Day 7** | [The Sum of Its Parts](/AOC.CSharp/2018/2018_07.cs) | C#</br>
+**Day 8** | [Memory Maneuver](/AOC.CSharp/2018/2018_08.cs) | C#</br>
+**Day 9** | [Marble Mania](/AOC.CSharp/2018/2018_09.cs) | C#</br>
+**Day 10** | [The Stars Align](/AOC.CSharp/2018/2018_10.cs) | C#</br>
 </br>
 # 2019
 **Day 1** | [TODO](/AOC.CSharp/2019/2019_01.cs) | C#</br>
@@ -195,5 +198,5 @@
 **Day 22** | [Monkey Map](/AOC.CSharp/2022/2022_22.cs) | C#</br>
 **Day 23** | [Unstable Diffusion](/AOC.CSharp/2022/2022_23.cs) | C#</br>
 **Day 24** | [Blizzard Basin](/AOC.CSharp/2022/2022_24.cs) | C#</br>
-**Day 25** | [TODO](/AOC.CSharp/2022/2022_25.cs) | C#</br>
+**Day 25** | [Full of Hot Air](/AOC.CSharp/2022/2022_25.cs) | C#</br>
 </br>

@@ -193,6 +193,17 @@ public class Tests
         public void _2_Actual() => Actual(3443939356L, AOC2018_09.Solve2, "09");
     }
 
+    private class Day10
+    {
+        // Look at console output to see part 1 message
+        [Test, Category("Fast")]
+        public void AOC2018_10_1_Sample() => Sample(3L, AOC2018_10.Solve1, "10");
+
+        // Look at console output to see part 1 message
+        [Test, Category("Fast")]
+        public void AOC2018_10_1_Actual() => Actual(10831L, AOC2018_10.Solve1, "10");
+    }
+
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
     {
         TestUtils.Test(expected, solver, TestUtils.ReadInput("2018", day, "actual"));
