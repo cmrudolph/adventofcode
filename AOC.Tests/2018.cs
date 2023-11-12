@@ -204,14 +204,10 @@ public class Tests
         public void AOC2018_10_1_Actual() => Actual(10831L, AOC2018_10.Solve1, "10");
     }
 
-    [Ignore("TODO")]
     private class Day11
     {
         [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2018_11.Solve1, "11");
-
-        [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2018_11.Solve1, "11");
+        public void _1_Actual() => Actual("19,17", AOC2018_11.Solve1, "11");
 
         [Test, Category("New")]
         public void _2_Sample() => Sample(-1, AOC2018_11.Solve2, "11");
