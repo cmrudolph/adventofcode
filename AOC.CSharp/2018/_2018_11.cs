@@ -39,9 +39,9 @@ public static class AOC2018_11
                 }
             }
 
-            for (int x = grid; x <= 301 - grid; x++)
+            for (int x = grid; x <= 300; x++)
             {
-                for (int y = grid; y <= 301 - grid; y++)
+                for (int y = 1; y <= 300; y++)
                 {
                     colSums[y] -= levels[x - grid, y];
                     colSums[y] += levels[x, y];
@@ -61,7 +61,7 @@ public static class AOC2018_11
                     bestGrid = grid;
                 }
 
-                for (int y = grid; y <= 301 - grid; y++)
+                for (int y = grid; y < 300; y++)
                 {
                     sum -= colSums[y - grid];
                     sum += colSums[y];
@@ -77,7 +77,7 @@ public static class AOC2018_11
             }
         }
 
-        return new Result(bestX, bestY, bestGrid, best);
+        return new Result(bestX, bestY, bestGrid);
     }
 
     private static long[,] CalculateLevels(int min, int max, int input)
@@ -107,5 +107,5 @@ public static class AOC2018_11
         return digit - 5;
     }
 
-    private record Result(int X, int Y, int Grid, long Best);
+    private record Result(int X, int Y, int Grid);
 }
