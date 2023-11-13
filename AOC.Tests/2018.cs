@@ -206,14 +206,11 @@ public class Tests
 
     private class Day11
     {
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void _1_Actual() => Actual("19,17", AOC2018_11.Solve1, "11");
 
         [Test, Category("New")]
-        public void _2_Sample() => Sample(-1, AOC2018_11.Solve2, "11");
-
-        [Test, Category("New")]
-        public void _2_Actual() => Actual(-1, AOC2018_11.Solve2, "11");
+        public void _2_Actual() => Actual("BEYONCE", AOC2018_11.Solve2, "11");
     }
 
     [Ignore("TODO")]
