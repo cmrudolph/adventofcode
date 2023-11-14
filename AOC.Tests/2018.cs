@@ -213,19 +213,15 @@ public class Tests
         public void _2_Actual() => Actual("233,288,12", AOC2018_11.Solve2, "11");
     }
 
-    [Ignore("TODO")]
     private class Day12
     {
-        [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2018_12.Solve1, "12");
+        [Test, Category("Fast")]
+        public void _1_Sample() => Sample(325, AOC2018_12.Solve1, "12");
 
-        [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2018_12.Solve1, "12");
+        [Test, Category("Fast")]
+        public void _1_Actual() => Actual(3248, AOC2018_12.Solve1, "12");
 
-        [Test, Category("New")]
-        public void _2_Sample() => Sample(-1, AOC2018_12.Solve2, "12");
-
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void _2_Actual() => Actual(-1, AOC2018_12.Solve2, "12");
     }
 
