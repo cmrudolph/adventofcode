@@ -6,10 +6,12 @@ public static class AOC2018_13
     {
         Cell[,] grid = Parse(lines);
 
+        int i = 0;
         string crash = null;
-        while (crash == null)
+        while (crash == null && i < 5000)
         {
             (grid, crash) = Advance(grid);
+            i++;
         }
 
         return crash;
@@ -37,120 +39,45 @@ public static class AOC2018_13
 
                 if (oldCell.Cart != null)
                 {
-                    Direction? newDir = oldCell.Cart.Direction;
-                    IntersectionDirection? newIntDir = oldCell.Cart.NextDir;
+                    int? newDir = oldCell.Cart.Direction;
                     int newX = x;
                     int newY = y;
 
                     if (oldCell.Track == '+')
                     {
-                        var pair = (oldCell.Cart.Direction, oldCell.Cart.NextDir);
-                        var result = pair switch
-                        {
-                            (Direction.Up, IntersectionDirection.Left)
-                                => (Direction.Left, IntersectionDirection.Straight, x - 1, y),
-                            (Direction.Up, IntersectionDirection.Straight)
-                                => (Direction.Up, IntersectionDirection.Right, x, y - 1),
-                            (Direction.Up, IntersectionDirection.Right)
-                                => (Direction.Right, IntersectionDirection.Left, x + 1, y),
-                            (Direction.Left, IntersectionDirection.Left)
-                                => (Direction.Down, IntersectionDirection.Straight, x, y + 1),
-                            (Direction.Left, IntersectionDirection.Straight)
-                                => (Direction.Left, IntersectionDirection.Right, x - 1, y),
-                            (Direction.Left, IntersectionDirection.Right)
-                                => (Direction.Up, IntersectionDirection.Left, x, y - 1),
-                            (Direction.Down, IntersectionDirection.Left)
-                                => (Direction.Right, IntersectionDirection.Straight, x + 1, y),
-                            (Direction.Down, IntersectionDirection.Straight)
-                                => (Direction.Down, IntersectionDirection.Right, x, y + 1),
-                            (Direction.Down, IntersectionDirection.Right)
-                                => (Direction.Left, IntersectionDirection.Left, x - 1, y),
-                            (Direction.Right, IntersectionDirection.Left)
-                                => (Direction.Up, IntersectionDirection.Straight, x, y - 1),
-                            (Direction.Right, IntersectionDirection.Straight)
-                                => (Direction.Right, IntersectionDirection.Right, x + 1, y),
-                            (Direction.Right, IntersectionDirection.Right)
-                                => (Direction.Down, IntersectionDirection.Left, x, y + 1),
-                        };
-
-                        newDir = result.Item1;
-                        newIntDir = result.Item2;
-                        newX = result.Item3;
-                        newY = result.Item4;
-                    }
-                    else if (oldCell.Track == '-')
-                    {
-                        newX = oldCell.Cart.Direction switch
-                        {
-                            Direction.Left => x - 1,
-                            Direction.Right => x + 1,
-                            _
-                                => throw new InvalidOperationException(
-                                    oldCell.Cart.Direction.ToString()
-                                ),
-                        };
-                    }
-                    else if (oldCell.Track == '|')
-                    {
-                        newY = oldCell.Cart.Direction switch
-                        {
-                            Direction.Down => y + 1,
-                            Direction.Up => y - 1,
-                            _
-                                => throw new InvalidOperationException(
-                                    oldCell.Cart.Direction.ToString()
-                                ),
-                        };
+                        newDir = HandleIntersection(oldCell.Cart.Direction, oldCell.Cart.NextDir);
+                        newCell.Cart.SetNextIntersectionDirection();
                     }
                     else if (oldCell.Track == '/')
                     {
-                        if (oldCell.Cart.Direction == Direction.Up)
+                        newDir = oldCell.Cart.Direction switch
                         {
-                            newDir = Direction.Right;
-                            newX = x + 1;
-                        }
-                        else if (oldCell.Cart.Direction == Direction.Left)
-                        {
-                            newDir = Direction.Down;
-                            newY = y + 1;
-                        }
-                        else if (oldCell.Cart.Direction == Direction.Down)
-                        {
-                            newDir = Direction.Left;
-                            newX = x - 1;
-                        }
-                        else // RIGHT
-                        {
-                            newDir = Direction.Up;
-                            newY = y - 1;
-                        }
+                            Up => Right,
+                            Right => Up,
+                            Down => Left,
+                            Left => Down,
+                        };
                     }
                     else if (oldCell.Track == '\\')
                     {
-                        if (oldCell.Cart.Direction == Direction.Up)
+                        newDir = oldCell.Cart.Direction switch
                         {
-                            newDir = Direction.Left;
-                            newX = x - 1;
-                        }
-                        else if (oldCell.Cart.Direction == Direction.Left)
-                        {
-                            newDir = Direction.Up;
-                            newY = y - 1;
-                        }
-                        else if (oldCell.Cart.Direction == Direction.Down)
-                        {
-                            newDir = Direction.Right;
-                            newX = x + 1;
-                        }
-                        else // RIGHT
-                        {
-                            newDir = Direction.Down;
-                            newY = y + 1;
-                        }
+                            Up => Left,
+                            Left => Up,
+                            Down => Right,
+                            Right => Down,
+                        };
                     }
 
+                    (newX, newY) = newDir switch
+                    {
+                        Up => (x, y - 1),
+                        Right => (x + 1, y),
+                        Down => (x, y + 1),
+                        Left => (x - 1, y)
+                    };
+
                     newCell.Cart.Direction = newDir.Value;
-                    newCell.Cart.NextDir = newIntDir.Value;
 
                     if (crash == null && newGrid[newX, newY].Cart != null)
                     {
@@ -164,6 +91,34 @@ public static class AOC2018_13
         }
 
         return (newGrid, crash);
+    }
+
+    private static Cell[,] Parse(string[] lines)
+    {
+        Cell[,] grid = new Cell[lines[0].Length, lines.Length];
+
+        for (int y = 0; y < lines.Length; y++)
+        {
+            string line = lines[y];
+            for (int x = 0; x < line.Length; x++)
+            {
+                Cell cell = new();
+                char c = line[x];
+
+                char track = InitialCharToTrack(c);
+
+                int? dir2 = InitialCharToCartDirection(c);
+
+                cell.Track = track;
+                if (dir2.HasValue)
+                {
+                    cell.Cart = new() { Direction = dir2.Value, };
+                }
+                grid[x, y] = cell;
+            }
+        }
+
+        return grid;
     }
 
     private static void Print(Cell[,] grid)
@@ -181,10 +136,10 @@ public static class AOC2018_13
                 {
                     toPrint = cell.Cart.Direction switch
                     {
-                        Direction.Down => 'v',
-                        Direction.Left => '<',
-                        Direction.Up => '^',
-                        Direction.Right => '>',
+                        Down => 'v',
+                        Left => '<',
+                        Up => '^',
+                        Right => '>',
                         _ => throw new InvalidOperationException(cell.Cart.Direction.ToString()),
                     };
                 }
@@ -225,47 +180,43 @@ public static class AOC2018_13
         return grid;
     }
 
-    private static Cell[,] Parse(string[] lines)
+    private static int HandleIntersection(int dir, IntersectionDirection intDir)
     {
-        Cell[,] grid = new Cell[lines[0].Length, lines.Length];
-
-        for (int y = 0; y < lines.Length; y++)
+        int adjustment = intDir switch
         {
-            string line = lines[y];
-            for (int x = 0; x < line.Length; x++)
-            {
-                Cell cell = new();
-                char c = line[x];
+            IntersectionDirection.Left => -1,
+            IntersectionDirection.Straight => 0,
+            IntersectionDirection.Right => 1,
+        };
 
-                char track = c switch
-                {
-                    '>' => '-',
-                    '<' => '-',
-                    'v' => '|',
-                    '^' => '|',
-                    _ => c,
-                };
-
-                Direction? dir = c switch
-                {
-                    '>' => Direction.Right,
-                    '<' => Direction.Left,
-                    'v' => Direction.Down,
-                    '^' => Direction.Up,
-                    _ => null,
-                };
-
-                cell.Track = track;
-                if (dir.HasValue)
-                {
-                    cell.Cart = new() { Direction = dir.Value, };
-                }
-                grid[x, y] = cell;
-            }
+        int newDir = (dir + adjustment) % 4;
+        if (newDir < 0)
+        {
+            newDir += 4;
         }
 
-        return grid;
+        return newDir;
     }
+
+    private static int? InitialCharToCartDirection(char c) =>
+        c switch
+        {
+            '^' => Up,
+            '>' => Right,
+            'v' => Down,
+            '<' => Left,
+            _ => null,
+        };
+
+    private static char InitialCharToTrack(char c) =>
+        c switch
+        {
+            '>' => '-',
+            '<' => '-',
+            'v' => '|',
+            '^' => '|',
+            _ => c,
+        };
 
     private class Cell
     {
@@ -275,22 +226,24 @@ public static class AOC2018_13
 
     private class Cart
     {
-        public Direction Direction { get; set; }
+        public int Direction { get; set; }
         public IntersectionDirection NextDir { get; set; } = IntersectionDirection.Left;
+
+        public void SetNextIntersectionDirection()
+        {
+            NextDir = (IntersectionDirection)((int)(NextDir + 1) % 3);
+        }
     }
 
-    private enum Direction
-    {
-        Up,
-        Right,
-        Down,
-        Left,
-    }
+    private const int Up = 0;
+    private const int Right = 1;
+    private const int Down = 2;
+    private const int Left = 3;
 
     private enum IntersectionDirection
     {
-        Left,
-        Straight,
-        Right,
+        Left = 0,
+        Straight = 1,
+        Right = 2,
     }
 }
