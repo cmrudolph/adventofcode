@@ -4,7 +4,7 @@ public static class AOC2018_13
 {
     public static string Solve1(string[] lines)
     {
-        (Cell[,] grid, Dictionary<(int, int), Cart> carts) = Parse(lines);
+        (char[,] grid, CartLookup carts) = Parse(lines);
 
         int i = 0;
         string crash = null;
@@ -22,34 +22,31 @@ public static class AOC2018_13
         return "BEYONCE";
     }
 
-    private static (string, Dictionary<(int, int), Cart>) Advance(
-        Cell[,] grid,
-        Dictionary<(int, int), Cart> carts
-    )
+    private static (string, CartLookup) Advance(char[,] grid, CartLookup carts)
     {
         string crash = null;
-        Dictionary<(int, int), Cart> newCarts = Clone(carts);
+        CartLookup newCarts = carts.Clone();
 
-        var cartsToProcess = carts.Values.OrderBy(x => x.Y).ThenBy(x => x.X).ToList();
+        var cartsToProcess = carts.InProcessOrder();
         foreach (Cart cart in cartsToProcess)
         {
             int x = cart.X;
             int y = cart.Y;
 
-            Cell cell = grid[x, y];
-            Cart oldCart = carts.GetValueOrDefault((x, y), null);
-            Cart newCart = newCarts.GetValueOrDefault((x, y), null);
+            char track = grid[x, y];
+            Cart oldCart = carts.Get(x, y);
+            Cart newCart = newCarts.Get(x, y);
 
             if (oldCart != null)
             {
                 int? newDir = oldCart.Direction;
 
-                if (cell.Track == '+')
+                if (track == '+')
                 {
                     newDir = HandleIntersection(oldCart.Direction, oldCart.NextDir);
                     newCart.SetNextIntersectionDirection();
                 }
-                else if (cell.Track == '/')
+                else if (track == '/')
                 {
                     newDir = oldCart.Direction switch
                     {
@@ -59,7 +56,7 @@ public static class AOC2018_13
                         Left => Down,
                     };
                 }
-                else if (cell.Track == '\\')
+                else if (track == '\\')
                 {
                     newDir = oldCart.Direction switch
                     {
@@ -82,38 +79,34 @@ public static class AOC2018_13
                 newCart.X = newX;
                 newCart.Y = newY;
 
-                if (crash == null && newCarts.ContainsKey((newX, newY)))
+                if (crash == null && newCarts.Has(newX, newY))
                 {
                     crash = $"{newX},{newY}";
                     return (crash, newCarts);
                 }
 
-                newCarts.Remove((x, y));
-                newCarts.Add((newX, newY), newCart);
+                newCarts.Remove(x, y);
+                newCarts.Add(newX, newY, newCart);
             }
         }
 
         return (null, newCarts);
     }
 
-    private static (Cell[,], Dictionary<(int, int), Cart>) Parse(string[] lines)
+    private static (char[,], CartLookup) Parse(string[] lines)
     {
-        Cell[,] grid = new Cell[lines[0].Length, lines.Length];
-        Dictionary<(int, int), Cart> carts = new();
+        char[,] grid = new char[lines[0].Length, lines.Length];
+        CartLookup carts = new();
 
         for (int y = 0; y < lines.Length; y++)
         {
             string line = lines[y];
             for (int x = 0; x < line.Length; x++)
             {
-                Cell cell = new();
                 char c = line[x];
-
                 char track = InitialCharToTrack(c);
-
                 int? dir2 = InitialCharToCartDirection(c);
 
-                cell.Track = track;
                 if (dir2.HasValue)
                 {
                     Cart cart =
@@ -123,60 +116,13 @@ public static class AOC2018_13
                             X = x,
                             Y = y,
                         };
-                    carts.Add((x, y), cart);
+                    carts.Add(x, y, cart);
                 }
-                grid[x, y] = cell;
+                grid[x, y] = track;
             }
         }
 
         return (grid, carts);
-    }
-
-    private static void Print(Cell[,] grid, Dictionary<(int, int), Cart> carts)
-    {
-        int rows = grid.GetLength(1);
-        int cols = grid.GetLength(0);
-
-        for (int y = 0; y < rows; y++)
-        {
-            for (int x = 0; x < cols; x++)
-            {
-                Cell cell = grid[x, y];
-                Cart cart = carts.GetValueOrDefault((x, y), null);
-                char toPrint = cell.Track;
-                if (cart != null)
-                {
-                    toPrint = cart.Direction switch
-                    {
-                        Down => 'v',
-                        Left => '<',
-                        Up => '^',
-                        Right => '>',
-                        _ => throw new InvalidOperationException(cart.Direction.ToString()),
-                    };
-                }
-
-                Console.Write(toPrint);
-            }
-
-            Console.WriteLine();
-        }
-    }
-
-    private static Dictionary<(int, int), Cart> Clone(Dictionary<(int, int), Cart> carts)
-    {
-        Dictionary<(int, int), Cart> newCarts = new();
-
-        foreach (var kvp in carts)
-        {
-            var oldCart = kvp.Value;
-            newCarts.Add(
-                kvp.Key,
-                new Cart { Direction = oldCart.Direction, NextDir = oldCart.NextDir }
-            );
-        }
-
-        return newCarts;
     }
 
     private static int HandleIntersection(int dir, IntersectionDirection intDir)
@@ -217,11 +163,6 @@ public static class AOC2018_13
             _ => c,
         };
 
-    private class Cell
-    {
-        public char Track { get; set; }
-    }
-
     private class Cart
     {
         public int X { get; set; }
@@ -232,6 +173,50 @@ public static class AOC2018_13
         public void SetNextIntersectionDirection()
         {
             NextDir = (IntersectionDirection)((int)(NextDir + 1) % 3);
+        }
+    }
+
+    private class CartLookup
+    {
+        private readonly Dictionary<(int, int), Cart> _lookup = new();
+
+        public void Add(int x, int y, Cart cart)
+        {
+            _lookup.Add((x, y), cart);
+        }
+
+        public void Remove(int x, int y)
+        {
+            _lookup.Remove((x, y));
+        }
+
+        public Cart Get(int x, int y)
+        {
+            return _lookup.GetValueOrDefault((x, y), null);
+        }
+
+        public bool Has(int x, int y)
+        {
+            return _lookup.ContainsKey((x, y));
+        }
+
+        public Cart[] InProcessOrder()
+        {
+            return _lookup.Values.OrderBy(x => x.Y).ThenBy(x => x.X).ToArray();
+        }
+
+        public CartLookup Clone()
+        {
+            CartLookup newLookup = new();
+
+            foreach (var kvp in _lookup)
+            {
+                var oldCart = kvp.Value;
+                var newCart = new Cart { Direction = oldCart.Direction, NextDir = oldCart.NextDir };
+                newLookup.Add(kvp.Key.Item1, kvp.Key.Item2, newCart);
+            }
+
+            return newLookup;
         }
     }
 
