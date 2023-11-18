@@ -91,6 +91,9 @@
 **Day 8** | [Memory Maneuver](/AOC.CSharp/2018/2018_08.cs) | C#</br>
 **Day 9** | [Marble Mania](/AOC.CSharp/2018/2018_09.cs) | C#</br>
 **Day 10** | [The Stars Align](/AOC.CSharp/2018/2018_10.cs) | C#</br>
+**Day 11** | [Chronal Charge](/AOC.CSharp/2018/2018_11.cs) | C#</br>
+**Day 12** | [Subterranean Sustainability](/AOC.CSharp/2018/2018_12.cs) | C#</br>
+**Day 13** | [Mine Cart Madness](/AOC.CSharp/2018/2018_13.cs) | C#</br>
 </br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>
