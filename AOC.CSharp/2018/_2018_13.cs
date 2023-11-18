@@ -30,66 +30,66 @@ public static class AOC2018_13
         string crash = null;
         Dictionary<(int, int), Cart> newCarts = Clone(carts);
 
-        int rows = grid.GetLength(1);
-        int cols = grid.GetLength(0);
-
-        for (int y = 0; y < rows; y++)
+        var cartsToProcess = carts.Values.OrderBy(x => x.Y).ThenBy(x => x.X).ToList();
+        foreach (Cart cart in cartsToProcess)
         {
-            for (int x = 0; x < cols; x++)
+            int x = cart.X;
+            int y = cart.Y;
+
+            Cell cell = grid[x, y];
+            Cart oldCart = carts.GetValueOrDefault((x, y), null);
+            Cart newCart = newCarts.GetValueOrDefault((x, y), null);
+
+            if (oldCart != null)
             {
-                Cell cell = grid[x, y];
-                Cart oldCart = carts.GetValueOrDefault((x, y), null);
-                Cart newCart = newCarts.GetValueOrDefault((x, y), null);
+                int? newDir = oldCart.Direction;
 
-                if (oldCart != null)
+                if (cell.Track == '+')
                 {
-                    int? newDir = oldCart.Direction;
-
-                    if (cell.Track == '+')
-                    {
-                        newDir = HandleIntersection(oldCart.Direction, oldCart.NextDir);
-                        newCart.SetNextIntersectionDirection();
-                    }
-                    else if (cell.Track == '/')
-                    {
-                        newDir = oldCart.Direction switch
-                        {
-                            Up => Right,
-                            Right => Up,
-                            Down => Left,
-                            Left => Down,
-                        };
-                    }
-                    else if (cell.Track == '\\')
-                    {
-                        newDir = oldCart.Direction switch
-                        {
-                            Up => Left,
-                            Left => Up,
-                            Down => Right,
-                            Right => Down,
-                        };
-                    }
-
-                    (int newX, int newY) = newDir switch
-                    {
-                        Up => (x, y - 1),
-                        Right => (x + 1, y),
-                        Down => (x, y + 1),
-                        Left => (x - 1, y)
-                    };
-
-                    newCart.Direction = newDir.Value;
-
-                    if (crash == null && newCarts.ContainsKey((newX, newY)))
-                    {
-                        crash = $"{newX},{newY}";
-                        return (crash, newCarts);
-                    }
-
-                    newCarts.Remove((x, y));
-                    newCarts.Add((newX, newY), newCart);
+                    newDir = HandleIntersection(oldCart.Direction, oldCart.NextDir);
+                    newCart.SetNextIntersectionDirection();
                 }
+                else if (cell.Track == '/')
+                {
+                    newDir = oldCart.Direction switch
+                    {
+                        Up => Right,
+                        Right => Up,
+                        Down => Left,
+                        Left => Down,
+                    };
+                }
+                else if (cell.Track == '\\')
+                {
+                    newDir = oldCart.Direction switch
+                    {
+                        Up => Left,
+                        Left => Up,
+                        Down => Right,
+                        Right => Down,
+                    };
+                }
+
+                (int newX, int newY) = newDir switch
+                {
+                    Up => (x, y - 1),
+                    Right => (x + 1, y),
+                    Down => (x, y + 1),
+                    Left => (x - 1, y)
+                };
+
+                newCart.Direction = newDir.Value;
+                newCart.X = newX;
+                newCart.Y = newY;
+
+                if (crash == null && newCarts.ContainsKey((newX, newY)))
+                {
+                    crash = $"{newX},{newY}";
+                    return (crash, newCarts);
+                }
+
+                newCarts.Remove((x, y));
+                newCarts.Add((newX, newY), newCart);
             }
         }
 
@@ -116,7 +116,14 @@ public static class AOC2018_13
                 cell.Track = track;
                 if (dir2.HasValue)
                 {
-                    carts.Add((x, y), new Cart { Direction = dir2.Value, });
+                    Cart cart =
+                        new()
+                        {
+                            Direction = dir2.Value,
+                            X = x,
+                            Y = y,
+                        };
+                    carts.Add((x, y), cart);
                 }
                 grid[x, y] = cell;
             }
@@ -217,7 +224,8 @@ public static class AOC2018_13
 
     private class Cart
     {
-        public int Tick { get; set; } = 0;
+        public int X { get; set; }
+        public int Y { get; set; }
         public int Direction { get; set; }
         public IntersectionDirection NextDir { get; set; } = IntersectionDirection.Left;
 
