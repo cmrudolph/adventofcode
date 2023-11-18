@@ -10,7 +10,7 @@ public static class AOC2018_13
         string crash = null;
         while (crash == null && i < 5000)
         {
-            (crash, carts) = Advance(grid, carts);
+            (crash, carts) = Advance(grid, carts, true);
             i++;
         }
 
@@ -19,12 +19,21 @@ public static class AOC2018_13
 
     public static string Solve2(string[] lines)
     {
-        return "BEYONCE";
+        (char[,] grid, CartLookup carts) = Parse(lines);
+
+        int i = 0;
+        string last = null;
+        while (last == null && i < 100000)
+        {
+            (last, carts) = Advance(grid, carts, false);
+            i++;
+        }
+
+        return last;
     }
 
-    private static (string, CartLookup) Advance(char[,] grid, CartLookup carts)
+    private static (string, CartLookup) Advance(char[,] grid, CartLookup carts, bool part1)
     {
-        string crash = null;
         CartLookup newCarts = carts.Clone();
 
         var cartsToProcess = carts.InProcessOrder();
@@ -37,7 +46,7 @@ public static class AOC2018_13
             Cart oldCart = carts.Get(x, y);
             Cart newCart = newCarts.Get(x, y);
 
-            if (oldCart != null)
+            if (oldCart != null && newCart != null)
             {
                 int? newDir = oldCart.Direction;
 
@@ -79,14 +88,39 @@ public static class AOC2018_13
                 newCart.X = newX;
                 newCart.Y = newY;
 
-                if (crash == null && newCarts.Has(newX, newY))
+                if (part1)
                 {
-                    crash = $"{newX},{newY}";
-                    return (crash, newCarts);
+                    if (newCarts.Has(newX, newY))
+                    {
+                        return ($"{newX},{newY}", newCarts);
+                    }
+
+                    newCarts.Remove(x, y);
+                    newCarts.Add(newX, newY, newCart);
                 }
 
-                newCarts.Remove(x, y);
-                newCarts.Add(newX, newY, newCart);
+                if (!part1)
+                {
+                    if (newCarts.Has(newX, newY))
+                    {
+                        newCarts.Remove(x, y);
+                        newCarts.Remove(newX, newY);
+                    }
+                    else
+                    {
+                        newCarts.Remove(x, y);
+                        newCarts.Add(newX, newY, newCart);
+                    }
+                }
+            }
+        }
+
+        if (!part1)
+        {
+            Cart last = newCarts.LastRemaining;
+            if (last != null)
+            {
+                return ($"{last.X},{last.Y}", newCarts);
             }
         }
 
@@ -180,25 +214,15 @@ public static class AOC2018_13
     {
         private readonly Dictionary<(int, int), Cart> _lookup = new();
 
-        public void Add(int x, int y, Cart cart)
-        {
-            _lookup.Add((x, y), cart);
-        }
+        public void Add(int x, int y, Cart cart) => _lookup.Add((x, y), cart);
 
-        public void Remove(int x, int y)
-        {
-            _lookup.Remove((x, y));
-        }
+        public void Remove(int x, int y) => _lookup.Remove((x, y));
 
-        public Cart Get(int x, int y)
-        {
-            return _lookup.GetValueOrDefault((x, y), null);
-        }
+        public Cart Get(int x, int y) => _lookup.GetValueOrDefault((x, y), null);
 
-        public bool Has(int x, int y)
-        {
-            return _lookup.ContainsKey((x, y));
-        }
+        public bool Has(int x, int y) => _lookup.ContainsKey((x, y));
+
+        public Cart LastRemaining => _lookup.Count == 1 ? _lookup.Values.First() : null;
 
         public Cart[] InProcessOrder()
         {
