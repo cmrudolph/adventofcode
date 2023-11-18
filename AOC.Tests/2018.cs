@@ -225,20 +225,19 @@ public class Tests
         public void _2_Actual() => Actual(-1, AOC2018_12.Solve2, "12");
     }
 
-    [Ignore("TODO")]
     private class Day13
     {
         [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2018_13.Solve1, "13");
+        public void _1_Sample() => Sample("7,3", AOC2018_13.Solve1, "13");
 
         [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2018_13.Solve1, "13");
+        public void _1_Actual() => Actual("8,9", AOC2018_13.Solve1, "13");
 
         [Test, Category("New")]
-        public void _2_Sample() => Sample(-1, AOC2018_13.Solve2, "13");
+        public void _2_Sample() => Sample("A", AOC2018_13.Solve2, "13");
 
         [Test, Category("New")]
-        public void _2_Actual() => Actual(-1, AOC2018_13.Solve2, "13");
+        public void _2_Actual() => Actual("B", AOC2018_13.Solve2, "13");
     }
 
     [Ignore("TODO")]
