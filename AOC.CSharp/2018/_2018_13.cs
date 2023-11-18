@@ -4,13 +4,13 @@ public static class AOC2018_13
 {
     public static string Solve1(string[] lines)
     {
-        Cell[,] grid = Parse(lines);
+        (Cell[,] grid, Dictionary<(int, int), Cart> carts) = Parse(lines);
 
         int i = 0;
         string crash = null;
         while (crash == null && i < 5000)
         {
-            (grid, crash) = Advance(grid);
+            (crash, carts) = Advance(grid, carts);
             i++;
         }
 
@@ -22,35 +22,37 @@ public static class AOC2018_13
         return "BEYONCE";
     }
 
-    private static (Cell[,], string) Advance(Cell[,] oldGrid)
+    private static (string, Dictionary<(int, int), Cart>) Advance(
+        Cell[,] grid,
+        Dictionary<(int, int), Cart> carts
+    )
     {
         string crash = null;
+        Dictionary<(int, int), Cart> newCarts = Clone(carts);
 
-        int rows = oldGrid.GetLength(1);
-        int cols = oldGrid.GetLength(0);
-        Cell[,] newGrid = Clone(oldGrid);
+        int rows = grid.GetLength(1);
+        int cols = grid.GetLength(0);
 
         for (int y = 0; y < rows; y++)
         {
             for (int x = 0; x < cols; x++)
             {
-                Cell oldCell = oldGrid[x, y];
-                Cell newCell = newGrid[x, y];
+                Cell cell = grid[x, y];
+                Cart oldCart = carts.GetValueOrDefault((x, y), null);
+                Cart newCart = newCarts.GetValueOrDefault((x, y), null);
 
-                if (oldCell.Cart != null)
+                if (oldCart != null)
                 {
-                    int? newDir = oldCell.Cart.Direction;
-                    int newX = x;
-                    int newY = y;
+                    int? newDir = oldCart.Direction;
 
-                    if (oldCell.Track == '+')
+                    if (cell.Track == '+')
                     {
-                        newDir = HandleIntersection(oldCell.Cart.Direction, oldCell.Cart.NextDir);
-                        newCell.Cart.SetNextIntersectionDirection();
+                        newDir = HandleIntersection(oldCart.Direction, oldCart.NextDir);
+                        newCart.SetNextIntersectionDirection();
                     }
-                    else if (oldCell.Track == '/')
+                    else if (cell.Track == '/')
                     {
-                        newDir = oldCell.Cart.Direction switch
+                        newDir = oldCart.Direction switch
                         {
                             Up => Right,
                             Right => Up,
@@ -58,9 +60,9 @@ public static class AOC2018_13
                             Left => Down,
                         };
                     }
-                    else if (oldCell.Track == '\\')
+                    else if (cell.Track == '\\')
                     {
-                        newDir = oldCell.Cart.Direction switch
+                        newDir = oldCart.Direction switch
                         {
                             Up => Left,
                             Left => Up,
@@ -69,7 +71,7 @@ public static class AOC2018_13
                         };
                     }
 
-                    (newX, newY) = newDir switch
+                    (int newX, int newY) = newDir switch
                     {
                         Up => (x, y - 1),
                         Right => (x + 1, y),
@@ -77,25 +79,27 @@ public static class AOC2018_13
                         Left => (x - 1, y)
                     };
 
-                    newCell.Cart.Direction = newDir.Value;
+                    newCart.Direction = newDir.Value;
 
-                    if (crash == null && newGrid[newX, newY].Cart != null)
+                    if (crash == null && newCarts.ContainsKey((newX, newY)))
                     {
                         crash = $"{newX},{newY}";
+                        return (crash, newCarts);
                     }
 
-                    newGrid[newX, newY].Cart = newCell.Cart;
-                    newGrid[x, y].Cart = null;
+                    newCarts.Remove((x, y));
+                    newCarts.Add((newX, newY), newCart);
                 }
             }
         }
 
-        return (newGrid, crash);
+        return (null, newCarts);
     }
 
-    private static Cell[,] Parse(string[] lines)
+    private static (Cell[,], Dictionary<(int, int), Cart>) Parse(string[] lines)
     {
         Cell[,] grid = new Cell[lines[0].Length, lines.Length];
+        Dictionary<(int, int), Cart> carts = new();
 
         for (int y = 0; y < lines.Length; y++)
         {
@@ -112,16 +116,16 @@ public static class AOC2018_13
                 cell.Track = track;
                 if (dir2.HasValue)
                 {
-                    cell.Cart = new() { Direction = dir2.Value, };
+                    carts.Add((x, y), new Cart { Direction = dir2.Value, });
                 }
                 grid[x, y] = cell;
             }
         }
 
-        return grid;
+        return (grid, carts);
     }
 
-    private static void Print(Cell[,] grid)
+    private static void Print(Cell[,] grid, Dictionary<(int, int), Cart> carts)
     {
         int rows = grid.GetLength(1);
         int cols = grid.GetLength(0);
@@ -131,16 +135,17 @@ public static class AOC2018_13
             for (int x = 0; x < cols; x++)
             {
                 Cell cell = grid[x, y];
+                Cart cart = carts.GetValueOrDefault((x, y), null);
                 char toPrint = cell.Track;
-                if (cell.Cart != null)
+                if (cart != null)
                 {
-                    toPrint = cell.Cart.Direction switch
+                    toPrint = cart.Direction switch
                     {
                         Down => 'v',
                         Left => '<',
                         Up => '^',
                         Right => '>',
-                        _ => throw new InvalidOperationException(cell.Cart.Direction.ToString()),
+                        _ => throw new InvalidOperationException(cart.Direction.ToString()),
                     };
                 }
 
@@ -151,33 +156,20 @@ public static class AOC2018_13
         }
     }
 
-    private static Cell[,] Clone(Cell[,] orig)
+    private static Dictionary<(int, int), Cart> Clone(Dictionary<(int, int), Cart> carts)
     {
-        int rows = orig.GetLength(1);
-        int cols = orig.GetLength(0);
-        Cell[,] grid = new Cell[cols, rows];
+        Dictionary<(int, int), Cart> newCarts = new();
 
-        for (int y = 0; y < rows; y++)
+        foreach (var kvp in carts)
         {
-            for (int x = 0; x < cols; x++)
-            {
-                Cell existing = orig[x, y];
-
-                Cart cart =
-                    existing.Cart == null
-                        ? null
-                        : new Cart()
-                        {
-                            Direction = existing.Cart.Direction,
-                            NextDir = existing.Cart.NextDir,
-                        };
-
-                Cell cell = new() { Track = existing.Track, Cart = cart };
-                grid[x, y] = cell;
-            }
+            var oldCart = kvp.Value;
+            newCarts.Add(
+                kvp.Key,
+                new Cart { Direction = oldCart.Direction, NextDir = oldCart.NextDir }
+            );
         }
 
-        return grid;
+        return newCarts;
     }
 
     private static int HandleIntersection(int dir, IntersectionDirection intDir)
@@ -221,11 +213,11 @@ public static class AOC2018_13
     private class Cell
     {
         public char Track { get; set; }
-        public Cart Cart { get; set; }
     }
 
     private class Cart
     {
+        public int Tick { get; set; } = 0;
         public int Direction { get; set; }
         public IntersectionDirection NextDir { get; set; } = IntersectionDirection.Left;
 
