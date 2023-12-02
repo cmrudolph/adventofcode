@@ -6,35 +6,30 @@ namespace AOC.Tests.AOC2023;
 
 public class Tests
 {
-    [Ignore("TODO")]
     private class Day01
     {
-        [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2023_01.Solve1, "01");
+        [Test, Category("Fast")]
+        public void _1_Actual() => Actual(55712, AOC2023_01.Solve1, "01");
 
-        [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2023_01.Solve1, "01");
+        [Test, Category("Fast")]
+        public void _2_Sample() => Sample(281, AOC2023_01.Solve2, "01");
 
-        [Test, Category("New")]
-        public void _2_Sample() => Sample(-1, AOC2023_01.Solve2, "01");
-
-        [Test, Category("New")]
-        public void _2_Actual() => Actual(-1, AOC2023_01.Solve2, "01");
+        [Test, Category("Fast")]
+        public void _2_Actual() => Actual(55413, AOC2023_01.Solve2, "01");
     }
 
-    [Ignore("TODO")]
     private class Day02
     {
-        [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2023_02.Solve1, "02");
+        [Test, Category("Fast")]
+        public void _1_Sample() => Sample(8, AOC2023_02.Solve1, "02");
 
-        [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2023_02.Solve1, "02");
+        [Test, Category("Fast")]
+        public void _1_Actual() => Actual(3035, AOC2023_02.Solve1, "02");
 
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void _2_Sample() => Sample(-1, AOC2023_02.Solve2, "02");
 
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void _2_Actual() => Actual(-1, AOC2023_02.Solve2, "02");
     }
 
