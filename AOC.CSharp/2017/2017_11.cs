@@ -62,7 +62,7 @@ public static class AOC2017_11
 
     private static long Dist(Dictionary<string, int> counts)
     {
-        var countsCopy = counts.ToDictionary();
+        var countsCopy = counts.ToDictionary(x => x.Key, x => x.Value);
 
         bool changed = true;
         while (changed)

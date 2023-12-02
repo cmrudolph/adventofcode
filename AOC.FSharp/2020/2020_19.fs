@@ -112,7 +112,7 @@ module AOC2020_19 =
             let joined = String.Join("|", segments)
             "(" + joined + ")"
 
-    let checkRegex (regex: Regex) input = if regex.IsMatch(input) then 1 else 0
+    let checkRegex (regex: Regex) input = if regex.IsMatch(input: string) then 1 else 0
 
     let buildRuleMap parse lines =
         lines

@@ -94,6 +94,7 @@
 **Day 11** | [Chronal Charge](/AOC.CSharp/2018/2018_11.cs) | C#</br>
 **Day 12** | [Subterranean Sustainability](/AOC.CSharp/2018/2018_12.cs) | C#</br>
 **Day 13** | [Mine Cart Madness](/AOC.CSharp/2018/2018_13.cs) | C#</br>
+**Day 14** | [Chocolate Charts](/AOC.CSharp/2018/2018_14.cs) | C#</br>
 </br>
 # 2020
 **Day 1** | [Report Repair](/AOC.FSharp/2020/2020_01.fs) | F#</br>
@@ -175,4 +176,8 @@
 **Day 23** | [Unstable Diffusion](/AOC.CSharp/2022/2022_23.cs) | C#</br>
 **Day 24** | [Blizzard Basin](/AOC.CSharp/2022/2022_24.cs) | C#</br>
 **Day 25** | [Full of Hot Air](/AOC.CSharp/2022/2022_25.cs) | C#</br>
+</br>
+# 2023
+**Day 1** | [Trebuchet?!](/AOC.CSharp/2023/2023_01.cs) | C#</br>
+**Day 2** | [Cube Conundrum](/AOC.CSharp/2023/2023_02.cs) | C#</br>
 </br>

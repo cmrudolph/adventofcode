@@ -68,7 +68,6 @@ public static class AOC2023_02
             int greenMax = 0;
 
             Match m = Regex.Match(line);
-            int gameId = int.Parse(m.Groups[1].Value);
             string rest = m.Groups[2].Value;
 
             string[] pulls = rest.Split(";");

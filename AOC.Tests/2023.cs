@@ -27,10 +27,10 @@ public class Tests
         public void _1_Actual() => Actual(3035, AOC2023_02.Solve1, "02");
 
         [Test, Category("Fast")]
-        public void _2_Sample() => Sample(-1, AOC2023_02.Solve2, "02");
+        public void _2_Sample() => Sample(2286, AOC2023_02.Solve2, "02");
 
         [Test, Category("Fast")]
-        public void _2_Actual() => Actual(-1, AOC2023_02.Solve2, "02");
+        public void _2_Actual() => Actual(66027, AOC2023_02.Solve2, "02");
     }
 
     [Ignore("TODO")]
