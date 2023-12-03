@@ -35,17 +35,17 @@ public class Tests
 
     private class Day03
     {
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void _1_Sample() => Sample(4361, AOC2023_03.Solve1, "03");
 
-        [Test, Category("New")]
-        public void _1_Actual() => Actual(1, AOC2023_03.Solve1, "03");
+        [Test, Category("Fast")]
+        public void _1_Actual() => Actual(525181, AOC2023_03.Solve1, "03");
 
-        [Test, Category("New")]
-        public void _2_Sample() => Sample(-1, AOC2023_03.Solve2, "03");
+        [Test, Category("Fast")]
+        public void _2_Sample() => Sample(467835, AOC2023_03.Solve2, "03");
 
-        [Test, Category("New")]
-        public void _2_Actual() => Actual(-1, AOC2023_03.Solve2, "03");
+        [Test, Category("Fast")]
+        public void _2_Actual() => Actual(84289137, AOC2023_03.Solve2, "03");
     }
 
     [Ignore("TODO")]
