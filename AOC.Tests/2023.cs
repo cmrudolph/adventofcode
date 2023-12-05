@@ -63,14 +63,13 @@ public class Tests
         public void _2_Actual() => Actual(13114317, AOC2023_04.Solve2, "04");
     }
 
-    [Ignore("TODO")]
     private class Day05
     {
         [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2023_05.Solve1, "05");
+        public void _1_Sample() => Sample(35, AOC2023_05.Solve1, "05");
 
         [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2023_05.Solve1, "05");
+        public void _1_Actual() => Actual(251346198, AOC2023_05.Solve1, "05");
 
         [Test, Category("New")]
         public void _2_Sample() => Sample(-1, AOC2023_05.Solve2, "05");
