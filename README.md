@@ -180,4 +180,6 @@
 # 2023
 **Day 1** | [Trebuchet?!](/AOC.CSharp/2023/2023_01.cs) | C#</br>
 **Day 2** | [Cube Conundrum](/AOC.CSharp/2023/2023_02.cs) | C#</br>
+**Day 3** | [Gear Ratios](/AOC.CSharp/2023/2023_03.cs) | C#</br>
+**Day 4** | [Scratchcards](/AOC.CSharp/2023/2023_04.cs) | C#</br>
 </br>
