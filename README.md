@@ -182,4 +182,5 @@
 **Day 2** | [Cube Conundrum](/AOC.CSharp/2023/2023_02.cs) | C#</br>
 **Day 3** | [Gear Ratios](/AOC.CSharp/2023/2023_03.cs) | C#</br>
 **Day 4** | [Scratchcards](/AOC.CSharp/2023/2023_04.cs) | C#</br>
+**Day 5** | [If You Give A Seed A Fertilizer](/AOC.CSharp/2023/2023_05.cs) | C#</br>
 </br>
