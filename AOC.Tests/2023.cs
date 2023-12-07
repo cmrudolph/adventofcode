@@ -95,17 +95,17 @@ public class Tests
 
     private class Day07
     {
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void _1_Sample() => Sample(6440, AOC2023_07.Solve1, "07");
 
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void _1_Actual() => Actual(245794640, AOC2023_07.Solve1, "07");
 
-        [Test, Category("New")]
-        public void _2_Sample() => Sample(-1, AOC2023_07.Solve2, "07");
+        [Test, Category("Fast")]
+        public void _2_Sample() => Sample(5905, AOC2023_07.Solve2, "07");
 
-        [Test, Category("New")]
-        public void _2_Actual() => Actual(-1, AOC2023_07.Solve2, "07");
+        [Test, Category("Fast")]
+        public void _2_Actual() => Actual(247899149, AOC2023_07.Solve2, "07");
     }
 
     [Ignore("TODO")]

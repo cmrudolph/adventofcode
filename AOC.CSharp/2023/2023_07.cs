@@ -4,8 +4,18 @@ public static class AOC2023_07
 {
     public static long Solve1(string[] lines)
     {
-        var hands = lines.Select(Parse).ToList();
-        var strengths = hands.Select(GetStrength).ToList();
+        return Solve(lines, false);
+    }
+
+    public static long Solve2(string[] lines)
+    {
+        return Solve(lines, true);
+    }
+
+    private static long Solve(string[] lines, bool joker)
+    {
+        var hands = lines.Select(x => Parse(x, joker)).ToList();
+        var strengths = hands.Select(x => GetStrength(x, joker)).ToList();
         var ordered = strengths.Order(new StrengthComparer()).ToList();
 
         long sum = 0;
@@ -20,51 +30,64 @@ public static class AOC2023_07
         return sum;
     }
 
-    public static long Solve2(string[] lines)
+    private static Strength GetStrength(Hand h, bool joker)
     {
-        return 888;
+        List<int[]> cardArrangements = new();
+        if (joker)
+        {
+            for (int i = 2; i <= 14; i++)
+            {
+                // Try substituting each other card for each joker
+                cardArrangements.Add(h.Cards.Select(x => x == 1 ? i : x).ToArray());
+            }
+        }
+        else
+        {
+            cardArrangements.Add(h.Cards);
+        }
+
+        int bestType = 1;
+
+        foreach (int[] ca in cardArrangements)
+        {
+            Dictionary<int, int> counts = ca.GroupBy(x => x)
+                .ToDictionary(x2 => x2.Key, x2 => x2.Count());
+
+            if (counts.Values.Any(c => c == 5))
+            {
+                return new(7, h);
+            }
+
+            if (bestType < 6 && counts.Values.Any(c => c == 4))
+            {
+                bestType = Math.Max(bestType, 6);
+            }
+
+            if (bestType < 5 && counts.Values.Any(c => c == 3) && counts.Values.Any(c => c == 2))
+            {
+                bestType = Math.Max(bestType, 5);
+            }
+
+            if (bestType < 4 && counts.Values.Any(c => c == 3))
+            {
+                bestType = Math.Max(bestType, 4);
+            }
+
+            if (bestType < 3 && counts.Values.Count(c => c == 2) == 2)
+            {
+                bestType = Math.Max(bestType, 3);
+            }
+
+            if (bestType < 2 && counts.Values.Any(c => c == 2))
+            {
+                bestType = Math.Max(bestType, 2);
+            }
+        }
+
+        return new(bestType, h);
     }
 
-    private static Strength GetStrength(Hand h)
-    {
-        Dictionary<int, int> counts = h.Cards
-            .GroupBy(x => x)
-            .ToDictionary(x2 => x2.Key, x2 => x2.Count());
-
-        if (counts.Values.Any(c => c == 5))
-        {
-            return new(7, h);
-        }
-
-        if (counts.Values.Any(c => c == 4))
-        {
-            return new(6, h);
-        }
-
-        if (counts.Values.Any(c => c == 3) && counts.Values.Any(c => c == 2))
-        {
-            return new(5, h);
-        }
-
-        if (counts.Values.Any(c => c == 3))
-        {
-            return new(4, h);
-        }
-
-        if (counts.Values.Count(c => c == 2) == 2)
-        {
-            return new(3, h);
-        }
-
-        if (counts.Values.Any(c => c == 2))
-        {
-            return new(2, h);
-        }
-
-        return new(1, h);
-    }
-
-    private static Hand Parse(string line)
+    private static Hand Parse(string line, bool joker)
     {
         string[] splits = line.Split(" ");
         string cards = splits[0];
@@ -75,7 +98,8 @@ public static class AOC2023_07
             return ch switch
             {
                 'T' => 10,
-                'J' => 11,
+                'J' when !joker => 11,
+                'J' when joker => 1,
                 'Q' => 12,
                 'K' => 13,
                 'A' => 14,
