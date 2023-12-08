@@ -185,4 +185,5 @@
 **Day 5** | [If You Give A Seed A Fertilizer](/AOC.CSharp/2023/2023_05.cs) | C#</br>
 **Day 6** | [Wait For It](/AOC.CSharp/2023/2023_06.cs) | C#</br>
 **Day 7** | [Camel Cards](/AOC.CSharp/2023/2023_07.cs) | C#</br>
+**Day 8** | [Haunted Wasteland](/AOC.CSharp/2023/2023_08.cs) | C#</br>
 </br>
