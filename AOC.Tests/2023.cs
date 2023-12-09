@@ -120,20 +120,19 @@ public class Tests
         public void _2_Actual() => Actual(9177460370549L, AOC2023_08.Solve2, "08");
     }
 
-    [Ignore("TODO")]
     private class Day09
     {
-        [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2023_09.Solve1, "09");
+        [Test, Category("Fast")]
+        public void _1_Sample() => Sample(114, AOC2023_09.Solve1, "09");
 
-        [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2023_09.Solve1, "09");
+        [Test, Category("Fast")]
+        public void _1_Actual() => Actual(2175229206, AOC2023_09.Solve1, "09");
 
-        [Test, Category("New")]
-        public void _2_Sample() => Sample(-1, AOC2023_09.Solve2, "09");
+        [Test, Category("Fast")]
+        public void _2_Sample() => Sample(2, AOC2023_09.Solve2, "09");
 
-        [Test, Category("New")]
-        public void _2_Actual() => Actual(-1, AOC2023_09.Solve2, "09");
+        [Test, Category("Fast")]
+        public void _2_Actual() => Actual(942, AOC2023_09.Solve2, "09");
     }
 
     [Ignore("TODO")]
