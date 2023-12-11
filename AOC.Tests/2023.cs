@@ -135,36 +135,34 @@ public class Tests
         public void _2_Actual() => Actual(942, AOC2023_09.Solve2, "09");
     }
 
-    [Ignore("TODO")]
     private class Day10
     {
-        [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2023_10.Solve1, "10");
+        [Test, Category("Fast")]
+        public void _1_Sample() => Sample(22, AOC2023_10.Solve1, "10");
 
-        [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2023_10.Solve1, "10");
+        [Test, Category("Fast")]
+        public void _1_Actual() => Actual(6856, AOC2023_10.Solve1, "10");
 
-        [Test, Category("New")]
-        public void _2_Sample() => Sample(-1, AOC2023_10.Solve2, "10");
+        [Test, Category("Fast")]
+        public void _2_Sample() => Sample(4, AOC2023_10.Solve2, "10");
 
-        [Test, Category("New")]
-        public void _2_Actual() => Actual(-1, AOC2023_10.Solve2, "10");
+        [Test, Category("Fast")]
+        public void _2_Actual() => Actual(501, AOC2023_10.Solve2, "10");
     }
 
-    [Ignore("TODO")]
     private class Day11
     {
         [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2023_11.Solve1, "11");
+        public void _1_Sample() => Sample(374, AOC2023_11.Solve1, "11");
 
         [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2023_11.Solve1, "11");
+        public void _1_Actual() => Actual(9957702, AOC2023_11.Solve1, "11");
 
         [Test, Category("New")]
-        public void _2_Sample() => Sample(-1, AOC2023_11.Solve2, "11");
+        public void _2_Sample() => Sample(82000210, AOC2023_11.Solve2, "11");
 
         [Test, Category("New")]
-        public void _2_Actual() => Actual(-1, AOC2023_11.Solve2, "11");
+        public void _2_Actual() => Actual(512240933238, AOC2023_11.Solve2, "11");
     }
 
     [Ignore("TODO")]

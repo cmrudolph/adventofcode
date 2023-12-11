@@ -187,4 +187,6 @@
 **Day 7** | [Camel Cards](/AOC.CSharp/2023/2023_07.cs) | C#</br>
 **Day 8** | [Haunted Wasteland](/AOC.CSharp/2023/2023_08.cs) | C#</br>
 **Day 9** | [Mirage Maintenance](/AOC.CSharp/2023/2023_09.cs) | C#</br>
+**Day 10** | [Pipe Maze](/AOC.CSharp/2023/2023_10.cs) | C#</br>
+**Day 11** | [Cosmic Expansion](/AOC.CSharp/2023/2023_11.cs) | C#</br>
 </br>
