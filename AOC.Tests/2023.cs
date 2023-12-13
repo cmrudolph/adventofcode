@@ -175,7 +175,7 @@ public class Tests
         [TestCase("?###???????? 3,2,1", 10)]
         public void _1_Cases(string line, long expected)
         {
-            long result = AOC2023_12.Arrangements1(line);
+            long result = AOC2023_12.SolveLine(line);
             result.Should().Be(expected);
         }
 
