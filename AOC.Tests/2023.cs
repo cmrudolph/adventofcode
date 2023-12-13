@@ -165,14 +165,25 @@ public class Tests
         public void _2_Actual() => Actual(512240933238, AOC2023_11.Solve2, "11");
     }
 
-    [Ignore("TODO")]
     private class Day12
     {
-        [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2023_12.Solve1, "12");
+        [TestCase("???.### 1,1,3", 1)]
+        [TestCase(".??..??...?##. 1,1,3", 4)]
+        [TestCase("?#?#?#?#?#?#?#? 1,3,1,6", 1)]
+        [TestCase("????.#...#... 4,1,1", 1)]
+        [TestCase("????.######..#####. 1,6,5", 4)]
+        [TestCase("?###???????? 3,2,1", 10)]
+        public void _1_Cases(string line, long expected)
+        {
+            long result = AOC2023_12.Arrangements1(line);
+            result.Should().Be(expected);
+        }
 
         [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2023_12.Solve1, "12");
+        public void _1_Sample() => Sample(21, AOC2023_12.Solve1, "12");
+
+        [Test, Category("VerySlow")]
+        public void _1_Actual() => Actual(7857, AOC2023_12.Solve1, "12");
 
         [Test, Category("New")]
         public void _2_Sample() => Sample(-1, AOC2023_12.Solve2, "12");
