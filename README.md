@@ -189,4 +189,5 @@
 **Day 9** | [Mirage Maintenance](/AOC.CSharp/2023/2023_09.cs) | C#</br>
 **Day 10** | [Pipe Maze](/AOC.CSharp/2023/2023_10.cs) | C#</br>
 **Day 11** | [Cosmic Expansion](/AOC.CSharp/2023/2023_11.cs) | C#</br>
+**Day 12** | [Hot Springs](/AOC.CSharp/2023/2023_12.cs) | C#</br>
 </br>
