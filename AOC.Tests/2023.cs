@@ -192,20 +192,19 @@ public class Tests
         public void _2_Actual() => Actual(28606137449920, AOC2023_12.Solve2, "12");
     }
 
-    [Ignore("TODO")]
     private class Day13
     {
-        [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2023_13.Solve1, "13");
+        [Test, Category("Fast")]
+        public void _1_Sample() => Sample(405, AOC2023_13.Solve1, "13");
 
-        [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2023_13.Solve1, "13");
+        [Test, Category("Fast")]
+        public void _1_Actual() => Actual(32723, AOC2023_13.Solve1, "13");
 
-        [Test, Category("New")]
-        public void _2_Sample() => Sample(-1, AOC2023_13.Solve2, "13");
+        [Test, Category("Fast")]
+        public void _2_Sample() => Sample(400, AOC2023_13.Solve2, "13");
 
-        [Test, Category("New")]
-        public void _2_Actual() => Actual(-1, AOC2023_13.Solve2, "13");
+        [Test, Category("Fast")]
+        public void _2_Actual() => Actual(34536, AOC2023_13.Solve2, "13");
     }
 
     [Ignore("TODO")]
