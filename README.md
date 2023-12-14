@@ -191,4 +191,5 @@
 **Day 11** | [Cosmic Expansion](/AOC.CSharp/2023/2023_11.cs) | C#</br>
 **Day 12** | [Hot Springs](/AOC.CSharp/2023/2023_12.cs) | C#</br>
 **Day 13** | [Point of Incidence](/AOC.CSharp/2023/2023_13.cs) | C#</br>
+**Day 14** | [Parabolic Reflector Dish](/AOC.CSharp/2023/2023_14.cs) | C#</br>
 </br>
