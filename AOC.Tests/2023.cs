@@ -179,17 +179,17 @@ public class Tests
             result.Should().Be(expected);
         }
 
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void _1_Sample() => Sample(21, AOC2023_12.Solve1, "12");
 
-        [Test, Category("VerySlow")]
+        [Test, Category("Fast")]
         public void _1_Actual() => Actual(7857, AOC2023_12.Solve1, "12");
 
-        [Test, Category("New")]
-        public void _2_Sample() => Sample(-1, AOC2023_12.Solve2, "12");
+        [Test, Category("Fast")]
+        public void _2_Sample() => Sample(525152, AOC2023_12.Solve2, "12");
 
-        [Test, Category("New")]
-        public void _2_Actual() => Actual(-1, AOC2023_12.Solve2, "12");
+        [Test, Category("Fast")]
+        public void _2_Actual() => Actual(28606137449920, AOC2023_12.Solve2, "12");
     }
 
     [Ignore("TODO")]
