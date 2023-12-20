@@ -252,7 +252,6 @@ public class Tests
         public void _2_Actual() => Actual(8489, AOC2023_16.Solve2, "16");
     }
 
-    [Ignore("TODO")]
     public class Day17
     {
         [Test, Category("New")]
@@ -268,11 +267,10 @@ public class Tests
         public void _2_Actual() => Actual(-1, AOC2023_17.Solve2, "17");
     }
 
-    [Ignore("TODO")]
     public class Day18
     {
         [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2023_18.Solve1, "18");
+        public void _1_Sample() => Sample(62, AOC2023_18.Solve1, "18");
 
         [Test, Category("New")]
         public void _1_Actual() => Actual(-1, AOC2023_18.Solve1, "18");
