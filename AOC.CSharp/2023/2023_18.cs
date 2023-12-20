@@ -19,13 +19,13 @@ public static class AOC2023_18
 
     private class Solver
     {
-        private HashSet<XY> _trench = new();
+        private Dictionary<XY, int> _trench = new();
         private HashSet<XY> _dug = new();
 
         public Solver(string[] lines)
         {
             XY curr = new(0, 0);
-            _trench.Add(curr);
+            _trench.Add(curr, 1);
 
             foreach (string line in lines)
             {
@@ -38,33 +38,37 @@ public static class AOC2023_18
                     if (dir == "U")
                     {
                         curr = curr with { Y = curr.Y - 1 };
-                        _trench.Add(curr);
+                        int val = _trench.GetValueOrDefault(curr, 0);
+                        _trench[curr] = val + 1;
                     }
 
                     if (dir == "L")
                     {
                         curr = curr with { X = curr.X - 1 };
-                        _trench.Add(curr);
+                        int val = _trench.GetValueOrDefault(curr, 0);
+                        _trench[curr] = val + 1;
                     }
 
                     if (dir == "R")
                     {
                         curr = curr with { X = curr.X + 1 };
-                        _trench.Add(curr);
+                        int val = _trench.GetValueOrDefault(curr, 0);
+                        _trench[curr] = val + 1;
                     }
 
                     if (dir == "D")
                     {
                         curr = curr with { Y = curr.Y + 1 };
-                        _trench.Add(curr);
+                        int val = _trench.GetValueOrDefault(curr, 0);
+                        _trench[curr] = val + 1;
                     }
                 }
             }
 
-            int minX = _trench.Min(x => x.X);
-            int maxX = _trench.Max(x => x.X);
-            int minY = _trench.Min(x => x.Y);
-            int maxY = _trench.Max(x => x.Y);
+            int minX = _trench.Keys.Min(x => x.X);
+            int maxX = _trench.Keys.Max(x => x.X);
+            int minY = _trench.Keys.Min(x => x.Y);
+            int maxY = _trench.Keys.Max(x => x.Y);
 
             HashSet<XY> checkedOut = new();
 
@@ -103,7 +107,7 @@ public static class AOC2023_18
 
                 checkedOut.Add(deq);
 
-                if (_trench.Contains(deq))
+                if (_trench.Keys.Contains(deq))
                 {
                     // Only look further if we are on an empty space
                     continue;
@@ -140,17 +144,17 @@ public static class AOC2023_18
 
         public void PrintTrench()
         {
-            int minX = _trench.Min(x => x.X);
-            int maxX = _trench.Max(x => x.X);
-            int minY = _trench.Min(x => x.Y);
-            int maxY = _trench.Max(x => x.Y);
+            int minX = _trench.Keys.Min(x => x.X);
+            int maxX = _trench.Keys.Max(x => x.X);
+            int minY = _trench.Keys.Min(x => x.Y);
+            int maxY = _trench.Keys.Max(x => x.Y);
 
             for (int y = minY; y <= maxY; y++)
             {
                 for (int x = minX; x <= maxX; x++)
                 {
                     XY xy = new(x, y);
-                    char ch = _trench.Contains(xy) ? '#' : '.';
+                    char ch = _trench.Keys.Contains(xy) ? '#' : '.';
                     Console.Write(ch);
                 }
 
@@ -160,10 +164,10 @@ public static class AOC2023_18
 
         public void PrintFilled()
         {
-            int minX = _trench.Min(x => x.X);
-            int maxX = _trench.Max(x => x.X);
-            int minY = _trench.Min(x => x.Y);
-            int maxY = _trench.Max(x => x.Y);
+            int minX = _trench.Keys.Min(x => x.X);
+            int maxX = _trench.Keys.Max(x => x.X);
+            int minY = _trench.Keys.Min(x => x.Y);
+            int maxY = _trench.Keys.Max(x => x.Y);
 
             for (int y = minY; y <= maxY; y++)
             {

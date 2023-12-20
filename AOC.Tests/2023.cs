@@ -269,11 +269,11 @@ public class Tests
 
     public class Day18
     {
-        [Test, Category("New")]
+        [Test, Category("Fast")]
         public void _1_Sample() => Sample(62, AOC2023_18.Solve1, "18");
 
-        [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2023_18.Solve1, "18");
+        [Test, Category("Fast")]
+        public void _1_Actual() => Actual(67891, AOC2023_18.Solve1, "18");
 
         [Test, Category("New")]
         public void _2_Sample() => Sample(-1, AOC2023_18.Solve2, "18");
