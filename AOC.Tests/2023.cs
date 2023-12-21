@@ -275,11 +275,11 @@ public class Tests
         [Test, Category("Fast")]
         public void _1_Actual() => Actual(67891, AOC2023_18.Solve1, "18");
 
-        [Test, Category("New")]
-        public void _2_Sample() => Sample(-1, AOC2023_18.Solve2, "18");
+        [Test, Category("Fast")]
+        public void _2_Sample() => Sample(952408144115L, AOC2023_18.Solve2, "18");
 
-        [Test, Category("New")]
-        public void _2_Actual() => Actual(-1, AOC2023_18.Solve2, "18");
+        [Test, Category("Fast")]
+        public void _2_Actual() => Actual(94116351948493L, AOC2023_18.Solve2, "18");
     }
 
     [Ignore("TODO")]

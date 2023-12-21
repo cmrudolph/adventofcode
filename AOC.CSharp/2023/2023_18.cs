@@ -4,186 +4,105 @@ public static class AOC2023_18
 {
     public static long Solve1(string[] lines)
     {
-        Solver s = new(lines);
-        s.PrintTrench();
-        Console.WriteLine();
-        s.PrintFilled();
+        Parsed Parse(string line)
+        {
+            string[] splits = line.Split(" ");
+            return new Parsed(long.Parse(splits[1]), splits[0]);
+        }
 
-        return s.Solve();
+        return Solve(lines, Parse);
     }
 
     public static long Solve2(string[] lines)
     {
-        return 888;
+        Parsed Parse(string line)
+        {
+            string[] splits = line.Split("#");
+            string sub = splits[1].Substring(0, 6);
+            string hexAmt = sub.Substring(0, 5);
+            int dirNum = int.Parse(sub[5].ToString());
+
+            string dir = dirNum switch
+            {
+                0 => "R",
+                1 => "D",
+                2 => "L",
+                3 => "U",
+            };
+
+            long amount = Convert.ToInt64(hexAmt, 16);
+
+            return new Parsed(amount, dir);
+        }
+
+        return Solve(lines, Parse);
     }
 
-    private class Solver
+    public static long Solve(string[] lines, Func<string, Parsed> extract)
     {
-        private Dictionary<XY, int> _trench = new();
-        private HashSet<XY> _dug = new();
+        XY curr = new(0, 0);
+        List<XY> points = new();
+        points.Add(curr);
+        long boundaryPointCount = 0;
 
-        public Solver(string[] lines)
+        foreach (string line in lines)
         {
-            XY curr = new(0, 0);
-            _trench.Add(curr, 1);
+            Parsed parsed = extract(line);
 
-            foreach (string line in lines)
+            if (parsed.Direction == "U")
             {
-                string[] splits = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-                string dir = splits[0];
-                int amount = int.Parse(splits[1]);
-
-                for (int i = 0; i < amount; i++)
-                {
-                    if (dir == "U")
-                    {
-                        curr = curr with { Y = curr.Y - 1 };
-                        int val = _trench.GetValueOrDefault(curr, 0);
-                        _trench[curr] = val + 1;
-                    }
-
-                    if (dir == "L")
-                    {
-                        curr = curr with { X = curr.X - 1 };
-                        int val = _trench.GetValueOrDefault(curr, 0);
-                        _trench[curr] = val + 1;
-                    }
-
-                    if (dir == "R")
-                    {
-                        curr = curr with { X = curr.X + 1 };
-                        int val = _trench.GetValueOrDefault(curr, 0);
-                        _trench[curr] = val + 1;
-                    }
-
-                    if (dir == "D")
-                    {
-                        curr = curr with { Y = curr.Y + 1 };
-                        int val = _trench.GetValueOrDefault(curr, 0);
-                        _trench[curr] = val + 1;
-                    }
-                }
+                curr = curr with { Y = curr.Y + parsed.Amount };
             }
 
-            int minX = _trench.Keys.Min(x => x.X);
-            int maxX = _trench.Keys.Max(x => x.X);
-            int minY = _trench.Keys.Min(x => x.Y);
-            int maxY = _trench.Keys.Max(x => x.Y);
-
-            HashSet<XY> checkedOut = new();
-
-            for (int x = minX; x <= maxX; x++)
+            if (parsed.Direction == "L")
             {
-                for (int y = minY; y <= maxY; y++)
-                {
-                    // Treat every square in the rectangle as dug up initially. We will identify
-                    // the exceptions and remove them.
-                    _dug.Add(new(x, y));
-                }
+                curr = curr with { X = curr.X - parsed.Amount };
             }
 
-            // Go around the outer edge and find everything that is connected to empty spaces
-            Queue<XY> q = new();
-            for (int x = minX; x <= maxX; x++)
+            if (parsed.Direction == "R")
             {
-                q.Enqueue(new(x, minY));
-                q.Enqueue(new(x, maxY));
+                curr = curr with { X = curr.X + parsed.Amount };
             }
 
-            for (int y = minY; y <= maxY; y++)
+            if (parsed.Direction == "D")
             {
-                q.Enqueue(new(minX, y));
-                q.Enqueue(new(maxX, y));
+                curr = curr with { Y = curr.Y - parsed.Amount };
             }
 
-            while (q.Count > 0)
-            {
-                XY deq = q.Dequeue();
-                if (checkedOut.Contains(deq))
-                {
-                    // Already inspected this location and potentially its neighbors
-                    continue;
-                }
-
-                checkedOut.Add(deq);
-
-                if (_trench.Keys.Contains(deq))
-                {
-                    // Only look further if we are on an empty space
-                    continue;
-                }
-
-                // Found an empty space. Remove it from the thing tracking our final count
-                _dug.Remove(deq);
-
-                if (deq.X > minX)
-                {
-                    // Left
-                    q.Enqueue(new(deq.X - 1, deq.Y));
-                }
-
-                if (deq.X < maxX)
-                {
-                    // Right
-                    q.Enqueue(new(deq.X + 1, deq.Y));
-                }
-
-                if (deq.Y > minY)
-                {
-                    // Up
-                    q.Enqueue(new(deq.X, deq.Y - 1));
-                }
-
-                if (deq.Y < maxY)
-                {
-                    // Down
-                    q.Enqueue(new(deq.X, deq.Y + 1));
-                }
-            }
+            points.Add(curr);
+            boundaryPointCount += parsed.Amount;
         }
 
-        public void PrintTrench()
+        long shiftX = Math.Abs(Math.Min(points.Min(x => x.X), 0));
+        long shiftY = Math.Abs(Math.Min(points.Min(y => y.Y), 0));
+
+        for (int i = 0; i < points.Count; i++)
         {
-            int minX = _trench.Keys.Min(x => x.X);
-            int maxX = _trench.Keys.Max(x => x.X);
-            int minY = _trench.Keys.Min(x => x.Y);
-            int maxY = _trench.Keys.Max(x => x.Y);
-
-            for (int y = minY; y <= maxY; y++)
-            {
-                for (int x = minX; x <= maxX; x++)
-                {
-                    XY xy = new(x, y);
-                    char ch = _trench.Keys.Contains(xy) ? '#' : '.';
-                    Console.Write(ch);
-                }
-
-                Console.WriteLine();
-            }
+            XY p = points[i];
+            points[i] = p with { X = p.X + shiftX, Y = p.Y + shiftY };
         }
 
-        public void PrintFilled()
+        long sum1 = 0;
+        long sum2 = 0;
+
+        for (int i = 0; i < points.Count - 1; i++)
         {
-            int minX = _trench.Keys.Min(x => x.X);
-            int maxX = _trench.Keys.Max(x => x.X);
-            int minY = _trench.Keys.Min(x => x.Y);
-            int maxY = _trench.Keys.Max(x => x.Y);
+            long x1 = points[i].X;
+            long y1 = points[i + 1].Y;
 
-            for (int y = minY; y <= maxY; y++)
-            {
-                for (int x = minX; x <= maxX; x++)
-                {
-                    XY xy = new(x, y);
-                    char ch = _dug.Contains(xy) ? '#' : '.';
-                    Console.Write(ch);
-                }
+            long x2 = points[i + 1].X;
+            long y2 = points[i].Y;
 
-                Console.WriteLine();
-            }
+            sum1 += (x1 * y1);
+            sum2 += (x2 * y2);
         }
 
-        public long Solve() => _dug.Count;
+        long area = Math.Abs(sum2 - sum1) / 2;
+
+        return area + boundaryPointCount / 2 + 1;
     }
 
-    private record XY(int X, int Y);
+    public record Parsed(long Amount, string Direction);
+
+    private record XY(long X, long Y);
 }
