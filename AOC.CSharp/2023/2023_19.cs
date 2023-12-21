@@ -218,19 +218,6 @@ public static class AOC2023_19
 
         private void Recurse(string dest, Range range, int depth)
         {
-            Console.WriteLine("{0} {1} | {2}", new string(' ', depth), range, dest);
-
-            // if (
-            //     range.MinX > range.MaxX
-            //     || range.MinM > range.MaxM
-            //     || range.MinA > range.MaxA
-            //     || range.MinS > range.MaxS
-            // )
-            // {
-            //     Console.WriteLine("{0} :: CROSSOVER", new string(' ', depth + 1));
-            //     return;
-            // }
-
             if (dest == "R")
             {
                 Console.WriteLine("{0} {1} | {2} = REJECT", new string(' ', depth), range, dest);
@@ -248,83 +235,60 @@ public static class AOC2023_19
 
             long sum = 0;
             Range newRange = range;
+            Range availableRange = range;
             foreach (Rule r in wf.Rules)
             {
+                newRange = availableRange;
+
                 if (r.Operator == ">")
                 {
                     if (r.PartProp == "x")
                     {
                         newRange = newRange with { MinX = r.Amount + 1 };
+                        availableRange = availableRange with { MaxX = r.Amount };
                     }
                     if (r.PartProp == "m")
                     {
                         newRange = newRange with { MinM = r.Amount + 1 };
+                        availableRange = availableRange with { MaxM = r.Amount };
                     }
                     if (r.PartProp == "a")
                     {
                         newRange = newRange with { MinA = r.Amount + 1 };
+                        availableRange = availableRange with { MaxA = r.Amount };
                     }
                     if (r.PartProp == "s")
                     {
                         newRange = newRange with { MinS = r.Amount + 1 };
+                        availableRange = availableRange with { MaxS = r.Amount };
                     }
 
                     Recurse(r.Destination, newRange, depth + 1);
-
-                    // if (r.PartProp == "x")
-                    // {
-                    //     newRange = newRange with { MaxX = r.Amount };
-                    // }
-                    // if (r.PartProp == "m")
-                    // {
-                    //     newRange = newRange with { MaxM = r.Amount };
-                    // }
-                    // if (r.PartProp == "a")
-                    // {
-                    //     newRange = newRange with { MaxA = r.Amount };
-                    // }
-                    // if (r.PartProp == "s")
-                    // {
-                    //     newRange = newRange with { MaxS = r.Amount };
-                    // }
                 }
                 else if (r.Operator == "<")
                 {
                     if (r.PartProp == "x")
                     {
                         newRange = newRange with { MaxX = r.Amount - 1 };
+                        availableRange = availableRange with { MinX = r.Amount };
                     }
                     if (r.PartProp == "m")
                     {
                         newRange = newRange with { MaxM = r.Amount - 1 };
+                        availableRange = availableRange with { MinM = r.Amount };
                     }
                     if (r.PartProp == "a")
                     {
                         newRange = newRange with { MaxA = r.Amount - 1 };
+                        availableRange = availableRange with { MinA = r.Amount };
                     }
                     if (r.PartProp == "s")
                     {
                         newRange = newRange with { MaxS = r.Amount - 1 };
+                        availableRange = availableRange with { MinS = r.Amount };
                     }
 
                     Recurse(r.Destination, newRange, depth + 1);
-
-                    // if (r.PartProp == "x")
-                    // {
-                    //     newRange = newRange with { MinX = r.Amount };
-                    // }
-                    // if (r.PartProp == "m")
-                    // {
-                    //     newRange = newRange with { MinM = r.Amount };
-                    // }
-                    // if (r.PartProp == "a")
-                    // {
-                    //     newRange = newRange with { MinA = r.Amount };
-                    // }
-                    // if (r.PartProp == "s")
-                    // {
-                    //     newRange = newRange with { MinS = r.Amount };
-                    // }
                 }
                 else
                 {
