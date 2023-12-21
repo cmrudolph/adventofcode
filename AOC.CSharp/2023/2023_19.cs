@@ -169,6 +169,7 @@ public static class AOC2023_19
     private class Solver2
     {
         private readonly Dictionary<string, Workflow> _wfLookup;
+        private readonly List<Range> _acceptedRanges = new();
 
         public Solver2(string[] lines)
         {
@@ -197,36 +198,60 @@ public static class AOC2023_19
         {
             Range range = new(1, 4000, 1, 4000, 1, 4000, 1, 4000);
 
-            long result = Recurse("in", range);
+            Recurse("in", range, 0);
 
-            return result;
+            long sum = 0;
+            foreach (var ar in _acceptedRanges)
+            {
+                long x = Math.Max(ar.MaxX - ar.MinX + 1, 1);
+                long m = Math.Max(ar.MaxM - ar.MinM + 1, 1);
+                long a = Math.Max(ar.MaxA - ar.MinA + 1, 1);
+                long s = Math.Max(ar.MaxS - ar.MinS + 1, 1);
+
+                Console.WriteLine("{0} = {1}", ar, (x * m * a * s));
+
+                sum += (x * m * a * s);
+            }
+
+            return sum;
         }
 
-        private long Recurse(string dest, Range range)
+        private void Recurse(string dest, Range range, int depth)
         {
+            Console.WriteLine("{0} {1} | {2}", new string(' ', depth), range, dest);
+
+            // if (
+            //     range.MinX > range.MaxX
+            //     || range.MinM > range.MaxM
+            //     || range.MinA > range.MaxA
+            //     || range.MinS > range.MaxS
+            // )
+            // {
+            //     Console.WriteLine("{0} :: CROSSOVER", new string(' ', depth + 1));
+            //     return;
+            // }
+
             if (dest == "R")
             {
-                return 0;
+                Console.WriteLine("{0} {1} | {2} = REJECT", new string(' ', depth), range, dest);
+                return;
             }
 
             if (dest == "A")
             {
-                long x = range.MaxX - range.MinX + 1;
-                long m = range.MaxM - range.MinM + 1;
-                long a = range.MaxA - range.MinA + 1;
-                long s = range.MaxS - range.MinS + 1;
-
-                return x * m * a * s;
+                Console.WriteLine("{0} {1} | {2} = ACCEPT", new string(' ', depth), range, dest);
+                _acceptedRanges.Add(range);
+                return;
             }
 
             Workflow wf = _wfLookup[dest];
 
             long sum = 0;
+            Range newRange = range;
             foreach (Rule r in wf.Rules)
             {
                 if (r.Operator == ">")
                 {
-                    Range newRange = range;
                     if (r.PartProp == "x")
                     {
                         newRange = newRange with { MinX = r.Amount + 1 };
@@ -244,11 +269,27 @@ public static class AOC2023_19
                         newRange = newRange with { MinS = r.Amount + 1 };
                     }
 
-                    sum += Recurse(r.Destination, newRange);
+                    Recurse(r.Destination, newRange, depth + 1);
+
+                    // if (r.PartProp == "x")
+                    // {
+                    //     newRange = newRange with { MaxX = r.Amount };
+                    // }
+                    // if (r.PartProp == "m")
+                    // {
+                    //     newRange = newRange with { MaxM = r.Amount };
+                    // }
+                    // if (r.PartProp == "a")
+                    // {
+                    //     newRange = newRange with { MaxA = r.Amount };
+                    // }
+                    // if (r.PartProp == "s")
+                    // {
+                    //     newRange = newRange with { MaxS = r.Amount };
+                    // }
                 }
                 else if (r.Operator == "<")
                 {
-                    Range newRange = range;
                     if (r.PartProp == "x")
                     {
                         newRange = newRange with { MaxX = r.Amount - 1 };
@@ -266,15 +307,30 @@ public static class AOC2023_19
                         newRange = newRange with { MaxS = r.Amount - 1 };
                     }
 
-                    sum += Recurse(r.Destination, newRange);
+                    Recurse(r.Destination, newRange, depth + 1);
+
+                    // if (r.PartProp == "x")
+                    // {
+                    //     newRange = newRange with { MinX = r.Amount };
+                    // }
+                    // if (r.PartProp == "m")
+                    // {
+                    //     newRange = newRange with { MinM = r.Amount };
+                    // }
+                    // if (r.PartProp == "a")
+                    // {
+                    //     newRange = newRange with { MinA = r.Amount };
+                    // }
+                    // if (r.PartProp == "s")
+                    // {
+                    //     newRange = newRange with { MinS = r.Amount };
+                    // }
                 }
                 else
                 {
-                    sum += Recurse(r.Destination, range);
+                    Recurse(r.Destination, newRange, depth + 1);
                 }
             }
-
-            return sum;
         }
 
         public class Workflow
