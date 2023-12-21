@@ -222,3 +222,8 @@
 2023-14 | Parabolic Reflector Dish
 2023-15 | Lens Library
 2023-16 | The Floor Will Be Lava
+2023-17 | Clumsy Crucible
+2023-18 | Lavaduct Lagoon
+2023-19 | Aplenty
+2023-20 | Pulse Propagation
+2023-21 | Step Counter

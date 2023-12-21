@@ -194,4 +194,7 @@
 **Day 14** | [Parabolic Reflector Dish](/AOC.CSharp/2023/2023_14.cs) | C#</br>
 **Day 15** | [Lens Library](/AOC.CSharp/2023/2023_15.cs) | C#</br>
 **Day 16** | [The Floor Will Be Lava](/AOC.CSharp/2023/2023_16.cs) | C#</br>
+**Day 17** | [Clumsy Crucible](/AOC.CSharp/2023/2023_17.cs) | C#</br>
+**Day 18** | [Lavaduct Lagoon](/AOC.CSharp/2023/2023_18.cs) | C#</br>
+**Day 19** | [Aplenty](/AOC.CSharp/2023/2023_19.cs) | C#</br>
 </br>
