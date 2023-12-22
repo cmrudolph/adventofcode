@@ -37,6 +37,11 @@ public static class AOC2023_20
             {
                 Event deq = events.Dequeue();
 
+                if (deq.Dest == "xl" && deq.Source != "zp" && deq.Type == PulseType.High)
+                {
+                    Console.WriteLine("{0} {1} {2}", deq.Source, deq.Dest, "BEYONCE");
+                }
+
                 //Console.WriteLine("{0} -{1}-> {2}", deq.Source, deq.Type, deq.Dest);
 
                 Module dest = modules.GetValueOrDefault(deq.Dest, null);
@@ -69,6 +74,71 @@ public static class AOC2023_20
 
     public static long Solve2(string[] lines)
     {
+        Dictionary<string, Module> modules = lines
+            .Select(x => new Module(x))
+            .ToDictionary(x => x.Name);
+
+        foreach (Module m in modules.Values)
+        {
+            foreach (string output in m.Outputs)
+            {
+                if (modules.ContainsKey(output))
+                {
+                    modules[output].RegisterInput(m.Name);
+                }
+            }
+        }
+
+        int presses = 0;
+        HashSet<string> watchesDone = new();
+        List<long> multipliers = new();
+
+        while (true)
+        {
+            presses++;
+
+            Queue<Event> events = new();
+            var broad = modules["broadcaster"];
+            foreach (string output in broad.Outputs)
+            {
+                events.Enqueue(new(broad.Name, PulseType.Low, output));
+            }
+
+            while (events.Count > 0)
+            {
+                Event deq = events.Dequeue();
+
+                Module dest = modules.GetValueOrDefault(deq.Dest, null);
+                if (dest != null)
+                {
+                    PulseType? toSend = dest.ReceivePulse(deq.Source, deq.Type);
+                    if (toSend.HasValue)
+                    {
+                        foreach (string output in dest.Outputs)
+                        {
+                            if (
+                                toSend == PulseType.High
+                                && output == "df"
+                                && !watchesDone.Contains(dest.Name)
+                            )
+                            {
+                                watchesDone.Add(dest.Name);
+                                multipliers.Add(presses);
+                                Console.WriteLine("{0} {1}", dest.Name, presses);
+
+                                if (watchesDone.Count == 4)
+                                {
+                                    return multipliers.Aggregate((a, b) => a * b);
+                                }
+                            }
+                            Event e = new(dest.Name, toSend.Value, output);
+                            events.Enqueue(e);
+                        }
+                    }
+                }
+            }
+        }
+
         return 888;
     }
 

@@ -197,4 +197,6 @@
 **Day 17** | [Clumsy Crucible](/AOC.CSharp/2023/2023_17.cs) | C#</br>
 **Day 18** | [Lavaduct Lagoon](/AOC.CSharp/2023/2023_18.cs) | C#</br>
 **Day 19** | [Aplenty](/AOC.CSharp/2023/2023_19.cs) | C#</br>
+**Day 20** | [Pulse Propagation](/AOC.CSharp/2023/2023_20.cs) | C#</br>
+**Day 21** | [Step Counter](/AOC.CSharp/2023/2023_21.cs) | C#</br>
 </br>

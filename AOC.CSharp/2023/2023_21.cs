@@ -145,35 +145,6 @@ public static class AOC2023_21
         HashSet<XY> points = new();
         points.Add(start);
 
-        void Print(int iteration)
-        {
-            int minY = points.Min(x => x.Y);
-            int maxY = points.Max(x => x.Y);
-            int minX = points.Min(x => x.X);
-            int maxX = points.Max(x => x.X);
-
-            using (StreamWriter sw = new("C:\\Temp\\Day21_" + iteration + ".txt"))
-            {
-                for (int y = minY; y <= maxY; y++)
-                {
-                    for (int x = minX; x <= maxX; x++)
-                    {
-                        XY xy = new(x, y);
-                        if (points.Contains(xy))
-                        {
-                            sw.Write("O");
-                        }
-                        else
-                        {
-                            sw.Write(".");
-                        }
-                    }
-
-                    sw.WriteLine();
-                }
-            }
-        }
-
         for (int i = 0; i < 1000; i++)
         {
             HashSet<XY> newPoints = new();
@@ -189,8 +160,6 @@ public static class AOC2023_21
             Console.WriteLine("{0}, {1}", i + 1, newPoints.Count);
 
             points = newPoints;
-
-            Print(i + 1);
         }
 
         return points.Count;
