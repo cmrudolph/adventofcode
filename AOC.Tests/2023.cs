@@ -297,14 +297,13 @@ public class Tests
         public void _2_Actual() => Actual(124615747767410L, AOC2023_19.Solve2, "19");
     }
 
-    [Ignore("TODO")]
     public class Day20
     {
         [Test, Category("New")]
-        public void _1_Sample() => Sample(-1, AOC2023_20.Solve1, "20");
+        public void _1_Sample() => Sample(11687500, AOC2023_20.Solve1, "20");
 
         [Test, Category("New")]
-        public void _1_Actual() => Actual(-1, AOC2023_20.Solve1, "20");
+        public void _1_Actual() => Actual(666795063, AOC2023_20.Solve1, "20");
 
         [Test, Category("New")]
         public void _2_Sample() => Sample(-1, AOC2023_20.Solve2, "20");
