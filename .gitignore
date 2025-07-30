@@ -8,3 +8,6 @@ obj
 .ionide
 .idea
 __pycache__
+
+aoc_rust/target/
+Cargo.lock
