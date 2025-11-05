@@ -35,6 +35,51 @@ public class Tests2024
         public void _2_Actual() => Actual(621, AOC2024_02.Solve2, "02");
     }
 
+    public class Day03
+    {
+        [Test, Property("Speed", "Fast")]
+        public void _1_Sample() => Sample(161, AOC2024_03.Solve1, "03");
+
+        [Test, Property("Speed", "Fast")]
+        public void _1_Actual() => Actual(178538786, AOC2024_03.Solve1, "03");
+
+        [Test, Property("Speed", "Fast")]
+        public void _2_Sample() => Sample(48, AOC2024_03.Solve2, "03");
+
+        [Test, Property("Speed", "Fast")]
+        public void _2_Actual() => Actual(102467299, AOC2024_03.Solve2, "03");
+    }
+
+    public class Day04
+    {
+        [Test, Property("Speed", "Fast")]
+        public void _1_Sample() => Sample(2, AOC2024_04.Solve1, "04");
+
+        [Test, Property("Speed", "Fast")]
+        public void _1_Actual() => Actual(591, AOC2024_04.Solve1, "04");
+
+        [Test, Property("Speed", "Fast")]
+        public void _2_Sample() => Sample(4, AOC2024_04.Solve2, "04");
+
+        [Test, Property("Speed", "Fast")]
+        public void _2_Actual() => Actual(621, AOC2024_04.Solve2, "04");
+    }
+
+    public class Day05
+    {
+        [Test, Property("Speed", "Fast")]
+        public void _1_Sample() => Sample(2, AOC2024_05.Solve1, "05");
+
+        [Test, Property("Speed", "Fast")]
+        public void _1_Actual() => Actual(591, AOC2024_05.Solve1, "05");
+
+        [Test, Property("Speed", "Fast")]
+        public void _2_Sample() => Sample(4, AOC2024_05.Solve2, "05");
+
+        [Test, Property("Speed", "Fast")]
+        public void _2_Actual() => Actual(621, AOC2024_05.Solve2, "05");
+    }
+
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
     {
         TestUtils.Test(expected, solver, TestUtils.ReadInput("2024", day, "actual"));
