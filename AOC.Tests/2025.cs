@@ -35,6 +35,21 @@ public class Tests2025
         public void _2_Actual() => Actual(36037497037L, AOC2025_02.Solve2, "02");
     }
 
+    public class Day03
+    {
+        [Test, Property("Speed", "Fast")]
+        public void _1_Sample() => Sample(357, AOC2025_03.Solve1, "03");
+
+        [Test, Property("Speed", "Fast")]
+        public void _1_Actual() => Actual(16973, AOC2025_03.Solve1, "03");
+
+        [Test, Property("Speed", "Fast")]
+        public void _2_Sample() => Sample(3121910778619, AOC2025_03.Solve2, "03");
+
+        [Test, Property("Speed", "Fast")]
+        public void _2_Actual() => Actual(168027167146027L, AOC2025_03.Solve2, "03");
+    }
+
     private static void Actual<T>(T expected, Func<string[], T> solver, string day)
     {
         TestUtils.Test(expected, solver, TestUtils.ReadInput("2025", day, "actual"));
