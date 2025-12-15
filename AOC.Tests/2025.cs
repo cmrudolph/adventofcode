@@ -98,13 +98,13 @@ public class Tests2025
     public class Day07
     {
         [Test, Property("Speed", "Fast")]
-        public void _1_Sample() => Sample(0, AOC2025_07.Solve1, "07");
+        public void _1_Sample() => Sample(21, AOC2025_07.Solve1, "07");
 
         [Test, Property("Speed", "Fast")]
-        public void _1_Actual() => Actual(0, AOC2025_07.Solve1, "07");
+        public void _1_Actual() => Actual(1609, AOC2025_07.Solve1, "07");
 
         [Test, Property("Speed", "Fast")]
-        public void _2_Sample() => Sample(0, AOC2025_07.Solve2, "07");
+        public void _2_Sample() => Sample(40, AOC2025_07.Solve2, "07");
 
         [Test, Property("Speed", "Fast")]
         public void _2_Actual() => Actual(0, AOC2025_07.Solve2, "07");
