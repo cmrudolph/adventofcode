@@ -128,10 +128,10 @@ public class Tests2025
     public class Day09
     {
         [Test, Property("Speed", "Fast")]
-        public void _1_Sample() => Sample(0, AOC2025_09.Solve1, "09");
+        public void _1_Sample() => Sample(50, AOC2025_09.Solve1, "09");
 
         [Test, Property("Speed", "Fast")]
-        public void _1_Actual() => Actual(0, AOC2025_09.Solve1, "09");
+        public void _1_Actual() => Actual(4755278336, AOC2025_09.Solve1, "09");
 
         [Test, Property("Speed", "Fast")]
         public void _2_Sample() => Sample(0, AOC2025_09.Solve2, "09");
@@ -158,13 +158,13 @@ public class Tests2025
     public class Day11
     {
         [Test, Property("Speed", "Fast")]
-        public void _1_Sample() => Sample(0, AOC2025_11.Solve1, "11");
+        public void _1_Sample() => Sample(5, AOC2025_11.Solve1, "11A");
 
         [Test, Property("Speed", "Fast")]
-        public void _1_Actual() => Actual(0, AOC2025_11.Solve1, "11");
+        public void _1_Actual() => Actual(574, AOC2025_11.Solve1, "11");
 
         [Test, Property("Speed", "Fast")]
-        public void _2_Sample() => Sample(0, AOC2025_11.Solve2, "11");
+        public void _2_Sample() => Sample(2, AOC2025_11.Solve2, "11B");
 
         [Test, Property("Speed", "Fast")]
         public void _2_Actual() => Actual(0, AOC2025_11.Solve2, "11");
